@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Custom Notes — Modular Grid Builder + Snippets</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  :root{
+    --bg:#f4f4f4;
+    --panel:#fff;
+    --ink:#222;
+    --muted:#666;
+    --primary:#007bff;
+    --primary-2:#0056b3;
+    --ring: rgba(0,0,0,.08);
+    --gap:12px;
+    --z-fly: 2000;
+    --sidebar-w: 320px;
+  }
+  html,body{height:100%}
+  body{
+    font-family: Arial,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    margin:0; padding:0;
+  }
+
+  /* Top bar */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:var(--panel);
+    box-shadow:0 1px 8px rgba(0,0,0,.08);
+    padding:10px 14px;
+  }
+  .topbar-inner{
+    max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .title{ font-weight:700; font-size:18px; margin-right:auto; }
+  .btn{
+    background:var(--primary); color:#fff; border:none; border-radius:6px;
+    padding:8px 12px; cursor:pointer; font-size:14px;
+  }
+  .btn:hover{ background:var(--primary-2); }
+  .btn.outline{ background:#fff; color:var(--primary); border:1px solid var(--primary); }
+  .btn.icon{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; }
+  .btn.small{ padding:4px 8px; font-size:12px; }
+  .icon-only{ width:36px; height:36px; display:inline-grid; place-items:center; padding:0; font-size:18px; }
+  .btn.ghost{ background:transparent; color:var(--primary); border:1px dashed var(--primary); }
+
+  .wrap{ max-width:1100px; margin:16px auto; padding:0 14px 90px; }
+
+  /* Grid canvas for boxes */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    gap:var(--gap);
+    align-items:start;
+    grid-auto-flow: row dense;
+  }
+
+  /* Box (card) */
+  .box{
+    background:var(--panel);
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+    border:1px solid var(--ring);
+    display:flex; flex-direction:column;
+    grid-column: span var(--w, 6);
+  }
+  .box[draggable="true"]{ cursor:grab; }
+  .box.dragging{ opacity:.6; outline:2px dashed var(--primary); }
+
+  .box-head{
+    display:flex; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid var(--ring);
+    background:linear-gradient(#fff,#fafafa);
+    position:relative;
+  }
+  .box-title{
+    font-weight:700; flex:1; border:none; background:transparent; font-size:14px; color:var(--ink);
+    outline:none; cursor:default;
+  }
+  .head-tools{ display:flex; align-items:center; gap:6px; }
+
+  /* View-mode Up/Down/X for boxes added from Saved (top-right) */
+  .view-controls{ display:none; margin-left:auto; gap:6px; }
+  body.mode-view .view-controls[data-enabled="true"]{ display:flex; }
+
+  .box-body{
+    padding:10px;
+    display:grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    gap:var(--gap);
+  }
+
+  /* Field group */
+  .field{
+    display:flex; flex-direction:column; gap:8px; position:relative;
+    border:1px solid #e5e7eb; border-radius:6px; padding:8px;
+    grid-column: span var(--span, 12);
+    background:#fff;
+  }
+  .label-row{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .field-label{
+    font-weight:700; font-size:12px; background:transparent; border:none; outline:none; color:var(--ink); flex:1;
+  }
+  .field-tools{ display:flex; gap:4px; }
+
+  .field-edit-controls{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  }
+  .field-edit-controls select{
+    border:1px solid #ccc; border-radius:6px; padding:6px; font-size:12px;
+  }
+
+  .inputs-stack{ display:flex; flex-direction:column; gap:var(--gap); }
+  .input-wrap{ display:flex; flex-direction:column; gap:6px; }
+
+  .input-wrap input[type="text"],
+  .input-wrap input[type="number"],
+  .input-wrap input[type="email"],
+  .input-wrap input[type="url"],
+  .input-wrap input[type="tel"],
+  .input-wrap input[type="date"],
+  .input-wrap input[type="time"],
+  .input-wrap input[type="datetime-local"],
+  .input-wrap input[type="color"],
+  .input-wrap input[type="range"],
+  .input-wrap textarea,
+  .input-wrap select{
+    width:100%; border:1px solid #ccc; border-radius:6px; padding:8px; box-sizing:border-box; font-size:14px; background:#fff;
+  }
+  .input-wrap textarea{ min-height:80px; resize:vertical; }
+
+  .mini-controls{
+    display:flex; gap:6px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .mini-controls textarea,
+  .mini-controls input[type="text"]{
+    border:1px solid #ccc; border-radius:6px; padding:6px; font-size:12px;
+  }
+  .mini-controls textarea{ width:220px; height:52px; }
+  .mini-controls .ph{ width:180px; }
+  .mini-controls .sep{ width:90px; }
+
+  .options-edit{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+  .pill{ padding:4px 8px; border-radius:999px; background:#eef6ff; border:1px solid #cfe4ff; font-size:12px; }
+  .pill button{ margin-left:6px; border:none; background:transparent; cursor:pointer; color:#b00; }
+  .options-row{ display:flex; gap:6px; margin-top:6px; }
+  .options-row input{ flex:1; }
+
+  .map-row{ display:grid; grid-template-columns:1fr 1fr auto; gap:6px; align-items:center; }
+  .map-row input{ border:1px solid #ccc; border-radius:6px; padding:6px; font-size:12px; }
+  .map-add{ display:flex; gap:6px; margin-top:6px; }
+
+  .box-foot{
+    margin-top:auto; padding:8px 10px; border-top:1px dashed var(--ring);
+    display:flex; justify-content:space-between; align-items:center; gap:6px;
+  }
+
+  /* Stationary footer (always visible) */
+  .footer-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:15;
+    display:flex; justify-content:center; gap:10px;
+    background:rgba(255,255,255,.96);
+    border-top:1px solid var(--ring);
+    padding:10px 14px;
+    backdrop-filter:saturate(1.1) blur(4px);
+  }
+
+  /* Mode visibility helpers */
+  .edit-only{ display:none; }
+  body.mode-edit .edit-only{ display:initial; }
+
+  dialog{
+    border:1px solid var(--ring); border-radius:10px; padding:12px; max-width:960px; width:min(96vw,960px);
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+  }
+  dialog::backdrop{ background:rgba(0,0,0,.25) }
+
+  .row{ display:flex; gap:10px; }
+  .col{ flex:1; }
+  .stack{ display:flex; flex-direction:column; gap:6px; }
+  .muted{ color:var(--muted); font-size:12px; }
+
+  /* Custom multiselect dropdown */
+  .mshell{ position:relative; }
+  .ms-btn{
+    width:100%; text-align:left; border:1px solid #ccc; border-radius:6px; padding:8px; background:#fff; cursor:pointer;
+  }
+  .ms-panel{
+    position:absolute; left:0; top:calc(100% + 6px); width:100%; max-height:220px; overflow:auto;
+    border:1px solid #ddd; border-radius:8px; background:#fff; box-shadow:0 10px 24px rgba(0,0,0,.15);
+    z-index:var(--z-fly); display:none;
+  }
+  .ms-panel.open{ display:block; }
+  .ms-item{ display:flex; align-items:center; gap:8px; padding:8px 10px; }
+  .ms-item:hover{ background:#f6f8ff; }
+
+  /* Title dropdown (templates) */
+  .title-dd{
+    position:absolute;
+    min-width:320px; max-width:420px;
+    background:#fff; border:1px solid #ddd; border-radius:10px;
+    box-shadow:0 12px 26px rgba(0,0,0,.18);
+    padding:10px;
+    z-index:var(--z-fly);
+    display:none;
+  }
+  .title-dd.open{ display:block; }
+  .title-dd h4{ margin:0 0 8px 0; font-size:14px; }
+  .title-dd .muted{ margin-bottom:6px; }
+  .title-dd .tm-list > div{
+    display:flex; justify-content:space-between; align-items:center;
+    border:1px solid #eee; border-radius:8px; padding:8px 10px; gap:10px;
+  }
+  .title-dd .tm-list{ display:flex; flex-direction:column; gap:6px; max-height:40vh; overflow:auto; }
+  .title-dd .tm-row-left{ flex:1; min-width:0; }
+  .title-dd .tm-row-left strong{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:inline-block; max-width:220px; }
+  .title-dd .tm-save-row{ display:flex; gap:8px; }
+  .title-dd .tm-save-row input{ flex:1; border:1px solid #ccc; border-radius:6px; padding:8px; }
+
+  /* ======== Snippets Sidebar ======== */
+  .snip-toggle{
+    position:fixed; left:0; top:50%; transform:translate(-50%, -50%);
+    width:36px; height:60px; background:#0d6efd; color:#fff;
+    border-radius:0 10px 10px 0; display:grid; place-items:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.25); z-index:2200; cursor:pointer;
+  }
+  .snip-toggle::after{ content:"▶"; font-size:18px; line-height:1; }
+  .snip-sidebar{
+    position:fixed; left:0; top:0; bottom:0; width:var(--sidebar-w);
+    background:#fff; border-right:1px solid #e5e7eb; box-shadow:4px 0 20px rgba(0,0,0,.1);
+    transform:translateX(-100%); transition:transform .2s ease;
+    z-index:2100; display:flex; flex-direction:column;
+  }
+  .snip-sidebar.open{ transform:translateX(0); }
+  .snip-head{
+    padding:12px; border-bottom:1px solid #f0f0f0; display:flex; align-items:center; gap:8px;
+  }
+  .snip-head .grow{ flex:1; font-weight:700; }
+  .snip-body{ padding:10px; overflow:auto; display:flex; flex-direction:column; gap:8px; }
+  .snip-item{
+    border:1px solid #e6e6e6; border-radius:8px; padding:8px; display:flex; align-items:center; gap:8px;
+    background:#fafafa;
+  }
+  .snip-title{ flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600; }
+  .snip-acts{ display:flex; gap:6px; }
+  .snip-acts .btn{ padding:2px 6px; font-size:11px; }
+  .snip-empty{ color:#888; font-size:12px; text-align:center; padding:14px 0; }
+
+  @media (max-width:900px){
+    .grid{ grid-template-columns: repeat(6, minmax(0,1fr)); }
+  }
+  @media (max-width:600px){
+    .grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .snip-toggle{ top:auto; bottom:100px; transform:translate(-50%,0); }
+  }
+</style>
+</head>
+<body class="mode-edit">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="title">Custom Notes Builder</div>
+      <!-- Lock toggle (icon only) to the LEFT of Copy -->
+      <button class="btn outline icon-only" id="editToggle" title="Toggle Edit / Regular">
+        <span id="lockIcon">🔓</span>
+      </button>
+      <button class="btn icon" id="copyAll" title="Copy all">Copy</button>
+      <button class="btn outline" id="clearAll" title="Clear values">Clear</button>
+      <button class="btn" id="openNote" title="Quick note">Note</button>
+      <!-- Edit-only actions -->
+      <button class="btn edit-only" id="addBox" title="Add Box">Add Box</button>
+      <button class="btn outline edit-only" id="exportJson" title="Export JSON">Export</button>
+      <button class="btn outline edit-only" id="importJson" title="Import JSON">Import</button>
+    </div>
+  </div>
+
+  <!-- LEFT BLUE ARROW TOGGLE -->
+  <div id="snipToggle" class="snip-toggle" title="Snippets"></div>
+  <!-- SNIPPETS SIDEBAR -->
+  <aside id="snipBar" class="snip-sidebar" aria-hidden="true">
+    <div class="snip-head">
+      <div class="grow">Snippets</div>
+      <button id="snipAdd" class="btn small edit-only">Add</button>
+      <button id="snipClose" class="btn small outline">Close</button>
+    </div>
+    <div id="snipBody" class="snip-body"></div>
+  </aside>
+
+  <div class="wrap">
+    <div id="canvas" class="grid" aria-live="polite"></div>
+  </div>
+
+  <!-- Stationary footer (always visible) -->
+  <div class="footer-bar">
+    <button class="btn outline" id="openSaved">+ Add Saved Box</button>
+    <button class="btn outline edit-only" id="manageSaved">Manage Saved Boxes</button>
+  </div>
+
+  <!-- ADD BOX DIALOG -->
+  <dialog id="boxDialog">
+    <form method="dialog" class="stack">
+      <h3 style="margin:0 0 6px 0;">New Box</h3>
+      <div class="row">
+        <div class="col stack">
+          <label>Title
+            <input id="boxTitle" type="text" placeholder="e.g., Caller Details" required/>
+          </label>
+        </div>
+        <div class="col stack">
+          <label>Width
+            <select id="boxW" required>
+              <option value="3">25%</option>
+              <option value="4">33%</option>
+              <option value="6" selected>50%</option>
+              <option value="8">66%</option>
+              <option value="9">75%</option>
+              <option value="12">100%</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="muted">Height is automatic based on contents.</div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+        <button value="cancel" class="btn outline">Cancel</button>
+        <button id="createBoxBtn" class="btn">Create</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ADD FIELD DIALOG -->
+  <dialog id="fieldDialog">
+   <form method="dialog" class="stack">
+    <h3 style="margin:0 0 6px 0;">Add Field</h3>
+    <div class="row">
+      <div class="col stack">
+        <label>Label
+          <input id="fldLabel" type="text" placeholder="e.g., Contact Details" required/>
+        </label>
+      </div>
+      <div class="col stack">
+        <label>Field Width in Box
+          <select id="fldSpan">
+            <option value="12">100%</option>
+            <option value="9">75%</option>
+            <option value="8">66%</option>
+            <option value="6">50%</option>
+            <option value="4">33%</option>
+            <option value="3">25%</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="stack" id="subsWrap"></div>
+    <div>
+      <button id="addSubBtn" class="btn small" value="__noop">+ Add Input</button>
+    </div>
+    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px%;">
+      <button value="cancel" class="btn outline">Cancel</button>
+      <button id="createFieldBtn" class="btn">Add Field</button>
+    </div>
+   </form>
+  </dialog>
+
+  <!-- FREEFORM NOTE DIALOG -->
+  <dialog id="noteDialog">
+    <form method="dialog" class="stack">
+      <h3 style="margin:0 0 6px 0;">Quick Note</h3>
+      <textarea id="freeNote" placeholder="Enter a quick note…" style="min-height:120px;"></textarea>
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button value="cancel" class="btn outline">Close</button>
+        <button id="saveNoteBtn" class="btn">Save to New Box</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- SAVED BOXES PICKER DIALOG (layouts) -->
+  <dialog id="savedDialog">
+    <form method="dialog" class="stack">
+      <h3 style="margin:0 0 6px 0;">Saved Boxes</h3>
+      <div id="savedList" class="stack" style="max-height:50vh; overflow:auto;"></div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+        <button value="cancel" class="btn outline">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- MANAGE SAVED BOXES (Edit mode) -->
+  <dialog id="manageDialog">
+    <form method="dialog" class="stack">
+      <h3 style="margin:0 0 6px 0;">Manage Saved Boxes</h3>
+      <div id="manageList" class="stack" style="max-height:55vh; overflow:auto;"></div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+        <button value="cancel" class="btn outline">Close</button>
+        <button id="saveManageBtn" class="btn">Save Changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- TITLE DROPDOWN (per-box text templates shared by schema) -->
+  <div id="titleDropdown" class="title-dd" role="menu" aria-hidden="true">
+    <h4 id="tmHeading">Box Templates</h4>
+    <div class="muted">Save current box text as a template</div>
+    <div class="tm-save-row">
+      <input id="tmNewName" type="text" placeholder="Template name (e.g., Standard opener)"/>
+      <button id="tmSaveBtn" class="btn small" type="button">Save</button>
+    </div>
+    <div class="muted" style="margin-top:8px;">Your templates for this box type</div>
+    <div id="tmList" class="tm-list"></div>
+  </div>
+
+  <!-- ADD/EDIT SNIPPET DIALOG -->
+  <dialog id="snippetDialog">
+    <form method="dialog" class="stack">
+      <h3 id="snipDlgTitle" style="margin:0 0 6px 0;">Add Snippet</h3>
+      <label>Title
+        <input id="snipTitle" type="text" placeholder="e.g., Greeting" required/>
+      </label>
+      <label>Text
+        <textarea id="snipText" placeholder="Write the text to copy…" style="min-height:160px"></textarea>
+      </label>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+        <button value="cancel" class="btn outline">Cancel</button>
+        <button id="snipSaveBtn" class="btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+<script>
+(function(){
+  /* ========= Storage Keys ========= */
+  const STORE_VERSION = "v12"; // bump for buttons, separators & stricter edit-mode for map-add
+  const LS_PACK = "customNotes.pack."+STORE_VERSION; // unified export/import pack
+
+  // Legacy mirror keys
+  const LS_KEY   = "customNotes.grid.v8";
+  const LS_MODE  = "customNotes.mode";
+  const LS_SAVED = "customNotes.savedBoxes.v1";
+  const LS_TEXTT = "customNotes.textTemplates.v2";
+
+  /* ========= DOM Refs ========= */
+  const canvas     = document.getElementById("canvas");
+  const addBoxBtn  = document.getElementById("addBox");
+  const copyAllBtn = document.getElementById("copyAll");
+  const clearAllBtn= document.getElementById("clearAll");
+  const exportBtn  = document.getElementById("exportJson");
+  const importBtn  = document.getElementById("importJson");
+  const noteBtn    = document.getElementById("openNote");
+  const editToggle = document.getElementById("editToggle");
+  const lockIcon   = document.getElementById("lockIcon");
+  const openSavedBtn = document.getElementById("openSaved");
+  const manageSavedBtn= document.getElementById("manageSaved");
+
+  const boxDialog  = document.getElementById("boxDialog");
+  const boxTitle   = document.getElementById("boxTitle");
+  const boxW       = document.getElementById("boxW");
+
+  const fieldDialog= document.getElementById("fieldDialog");
+  const fldLabel   = document.getElementById("fldLabel");
+  const fldSpan    = document.getElementById("fldSpan");
+  const subsWrap   = document.getElementById("subsWrap");
+  const addSubBtn  = document.getElementById("addSubBtn");
+
+  const noteDialog = document.getElementById("noteDialog");
+  const freeNote   = document.getElementById("freeNote");
+
+  const savedDialog= document.getElementById("savedDialog");
+  const savedList  = document.getElementById("savedList");
+
+  const manageDialog= document.getElementById("manageDialog");
+  const manageList  = document.getElementById("manageList");
+  const saveManageBtn= document.getElementById("saveManageBtn");
+
+  const titleDD    = document.getElementById("titleDropdown");
+  const tmHeading  = document.getElementById("tmHeading");
+  const tmNewName  = document.getElementById("tmNewName");
+  const tmSaveBtn  = document.getElementById("tmSaveBtn");
+  const tmList     = document.getElementById("tmList");
+
+  // Snippets
+  const snipToggle = document.getElementById("snipToggle");
+  const snipBar    = document.getElementById("snipBar");
+  const snipBody   = document.getElementById("snipBody");
+  const snipClose  = document.getElementById("snipClose");
+  const snipAddBtn = document.getElementById("snipAdd");
+  const snippetDialog = document.getElementById("snippetDialog");
+  const snipDlgTitle  = document.getElementById("snipDlgTitle");
+  const snipTitle     = document.getElementById("snipTitle");
+  const snipText      = document.getElementById("snipText");
+  const snipSaveBtn   = document.getElementById("snipSaveBtn");
+
+  /* ========= App State ========= */
+  let boxes = []; // Box: {id,title,w,fields:[ Field ], canMoveInView?}
+  let savedBoxes = []; // saved layouts
+  // Text templates shared by schema: {id, schemaSig, name, entries:[{path,text}]}
+  let textTemplates = [];
+  // Snippets: quick text segments {id, title, text}
+  let snippets = [];
+
+  let targetBoxIdForNewField = null;
+  let isEditMode = true;
+
+  // Title dropdown state
+  let ddOpenForBoxId = null;
+  let ddAnchorEl = null;
+
+  // Snippet edit temp id
+  let editingSnippetId = null;
+
+  /* ========= Persistence ========= */
+  function uid(){ return Math.random().toString(36).slice(2,9); }
+
+  function packState(){
+    return {
+      __version: STORE_VERSION,
+      mode: isEditMode ? "edit" : "view",
+      boxes,
+      savedBoxes,
+      textTemplates,
+      snippets
+    };
+  }
+  function saveAll(){
+    const pack = packState();
+    localStorage.setItem(LS_PACK, JSON.stringify(pack));
+    // mirror legacy
+    localStorage.setItem(LS_MODE, pack.mode);
+    localStorage.setItem(LS_KEY, JSON.stringify(pack.boxes));
+    localStorage.setItem(LS_SAVED, JSON.stringify(pack.savedBoxes));
+    localStorage.setItem(LS_TEXTT, JSON.stringify(pack.textTemplates));
+  }
+  function loadAll(){
+    let pack = null;
+    try{
+      const raw = localStorage.getItem(LS_PACK);
+      if(raw) pack = JSON.parse(raw);
+    }catch{}
+    if(!pack){
+      // attempt legacy
+      let mode = localStorage.getItem(LS_MODE) || "edit";
+      let b = []; let sb=[]; let tt=[]; let sn=[];
+      try{ b = JSON.parse(localStorage.getItem(LS_KEY)) || []; }catch{}
+      try{ sb= JSON.parse(localStorage.getItem(LS_SAVED)) || []; }catch{}
+      try{ tt= JSON.parse(localStorage.getItem(LS_TEXTT)) || []; }catch{}
+      try{ sn= JSON.parse(localStorage.getItem("customNotes.snippets")) || []; }catch{}
+      pack = { __version: STORE_VERSION, mode, boxes:b, savedBoxes:sb, textTemplates:tt, snippets:sn };
+      localStorage.setItem(LS_PACK, JSON.stringify(pack));
+    }
+    isEditMode = (pack.mode === "edit");
+    boxes = Array.isArray(pack.boxes) ? pack.boxes : seedInitial();
+    boxes.forEach(b=>{ if(typeof b.w!=="number") b.w = 6; });
+    savedBoxes = Array.isArray(pack.savedBoxes) ? pack.savedBoxes : [];
+    textTemplates = Array.isArray(pack.textTemplates) ? pack.textTemplates : [];
+    snippets = Array.isArray(pack.snippets) ? pack.snippets : [];
+  }
+
+  function seedInitial(){
+    return [{
+      id: uid(),
+      title: "Call Summary",
+      w: 6,
+      fields: [
+        {
+          id: uid(), label:"Caller", span:6,
+          items:[
+            { id: uid(), type:"text", options:[], value:"", copyBefore:"Name: ",  copyAfter:"; ", placeholder:"Full name" },
+            { id: uid(), type:"text", options:[], value:"", copyBefore:"Phone: ", copyAfter:"; ", placeholder:"+61 ..." }
+          ]
+        },
+        {
+          id: uid(), label:"Reason", span:6,
+          items:[
+            { id: uid(), type:"textarea", options:[], value:"", copyBefore:"Reason: ", copyAfter:"\n", placeholder:"Describe reason..." }
+          ]
+        }
+      ]
+    }];
+  }
+
+  /* ========= Mode ========= */
+  editToggle.addEventListener("click", ()=>{
+    closeTitleDD();
+    isEditMode = !isEditMode;
+    saveAll();
+    updateModeClass();
+    render();
+    drawSnippets();
+  });
+  function updateModeClass(){
+    if(isEditMode){
+      document.body.classList.add("mode-edit");
+      document.body.classList.remove("mode-view");
+      lockIcon.textContent = "🔓";
+    }else{
+      document.body.classList.add("mode-view");
+      document.body.classList.remove("mode-edit");
+      lockIcon.textContent = "🔒";
+    }
+  }
+
+  /* ========= Render ========= */
+  function render(){
+    canvas.innerHTML = "";
+    boxes.forEach(box => canvas.appendChild(renderBox(box)));
+    if(isEditMode) attachDnD();
+  }
+
+  function renderBox(model){
+    const card = document.createElement("div");
+    card.className = "box";
+    card.style.setProperty("--w", model.w);
+    card.draggable = isEditMode;
+    card.dataset.boxId = model.id;
+
+    // head
+    const head = document.createElement("div"); head.className = "box-head";
+
+    // Title
+    const title = document.createElement("input"); title.className="box-title";
+    title.value = model.title;
+    title.readOnly = !isEditMode;
+    title.addEventListener("input", e=>{ model.title = e.target.value; saveAll(); });
+    title.addEventListener("click", (e)=>{
+      if(isEditMode) return;
+      e.stopPropagation();
+      toggleTitleDD(model, title);
+    });
+
+    // Width % selector — EDIT MODE ONLY (33% & 66% included)
+    const widthWrap = document.createElement("div"); widthWrap.className = "head-tools edit-only";
+    const wSel = document.createElement("select");
+    [["3","25%"],["4","33%"],["6","50%"],["8","66%"],["9","75%"],["12","100%"]].forEach(([v,t])=>{
+      const o=document.createElement("option"); o.value=v; o.textContent=t; if(String(model.w)===v) o.selected=true; wSel.append(o);
+    });
+    wSel.addEventListener("change", e=>{
+      model.w = parseInt(e.target.value)||6;
+      card.style.setProperty("--w", model.w);
+      saveAll();
+    });
+    widthWrap.append(wSel);
+
+    // Save layout — EDIT MODE ONLY
+    const saveBtn = btn("Save","small outline edit-only", ()=>saveBoxTemplate(model), "Save this box as template");
+
+    // Reorder/delete — EDIT MODE ONLY
+    const tools = document.createElement("div"); tools.className="head-tools edit-only";
+    const up = btn("↑","small outline", ()=>moveBox(model.id,-1), "Move earlier");
+    const down = btn("↓","small outline", ()=>moveBox(model.id,1), "Move later");
+    const del = btn("🗑","small outline", ()=>removeBox(model.id), "Delete box");
+    tools.append(up,down,del);
+
+    // View-mode quick controls for inserted templates
+    const viewCtrls = document.createElement("div");
+    viewCtrls.className = "view-controls";
+    if(model.canMoveInView) viewCtrls.dataset.enabled = "true";
+    const vUp   = btn("↑","small outline", ()=>moveBox(model.id,-1), "Move up");
+    const vDown = btn("↓","small outline", ()=>moveBox(model.id,1),  "Move down");
+    const vDel  = btn("✖","small outline", ()=>{ removeBox(model.id); }, "Remove this box");
+    viewCtrls.append(vUp, vDown, vDel);
+
+    head.append(title, widthWrap, saveBtn, tools, viewCtrls);
+
+    // body
+    const body = document.createElement("div"); body.className="box-body";
+    model.fields.forEach(f=> body.appendChild(renderField(model, f)));
+
+    // foot
+    const foot = document.createElement("div"); foot.className="box-foot";
+    const hint = document.createElement("div"); hint.className="muted edit-only"; hint.textContent="Drag card to reorder • Width sets 25/33/50/66/75/100%";
+    const addFieldBtn = btn("+ Field","small edit-only", ()=>{
+      targetBoxIdForNewField = model.id;
+      openFieldDialog();
+    });
+    foot.append(hint, addFieldBtn);
+
+    card.append(head,body,foot);
+    return card;
+  }
+
+  function renderField(boxModel, fieldModel){
+    if(!fieldModel.span) fieldModel.span = 12;
+
+    const wrap = document.createElement("div");
+    wrap.className="field";
+    wrap.dataset.fieldId = fieldModel.id;
+    wrap.style.setProperty("--span", fieldModel.span);
+
+    const row = document.createElement("div"); row.className="label-row";
+    const label = document.createElement("input"); label.className="field-label";
+    label.value = fieldModel.label || "Field";
+    label.readOnly = !isEditMode;
+    label.addEventListener("input", e=>{ fieldModel.label = e.target.value; saveAll(); });
+
+    const tools = document.createElement("div"); tools.className="field-tools edit-only";
+    const del = btn("✖","small outline", ()=>{
+      boxModel.fields = boxModel.fields.filter(f=>f.id!==fieldModel.id);
+      saveAll(); render();
+    },"Remove field");
+    const toTop = btn("⇡","small outline", ()=>{
+      const idx = boxModel.fields.findIndex(f=>f.id===fieldModel.id);
+      if(idx>0){ [boxModel.fields[idx-1],boxModel.fields[idx]] = [boxModel.fields[idx],boxModel.fields[idx-1]]; saveAll(); render(); }
+    },"Move field up");
+    const toBot = btn("⇣","small outline", ()=>{
+      const idx = boxModel.fields.findIndex(f=>f.id===fieldModel.id);
+      if(idx<boxModel.fields.length-1){ [boxModel.fields[idx+1],boxModel.fields[idx]] = [boxModel.fields[idx],boxModel.fields[idx+1]]; saveAll(); render(); }
+    },"Move field down");
+    tools.append(toTop,toBot,del);
+    row.append(label,tools);
+
+    // Field-level edit controls
+    const fc = document.createElement("div"); fc.className="field-edit-controls edit-only";
+    const wSel = document.createElement("select");
+    [["12","100%"],["9","75%"],["8","66%"],["6","50%"],["4","33%"],["3","25%"]].forEach(([v,t])=>{
+      const o=document.createElement("option"); o.value=v; o.textContent=t; if(String(fieldModel.span)===v) o.selected=true; wSel.append(o);
+    });
+    wSel.addEventListener("change", e=>{
+      fieldModel.span = parseInt(e.target.value)||12;
+      wrap.style.setProperty("--span", fieldModel.span);
+      saveAll(); 
+    });
+    fc.append(labelWrap("Width", wSel));
+
+    wrap.append(row, fc);
+
+    const stack = document.createElement("div"); stack.className="inputs-stack";
+    (fieldModel.items||[]).forEach(item=>{
+      stack.appendChild(renderItem(item));
+    });
+    wrap.append(stack);
+
+    return wrap;
+  }
+
+  /* ========= Expanded Type List ========= */
+  const TYPE_OPTIONS = [
+    ["text","Single line"],
+    ["textarea","Multi line"],
+    ["select","Dropdown"],
+    ["multiselect","Dropdown (multi)"],
+    ["mapselect","Dropdown → Custom Text"],
+    ["mapmultiselect","Dropdown (multi) → Custom Text"],
+    ["number","Number"],
+    ["email","Email"],
+    ["url","URL"],
+    ["tel","Phone"],
+    ["date","Date"],
+    ["time","Time"],
+    ["datetime","Date & Time"],
+    ["color","Color"],
+    ["range","Slider 0–100"],
+    ["checkbox","Checkbox"],
+    ["chips","Tags / Chips"],
+    ["timerange","Time Range"],
+    ["daterange","Date Range"],
+    ["buttons","Buttons (run JavaScript)"]
+  ];
+
+  function renderItem(item){
+    const iw = document.createElement("div");
+    iw.className = "input-wrap";
+
+    // mini controls (edit): type + placeholder + separator + copy before/after
+    const mini = document.createElement("div"); mini.className="mini-controls edit-only";
+
+    const typeSel = document.createElement("select");
+    TYPE_OPTIONS.forEach(([val,txt])=>{
+      const o=document.createElement("option"); o.value=val; o.textContent=txt; if(item.type===val) o.selected=true; typeSel.append(o);
+    });
+    typeSel.addEventListener("change", e=>{
+      item.type = e.target.value;
+      // initialize defaults
+      if(item.type==="multiselect" || item.type==="chips" || item.type==="mapmultiselect") item.value = [];
+      else if(item.type==="checkbox") item.value = false;
+      else if(item.type==="range") item.value = 50;
+      else if(item.type==="timerange" || item.type==="daterange") item.value = {start:"", end:""};
+      else item.value = "";
+      if(item.type==="select" || item.type==="multiselect") item.options = item.options || [];
+      if(item.type==="mapselect" || item.type==="mapmultiselect") item.map = item.map || []; // [{label,text}]
+      if(item.type==="buttons") item.buttons = item.buttons || []; // [{label, code}]
+      saveAll(); render();
+    });
+
+    const ph = document.createElement("input"); ph.type="text"; ph.className="ph"; ph.placeholder="Placeholder…";
+    ph.value = item.placeholder || "";
+    ph.addEventListener("input", e=>{ item.placeholder = e.target.value; saveAll(); });
+
+    // Separator for multi types (default ",")
+    const sep = document.createElement("input"); sep.type="text"; sep.className="sep"; sep.placeholder="Separator";
+    sep.value = item.sep ?? ",";
+    sep.addEventListener("input", e=>{ item.sep = e.target.value; saveAll(); });
+
+    const beforeTA = document.createElement("textarea"); beforeTA.placeholder="Copy BEFORE…";
+    beforeTA.value = item.copyBefore || "";
+    beforeTA.addEventListener("input", e=>{ item.copyBefore = e.target.value; saveAll(); });
+
+    const afterTA = document.createElement("textarea"); afterTA.placeholder="Copy AFTER…";
+    afterTA.value = item.copyAfter || "";
+    afterTA.addEventListener("input", e=>{ item.copyAfter = e.target.value; saveAll(); });
+
+    // show separator editor only for multi types
+    const showSep = (t)=> (t==="multiselect" || t==="mapmultiselect" || t==="chips");
+    mini.append(typeSel, ph);
+    if(showSep(item.type)) mini.append(sep);
+    mini.append(beforeTA, afterTA);
+    iw.append(mini);
+
+    // Options editor (select/multiselect) — EDIT ONLY
+    if(item.type==="select" || item.type==="multiselect"){
+      const editRow = document.createElement("div"); editRow.className="options-edit edit-only";
+      (item.options||[]).forEach((opt, idx)=>{
+        const chip = document.createElement("span"); chip.className="pill"; chip.textContent = opt;
+        const up = document.createElement("button"); up.type="button"; up.textContent="↑";
+        const dn = document.createElement("button"); dn.type="button"; dn.textContent="↓";
+        const rm = document.createElement("button"); rm.type="button"; rm.textContent="×";
+        up.addEventListener("click",()=>{ if(idx>0){ const t=item.options[idx]; item.options.splice(idx,1); item.options.splice(idx-1,0,t); saveAll(); render(); }});
+        dn.addEventListener("click",()=>{ if(idx<item.options.length-1){ const t=item.options[idx]; item.options.splice(idx,1); item.options.splice(idx+1,0,t); saveAll(); render(); }});
+        rm.addEventListener("click", ()=>{
+          item.options = (item.options||[]).filter(v=>v!==opt);
+          if(item.type==="select" && item.value===opt) item.value="";
+          if(item.type==="multiselect" && Array.isArray(item.value)) item.value = item.value.filter(v=>v!==opt);
+          saveAll(); render();
+        });
+        chip.append(up,dn,rm);
+        editRow.append(chip);
+      });
+      iw.append(editRow);
+
+      const row2 = document.createElement("div"); row2.className="options-row edit-only";
+      const inp = document.createElement("input"); inp.type="text"; inp.placeholder="Add option…";
+      const add = document.createElement("button"); add.className="btn small"; add.textContent="Add"; add.type="button";
+      add.addEventListener("click",()=>{
+        const val = inp.value.trim();
+        if(!val) return;
+        item.options = item.options||[];
+        if(!item.options.includes(val)) item.options.push(val);
+        if(item.type==="select" && !item.value) item.value = val;
+        inp.value="";
+        saveAll(); render();
+      });
+      row2.append(inp,add);
+      iw.append(row2);
+    }
+
+    // Mapping editor (mapselect/mapmultiselect) — EDIT ONLY (fixed)
+    if(item.type==="mapselect" || item.type==="mapmultiselect"){
+      item.map = item.map || [];
+      const list = document.createElement("div"); list.className="edit-only";
+      (item.map).forEach((pair,idx)=>{
+        const r = document.createElement("div"); r.className="map-row";
+        const label = document.createElement("input"); label.type="text"; label.placeholder="Option label"; label.value=pair.label||"";
+        const text  = document.createElement("input"); text.type="text"; text.placeholder="Custom text to copy"; text.value=pair.text||"";
+        const up = document.createElement("button"); up.type="button"; up.className="btn small outline"; up.textContent="↑";
+        const dn = document.createElement("button"); dn.type="button"; dn.className="btn small outline"; dn.textContent="↓";
+        const rm = document.createElement("button"); rm.type="button"; rm.className="btn small outline"; rm.textContent="×";
+        label.addEventListener("input", ()=>{ pair.label=label.value; saveAll(); });
+        text.addEventListener("input", ()=>{ pair.text=text.value; saveAll(); });
+        up.addEventListener("click", ()=>{ if(idx>0){ const t=item.map[idx]; item.map.splice(idx,1); item.map.splice(idx-1,0,t); saveAll(); render(); }});
+        dn.addEventListener("click", ()=>{ if(idx<item.map.length-1){ const t=item.map[idx]; item.map.splice(idx,1); item.map.splice(idx+1,0,t); saveAll(); render(); }});
+        rm.addEventListener("click", ()=>{ item.map.splice(idx,1); saveAll(); render(); });
+        r.append(label,text,up,dn,rm);
+        list.append(r);
+      });
+      const addR = document.createElement("div"); addR.className="map-add edit-only";
+      const lIn = document.createElement("input"); lIn.type="text"; lIn.placeholder="Option label…";
+      const tIn = document.createElement("input"); tIn.type="text"; tIn.placeholder="Custom text…";
+      const addBtn = document.createElement("button"); addBtn.type="button"; addBtn.className="btn small"; addBtn.textContent="Add";
+      addBtn.addEventListener("click", ()=>{
+        const L=lIn.value.trim(); const T=tIn.value.trim();
+        if(!L) return;
+        item.map.push({label:L, text:T});
+        lIn.value=""; tIn.value="";
+        saveAll(); render();
+      });
+      addR.append(lIn,tIn,addBtn);
+      iw.append(list, addR);
+    }
+
+    // Buttons field editor — EDIT ONLY
+    if(item.type==="buttons"){
+      item.buttons = item.buttons || [];
+      const list = document.createElement("div"); list.className="edit-only";
+      (item.buttons).forEach((btnObj, idx)=>{
+        const block = document.createElement("div");
+        block.style.border="1px dashed #ddd"; block.style.borderRadius="8px"; block.style.padding="8px"; block.style.marginBottom="6px";
+        const name = document.createElement("input"); name.type="text"; name.placeholder="Button label"; name.value=btnObj.label||"";
+        const code = document.createElement("textarea"); code.placeholder="JavaScript to run when clicked"; code.value=btnObj.code||""; code.style.minHeight="80px";
+        const row = document.createElement("div"); row.style.display="flex"; row.style.gap="6px"; row.style.marginTop="6px";
+        const up = document.createElement("button"); up.type="button"; up.className="btn small outline"; up.textContent="↑";
+        const dn = document.createElement("button"); dn.type="button"; dn.className="btn small outline"; dn.textContent="↓";
+        const rm = document.createElement("button"); rm.type="button"; rm.className="btn small outline"; rm.textContent="×";
+        name.addEventListener("input", ()=>{ btnObj.label=name.value; saveAll(); });
+        code.addEventListener("input", ()=>{ btnObj.code=code.value; saveAll(); });
+        up.addEventListener("click", ()=>{ if(idx>0){ const t=item.buttons[idx]; item.buttons.splice(idx,1); item.buttons.splice(idx-1,0,t); saveAll(); render(); }});
+        dn.addEventListener("click", ()=>{ if(idx<item.buttons.length-1){ const t=item.buttons[idx]; item.buttons.splice(idx,1); item.buttons.splice(idx+1,0,t); saveAll(); render(); }});
+        rm.addEventListener("click", ()=>{ item.buttons.splice(idx,1); saveAll(); render(); });
+        row.append(up,dn,rm);
+        block.append(labelWrap("Name",name), labelWrap("JavaScript",code), row);
+        list.append(block);
+      });
+      const addB = document.createElement("button"); addB.type="button"; addB.className="btn small edit-only"; addB.textContent="+ Add Button";
+      addB.addEventListener("click", ()=>{ item.buttons.push({label:"Run", code:"alert('Hello');"}); saveAll(); render(); });
+      iw.append(list, addB);
+    }
+
+    // Control renderer (view + edit)
+    iw.append(renderControl(item));
+    return iw;
+  }
+
+  function renderControl(item){
+    let el;
+    switch(item.type){
+      case "text":{
+        el = document.createElement("input"); el.type="text"; el.value=item.value||"";
+        el.placeholder=item.placeholder||"Enter value…";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "textarea":{
+        el = document.createElement("textarea"); el.value=item.value||"";
+        el.placeholder=item.placeholder||"Enter details…";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "number":{
+        el = document.createElement("input"); el.type="number"; el.value=item.value||"";
+        el.placeholder=item.placeholder||"";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "email":{
+        el = document.createElement("input"); el.type="email"; el.value=item.value||"";
+        el.placeholder=item.placeholder||"name@example.com";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "url":{
+        el = document.createElement("input"); el.type="url"; el.value=item.value||"";
+        el.placeholder=item.placeholder||"https://…";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "tel":{
+        el = document.createElement("input"); el.type="tel"; el.value=item.value||"";
+        el.placeholder=item.placeholder||"+61 …";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "date":{
+        el = document.createElement("input"); el.type="date"; el.value=item.value||"";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "time":{
+        el = document.createElement("input"); el.type="time"; el.value=item.value||"";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "datetime":{
+        el = document.createElement("input"); el.type="datetime-local"; el.value=item.value||"";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "color":{
+        el = document.createElement("input"); el.type="color"; el.value=item.value||"#000000";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+        break;
+      }
+      case "range":{
+        const wrap = document.createElement("div"); wrap.style.display="flex"; wrap.style.gap="8px"; wrap.style.alignItems="center";
+        const slider = document.createElement("input"); slider.type="range"; slider.min="0"; slider.max="100"; slider.value=(item.value??50);
+        const out = document.createElement("input"); out.type="number"; out.min="0"; out.max="100"; out.style.width="80px"; out.value=(item.value??50);
+        slider.addEventListener("input", ()=>{ out.value = slider.value; item.value = Number(slider.value); saveAll(); });
+        out.addEventListener("input", ()=>{ let v = Math.max(0, Math.min(100, Number(out.value||0))); slider.value=v; item.value=v; saveAll(); });
+        wrap.append(slider,out); el = wrap; break;
+      }
+      case "checkbox":{
+        const wrap=document.createElement("label"); wrap.style.display="flex"; wrap.style.alignItems="center"; wrap.style.gap="8px";
+        const cb=document.createElement("input"); cb.type="checkbox"; cb.checked = !!item.value;
+        const span=document.createElement("span"); span.textContent="Yes / No";
+        cb.addEventListener("change", ()=>{ item.value = cb.checked; saveAll(); });
+        wrap.append(cb,span); el=wrap; break;
+      }
+      case "chips":{
+        const wrap=document.createElement("div"); wrap.style.display="flex"; wrap.style.flexWrap="wrap"; wrap.style.gap="6px";
+        const input=document.createElement("input"); input.type="text"; input.placeholder=item.placeholder||"Type and press Enter…"; input.style.flex="1 0 100%";
+        function draw(){
+          wrap.innerHTML="";
+          (Array.isArray(item.value)? item.value: []).forEach((tag,idx)=>{
+            const chip=document.createElement("span"); chip.className="pill"; chip.textContent=tag;
+            const x=document.createElement("button"); x.type="button"; x.textContent="×";
+            x.addEventListener("click", ()=>{ item.value=item.value.filter((_,i)=>i!==idx); saveAll(); draw(); });
+            chip.append(x); wrap.append(chip);
+          });
+          wrap.append(input);
+        }
+        input.addEventListener("keydown", (e)=>{
+          if(e.key==="Enter"){
+            e.preventDefault();
+            const t=input.value.trim(); if(!t) return;
+            item.value = Array.isArray(item.value)? item.value: [];
+            item.value.push(t); input.value=""; saveAll(); draw();
+          }
+        });
+        draw(); el=wrap; break;
+      }
+      case "timerange":{
+        const wrap=document.createElement("div"); wrap.style.display="flex"; wrap.style.gap="6px"; 
+        const a=document.createElement("input"); a.type="time"; const b=document.createElement("input"); b.type="time";
+        const v = item.value||{start:"", end:""}; a.value=v.start||""; b.value=v.end||"";
+        a.addEventListener("input", ()=>{ item.value={start:a.value, end:b.value}; saveAll(); });
+        b.addEventListener("input", ()=>{ item.value={start:a.value, end:b.value}; saveAll(); });
+        wrap.append(a,document.createTextNode("–"),b); el=wrap; break;
+      }
+      case "daterange":{
+        const wrap=document.createElement("div"); wrap.style.display="flex"; wrap.style.gap="6px"; 
+        const a=document.createElement("input"); a.type="date"; const b=document.createElement("input"); b.type="date";
+        const v = item.value||{start:"", end:""}; a.value=v.start||""; b.value=v.end||"";
+        a.addEventListener("input", ()=>{ item.value={start:a.value, end:b.value}; saveAll(); });
+        b.addEventListener("input", ()=>{ item.value={start:a.value, end:b.value}; saveAll(); });
+        wrap.append(a,document.createTextNode("–"),b); el=wrap; break;
+      }
+      case "select":{
+        el = document.createElement("select");
+        (item.options||[]).forEach(opt=>{
+          const o = document.createElement("option"); o.textContent=opt; o.value=opt;
+          el.append(o);
+        });
+        el.value = item.value||"";
+        el.addEventListener("change", e=>{ item.value = e.target.value; saveAll(); });
+        break;
+      }
+      case "multiselect":{
+        el = document.createElement("div"); el.className="mshell";
+        const btnEl = document.createElement("button"); btnEl.type="button"; btnEl.className="ms-btn";
+        btnEl.textContent = formatMultiLabel(item);
+        const panel = document.createElement("div"); panel.className="ms-panel";
+        (item.options||[]).forEach(opt=>{
+          const row = document.createElement("label"); row.className="ms-item";
+          const cb = document.createElement("input"); cb.type="checkbox"; cb.checked = (Array.isArray(item.value) && item.value.includes(opt));
+          cb.addEventListener("change", ()=>{
+            let arr = Array.isArray(item.value) ? item.value.slice() : [];
+            if(cb.checked){ if(!arr.includes(opt)) arr.push(opt); }
+            else{ arr = arr.filter(v=>v!==opt); }
+            item.value = arr;
+            btnEl.textContent = formatMultiLabel(item);
+            saveAll();
+          });
+          const span = document.createElement("span"); span.textContent = opt;
+          row.append(cb, span);
+          panel.append(row);
+        });
+        btnEl.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          panel.classList.toggle("open");
+        });
+        document.addEventListener("click", (e)=>{
+          if(!panel.contains(e.target) && e.target!==btnEl){ panel.classList.remove("open"); }
+        });
+        el.append(btnEl,panel);
+        break;
+      }
+      case "mapselect":{
+        const sel = document.createElement("select");
+        (item.map||[]).forEach(p=>{
+          const o=document.createElement("option"); o.value=p.label; o.textContent=p.label; sel.append(o);
+        });
+        sel.value = item.value || (item.map?.[0]?.label || "");
+        sel.addEventListener("change", ()=>{ item.value=sel.value; saveAll(); });
+        el = sel; break;
+      }
+      case "mapmultiselect":{
+        el = document.createElement("div"); el.className="mshell";
+        const btnEl = document.createElement("button"); btnEl.type="button"; btnEl.className="ms-btn";
+        btnEl.textContent = formatMultiLabelMap(item);
+        const panel = document.createElement("div"); panel.className="ms-panel";
+        (item.map||[]).forEach(p=>{
+          const row = document.createElement("label"); row.className="ms-item";
+          const cb = document.createElement("input"); cb.type="checkbox";
+          cb.checked = (Array.isArray(item.value) && item.value.includes(p.label));
+          cb.addEventListener("change", ()=>{
+            let arr = Array.isArray(item.value) ? item.value.slice() : [];
+            if(cb.checked){ if(!arr.includes(p.label)) arr.push(p.label); }
+            else{ arr = arr.filter(v=>v!==p.label); }
+            item.value = arr;
+            btnEl.textContent = formatMultiLabelMap(item);
+            saveAll();
+          });
+          const span = document.createElement("span"); span.textContent = p.label;
+          row.append(cb, span);
+          panel.append(row);
+        });
+        btnEl.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          panel.classList.toggle("open");
+        });
+        document.addEventListener("click", (e)=>{
+          if(!panel.contains(e.target) && e.target!==btnEl){ panel.classList.remove("open"); }
+        });
+        el.append(btnEl,panel);
+        break;
+      }
+      case "buttons":{
+        const wrap = document.createElement("div"); wrap.style.display="flex"; wrap.style.flexWrap="wrap"; wrap.style.gap="6px";
+        (item.buttons||[]).forEach(btnDef=>{
+          const b = document.createElement("button"); b.type="button"; b.className="btn small";
+          b.textContent = btnDef.label || "Run";
+          b.addEventListener("click", ()=>{
+            try{
+              // Provide a small context with current state:
+              const ctx = { boxes, savedBoxes, textTemplates, snippets, copyAllFn: doCopyAll, saveAll, render };
+              // eslint-disable-next-line no-new-func
+              const fn = new Function("ctx", btnDef.code || "");
+              fn(ctx);
+            }catch(err){
+              alert("Button script error: " + err);
+            }
+          });
+          wrap.append(b);
+        });
+        el = wrap; break;
+      }
+      default:{
+        el = document.createElement("input"); el.type="text";
+        el.placeholder=item.placeholder||"";
+        el.addEventListener("input", e=>{ item.value=e.target.value; saveAll(); });
+      }
+    }
+    return el;
+  }
+
+  function formatMultiLabel(item){
+    const sep = (item.sep ?? ",");
+    const arr = Array.isArray(item.value) ? item.value : [];
+    if(arr.length===0) return "Select…";
+    return arr.join(sep+" ");
+  }
+  function formatMultiLabelMap(item){
+    const sep = (item.sep ?? ",");
+    const arr = Array.isArray(item.value) ? item.value : [];
+    if(arr.length===0) return "Select…";
+    return arr.join(sep+" ");
+  }
+
+  function btn(txt, classes, onClick, title){
+    const b = document.createElement("button");
+    b.type="button"; b.className = `btn ${classes||""}`; b.textContent = txt;
+    if(title) b.title = title;
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  function labelWrap(text, el){
+    const w=document.createElement("label");
+    const span=document.createElement("div"); span.className="muted"; span.textContent=text;
+    w.append(span, el);
+    return w;
+  }
+
+  /* ========= Box ops ========= */
+  function moveBox(id, delta){
+    const idx = boxes.findIndex(b=>b.id===id);
+    const tgt = idx + delta;
+    if(tgt<0 || tgt>=boxes.length) return;
+    [boxes[idx], boxes[tgt]] = [boxes[tgt], boxes[idx]];
+    saveAll(); render();
+  }
+  function removeBox(id){
+    boxes = boxes.filter(b=>b.id!==id);
+    saveAll(); render();
+  }
+
+  /* ========= Save Layout Template (Edit mode) ========= */
+  function saveBoxTemplate(box){
+    const cleaned = deepCloneBox(box);
+    (cleaned.fields||[]).forEach(f=> (f.items||[]).forEach(it=>{
+      // reset values when saving layout
+      if(it.type==="multiselect" || it.type==="chips" || it.type==="mapmultiselect") it.value = [];
+      else if(it.type==="checkbox") it.value = false;
+      else if(it.type==="range") it.value = 50;
+      else if(it.type==="timerange" || it.type==="daterange") it.value = {start:"", end:""};
+      else it.value = "";
+    }));
+    const tpl = { id: uid(), title: cleaned.title, w: cleaned.w, fields: cleaned.fields };
+    savedBoxes.push(tpl);
+    saveAll();
+    toast(`Saved "${tpl.title}"`);
+  }
+
+  function deepCloneBox(box){ return JSON.parse(JSON.stringify(box)); }
+
+  /* ========= Add Box / Field ========= */
+  addBoxBtn?.addEventListener("click", ()=>{
+    if(!isEditMode){ return toast("Unlock to add boxes."); }
+    boxTitle.value=""; boxW.value="6";
+    boxDialog.showModal();
+  });
+
+  document.getElementById("createBoxBtn").addEventListener("click", (e)=>{
+    e.preventDefault();
+    const model = {
+      id: uid(),
+      title: boxTitle.value.trim() || "Untitled",
+      w: parseInt(boxW.value)||6,
+      fields:[]
+    };
+    boxes.push(model);
+    saveAll(); render();
+    boxDialog.close();
+  });
+
+  function openFieldDialog(){
+    fldLabel.value="";
+    fldSpan.value="12";
+    subsWrap.innerHTML="";
+    dialogSubs = [];
+    addSub();
+    fieldDialog.showModal();
+  }
+
+  // Sub-inputs in dialog (stacked)
+  let dialogSubs = [];
+  addSubBtn.addEventListener("click",(e)=>{ e.preventDefault(); addSub(); });
+
+  function addSub(){
+    const sub = { id: uid(), type: "text", copyBefore: "", copyAfter: "", options: [], map: [], placeholder:"", sep:"," };
+    dialogSubs.push(sub);
+    drawSubs();
+  }
+
+  function drawSubs(){
+    subsWrap.innerHTML="";
+    dialogSubs.forEach((sub, idx)=>{
+      const block = document.createElement("div");
+      block.className="stack";
+      block.style.border="1px dashed #ddd";
+      block.style.borderRadius="8px";
+      block.style.padding="8px";
+
+      const row = document.createElement("div"); row.className="row";
+
+      const colL = document.createElement("div"); colL.className="col stack";
+      const typeSel = document.createElement("select");
+      TYPE_OPTIONS.forEach(([v,t])=>{ const o=document.createElement("option"); o.value=v; o.textContent=t; if(sub.type===v) o.selected=true; typeSel.append(o); });
+      typeSel.addEventListener("change", (e)=>{ 
+        sub.type=e.target.value; 
+        if(sub.type==="multiselect"||sub.type==="chips"||sub.type==="mapmultiselect"){ sub.value=[]; }
+        if(sub.type==="select"||sub.type==="multiselect"){ sub.options=sub.options||[]; }
+        if(sub.type==="mapselect"||sub.type==="mapmultiselect"){ sub.map=sub.map||[]; }
+        if(sub.sep==null) sub.sep=",";
+        drawSubs(); 
+      });
+      const phIn = document.createElement("input"); phIn.type="text"; phIn.placeholder="Placeholder…"; phIn.value=sub.placeholder||"";
+      phIn.addEventListener("input",()=>{ sub.placeholder=phIn.value; });
+      const sepIn = document.createElement("input"); sepIn.type="text"; sepIn.placeholder="Separator"; sepIn.value=(sub.sep??","); 
+      sepIn.addEventListener("input",()=>{ sub.sep=sepIn.value; });
+
+      colL.append(labelWrap("Type", typeSel), labelWrap("Placeholder", phIn));
+      if(sub.type==="multiselect"||sub.type==="mapmultiselect"||sub.type==="chips"){
+        colL.append(labelWrap("Separator", sepIn));
+      }
+
+      const colR = document.createElement("div"); colR.className="col stack";
+      const taB = document.createElement("textarea"); taB.placeholder="Copy BEFORE…"; taB.value=sub.copyBefore||"";
+      taB.addEventListener("input", e=> sub.copyBefore=e.target.value);
+      const taA = document.createElement("textarea"); taA.placeholder="Copy AFTER…"; taA.value=sub.copyAfter||"";
+      taA.addEventListener("input", e=> sub.copyAfter=e.target.value);
+      colR.append(labelWrap("Copy Before", taB), labelWrap("Copy After", taA));
+
+      row.append(colL,colR);
+      block.append(row);
+
+      if(sub.type==="select" || sub.type==="multiselect"){
+        const edit = document.createElement("div"); edit.className="options-edit";
+        (sub.options||[]).forEach((opt,i)=>{
+          const chip=document.createElement("span"); chip.className="pill"; chip.textContent=opt;
+          const up=document.createElement("button"); up.type="button"; up.textContent="↑";
+          const dn=document.createElement("button"); dn.type="button"; dn.textContent="↓";
+          const rm=document.createElement("button"); rm.type="button"; rm.textContent="×";
+          up.addEventListener("click",()=>{ if(i>0){ const t=sub.options[i]; sub.options.splice(i,1); sub.options.splice(i-1,0,t); drawSubs(); }});
+          dn.addEventListener("click",()=>{ if(i<sub.options.length-1){ const t=sub.options[i]; sub.options.splice(i,1); sub.options.splice(i+1,0,t); drawSubs(); }});
+          rm.addEventListener("click",()=>{ sub.options=sub.options.filter(v=>v!==opt); drawSubs(); });
+          chip.append(up,dn,rm); edit.append(chip);
+        });
+        const row2 = document.createElement("div"); row2.className="options-row";
+        const inp = document.createElement("input"); inp.type="text"; inp.placeholder="Add option…";
+        const add = document.createElement("button"); add.className="btn small"; add.textContent="Add"; add.type="button";
+        add.addEventListener("click",()=>{ const v=inp.value.trim(); if(!v) return; sub.options=sub.options||[]; if(!sub.options.includes(v)) sub.options.push(v); inp.value=""; drawSubs(); });
+        row2.append(inp,add);
+        block.append(edit,row2);
+      }
+
+      if(sub.type==="mapselect" || sub.type==="mapmultiselect"){
+        sub.map = sub.map || [];
+        const list = document.createElement("div"); list.className="stack";
+        (sub.map).forEach((pair,i)=>{
+          const r = document.createElement("div"); r.className="map-row";
+          const label = document.createElement("input"); label.type="text"; label.placeholder="Option label"; label.value=pair.label||"";
+          const text  = document.createElement("input"); text.type="text"; text.placeholder="Custom text to copy"; text.value=pair.text||"";
+          const up=document.createElement("button"); up.type="button"; up.className="btn small outline"; up.textContent="↑";
+          const dn=document.createElement("button"); dn.type="button"; dn.className="btn small outline"; dn.textContent="↓";
+          const rm=document.createElement("button"); rm.type="button"; rm.className="btn small outline"; rm.textContent="×";
+          label.addEventListener("input", ()=>{ pair.label=label.value; });
+          text.addEventListener("input", ()=>{ pair.text=text.value; });
+          up.addEventListener("click",()=>{ if(i>0){ const t=sub.map[i]; sub.map.splice(i,1); sub.map.splice(i-1,0,t); drawSubs(); }});
+          dn.addEventListener("click",()=>{ if(i<sub.map.length-1){ const t=sub.map[i]; sub.map.splice(i,1); sub.map.splice(i+1,0,t); drawSubs(); }});
+          rm.addEventListener("click", ()=>{ sub.map.splice(i,1); drawSubs(); });
+          r.append(label,text,up,dn,rm); list.append(r);
+        });
+        const addR = document.createElement("div"); addR.className="map-add";
+        const lIn = document.createElement("input"); lIn.type="text"; lIn.placeholder="Option label…";
+        const tIn = document.createElement("input"); tIn.type="text"; tIn.placeholder="Custom text…";
+        const addBtn = document.createElement("button"); addBtn.type="button"; addBtn.className="btn small"; addBtn.textContent="Add";
+        addBtn.addEventListener("click", ()=>{ const L=lIn.value.trim(); const T=tIn.value.trim(); if(!L) return; sub.map.push({label:L,text:T}); lIn.value=""; tIn.value=""; drawSubs(); });
+        addR.append(lIn,tIn,addBtn);
+        block.append(list, addR);
+      }
+
+      const delRow=document.createElement("div"); delRow.style.display="flex"; delRow.style.justifyContent="flex-end"; delRow.style.marginTop="6px";
+      const delBtn=document.createElement("button"); delBtn.type="button"; delBtn.className="btn small outline"; delBtn.textContent="Remove Input";
+      delBtn.addEventListener("click",()=>{ dialogSubs.splice(idx,1); drawSubs(); });
+      delRow.append(delBtn);
+      block.append(delRow);
+
+      subsWrap.append(block);
+    });
+  }
+
+  document.getElementById("createFieldBtn").addEventListener("click",(e)=>{
+    e.preventDefault();
+    if(!targetBoxIdForNewField){ fieldDialog.close(); return; }
+    if(dialogSubs.length===0){ toast("Add at least one input."); return; }
+
+    const box = boxes.find(b=>b.id===targetBoxIdForNewField);
+    const field = {
+      id: uid(),
+      label: fldLabel.value.trim() || "Field",
+      span: parseInt(fldSpan.value)||12,
+      items: dialogSubs.map(s=>({
+        id: uid(),
+        type: s.type,
+        options: (s.type==="select" || s.type==="multiselect") ? (s.options||[]) : [],
+        map: (s.type==="mapselect" || s.type==="mapmultiselect") ? (s.map||[]) : undefined,
+        buttons: (s.type==="buttons") ? [] : undefined,
+        value: initValueForType(s.type),
+        copyBefore: s.copyBefore || "",
+        copyAfter: s.copyAfter || "",
+        placeholder: s.placeholder || "",
+        sep: s.sep ?? ","
+      }))
+    };
+    box.fields.push(field);
+    targetBoxIdForNewField=null; dialogSubs=[]; fieldDialog.close();
+    saveAll(); render();
+  });
+
+  function initValueForType(t){
+    if(t==="multiselect" || t==="chips" || t==="mapmultiselect") return [];
+    if(t==="checkbox") return false;
+    if(t==="range") return 50;
+    if(t==="timerange" || t==="daterange") return {start:"", end:""};
+    return "";
+  }
+
+  /* ========= Free Note ========= */
+  noteBtn.addEventListener("click", ()=>{ freeNote.value=""; noteDialog.showModal(); });
+  document.getElementById("saveNoteBtn").addEventListener("click",(e)=>{
+    e.preventDefault();
+    const txt = freeNote.value.trim();
+    if(!txt){ noteDialog.close(); return; }
+    boxes.push({
+      id: uid(), title:"Note", w: 6,
+      fields:[ {
+        id: uid(), label:"Note", span:12,
+        items:[ {id: uid(), type:"textarea", options:[], value: txt, copyBefore:"", copyAfter:"", placeholder:""} ]
+      } ]
+    });
+    saveAll(); render(); noteDialog.close();
+  });
+
+  /* ========= Copy / Clear / Export / Import ========= */
+  copyAllBtn.addEventListener("click", ()=> doCopyAll());
+
+  function doCopyAll(){
+    let out = "";
+    boxes.forEach(b=>{
+      b.fields.forEach(f=>{
+        (f.items||[]).forEach(item=>{
+          const pre = toText(item.copyBefore || "");
+          const post = toText(item.copyAfter || "");
+          const val = formatItemValue(item);
+          out += pre + val + post;
+        });
+      });
+    });
+    navigator.clipboard.writeText(out).then(()=> { toast("Copied."); });
+    return out;
+  }
+
+  function toText(s){ return (s||"").replace(/\\n/g, "\n"); }
+  function formatItemValue(item){
+    // mapped select(s)
+    if(item.type==="mapselect"){
+      const p = (item.map||[]).find(m=>m.label===item.value);
+      return p ? (p.text||"") : (item.value||"");
+    }
+    if(item.type==="mapmultiselect"){
+      const sep = (item.sep ?? ",");
+      const labels = Array.isArray(item.value) ? item.value : [];
+      const texts = labels.map(L=>{
+        const p=(item.map||[]).find(m=>m.label===L);
+        return p ? (p.text||"") : L;
+      });
+      return texts.join(sep+" ");
+    }
+    // multi
+    if(item.type==="multiselect" || item.type==="chips"){
+      const sep = (item.sep ?? ",");
+      const arr = Array.isArray(item.value) ? item.value : [];
+      return arr.join(sep+" ");
+    }
+    if(item.type==="checkbox"){
+      return item.value ? "Yes" : "No";
+    }
+    if(item.type==="timerange" || item.type==="daterange"){
+      const v=item.value||{start:"",end:""}; return (v.start||"") + (v.start||v.end? " - " : "") + (v.end||"");
+    }
+    if(item.type==="buttons"){
+      return ""; // buttons do not contribute text by default
+    }
+    return (item.value??"").toString();
+  }
+
+  clearAllBtn.addEventListener("click", ()=>{
+    if(!confirm("Clear all field values (layout stays)?")) return;
+    boxes.forEach(b=> b.fields.forEach(f=>{
+      (f.items||[]).forEach(it=>{
+        if(it.type==="multiselect" || it.type==="chips" || it.type==="mapmultiselect") it.value=[];
+        else if(it.type==="checkbox") it.value=false;
+        else if(it.type==="range") it.value=50;
+        else if(it.type==="timerange" || it.type==="daterange") it.value={start:"",end:""};
+        else it.value="";
+      });
+    }));
+    saveAll(); render();
+  });
+
+  // EXPORT: full pack
+  exportBtn.addEventListener("click", ()=>{
+    if(!isEditMode){ return toast("Unlock to export."); }
+    const blob = new Blob([JSON.stringify(packState(), null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "notes-export.json"; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // IMPORT
+  importBtn.addEventListener("click", ()=>{
+    if(!isEditMode){ return toast("Unlock to import."); }
+    const inp = document.createElement("input");
+    inp.type="file"; inp.accept="application/json";
+    inp.addEventListener("change", ()=>{
+      const file = inp.files?.[0]; if(!file) return;
+      file.text().then(txt=>{
+        try{
+          const data = JSON.parse(txt);
+          if(Array.isArray(data)){
+            boxes = data;
+          }else if(data && typeof data==="object"){
+            boxes = Array.isArray(data.boxes) ? data.boxes : [];
+            savedBoxes = Array.isArray(data.savedBoxes) ? data.savedBoxes : [];
+            textTemplates = Array.isArray(data.textTemplates) ? data.textTemplates : [];
+            snippets = Array.isArray(data.snippets) ? data.snippets : [];
+            isEditMode = (data.mode === "edit" || data.mode === "view") ? (data.mode==="edit") : isEditMode;
+          }else{
+            throw 0;
+          }
+          boxes.forEach(b=>{ if(typeof b.w!=="number") b.w = 12; });
+          saveAll(); updateModeClass(); render(); drawSnippets();
+          toast("Imported.");
+        }catch{ alert("Invalid JSON."); }
+      });
+    });
+    inp.click();
+  });
+
+  /* ========= Saved Boxes Picker ========= */
+  openSavedBtn.addEventListener("click", ()=>{
+    drawSavedList();
+    savedDialog.showModal();
+  });
+
+  function drawSavedList(){
+    savedList.innerHTML = "";
+    if(!savedBoxes.length){
+      const empty = document.createElement("div");
+      empty.className = "muted";
+      empty.textContent = "No saved boxes yet. Unlock and use a box's Save button to store it here.";
+      savedList.append(empty);
+      return;
+    }
+    savedBoxes.forEach((tpl, idx)=>{
+      const row = document.createElement("div");
+      row.style.display="flex";
+      row.style.justifyContent="space-between";
+      row.style.alignItems="center";
+      row.style.border="1px solid #eee";
+      row.style.borderRadius="8px";
+      row.style.padding="8px 10px";
+      const info = document.createElement("div");
+      info.innerHTML = `<strong>${escapeHtml(tpl.title || "Untitled")}</strong> <span class="muted" style="margin-left:8px;">Width ${pctFromCols(tpl.w)}</span>`;
+      const act = document.createElement("div");
+      const up = btn("↑","small outline edit-only", ()=>{ if(idx>0){ const t=savedBoxes[idx]; savedBoxes.splice(idx,1); savedBoxes.splice(idx-1,0,t); saveAll(); drawSavedList(); }});
+      const dn = btn("↓","small outline edit-only", ()=>{ if(idx<savedBoxes.length-1){ const t=savedBoxes[idx]; savedBoxes.splice(idx,1); savedBoxes.splice(idx+1,0,t); saveAll(); drawSavedList(); }});
+      const add = btn("Add","small", ()=>{ insertSavedTemplate(tpl); },"Add this box");
+      act.append(up,dn,add);
+      row.append(info, act);
+      savedList.append(row);
+    });
+  }
+
+  function pctFromCols(cols){
+    const map={3:"25%",4:"33%",6:"50%",8:"66%",9:"75%",12:"100%"}; return map[String(cols)]||"";
+  }
+
+  function insertSavedTemplate(tpl){
+    const clone = deepCloneBox(tpl);
+    clone.id = uid();
+    clone.title = tpl.title || "Saved Box";
+    clone.canMoveInView = true;
+    (clone.fields||[]).forEach(f=>{
+      f.id = uid();
+      (f.items||[]).forEach(it=>{
+        it.id = uid();
+        it.value = initValueForType(it.type);
+      });
+    });
+    boxes.push(clone);
+    saveAll(); render();
+    savedDialog.close();
+    toast(`Added "${clone.title}"`);
+  }
+
+  /* ========= Manage Saved Boxes (Edit mode) ========= */
+  manageSavedBtn.addEventListener("click", ()=>{
+    drawManageList();
+    manageDialog.showModal();
+  });
+
+  function drawManageList(){
+    manageList.innerHTML = "";
+    if(!savedBoxes.length){
+      const empty = document.createElement("div");
+      empty.className="muted";
+      empty.textContent="No saved boxes yet.";
+      manageList.append(empty);
+      return;
+    }
+    savedBoxes.forEach((tpl, idx)=>{
+      const row = document.createElement("div");
+      row.style.display="grid";
+      row.style.gridTemplateColumns="2fr 1fr auto";
+      row.style.gap="10px";
+      row.style.alignItems="center";
+      row.style.border="1px solid #eee";
+      row.style.borderRadius="8px";
+      row.style.padding="8px 10px";
+      const name = document.createElement("input");
+      name.type="text"; name.value=tpl.title||"";
+      name.addEventListener("input", ()=>{ tpl.title = name.value; });
+
+      const wSel = document.createElement("select");
+      [["3","25%"],["4","33%"],["6","50%"],["8","66%"],["9","75%"],["12","100%"]].forEach(([v,t])=>{
+        const o=document.createElement("option"); o.value=v; o.textContent=t; if(String(tpl.w)===v) o.selected=true; wSel.append(o);
+      });
+      wSel.addEventListener("change", ()=>{ tpl.w = parseInt(wSel.value)||6; });
+
+      const acts = document.createElement("div");
+      acts.style.display="flex"; acts.style.gap="6px"; acts.style.justifyContent="flex-end";
+      const up = btn("↑","small outline", ()=>{ if(idx>0){ const t=savedBoxes[idx]; savedBoxes.splice(idx,1); savedBoxes.splice(idx-1,0,t); drawManageList(); }});
+      const down = btn("↓","small outline", ()=>{ if(idx<savedBoxes.length-1){ const t=savedBoxes[idx]; savedBoxes.splice(idx,1); savedBoxes.splice(idx+1,0,t); drawManageList(); }});
+      const preview = btn("Add to Canvas","small outline", ()=>insertSavedTemplate(tpl),"Add this template below");
+      const del = btn("Delete","small outline", ()=>{
+        if(!confirm(`Delete saved box "${tpl.title}"?`)) return;
+        savedBoxes.splice(idx,1); drawManageList();
+      },"Delete this saved box");
+      acts.append(up,down,preview, del);
+
+      row.append(name, wSel, acts);
+      manageList.append(row);
+    });
+  }
+
+  saveManageBtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    saveAll();
+    manageDialog.close();
+    toast("Saved changes.");
+  });
+
+  /* ========= Title Dropdown Templates — reorder support ========= */
+
+  function schemaSignatureForBox(box){
+    const parts = [];
+    (box.fields||[]).forEach((f, fi)=>{
+      const flabel = (f.label||"").trim().toLowerCase().replace(/\s+/g,' ');
+      parts.push(`F${fi}:${flabel}`);
+      (f.items||[]).forEach((it, ii)=>{
+        parts.push(`I${fi}.${ii}:${it.type}`);
+      });
+    });
+    return parts.join("|");
+  }
+
+  function collectTextEntriesByPath(box){
+    const out = [];
+    (box.fields||[]).forEach((f, fi)=>{
+      (f.items||[]).forEach((it, ii)=>{
+        if(it.type==="text" || it.type==="textarea"){
+          const path = `${fi}.${ii}`;
+          const txt  = (it.value??"").toString();
+          out.push({ path, text: txt });
+        }
+      });
+    });
+    return out;
+  }
+
+  function toggleTitleDD(box, anchorEl){
+    if(ddOpenForBoxId === box.id){
+      closeTitleDD();
+      return;
+    }
+    openTitleDD(box, anchorEl);
+  }
+
+  function openTitleDD(box, anchorEl){
+    ddOpenForBoxId = box.id;
+    ddAnchorEl = anchorEl;
+    const sig = schemaSignatureForBox(box);
+    tmHeading.textContent = `“${box.title || "Untitled"}”`;
+    tmNewName.value = "";
+    drawTitleDDList(sig);
+
+    const rect = anchorEl.getBoundingClientRect();
+    const dd = titleDD;
+    const margin = 6;
+    const vw = document.documentElement.clientWidth;
+    dd.style.display = "block";
+    const width = dd.offsetWidth || 360;
+    dd.style.display = "";
+    const left = Math.min(rect.left, vw - width - 12);
+    dd.style.top = `${rect.bottom + window.scrollY + margin}px`;
+    dd.style.left = `${Math.max(12, left + window.scrollX)}px`;
+    dd.classList.add("open");
+    dd.setAttribute("aria-hidden","false");
+  }
+
+  function closeTitleDD(){
+    ddOpenForBoxId = null;
+    ddAnchorEl = null;
+    titleDD.classList.remove("open");
+    titleDD.setAttribute("aria-hidden","true");
+  }
+
+  function moveTemplateWithinSchema(schemaSig, idx, dir){
+    const list = textTemplates
+      .map((t,i)=>({t,i}))
+      .filter(x=>x.t.schemaSig===schemaSig);
+    if(idx<0 || idx>=list.length) return;
+    const target = list[idx];
+    const swapWith = list[idx+dir];
+    if(!swapWith) return;
+    const a = target.i, b = swapWith.i;
+    [textTemplates[a], textTemplates[b]] = [textTemplates[b], textTemplates[a]];
+    saveAll();
+  }
+
+  function drawTitleDDList(schemaSig){
+    tmList.innerHTML = "";
+    const items = textTemplates.filter(t=>t.schemaSig===schemaSig);
+    if(!items.length){
+      const empty = document.createElement("div");
+      empty.className="muted";
+      empty.textContent="No text templates yet for this box type.";
+      tmList.append(empty);
+      return;
+    }
+    items.forEach((t, visibleIdx)=>{
+      const row = document.createElement("div");
+      const left = document.createElement("div");
+      left.className = "tm-row-left";
+      left.innerHTML = `<strong>${escapeHtml(t.name)}</strong> <span class="muted">(${t.entries.length} entry${t.entries.length===1?"":"ies"})</span>`;
+      const right = document.createElement("div");
+      right.style.display="flex"; right.style.gap="6px";
+      const upBtn = btn("↑","small outline", ()=>{ moveTemplateWithinSchema(schemaSig, visibleIdx, -1); drawTitleDDList(schemaSig); },"Move up");
+      const dnBtn = btn("↓","small outline", ()=>{ moveTemplateWithinSchema(schemaSig, visibleIdx, +1); drawTitleDDList(schemaSig); },"Move down");
+      const applyBtn = btn("Apply","small", ()=>{ applyTextTemplateBySchema(t); }, "Append saved text into this box");
+      const delBtn   = btn("Delete","small outline", ()=>{
+        if(!confirm(`Delete template "${t.name}"?`)) return;
+        const at = textTemplates.findIndex(x=>x.id===t.id);
+        if(at>=0){ textTemplates.splice(at,1); saveAll(); drawTitleDDList(schemaSig); }
+      }, "Delete this template");
+      right.append(upBtn, dnBtn, applyBtn, delBtn);
+      row.append(left, right);
+      tmList.append(row);
+    });
+  }
+
+  tmSaveBtn.addEventListener("click", ()=>{
+    if(!ddOpenForBoxId) return;
+    const box = boxes.find(b=>b.id===ddOpenForBoxId);
+    if(!box) return;
+    const name = tmNewName.value.trim();
+    if(!name){ toast("Give the template a name."); return; }
+    const schemaSig = schemaSignatureForBox(box);
+    const entries = collectTextEntriesByPath(box);
+    const tpl = { id: uid(), schemaSig, name, entries };
+    textTemplates.push(tpl);
+    saveAll();
+    drawTitleDDList(schemaSig);
+    tmNewName.value = "";
+    toast("Template saved (shared across this box type).");
+  });
+
+  function applyTextTemplateBySchema(tpl){
+    if(!ddOpenForBoxId) return;
+    const box = boxes.find(b=>b.id===ddOpenForBoxId);
+    if(!box){ toast("Box not found."); return; }
+
+    const map = new Map(tpl.entries.map(e=>[e.path, e.text || ""]));
+    (box.fields||[]).forEach((f, fi)=>{
+      (f.items||[]).forEach((it, ii)=>{
+        if(!(it.type==="text" || it.type==="textarea")) return;
+        const key = `${fi}.${ii}`;
+        if(map.has(key)){
+          const add = map.get(key);
+          if(add==null || add==="") return;
+          const cur = (it.value??"").toString();
+          it.value = cur ? (cur + "\n" + add) : add;
+        }
+      });
+    });
+    saveAll(); render();
+    closeTitleDD();
+    toast("Template applied.");
+  }
+
+  document.addEventListener("click", (e)=>{
+    if(!titleDD.classList.contains("open")) return;
+    if(e.target === ddAnchorEl || titleDD.contains(e.target)) return;
+    closeTitleDD();
+  });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape" && titleDD.classList.contains("open")) closeTitleDD(); });
+  window.addEventListener("scroll", ()=>{ if(titleDD.classList.contains("open")) closeTitleDD(); }, true);
+  window.addEventListener("resize", ()=>{ if(titleDD.classList.contains("open")) closeTitleDD(); });
+
+  /* ========= Drag & Drop (edit mode only) ========= */
+  function attachDnD(){
+    const cards = [...canvas.querySelectorAll(".box")];
+    let dragEl = null;
+
+    cards.forEach(c=>{
+      c.addEventListener("dragstart", (e)=>{ if(!isEditMode) return e.preventDefault(); dragEl=c; c.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; });
+      c.addEventListener("dragend", ()=>{ if(dragEl){ dragEl.classList.remove("dragging"); dragEl=null; } });
+    });
+
+    canvas.addEventListener("dragover",(e)=>{
+      if(!isEditMode) return;
+      e.preventDefault();
+      const after = getCardAfterY(canvas, e.clientY);
+      const draggingId = dragEl?.dataset.boxId;
+      if(!draggingId) return;
+      const currentIdx = boxes.findIndex(b=>b.id===draggingId);
+      let newIdx;
+      if(!after){
+        canvas.appendChild(dragEl);
+        newIdx = boxes.length - 1;
+      } else {
+        canvas.insertBefore(dragEl, after);
+        const afterId = after.dataset.boxId;
+        newIdx = boxes.findIndex(b=>b.id===afterId);
+      }
+      if(newIdx!==currentIdx && newIdx>=0){
+        const [m] = boxes.splice(currentIdx,1);
+        boxes.splice(newIdx,0,m);
+      }
+    });
+
+    canvas.addEventListener("drop", ()=>{
+      if(!isEditMode) return;
+      saveAll(); render();
+    });
+  }
+
+  function getCardAfterY(container, y){
+    const els = [...container.querySelectorAll(".box:not(.dragging)")];
+    return els.reduce((closest,child)=>{
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height/2;
+      if(offset < 0 && offset > closest.offset){ return {offset,element:child}; }
+      else return closest;
+    }, {offset:Number.NEGATIVE_INFINITY, element:null}).element;
+  }
+
+  /* ========= Snippets Sidebar ========= */
+  function openSnip(){ snipBar.classList.add("open"); snipBar.setAttribute("aria-hidden","false"); }
+  function closeSnip(){ snipBar.classList.remove("open"); snipBar.setAttribute("aria-hidden","true"); }
+  snipToggle.addEventListener("click", openSnip);
+  snipClose.addEventListener("click", closeSnip);
+
+  snipAddBtn.addEventListener("click", ()=>{
+    if(!isEditMode){ return toast("Unlock to add snippets."); }
+    editingSnippetId = null;
+    snipDlgTitle.textContent = "Add Snippet";
+    snipTitle.value=""; snipText.value="";
+    snippetDialog.showModal();
+  });
+
+  snipSaveBtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    const t = snipTitle.value.trim();
+    if(!t) return;
+    const body = snipText.value;
+    if(editingSnippetId){
+      const s = snippets.find(x=>x.id===editingSnippetId);
+      if(s){ s.title=t; s.text=body; }
+    }else{
+      snippets.push({id: uid(), title: t, text: body});
+    }
+    saveAll(); drawSnippets(); snippetDialog.close();
+  });
+
+  function drawSnippets(){
+    snipBody.innerHTML = "";
+    if(!snippets.length){
+      const emp = document.createElement("div");
+      emp.className="snip-empty";
+      emp.textContent="No snippets yet.";
+      snipBody.append(emp);
+      return;
+    }
+    snippets.forEach((s, idx)=>{
+      const row = document.createElement("div"); row.className="snip-item";
+      const title = document.createElement("div"); title.className="snip-title"; title.textContent=s.title;
+      title.title = "Click to copy text";
+      title.style.cursor="pointer";
+      title.addEventListener("click", ()=>{ navigator.clipboard.writeText(s.text||"").then(()=>toast(`Copied "${s.title}"`)); });
+      const acts = document.createElement("div"); acts.className="snip-acts";
+      if(isEditMode){
+        const up = btn("↑","outline small", ()=>{ if(idx>0){ const t=snippets[idx]; snippets.splice(idx,1); snippets.splice(idx-1,0,t); saveAll(); drawSnippets(); }}, "Move up");
+        const down = btn("↓","outline small", ()=>{ if(idx<snippets.length-1){ const t=snippets[idx]; snippets.splice(idx,1); snippets.splice(idx+1,0,t); saveAll(); drawSnippets(); }}, "Move down");
+        const edit = btn("Edit","outline small", ()=>{ editingSnippetId=s.id; snipDlgTitle.textContent="Edit Snippet"; snipTitle.value=s.title; snipText.value=s.text||""; snippetDialog.showModal(); }, "Edit");
+        const del = btn("Delete","outline small", ()=>{ if(confirm(`Delete "${s.title}"?`)){ snippets.splice(idx,1); saveAll(); drawSnippets(); }}, "Delete");
+        acts.append(up,down,edit,del);
+      }
+      row.append(title, acts);
+      snipBody.append(row);
+    });
+  }
+
+  /* ========= Helpers ========= */
+  function escapeHtml(s){
+    return (s||"").replace(/[&<>"']/g,(c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+  }
+  function toast(msg){
+    if(!toast.el){
+      toast.el = document.createElement("div");
+      toast.el.style.cssText = "position:fixed;bottom:58px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:8px 12px;border-radius:8px;opacity:0;transition:.2s;z-index:3000";
+      document.body.appendChild(toast.el);
+    }
+    toast.el.textContent = msg;
+    toast.el.style.opacity = "1";
+    setTimeout(()=> toast.el.style.opacity = "0", 1200);
+  }
+
+  /* ========= Init ========= */
+  loadAll();
+  updateModeClass();
+  render();
+  drawSnippets();
+
+})();
+</script>
+</body>
+</html>
