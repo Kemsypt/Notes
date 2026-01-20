@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Client BAS / GST Note Builder</title>
+  <style>
+    :root { --gap: 12px; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background:#f6f7f9; }
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: 20px; }
+    .sub { margin: 0 0 14px; color:#475467; font-size: 13px; }
+    fieldset { border: 1px solid #d6d9de; background: #fff; border-radius: 10px; padding: 14px; margin: 12px 0; }
+    legend { padding: 0 8px; font-weight: 700; }
+    .grid { display: grid; gap: var(--gap); }
+    .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (max-width: 860px) { .g2,.g3,.g4 { grid-template-columns: 1fr; } }
+
+    label { display: grid; gap: 6px; font-size: 13px; color:#2b2f36; }
+    input, select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 10px;
+      border: 1px solid #cfd5dd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fff;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .hint { font-size: 12px; color:#667085; margin-top: 6px; }
+    .ynx { border: 1px dashed #cfd5dd; border-radius: 10px; padding: 10px; background: #fcfcfd; }
+    .ynx .explain { margin-top: 10px; display:none; }
+    .ynx[data-show="true"] .explain { display:block; }
+    .actions {
+      position: sticky; bottom: 0; background: rgba(246,247,249,.92);
+      padding: 12px 0 0; backdrop-filter: blur(4px);
+    }
+    .bar {
+      display:flex; gap: 10px; flex-wrap: wrap; align-items:center; justify-content: space-between;
+      background:#fff; border:1px solid #d6d9de; border-radius: 12px; padding: 12px;
+    }
+    button {
+      border: 0; border-radius: 10px; padding: 10px 12px; font-weight: 700; cursor:pointer;
+      background:#2563eb; color:#fff; font-size: 14px;
+    }
+    button.ghost { background:#e5e7eb; color:#111827; }
+    .status { font-size: 13px; color:#475467; }
+    .money input { text-align: right; }
+    details { background:#fff; border:1px solid #d6d9de; border-radius: 12px; padding: 10px 12px; }
+    summary { cursor:pointer; font-weight: 700; }
+    pre { white-space: pre-wrap; word-break: break-word; margin: 10px 0 0; font-size: 13px; color:#111827; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Client BAS / GST Note Builder</h1>
+    <p class="sub">Fill the fields, then click <b>Copy full note to clipboard</b> to get the complete template output.</p>
+
+    <form id="noteForm" novalidate>
+      <fieldset>
+        <legend>General Client Info</legend>
+        <div class="grid g3">
+          <label>Case ID
+            <input name="caseId" type="text" />
+          </label>
+          <label>Client
+            <input name="client" type="text" />
+          </label>
+          <label>Day 30
+            <input name="day30" type="text" />
+          </label>
+          <label>Risk
+            <input name="risk" type="text" />
+          </label>
+          <label>Suppression (Y/N)
+            <select name="suppression">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>POR
+            <input name="por" type="text" placeholder="Period of Review" />
+          </label>
+        </div>
+
+        <div class="grid g2" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Expanding Scope (Y/N)
+              <select name="expandingScope" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Date (required)
+                <input name="expandingScopeDate" type="date" data-ynx-explain data-required-when-yes />
+              </label>
+            </div>
+          </div>
+
+          <label>Previous Compliance History/Former Audits
+            <textarea name="previousCompliance"></textarea>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <label>BAS Lodgement - Lodged on
+            <input name="basLodgedOn" type="text" placeholder="xxxx" />
+          </label>
+          <label>BAS Lodgement - via
+            <input name="basLodgedVia" type="text" placeholder="xxxx" />
+          </label>
+          <label>BAS Lodgement - by
+            <input name="basLodgedBy" type="text" placeholder="xxxx" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Related Entities
+          <textarea name="relatedEntities"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>BAS Labels</legend>
+        <div class="grid g3">
+          <label class="money">Total Sales G1 ($)
+            <input name="g1" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total GST Sales POR 1A ($)
+            <input name="oneA" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total Acquisitions G11 ($)
+            <input name="g11" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total GST Credits for POR 1B ($)
+            <input name="oneB" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total Refund for POR 9 ($)
+            <input name="nine" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other comments
+          <textarea name="otherComments"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>GST Account &amp; Rego</legend>
+        <div class="grid g3">
+          <label>Attribution /Frequency (Cash/Accruals | quarterly/monthly/yearly)
+            <input name="attributionFrequency" type="text" placeholder="e.g., Cash | quarterly" />
+          </label>
+          <label>ABN Start Date
+            <input name="abnStartDate" type="text" placeholder="yyyy-mm-dd or notes" />
+          </label>
+          <label>GST Start Date
+            <input name="gstStartDate" type="text" placeholder="yyyy-mm-dd or notes" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Main Business Activity</legend>
+        <div class="grid g3">
+          <label>ANZIC Code
+            <input name="anzicCode" type="text" />
+          </label>
+          <label>Entity Type (Individual/Sole Trader/Partnership/Trust/Company)
+            <input name="entityType" type="text" />
+          </label>
+          <label>Business/Trading Names
+            <input name="tradingNames" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Business address (notes)
+          <textarea name="businessAddress" placeholder="xxxx this appears to be xxxx"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>3rd party Fraud Indicators</legend>
+        <div class="grid g3">
+          <label>FID Update date
+            <input name="fidUpdateDate" type="text" />
+          </label>
+          <label>FID Linked To other entities (RAPT check completed)
+            <input name="fidLinkedEntities" type="text" placeholder="xxxx" />
+          </label>
+          <label>CCH
+            <input name="cch" type="text" />
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Compromised Indicators (Y/N)
+              <select name="compromisedIndicators" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="compromisedIndicatorsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Alerts (Y/N)
+              <select name="alerts" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="alertsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Recent Contact Changes (Y/N)
+              <select name="recentContactChanges" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="recentContactChangesExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Signs of Enterprise
+          <textarea name="signsOfEnterprise"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>ITR / Benefits / Google checks</legend>
+        <div class="grid g3">
+          <label>ITR for BAS period (Y/N)
+            <select name="itrForBasPeriod">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Business Income on ITR
+            <input name="businessIncomeOnItr" type="text" />
+          </label>
+          <label>Employment Description on ITR
+            <input name="employmentDescriptionOnItr" type="text" />
+          </label>
+          <label>Centrelink Benefits (Y/N)
+            <select name="centrelinkBenefits">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Google Client/individual Name
+            <input name="googleClientName" type="text" />
+          </label>
+          <label>Google Trading/Business name
+            <input name="googleTradingName" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="itrOther"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Third Party Data</legend>
+        <div class="grid g3">
+          <label>Merchant Records (Y/N)
+            <select name="merchantRecords">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>ECP Licenses/Permits/Study Courses (Y/N)
+            <select name="ecp">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Commercial Vehicle Registration (Y/N)
+            <select name="commercialVehicleReg">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Ride Share (Y/N)
+              <select name="rideShare" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="rideShareExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>TPARS Data (Y/N)
+              <select name="tpars" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="tparsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Austrac Data (Y/N)
+              <select name="austrac" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="austracExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="thirdPartyOther"></textarea>
+        </label>
+</fieldset>
+
+      <fieldset>
+        <legend>Treatment type</legend>
+        <label>Treatment type
+          <textarea name="treatmentType"></textarea>
+        </label>
+      </fieldset>
+
+      <details>
+        <summary>Preview generated note</summary>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+            <button type="button" id="copyBtn">Copy full note to clipboard</button>
+            <button type="reset" class="ghost">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    function v(name) {
+      const el = document.querySelector(`[name="${name}"]`);
+      if (!el) return "";
+      return (el.value ?? "").toString().trim();
+    }
+
+    function parseMoney(raw) {
+      if (!raw) return "";
+      const cleaned = String(raw).replace(/[\\s,$]/g, "");
+      const n = Number(cleaned);
+      if (!Number.isFinite(n)) return raw.trim();
+      return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function moneyLine(label, name) {
+      const val = v(name);
+      return `${label}: $${parseMoney(val)}`;
+    }
+
+    function setExplainVisibility(box, yes) {
+      box.dataset.show = yes ? "true" : "false";
+      const explainEl = box.querySelector("[data-ynx-explain]");
+      if (!explainEl) return;
+      if (explainEl.hasAttribute("data-required-when-yes")) explainEl.required = !!yes;
+      if (!yes) explainEl.value = "";
+    }
+
+    function initYNX() {
+      $$("[data-ynx]").forEach(box => {
+        const sel = box.querySelector("[data-ynx-select]");
+        if (!sel) return;
+        const onChange = () => setExplainVisibility(box, sel.value === "Y");
+        sel.addEventListener("change", onChange);
+        onChange();
+      });
+    }
+
+    function expandingScopeLine() {
+      const yn = v("expandingScope") || "";
+      const date = v("expandingScopeDate");
+      let suffix = "";
+      if (yn === "Y") suffix = ` - ${date || ""}`;
+      return `Expanding Scope: ${yn}${suffix}`.trim();
+    }
+
+    function ynExplainLine(label, ynName, explainName) {
+      const yn = v(ynName) || "";
+      const explain = v(explainName);
+      if (yn === "Y") return `${label}: ${yn} - ${explain || ""}`.trim();
+      return `${label}: ${yn}`.trim();
+    }
+
+    function buildNote() {
+      const note =
+`General Client Info
+Case ID: ${v("caseId")}
+Client: ${v("client")}
+Day 30:  ${v("day30")}
+Risk: ${v("risk")}
+Suppression: ${v("suppression")}
+POR: ${v("por")}
+${expandingScopeLine()}
+Previous Compliance History/Former Audits:  ${v("previousCompliance")}
+BAS Lodgement Lodged on ${v("basLodgedOn")} via ${v("basLodgedVia")} by ${v("basLodgedBy")}
+Related Entities: ${v("relatedEntities")}
+BAS Labels
+${moneyLine("Total Sales G1", "g1")}
+${moneyLine("Total GST Sales POR 1A", "oneA")}
+${moneyLine("Total Acquisitions G11", "g11")}
+${moneyLine("Total GST Credits for POR 1B", "oneB")}
+${moneyLine("Total Refund for POR 9", "nine")}
+Other comments: ${v("otherComments")}
+GST Account & Rego
+Attribution /Frequency: ${v("attributionFrequency")}
+ABN Start Date: ${v("abnStartDate")}
+GST Start Date: ${v("gstStartDate")}
+Main Business Activity
+ANZIC Code: ${v("anzicCode")}
+Entity Type: ${v("entityType")}
+Business address: ${v("businessAddress")}
+Business/Trading Names: ${v("tradingNames")}
+
+3rd party Fraud Indicators
+FID Update date: ${v("fidUpdateDate")}
+FID Linked To other entities: ${v("fidLinkedEntities")} RAPT check completed
+${ynExplainLine("Compromised Indicators", "compromisedIndicators", "compromisedIndicatorsExplain")}
+${ynExplainLine("Alerts", "alerts", "alertsExplain")}
+${ynExplainLine("Recent Contact Changes", "recentContactChanges", "recentContactChangesExplain")}
+CCH: ${v("cch")}
+Signs of Enterprise
+ITR for BAS period: ${v("itrForBasPeriod")}
+Business Income on ITR: ${v("businessIncomeOnItr")}
+Employment Description on ITR:  ${v("employmentDescriptionOnItr")}
+Centrelink Benefits:  ${v("centrelinkBenefits")}
+Google Client/individual Name: ${v("googleClientName")}
+Google Trading/Business name: ${v("googleTradingName")}
+Other: ${v("itrOther")}
+Third Party Data
+Merchant Records: ${v("merchantRecords")}
+ECP Licenses/Permits/Study Courses: ${v("ecp")}
+Commercial Vehicle Registration: ${v("commercialVehicleReg")}
+${ynExplainLine("Ride Share", "rideShare", "rideShareExplain")}
+${ynExplainLine("TPARS Data", "tpars", "tparsExplain")}
+${ynExplainLine("Austrac Data", "austrac", "austracExplain")}
+Other: ${v("thirdPartyOther")}
+Treatment type
+${v("treatmentType")}`.trim();
+
+      $("#preview").textContent = note;
+      return note;
+    }
+
+    async function copyFullNote() {
+      const form = $("#noteForm");
+      if (!form.reportValidity()) return;
+
+      const note = buildNote();
+
+      try {
+        await navigator.clipboard.writeText(note);
+        $("#status").textContent = "Copied full note to clipboard.";
+        setTimeout(() => $("#status").textContent = "", 2500);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = note;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+
+        $("#status").textContent = ok ? "Copied full note to clipboard." : "Clipboard copy failed (browser blocked it).";
+        setTimeout(() => $("#status").textContent = "", 2500);
+      }
+    }
+
+    function initPreviewUpdates() {
+      const update = () => buildNote();
+      document.addEventListener("input", (e) => {
+        if (e.target && e.target.closest("#noteForm")) update();
+      });
+      update();
+    }
+
+    initYNX();
+    initPreviewUpdates();
+
+    $("#copyBtn").addEventListener("click", copyFullNote);
+    $("#noteForm").addEventListener("reset", () => setTimeout(() => { initYNX(); buildNote(); }, 0));
+  </script>
+</body>
+</html>
