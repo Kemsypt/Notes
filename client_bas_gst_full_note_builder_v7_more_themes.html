@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Client BAS / GST Note Builder</title>
+  <style>
+    :root{
+      --gap: 12px;
+
+      /* Theme variables (default: grey) */
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #fcfcfd;
+      --text: #111827;
+      --muted: #475467;
+      --border: #d6d9de;
+      --border-2: #cfd5dd;
+      --accent: #2563eb;
+      --accent-2: #111827;
+      --btn-text: #ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+      --overlay: rgba(17,24,39,.55);
+    }
+
+    body[data-theme="white"]{
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --panel-2:#f8fafc;
+      --text:#0f172a;
+      --muted:#475467;
+      --border:#e2e8f0;
+      --border-2:#e2e8f0;
+      --accent:#2563eb;
+      --accent-2:#0f172a;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(15,23,42,.10);
+      --overlay: rgba(15,23,42,.55);
+    }
+    body[data-theme="grey"]{
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --accent-2:#111827;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+      --overlay: rgba(17,24,39,.55);
+    }
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --accent-2:#93c5fd;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --overlay: rgba(0,0,0,.65);
+    }
+    /* Taylor Swift inspired theme (referential name) */
+    body[data-theme="lavender-haze"]{
+      /* Inspired by the Eras Tour Lavender Haze performance: neon purples + electric pink + stage-blue highlights */
+      --bg:#090016;          /* deep stage-black with purple tint */
+      --panel:#15003a;       /* saturated violet */
+      --panel-2:#1f0061;     /* brighter violet */
+      --text:#f5e9ff;        /* soft lavender-white */
+      --muted:#f0abfc;       /* hot lavender */
+      --border:#3b0a8f;      /* neon border */
+      --border-2:#4c11b8;    /* brighter border */
+      --accent:#a855f7;      /* vivid purple */
+      --accent-2:#fb7185;    /* electric pink */
+      --btn-text:#090016;
+      --shadow: 0 16px 40px rgba(0,0,0,.60);
+      --overlay: rgba(9,0,22,.78);
+    }
+
+    /* Taylor Swift inspired theme: Champagne Problems */
+    body[data-theme="champagne-problems"]{
+      /* Warm piano-stage amber + champagne gold */
+      --bg:#120c07;          /* deep warm brown */
+      --panel:#1b120c;       /* espresso */
+      --panel-2:#24170f;     /* slightly lighter */
+      --text:#fff7ed;        /* warm cream */
+      --muted:#f7d7a7;       /* champagne highlight */
+      --border:#4a2d1a;      /* warm border */
+      --border-2:#5b371f;    /* brighter border */
+      --accent:#fbbf24;      /* champagne gold */
+      --accent-2:#f97316;    /* warm amber/orange */
+      --btn-text:#120c07;
+      --shadow: 0 16px 40px rgba(0,0,0,.65);
+      --overlay: rgba(18,12,7,.78);
+    }
+
+    /* Taylor Swift inspired theme: Cruel Summer (Lover era - bright sunset) */
+    body[data-theme="cruel-summer"]{
+      --bg:#0b1020;          /* night sky */
+      --panel:#131a33;       /* deep navy */
+      --panel-2:#182046;     /* brighter navy */
+      --text:#fff7ed;        /* warm cream */
+      --muted:#fecdd3;       /* blush */
+      --border:#25315f;      /* navy border */
+      --border-2:#2f3c77;    /* brighter border */
+      --accent:#fb7185;      /* hot pink */
+      --accent-2:#fbbf24;    /* golden */
+      --btn-text:#0b1020;
+      --shadow: 0 16px 40px rgba(0,0,0,.60);
+      --overlay: rgba(11,16,32,.78);
+    }
+
+    /* Taylor Swift inspired theme: Midnight Rain (Midnights era - cobalt + indigo) */
+    body[data-theme="midnight-rain"]{
+      --bg:#040814;          /* very deep midnight */
+      --panel:#0a1230;       /* indigo */
+      --panel-2:#0e1a45;     /* brighter indigo */
+      --text:#e0f2fe;        /* icy light */
+      --muted:#93c5fd;       /* soft blue */
+      --border:#1e2b66;      /* border */
+      --border-2:#273685;    /* brighter border */
+      --accent:#22d3ee;      /* electric cyan */
+      --accent-2:#a855f7;    /* vivid purple */
+      --btn-text:#040814;
+      --shadow: 0 16px 40px rgba(0,0,0,.65);
+      --overlay: rgba(4,8,20,.78);
+    }
+
+    /* Taylor Swift inspired theme: Karma Is My UI (Eras Tour - neon orange/green burst) */
+    body[data-theme="karma"]{
+      --bg:#070c00;          /* dark olive-black */
+      --panel:#111a00;       /* deep green */
+      --panel-2:#162300;     /* brighter green */
+      --text:#fefce8;        /* warm light */
+      --muted:#bbf7d0;       /* mint */
+      --border:#2a3a05;      /* border */
+      --border-2:#355008;    /* brighter border */
+      --accent:#fb923c;      /* neon orange */
+      --accent-2:#4ade80;    /* neon green */
+      --btn-text:#070c00;
+      --shadow: 0 16px 40px rgba(0,0,0,.65);
+      --overlay: rgba(7,12,0,.78);
+    }
+
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: 20px; }
+    .sub { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+
+    fieldset { border: 1px solid var(--border); background: var(--panel); border-radius: 10px; padding: 14px; margin: 12px 0; }
+    legend { padding: 0 8px; font-weight: 700; color: var(--text); }
+
+    .grid { display: grid; gap: var(--gap); }
+    .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (max-width: 860px) { .g2,.g3,.g4 { grid-template-columns: 1fr; } }
+
+    label { display: grid; gap: 6px; font-size: 13px; color: var(--text); }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 10px;
+      border: 1px solid var(--border-2);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--panel);
+      color: var(--text);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    .ynx { border: 1px dashed var(--border-2); border-radius: 10px; padding: 10px; background: var(--panel-2); }
+    .ynx .explain { margin-top: 10px; display:none; }
+    .ynx[data-show="true"] .explain { display:block; }
+
+    .actions {
+      position: sticky; bottom: 0;
+      background: rgba(0,0,0,0);
+      padding: 12px 0 0;
+      backdrop-filter: blur(4px);
+    }
+    .bar {
+      display:flex; gap: 10px; flex-wrap: wrap; align-items:center; justify-content: space-between;
+      background: var(--panel); border:1px solid var(--border); border-radius: 12px; padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .btnrow { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+    button {
+      border: 0; border-radius: 10px; padding: 10px 12px; font-weight: 800; cursor:pointer;
+      background: var(--accent); color: var(--btn-text); font-size: 14px;
+    }
+    button.ghost { background: #e5e7eb; color: #111827; border:1px solid var(--border); }
+    body[data-theme="dark"] button.ghost,
+    body[data-theme="lavender-haze"] button.ghost,
+    body[data-theme="champagne-problems"] button.ghost,
+    body[data-theme="cruel-summer"] button.ghost,
+    body[data-theme="midnight-rain"] button.ghost,
+    body[data-theme="karma"] button.ghost{
+      background: color-mix(in srgb, var(--panel) 80%, #000);
+      color: var(--text);
+    }
+    button.secondary { background: var(--accent-2); color: var(--btn-text); }
+    .status { font-size: 13px; color: var(--muted); }
+
+    details { background: var(--panel); border:1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+    summary { cursor:pointer; font-weight: 800; color: var(--text); }
+    pre { white-space: pre-wrap; word-break: break-word; margin: 10px 0 0; font-size: 13px; color: var(--text); }
+
+    /* Modal */
+    .modalOverlay{
+      position: fixed; inset: 0; background: var(--overlay);
+      display:none; align-items: center; justify-content: center; padding: 18px;
+      z-index: 9999;
+    }
+    .modalOverlay[data-open="true"]{ display:flex; }
+    .modal{
+      width: min(860px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .modalHeader{
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+    }
+    .modalHeader .title{ font-weight: 900; }
+    .modalHeader .close{
+      background: transparent; color: var(--text); border: 1px solid var(--border);
+      padding: 8px 10px; border-radius: 10px; font-weight: 900;
+    }
+    .tabs{
+      display:flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border);
+      background: var(--panel-2);
+      flex-wrap: wrap;
+    }
+    .tab{
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+    .tab[aria-selected="true"]{
+      border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+      outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+      outline-offset: 1px;
+    }
+    .modalBody{ padding: 14px; }
+    .panel{ display:none; }
+    .panel[data-show="true"]{ display:block; }
+
+    .themeGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 720px) { .themeGrid{ grid-template-columns: 1fr; } }
+
+    .themeCard{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: var(--panel-2);
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .swatches{ display:flex; gap: 8px; align-items:center; }
+    .swatch{ width: 18px; height: 18px; border-radius: 999px; border:1px solid var(--border); }
+    .themeCard .name{ font-weight: 900; }
+    .themeCard .desc{ color: var(--muted); font-size: 12px; margin-top: -6px; }
+
+    .small { font-size: 12px; color: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body data-theme="grey">
+  <div class="wrap">
+    <h1>Client BAS / GST Note Builder</h1>
+    <p class="sub">Fill the fields, then click <b>Copy full note to clipboard</b> to get the complete template output.</p>
+
+    <form id="noteForm" novalidate>
+      <fieldset>
+        <legend>General Client Info</legend>
+        <div class="grid g3">
+          <label>Case ID
+            <input name="caseId" type="text" />
+          </label>
+          <label>Client
+            <input name="client" type="text" />
+          </label>
+          <label>Day 30
+            <input name="day30" type="text" />
+          </label>
+          <label>Risk
+            <input name="risk" type="text" />
+          </label>
+          <label>Suppression (Y/N)
+            <select name="suppression">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>POR
+            <input name="por" type="text" placeholder="Period of Review" />
+          </label>
+        </div>
+
+        <div class="grid g2" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Expanding Scope (Y/N)
+              <select name="expandingScope" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Date (required)
+                <input name="expandingScopeDate" type="date" data-ynx-explain data-required-when-yes />
+              </label>
+            </div>
+          </div>
+
+          <label>Previous Compliance History/Former Audits
+            <textarea name="previousCompliance"></textarea>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <label>BAS Lodgement - Lodged on
+            <input name="basLodgedOn" type="text" placeholder="xxxx" />
+          </label>
+          <label>BAS Lodgement - via
+            <input name="basLodgedVia" type="text" placeholder="xxxx" />
+          </label>
+          <label>BAS Lodgement - by
+            <input name="basLodgedBy" type="text" placeholder="xxxx" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Related Entities
+          <textarea name="relatedEntities"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>BAS Labels</legend>
+        <div class="grid g3">
+          <label class="money">Total Sales G1 ($)
+            <input name="g1" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total GST Sales POR 1A ($)
+            <input name="oneA" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total Acquisitions G11 ($)
+            <input name="g11" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total GST Credits for POR 1B ($)
+            <input name="oneB" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+          <label class="money">Total Refund for POR 9 ($)
+            <input name="nine" inputmode="decimal" placeholder="0.00" data-money />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other comments
+          <textarea name="otherComments"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>GST Account &amp; Rego</legend>
+        <div class="grid g3">
+          <label>Attribution /Frequency (Cash/Accruals | quarterly/monthly/yearly)
+            <input name="attributionFrequency" type="text" placeholder="e.g., Cash | quarterly" />
+          </label>
+          <label>ABN Start Date
+            <input name="abnStartDate" type="text" placeholder="yyyy-mm-dd or notes" />
+          </label>
+          <label>GST Start Date
+            <input name="gstStartDate" type="text" placeholder="yyyy-mm-dd or notes" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Main Business Activity</legend>
+        <div class="grid g3">
+          <label>ANZIC Code
+            <input name="anzicCode" type="text" />
+          </label>
+          <label>Entity Type (Individual/Sole Trader/Partnership/Trust/Company)
+            <input name="entityType" type="text" />
+          </label>
+          <label>Business/Trading Names
+            <input name="tradingNames" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Business address (notes)
+          <textarea name="businessAddress" placeholder="xxxx this appears to be xxxx"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>3rd party Fraud Indicators</legend>
+        <div class="grid g3">
+          <label>FID Update date
+            <input name="fidUpdateDate" type="text" />
+          </label>
+          <label>FID Linked To other entities (RAPT check completed)
+            <input name="fidLinkedEntities" type="text" placeholder="xxxx" />
+          </label>
+          <label>CCH
+            <input name="cch" type="text" />
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Compromised Indicators (Y/N)
+              <select name="compromisedIndicators" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="compromisedIndicatorsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Alerts (Y/N)
+              <select name="alerts" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="alertsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Recent Contact Changes (Y/N)
+              <select name="recentContactChanges" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="recentContactChangesExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Signs of Enterprise
+          <textarea name="signsOfEnterprise"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>ITR / Benefits / Google checks</legend>
+        <div class="grid g3">
+          <label>ITR for BAS period (Y/N)
+            <select name="itrForBasPeriod">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Business Income on ITR
+            <input name="businessIncomeOnItr" type="text" />
+          </label>
+          <label>Employment Description on ITR
+            <input name="employmentDescriptionOnItr" type="text" />
+          </label>
+          <label>Centrelink Benefits (Y/N)
+            <select name="centrelinkBenefits">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Google Client/individual Name
+            <input name="googleClientName" type="text" />
+          </label>
+          <label>Google Trading/Business name
+            <input name="googleTradingName" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="itrOther"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Third Party Data</legend>
+        <div class="grid g3">
+          <label>Merchant Records (Y/N)
+            <select name="merchantRecords">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>ECP Licenses/Permits/Study Courses (Y/N)
+            <select name="ecp">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+          <label>Commercial Vehicle Registration (Y/N)
+            <select name="commercialVehicleReg">
+              <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Ride Share (Y/N)
+              <select name="rideShare" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="rideShareExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>TPARS Data (Y/N)
+              <select name="tpars" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="tparsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Austrac Data (Y/N)
+              <select name="austrac" data-ynx-select>
+                <option value=""></option><option value="Y">Y</option><option value="N">N</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>If Yes: Explanation (required)
+                <textarea name="austracExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="thirdPartyOther"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Treatment type</legend>
+        <label>Treatment type
+          <textarea name="treatmentType"></textarea>
+        </label>
+      </fieldset>
+
+      <details>
+        <summary>Preview generated note</summary>
+        <div class="small" style="margin-top:8px;">
+          Tip: You can edit the template format in <b>Settings</b>. Use placeholders like <span class="mono">{{caseId}}</span>.
+        </div>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="btnrow">
+            <button type="button" id="copyBtn">Copy full note to clipboard</button>
+            <button type="reset" class="ghost">Reset</button>
+            <button type="button" id="settingsBtn" class="secondary">Settings</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modalOverlay" id="settingsOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modalHeader">
+        <div class="title" id="settingsTitle">Settings</div>
+        <button type="button" class="close" id="closeSettings" aria-label="Close settings">Close</button>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Settings tabs">
+        <button type="button" class="tab" id="tabTemplate" role="tab" aria-selected="true" aria-controls="panelTemplate">Template</button>
+        <button type="button" class="tab" id="tabTheme" role="tab" aria-selected="false" aria-controls="panelTheme">Themes</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="panel" id="panelTemplate" role="tabpanel" aria-labelledby="tabTemplate" data-show="true">
+          <div class="small">
+            Edit the note format below. Placeholders are replaced when copying/previewing.
+            <br/>
+            Useful: <span class="mono">{{caseId}}</span>, <span class="mono">{{client}}</span>, <span class="mono">{{expandingScopeLine}}</span>, <span class="mono">{{compromisedIndicatorsLine}}</span>.
+          </div>
+
+          <label style="margin-top:10px;">
+            Template text
+            <textarea id="templateEditor" class="mono" style="min-height: 320px;"></textarea>
+          </label>
+
+          <div class="btnrow" style="margin-top:10px; justify-content:flex-start;">
+            <button type="button" id="saveTemplate">Save template</button>
+            <button type="button" class="ghost" id="resetTemplate">Reset to default</button>
+          </div>
+        </div>
+
+        <div class="panel" id="panelTheme" role="tabpanel" aria-labelledby="tabTheme" data-show="false">
+          <div class="small">Pick a color mode. Saved automatically.</div>
+
+          <div class="themeGrid" style="margin-top:10px;">
+            <div class="themeCard">
+              <div class="name">Dark mode</div>
+              <div class="desc">Low-glare, high-contrast.</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#0b1220;"></span>
+                <span class="swatch" style="background:#0f172a;"></span>
+                <span class="swatch" style="background:#60a5fa;"></span>
+                <span class="swatch" style="background:#e5e7eb;"></span>
+              </div>
+              <button type="button" data-theme-pick="dark">Use Dark</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">White mode</div>
+              <div class="desc">Clean, paper-like.</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#ffffff;"></span>
+                <span class="swatch" style="background:#f8fafc;"></span>
+                <span class="swatch" style="background:#2563eb;"></span>
+                <span class="swatch" style="background:#0f172a;"></span>
+              </div>
+              <button type="button" data-theme-pick="white">Use White</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Grey mode</div>
+              <div class="desc">Neutral default.</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#f6f7f9;"></span>
+                <span class="swatch" style="background:#ffffff;"></span>
+                <span class="swatch" style="background:#2563eb;"></span>
+                <span class="swatch" style="background:#111827;"></span>
+              </div>
+              <button type="button" data-theme-pick="grey">Use Grey</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Lavender Haze mode</div>
+              <div class="desc">Vibrant neon purples/pinks (Eras Tour-inspired).</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#090016;"></span>
+                <span class="swatch" style="background:#15003a;"></span>
+                <span class="swatch" style="background:#a855f7;"></span>
+                <span class="swatch" style="background:#fb7185;"></span>
+              </div>
+              <button type="button" data-theme-pick="lavender-haze">Use Lavender Haze</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Champagne Problems mode</div>
+              <div class="desc">Warm amber + champagne gold (Eras Tour-inspired).</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#120c07;"></span>
+                <span class="swatch" style="background:#1b120c;"></span>
+                <span class="swatch" style="background:#fbbf24;"></span>
+                <span class="swatch" style="background:#f97316;"></span>
+              </div>
+              <button type="button" data-theme-pick="champagne-problems">Use Champagne Problems</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Cruel Summer mode</div>
+              <div class="desc">Sunset pop + hot pink energy (Eras Tour-inspired).</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#0b1020;"></span>
+                <span class="swatch" style="background:#131a33;"></span>
+                <span class="swatch" style="background:#fb7185;"></span>
+                <span class="swatch" style="background:#fbbf24;"></span>
+              </div>
+              <button type="button" data-theme-pick="cruel-summer">Use Cruel Summer</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Midnight Rain mode</div>
+              <div class="desc">Cobalt midnight + electric cyan highlights (Eras Tour-inspired).</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#040814;"></span>
+                <span class="swatch" style="background:#0a1230;"></span>
+                <span class="swatch" style="background:#22d3ee;"></span>
+                <span class="swatch" style="background:#a855f7;"></span>
+              </div>
+              <button type="button" data-theme-pick="midnight-rain">Use Midnight Rain</button>
+            </div>
+
+            <div class="themeCard">
+              <div class="name">Karma mode</div>
+              <div class="desc">Neon orange + green burst (Eras Tour-inspired).</div>
+              <div class="swatches">
+                <span class="swatch" style="background:#070c00;"></span>
+                <span class="swatch" style="background:#111a00;"></span>
+                <span class="swatch" style="background:#fb923c;"></span>
+                <span class="swatch" style="background:#4ade80;"></span>
+              </div>
+              <button type="button" data-theme-pick="karma">Use Karma</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const LS_THEME_KEY = "basNoteBuilder.theme";
+    const LS_TEMPLATE_KEY = "basNoteBuilder.template";
+
+    function v(name) {
+      const el = document.querySelector(`[name="${name}"]`);
+      if (!el) return "";
+      return (el.value ?? "").toString().trim();
+    }
+
+    function parseMoney(raw) {
+      if (!raw) return "";
+      const cleaned = String(raw).replace(/[\\s,$]/g, "");
+      const n = Number(cleaned);
+      if (!Number.isFinite(n)) return raw.trim();
+      return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function expandingScopeLine() {
+      const yn = v("expandingScope") || "";
+      const date = v("expandingScopeDate");
+      if (yn === "Y") return `Expanding Scope: ${yn} - ${date || ""}`.trim();
+      return `Expanding Scope: ${yn}`.trim();
+    }
+
+    function ynExplainLine(label, ynName, explainName) {
+      const yn = v(ynName) || "";
+      const explain = v(explainName);
+      if (yn === "Y") return `${label}: ${yn} - ${explain || ""}`.trim();
+      return `${label}: ${yn}`.trim();
+    }
+
+    function moneyLine(label, name) {
+      const val = v(name);
+      return `${label}: $${parseMoney(val)}`;
+    }
+
+    function buildVariables() {
+      const vars = {
+        caseId: v("caseId"),
+        client: v("client"),
+        day30: v("day30"),
+        risk: v("risk"),
+        suppression: v("suppression"),
+        por: v("por"),
+
+        expandingScope: v("expandingScope"),
+        expandingScopeDate: v("expandingScopeDate"),
+        expandingScopeLine: expandingScopeLine(),
+
+        previousCompliance: v("previousCompliance"),
+        basLodgedOn: v("basLodgedOn"),
+        basLodgedVia: v("basLodgedVia"),
+        basLodgedBy: v("basLodgedBy"),
+        relatedEntities: v("relatedEntities"),
+
+        g1: `$${parseMoney(v("g1"))}`,
+        oneA: `$${parseMoney(v("oneA"))}`,
+        g11: `$${parseMoney(v("g11"))}`,
+        oneB: `$${parseMoney(v("oneB"))}`,
+        nine: `$${parseMoney(v("nine"))}`,
+        otherComments: v("otherComments"),
+
+        attributionFrequency: v("attributionFrequency"),
+        abnStartDate: v("abnStartDate"),
+        gstStartDate: v("gstStartDate"),
+
+        anzicCode: v("anzicCode"),
+        entityType: v("entityType"),
+        businessAddress: v("businessAddress"),
+        tradingNames: v("tradingNames"),
+
+        fidUpdateDate: v("fidUpdateDate"),
+        fidLinkedEntities: v("fidLinkedEntities"),
+        cch: v("cch"),
+        signsOfEnterprise: v("signsOfEnterprise"),
+
+        compromisedIndicatorsLine: ynExplainLine("Compromised Indicators", "compromisedIndicators", "compromisedIndicatorsExplain"),
+        compromisedIndicators: v("compromisedIndicators"),
+        compromisedIndicatorsExplain: v("compromisedIndicatorsExplain"),
+
+        alertsLine: ynExplainLine("Alerts", "alerts", "alertsExplain"),
+        alerts: v("alerts"),
+        alertsExplain: v("alertsExplain"),
+
+        recentContactChangesLine: ynExplainLine("Recent Contact Changes", "recentContactChanges", "recentContactChangesExplain"),
+        recentContactChanges: v("recentContactChanges"),
+        recentContactChangesExplain: v("recentContactChangesExplain"),
+
+        itrForBasPeriod: v("itrForBasPeriod"),
+        businessIncomeOnItr: v("businessIncomeOnItr"),
+        employmentDescriptionOnItr: v("employmentDescriptionOnItr"),
+        centrelinkBenefits: v("centrelinkBenefits"),
+        googleClientName: v("googleClientName"),
+        googleTradingName: v("googleTradingName"),
+        itrOther: v("itrOther"),
+
+        merchantRecords: v("merchantRecords"),
+        ecp: v("ecp"),
+        commercialVehicleReg: v("commercialVehicleReg"),
+
+        rideShareLine: ynExplainLine("Ride Share", "rideShare", "rideShareExplain"),
+        rideShare: v("rideShare"),
+        rideShareExplain: v("rideShareExplain"),
+
+        tparsLine: ynExplainLine("TPARS Data", "tpars", "tparsExplain"),
+        tpars: v("tpars"),
+        tparsExplain: v("tparsExplain"),
+
+        austracLine: ynExplainLine("Austrac Data", "austrac", "austracExplain"),
+        austrac: v("austrac"),
+        austracExplain: v("austracExplain"),
+
+        thirdPartyOther: v("thirdPartyOther"),
+        treatmentType: v("treatmentType"),
+
+        g1Line: moneyLine("Total Sales G1", "g1"),
+        oneALine: moneyLine("Total GST Sales POR 1A", "oneA"),
+        g11Line: moneyLine("Total Acquisitions G11", "g11"),
+        oneBLine: moneyLine("Total GST Credits for POR 1B", "oneB"),
+        nineLine: moneyLine("Total Refund for POR 9", "nine"),
+      };
+      return vars;
+    }
+
+    function applyTemplate(template, vars) {
+      // Replace placeholders like {{caseId}} with values from vars.
+      // Supports any key text inside the braces; unknown keys become blank.
+      return template.replace(/\{\{\s*([^}]+?)\s*\}\}/g, (match, rawKey) => {
+        const key = String(rawKey).trim();
+        const val = Object.prototype.hasOwnProperty.call(vars, key) ? vars[key] : "";
+        return (val === undefined || val === null) ? "" : String(val);
+      });
+    }
+
+    const DEFAULT_TEMPLATE = `General Client Info
+Case ID: {{caseId}}
+Client: {{client}}
+Day 30:  {{day30}}
+Risk: {{risk}}
+Suppression: {{suppression}}
+POR: {{por}}
+{{expandingScopeLine}}
+Previous Compliance History/Former Audits:  {{previousCompliance}}
+BAS Lodgement Lodged on {{basLodgedOn}} via {{basLodgedVia}} by {{basLodgedBy}}
+Related Entities: {{relatedEntities}}
+BAS Labels
+{{g1Line}}
+{{oneALine}}
+{{g11Line}}
+{{oneBLine}}
+{{nineLine}}
+Other comments: {{otherComments}}
+GST Account & Rego
+Attribution /Frequency: {{attributionFrequency}}
+ABN Start Date: {{abnStartDate}}
+GST Start Date: {{gstStartDate}}
+Main Business Activity
+ANZIC Code: {{anzicCode}}
+Entity Type: {{entityType}}
+Business address: {{businessAddress}}
+Business/Trading Names: {{tradingNames}}
+
+3rd party Fraud Indicators
+FID Update date: {{fidUpdateDate}}
+FID Linked To other entities: {{fidLinkedEntities}} RAPT check completed
+{{compromisedIndicatorsLine}}
+{{alertsLine}}
+{{recentContactChangesLine}}
+CCH: {{cch}}
+Signs of Enterprise
+ITR for BAS period: {{itrForBasPeriod}}
+Business Income on ITR: {{businessIncomeOnItr}}
+Employment Description on ITR:  {{employmentDescriptionOnItr}}
+Centrelink Benefits:  {{centrelinkBenefits}}
+Google Client/individual Name: {{googleClientName}}
+Google Trading/Business name: {{googleTradingName}}
+Other: {{itrOther}}
+Third Party Data
+Merchant Records: {{merchantRecords}}
+ECP Licenses/Permits/Study Courses: {{ecp}}
+Commercial Vehicle Registration: {{commercialVehicleReg}}
+{{rideShareLine}}
+{{tparsLine}}
+{{austracLine}}
+Other: {{thirdPartyOther}}
+Treatment type
+{{treatmentType}}`;
+
+    function getTemplate() {
+      return localStorage.getItem(LS_TEMPLATE_KEY) || DEFAULT_TEMPLATE;
+    }
+    function setTemplate(t) {
+      localStorage.setItem(LS_TEMPLATE_KEY, t);
+    }
+
+    function buildNote() {
+      const vars = buildVariables();
+      const note = applyTemplate(getTemplate(), vars).trim();
+      $("#preview").textContent = note;
+      return note;
+    }
+
+    async function copyFullNote() {
+      const form = $("#noteForm");
+      if (!form.reportValidity()) return;
+
+      const note = buildNote();
+
+      try {
+        await navigator.clipboard.writeText(note);
+        $("#status").textContent = "Copied full note to clipboard.";
+        setTimeout(() => $("#status").textContent = "", 2500);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = note;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+
+        $("#status").textContent = ok ? "Copied full note to clipboard." : "Clipboard copy failed (browser blocked it).";
+        setTimeout(() => $("#status").textContent = "", 2500);
+      }
+    }
+
+    function setExplainVisibility(box, yes) {
+      box.dataset.show = yes ? "true" : "false";
+      const explainEl = box.querySelector("[data-ynx-explain]");
+      if (!explainEl) return;
+      if (explainEl.hasAttribute("data-required-when-yes")) explainEl.required = !!yes;
+      if (!yes) explainEl.value = "";
+    }
+
+    function initYNX() {
+      $$("[data-ynx]").forEach(box => {
+        const sel = box.querySelector("[data-ynx-select]");
+        if (!sel) return;
+        const onChange = () => setExplainVisibility(box, sel.value === "Y");
+        sel.addEventListener("change", onChange);
+        onChange();
+      });
+    }
+
+    function initPreviewUpdates() {
+      const update = () => buildNote();
+      document.addEventListener("input", (e) => {
+        if (e.target && e.target.closest("#noteForm")) update();
+      });
+      update();
+    }
+
+    function setTheme(theme) {
+      document.body.dataset.theme = theme;
+      localStorage.setItem(LS_THEME_KEY, theme);
+    }
+    function initTheme() {
+      const saved = localStorage.getItem(LS_THEME_KEY) || "grey";
+      setTheme(saved);
+      $$("[data-theme-pick]").forEach(btn => {
+        btn.addEventListener("click", () => setTheme(btn.getAttribute("data-theme-pick")));
+      });
+    }
+
+    function openSettings() {
+      $("#settingsOverlay").dataset.open = "true";
+      $("#settingsOverlay").setAttribute("aria-hidden", "false");
+      $("#templateEditor").value = getTemplate();
+      setTab("template");
+      $("#templateEditor").focus();
+    }
+    function closeSettings() {
+      $("#settingsOverlay").dataset.open = "false";
+      $("#settingsOverlay").setAttribute("aria-hidden", "true");
+    }
+    function setTab(which) {
+      const isTemplate = which === "template";
+      $("#tabTemplate").setAttribute("aria-selected", isTemplate ? "true" : "false");
+      $("#tabTheme").setAttribute("aria-selected", isTemplate ? "false" : "true");
+      $("#panelTemplate").dataset.show = isTemplate ? "true" : "false";
+      $("#panelTheme").dataset.show = isTemplate ? "false" : "true";
+    }
+
+    function initSettings() {
+      $("#settingsBtn").addEventListener("click", openSettings);
+      $("#closeSettings").addEventListener("click", closeSettings);
+      $("#settingsOverlay").addEventListener("click", (e) => {
+        if (e.target === $("#settingsOverlay")) closeSettings();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && $("#settingsOverlay").dataset.open === "true") closeSettings();
+      });
+
+      $("#tabTemplate").addEventListener("click", () => setTab("template"));
+      $("#tabTheme").addEventListener("click", () => setTab("theme"));
+
+      $("#saveTemplate").addEventListener("click", () => {
+        setTemplate($("#templateEditor").value || DEFAULT_TEMPLATE);
+        $("#status").textContent = "Template saved.";
+        setTimeout(() => $("#status").textContent = "", 2000);
+        buildNote();
+      });
+
+      $("#resetTemplate").addEventListener("click", () => {
+        $("#templateEditor").value = DEFAULT_TEMPLATE;
+        setTemplate(DEFAULT_TEMPLATE);
+        $("#status").textContent = "Template reset to default.";
+        setTimeout(() => $("#status").textContent = "", 2000);
+        buildNote();
+      });
+    }
+
+    initYNX();
+    initTheme();
+    initSettings();
+    initPreviewUpdates();
+
+    $("#copyBtn").addEventListener("click", copyFullNote);
+    $("#noteForm").addEventListener("reset", () => setTimeout(() => { initYNX(); buildNote(); }, 0));
+  </script>
+</body>
+</html>
