@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Client BAS / GST Note Builder</title>
+  <style>
+    :root{
+      --gap: 12px;
+
+      /* Light (default) */
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+    }
+
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{ max-width:1100px; margin:24px auto; padding:16px; }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+    h1{ margin:0; font-size:20px; }
+
+    .themeToggle{
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+      cursor:pointer;
+    }
+
+    fieldset{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      padding:14px;
+      margin:12px 0;
+    }
+    legend{ padding:0 8px; font-weight:800; }
+
+    .grid{ display:grid; gap:var(--gap); }
+    .g2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .g3{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+    @media (max-width: 860px){ .g2,.g3{ grid-template-columns:1fr; } }
+
+    label{ display:grid; gap:6px; font-size:13px; }
+
+    input, select, textarea{
+      width:100%;
+      padding:10px;
+      border:1px solid var(--border-2);
+      border-radius:8px;
+      font-size:14px;
+      font-family: inherit; /* ensure same font everywhere */
+      background:var(--panel);
+      color:var(--text);
+    }
+    textarea{ min-height:88px; resize:vertical; }
+
+    .ynx{
+      border:1px dashed var(--border-2);
+      border-radius:10px;
+      padding:10px;
+      background:var(--panel-2);
+    }
+    .ynx .explain{ margin-top:10px; display:none; }
+    .ynx[data-show="true"] .explain{ display:block; }
+
+    details{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 12px;
+    }
+    summary{ cursor:pointer; font-weight:800; }
+    pre{ white-space:pre-wrap; word-break:break-word; margin:10px 0 0; font-size:13px; }
+
+    .actions{
+      position:sticky;
+      bottom:0;
+      padding:12px 0 0;
+      backdrop-filter: blur(4px);
+    }
+    .bar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background:var(--accent);
+      color:var(--btn-text);
+      font-size:14px;
+    }
+    button.ghost{
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+
+    .status{ font-size:13px; color:var(--muted); }
+
+    .footer{
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+      margin:18px 0 6px;
+    }
+    .footer a, .footer a:visited{ color:inherit; text-decoration: underline; }
+  </style>
+</head>
+
+<body data-theme="light">
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Client BAS / GST Note Builder</h1>
+      <button type="button" id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
+    </div>
+
+    <form id="noteForm" novalidate>
+      <fieldset>
+        <legend>General Client Info</legend>
+        <div class="grid g3">
+          <label>Case ID
+            <input name="caseId" type="text" />
+          </label>
+          <label>Client
+            <input name="client" type="text" />
+          </label>
+          <label>Day 30
+            <input name="day30" type="text" />
+          </label>
+          <label>Risk
+            <input name="risk" type="text" />
+          </label>
+          <label>Suppression
+            <select name="suppression">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+          <label>POR
+            <input name="por" type="text" />
+          </label>
+        </div>
+
+        <div class="grid g2" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Expanding Scope
+              <select name="expandingScope" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Date
+                <input name="expandingScopeDate" type="date" data-ynx-explain data-required-when-yes />
+              </label>
+            </div>
+          </div>
+
+          <label>Previous Compliance History/Former Audits
+            <textarea name="previousCompliance"></textarea>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <label>BAS Lodgement - Lodged on
+            <input name="basLodgedOn" type="text" />
+          </label>
+          <label>BAS Lodgement - via
+            <input name="basLodgedVia" type="text" />
+          </label>
+          <label>BAS Lodgement - by
+            <input name="basLodgedBy" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Related Entities
+          <textarea name="relatedEntities"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>BAS Labels</legend>
+        <div class="grid g3">
+          <label>Total Sales G1 ($)
+            <input name="g1" inputmode="decimal" placeholder="0.00" />
+          </label>
+          <label>Total GST Sales POR 1A ($)
+            <input name="oneA" inputmode="decimal" placeholder="0.00" />
+          </label>
+          <label>Total Acquisitions G11 ($)
+            <input name="g11" inputmode="decimal" placeholder="0.00" />
+          </label>
+          <label>Total GST Credits for POR 1B ($)
+            <input name="oneB" inputmode="decimal" placeholder="0.00" />
+          </label>
+          <label>Total Refund for POR 9 ($)
+            <input name="nine" inputmode="decimal" placeholder="0.00" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other comments
+          <textarea name="otherComments"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>GST Account &amp; Rego</legend>
+        <div class="grid g3">
+          <label>Attribution/Frequency
+            <input name="attributionFrequency" type="text" placeholder="Cash/Accruals | quarterly/monthly/yearly" />
+          </label>
+          <label>ABN Start Date
+            <input name="abnStartDate" type="text" />
+          </label>
+          <label>GST Start Date
+            <input name="gstStartDate" type="text" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Main Business Activity</legend>
+        <div class="grid g3">
+          <label>ANZIC Code
+            <input name="anzicCode" type="text" />
+          </label>
+          <label>Entity Type
+            <input name="entityType" type="text" placeholder="Individual/Sole Trader/Partnership/Trust/Company" />
+          </label>
+          <label>Business/Trading Names
+            <input name="tradingNames" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Business address (notes)
+          <textarea name="businessAddress"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>3rd party Fraud Indicators</legend>
+        <div class="grid g3">
+          <label>FID Update date
+            <input name="fidUpdateDate" type="text" />
+          </label>
+          <label>FID Linked To other entities (RAPT check completed)
+            <input name="fidLinkedEntities" type="text" />
+          </label>
+          <label>CCH
+            <input name="cch" type="text" />
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Compromised Indicators
+              <select name="compromisedIndicators" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="compromisedIndicatorsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Alerts
+              <select name="alerts" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="alertsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Recent Contact Changes
+              <select name="recentContactChanges" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="recentContactChangesExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Signs of Enterprise
+          <textarea name="signsOfEnterprise"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>ITR / Benefits / Google checks</legend>
+        <div class="grid g3">
+          <label>ITR for BAS period
+            <select name="itrForBasPeriod">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+          <label>Business Income on ITR
+            <input name="businessIncomeOnItr" type="text" />
+          </label>
+          <label>Employment Description on ITR
+            <input name="employmentDescriptionOnItr" type="text" />
+          </label>
+          <label>Centrelink Benefits
+            <select name="centrelinkBenefits">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+          <label>Google Client/individual Name
+            <input name="googleClientName" type="text" />
+          </label>
+          <label>Google Trading/Business name
+            <input name="googleTradingName" type="text" />
+          </label>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="itrOther"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Third Party Data</legend>
+        <div class="grid g3">
+          <label>Merchant Records
+            <select name="merchantRecords">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+          <label>ECP Licenses/Permits/Study Courses
+            <select name="ecp">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+          <label>Commercial Vehicle Registration
+            <select name="commercialVehicleReg">
+              <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid g3" style="margin-top:12px;">
+          <div class="ynx" data-ynx>
+            <label>Ride Share
+              <select name="rideShare" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="rideShareExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>TPARS Data
+              <select name="tpars" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="tparsExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="ynx" data-ynx>
+            <label>Austrac Data
+              <select name="austrac" data-ynx-select>
+                <option value=""></option><option value="Y">Yes</option><option value="N">No</option>
+              </select>
+            </label>
+            <div class="explain">
+              <label>Explanation
+                <textarea name="austracExplain" data-ynx-explain data-required-when-yes></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:12px;">Other
+          <textarea name="thirdPartyOther"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Treatment type</legend>
+        <label>Treatment type
+          <textarea name="treatmentType"></textarea>
+        </label>
+      </fieldset>
+
+      <details>
+        <summary>Preview generated note</summary>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="btnrow">
+            <button type="button" id="copyBtn">Copy full note to clipboard</button>
+            <button type="reset" class="ghost">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      Form created by <a href="mailto:Joshua.Robertson@ato.gov.au">Joshua Robertson</a>
+    </div>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const LS_THEME_KEY = "basNoteBuilder.theme";
+
+    function v(name){
+      const el = document.querySelector(`[name="${name}"]`);
+      return (el?.value ?? "").toString().trim();
+    }
+
+    function ynWord(val){
+      if (val === "Y") return "Yes";
+      if (val === "N") return "No";
+      return val || "";
+    }
+
+    function parseMoney(raw){
+      if (!raw) return "";
+      const cleaned = String(raw).replace(/[\s,$]/g, "");
+      const n = Number(cleaned);
+      if (!Number.isFinite(n)) return raw.trim();
+      return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function expandingScopeLine(){
+      const raw = v("expandingScope");
+      const yn = ynWord(raw);
+      const date = v("expandingScopeDate");
+      if (raw === "Y") return `Expanding Scope: ${yn} - ${date || ""}`.trim();
+      return `Expanding Scope: ${yn}`.trim();
+    }
+
+    function ynExplainLine(label, ynName, explainName){
+      const raw = v(ynName);
+      const yn = ynWord(raw);
+      const explain = v(explainName);
+      if (raw === "Y") return `${label}: ${yn} - ${explain || ""}`.trim();
+      return `${label}: ${yn}`.trim();
+    }
+
+    function moneyLine(label, name){
+      return `${label}: $${parseMoney(v(name))}`;
+    }
+
+    const TEMPLATE = `General Client Info
+Case ID: {{caseId}}
+Client: {{client}}
+Day 30:  {{day30}}
+Risk: {{risk}}
+Suppression: {{suppression}}
+POR: {{por}}
+{{expandingScopeLine}}
+Previous Compliance History/Former Audits:  {{previousCompliance}}
+BAS Lodgement Lodged on {{basLodgedOn}} via {{basLodgedVia}} by {{basLodgedBy}}
+Related Entities: {{relatedEntities}}
+BAS Labels
+{{g1Line}}
+{{oneALine}}
+{{g11Line}}
+{{oneBLine}}
+{{nineLine}}
+Other comments: {{otherComments}}
+GST Account & Rego
+Attribution/Frequency: {{attributionFrequency}}
+ABN Start Date: {{abnStartDate}}
+GST Start Date: {{gstStartDate}}
+Main Business Activity
+ANZIC Code: {{anzicCode}}
+Entity Type: {{entityType}}
+Business address: {{businessAddress}}
+Business/Trading Names: {{tradingNames}}
+
+3rd party Fraud Indicators
+FID Update date: {{fidUpdateDate}}
+FID Linked To other entities: {{fidLinkedEntities}} RAPT check completed
+{{compromisedIndicatorsLine}}
+{{alertsLine}}
+{{recentContactChangesLine}}
+CCH: {{cch}}
+Signs of Enterprise
+ITR for BAS period: {{itrForBasPeriod}}
+Business Income on ITR: {{businessIncomeOnItr}}
+Employment Description on ITR:  {{employmentDescriptionOnItr}}
+Centrelink Benefits:  {{centrelinkBenefits}}
+Google Client/individual Name: {{googleClientName}}
+Google Trading/Business name: {{googleTradingName}}
+Other: {{itrOther}}
+Third Party Data
+Merchant Records: {{merchantRecords}}
+ECP Licenses/Permits/Study Courses: {{ecp}}
+Commercial Vehicle Registration: {{commercialVehicleReg}}
+{{rideShareLine}}
+{{tparsLine}}
+{{austracLine}}
+Other: {{thirdPartyOther}}
+Treatment type
+{{treatmentType}}`;
+
+    function buildVars(){
+      return {
+        caseId: v("caseId"),
+        client: v("client"),
+        day30: v("day30"),
+        risk: v("risk"),
+        suppression: ynWord(v("suppression")),
+        por: v("por"),
+
+        expandingScopeLine: expandingScopeLine(),
+        previousCompliance: v("previousCompliance"),
+        basLodgedOn: v("basLodgedOn"),
+        basLodgedVia: v("basLodgedVia"),
+        basLodgedBy: v("basLodgedBy"),
+        relatedEntities: v("relatedEntities"),
+
+        g1Line: moneyLine("Total Sales G1", "g1"),
+        oneALine: moneyLine("Total GST Sales POR 1A", "oneA"),
+        g11Line: moneyLine("Total Acquisitions G11", "g11"),
+        oneBLine: moneyLine("Total GST Credits for POR 1B", "oneB"),
+        nineLine: moneyLine("Total Refund for POR 9", "nine"),
+        otherComments: v("otherComments"),
+
+        attributionFrequency: v("attributionFrequency"),
+        abnStartDate: v("abnStartDate"),
+        gstStartDate: v("gstStartDate"),
+
+        anzicCode: v("anzicCode"),
+        entityType: v("entityType"),
+        businessAddress: v("businessAddress"),
+        tradingNames: v("tradingNames"),
+
+        fidUpdateDate: v("fidUpdateDate"),
+        fidLinkedEntities: v("fidLinkedEntities"),
+        cch: v("cch"),
+        signsOfEnterprise: v("signsOfEnterprise"),
+
+        compromisedIndicatorsLine: ynExplainLine("Compromised Indicators", "compromisedIndicators", "compromisedIndicatorsExplain"),
+        alertsLine: ynExplainLine("Alerts", "alerts", "alertsExplain"),
+        recentContactChangesLine: ynExplainLine("Recent Contact Changes", "recentContactChanges", "recentContactChangesExplain"),
+
+        itrForBasPeriod: ynWord(v("itrForBasPeriod")),
+        businessIncomeOnItr: v("businessIncomeOnItr"),
+        employmentDescriptionOnItr: v("employmentDescriptionOnItr"),
+        centrelinkBenefits: ynWord(v("centrelinkBenefits")),
+        googleClientName: v("googleClientName"),
+        googleTradingName: v("googleTradingName"),
+        itrOther: v("itrOther"),
+
+        merchantRecords: ynWord(v("merchantRecords")),
+        ecp: ynWord(v("ecp")),
+        commercialVehicleReg: ynWord(v("commercialVehicleReg")),
+
+        rideShareLine: ynExplainLine("Ride Share", "rideShare", "rideShareExplain"),
+        tparsLine: ynExplainLine("TPARS Data", "tpars", "tparsExplain"),
+        austracLine: ynExplainLine("Austrac Data", "austrac", "austracExplain"),
+
+        thirdPartyOther: v("thirdPartyOther"),
+        treatmentType: v("treatmentType"),
+      };
+    }
+
+    function applyTemplate(template, vars){
+      return template.replace(/\{\{\s*([^}]+?)\s*\}\}/g, (_, rawKey) => {
+        const key = String(rawKey).trim();
+        const val = Object.prototype.hasOwnProperty.call(vars, key) ? vars[key] : "";
+        return (val === undefined || val === null) ? "" : String(val);
+      });
+    }
+
+    function buildNote(){
+      const note = applyTemplate(TEMPLATE, buildVars()).trim();
+      $("#preview").textContent = note;
+      return note;
+    }
+
+    async function copyFullNote(){
+      const form = $("#noteForm");
+      if (!form.reportValidity()) return;
+
+      const note = buildNote();
+      try{
+        await navigator.clipboard.writeText(note);
+        $("#status").textContent = "Copied full note to clipboard.";
+      }catch{
+        const ta = document.createElement("textarea");
+        ta.value = note;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        $("#status").textContent = ok ? "Copied full note to clipboard." : "Clipboard copy failed (browser blocked it).";
+      }
+      setTimeout(() => $("#status").textContent = "", 2500);
+    }
+
+    function setExplainVisibility(box, yes){
+      box.dataset.show = yes ? "true" : "false";
+      const explainEl = box.querySelector("[data-ynx-explain]");
+      if (!explainEl) return;
+      if (explainEl.hasAttribute("data-required-when-yes")) explainEl.required = !!yes;
+      if (!yes) explainEl.value = "";
+    }
+
+    function initYNX(){
+      $$("[data-ynx]").forEach(box => {
+        const sel = box.querySelector("[data-ynx-select]");
+        if (!sel) return;
+        const onChange = () => setExplainVisibility(box, sel.value === "Y");
+        sel.addEventListener("change", onChange);
+        onChange();
+      });
+    }
+
+    function setTheme(theme){
+      document.body.dataset.theme = theme;
+      localStorage.setItem(LS_THEME_KEY, theme);
+      $("#themeToggle").textContent = (theme === "dark") ? "Light" : "Dark";
+    }
+    function initTheme(){
+      const saved = localStorage.getItem(LS_THEME_KEY) || "light";
+      setTheme(saved);
+      $("#themeToggle").addEventListener("click", () => {
+        setTheme((document.body.dataset.theme || "light") === "dark" ? "light" : "dark");
+      });
+    }
+
+    // Live preview update
+    document.addEventListener("input", (e) => {
+      if (e.target && e.target.closest("#noteForm")) buildNote();
+    });
+
+    $("#copyBtn").addEventListener("click", copyFullNote);
+    $("#noteForm").addEventListener("reset", () => setTimeout(() => { initYNX(); buildNote(); }, 0));
+
+    initYNX();
+    initTheme();
+    buildNote();
+  </script>
+</body>
+</html>
