@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time Manager</title>
+  <style>
+    :root{
+      --gap: 12px;
+
+      /* Light (default) */
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+
+      --good: #16a34a;
+      --bad:  #ef4444;
+
+      --bar-h: 120px;
+    }
+
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+
+      --good:#22c55e;
+      --bad:#f87171;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:16px;
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Ensure content never hides under fixed bottom bar */
+    .content{
+      flex:1;
+      padding-top:8px;
+      padding-bottom: calc(var(--bar-h) + 64px);
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:8px 0 12px;
+    }
+    .topbarRight{ display:flex; gap:10px; align-items:center; }
+    h1{ margin:0; font-size:27.5px; font-weight:1000; }
+
+    .pillBtn{
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+      cursor:pointer;
+    }
+
+    fieldset{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      padding:14px;
+      margin:12px 0;
+    }
+    legend{ padding:0 8px; font-weight:800; }
+
+    .grid{ display:grid; gap:var(--gap); }
+    .g2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    @media (max-width: 860px){ .g2{ grid-template-columns:1fr; } }
+
+    label{ display:grid; gap:6px; font-size:13px; }
+
+    input, select, textarea{
+      width:100%;
+      padding:10px;
+      border:1px solid var(--border-2);
+      border-radius:8px;
+      font-size:14px;
+      font-family: inherit;
+      background:var(--panel);
+      color:var(--text);
+    }
+
+    textarea{ min-height: 120px; resize: vertical; }
+
+    .hint{ font-size:12px; color:var(--muted); margin-top:4px; }
+    .muted{ color:var(--muted); }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    a{ color:inherit; }
+    a:hover{ color:var(--accent); }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background:var(--accent);
+      color:var(--btn-text);
+      font-size:14px;
+    }
+    button.ghost{
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    button.tiny{
+      padding:7px 10px;
+      border-radius:10px;
+      font-weight:900;
+      font-size:12px;
+    }
+    button.wide{ width:100%; }
+
+    .days{ display:grid; gap:12px; }
+
+    /* Week boxes for 2-weekly / 4-weekly */
+    .weeks{
+      display:grid;
+      gap:12px;
+    }
+    .weekBox{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:12px;
+      padding:12px;
+      box-shadow: var(--shadow);
+    }
+    .weekHead{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .weekLabel{
+      font-weight:1000;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .weekRange{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .weekDays{
+      display:grid;
+      gap:12px;
+    }
+
+    .dayCard{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:12px;
+      padding:12px;
+      box-shadow: var(--shadow);
+    }
+
+    .dayHead{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:baseline;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .dayTitle{
+      display:flex;
+      gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
+    }
+    .dayTitle .date{
+      font-weight:1000;
+      font-size:14px;
+    }
+    .badge{
+      font-size:11px;
+      font-weight:900;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--panel-2);
+      color:var(--muted);
+    }
+    .badge.today{
+      border-color: color-mix(in oklab, var(--accent), var(--border) 40%);
+      color: var(--text);
+    }
+    .todayHighlight{
+      outline: 2px solid color-mix(in oklab, var(--accent), transparent 35%);
+      outline-offset: 2px;
+    }
+
+    /* Day layout: 4 across */
+    .dayGrid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:10px;
+      align-items:start;
+      margin-top: 8px;
+    }
+    @media (max-width: 980px){
+      .dayGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 560px){
+      .dayGrid{ grid-template-columns: 1fr; }
+    }
+
+    .slot{
+      border:1px solid var(--border);
+      background: var(--panel-2);
+      border-radius:12px;
+      padding:10px;
+      display:grid;
+      gap:8px;
+    }
+    .slot .slotTitle{
+      font-weight:950;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.2px;
+    }
+
+    .calcRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px dashed var(--border-2);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .totals{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:baseline;
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:999px;
+      padding:6px 10px;
+      color:var(--text);
+    }
+    .pill .k{ font-weight:950; font-size:11px; color:var(--muted); }
+    .pill .v{ font-weight:950; font-size:12px; }
+    .v.good{ color:var(--good); }
+    .v.bad{ color:var(--bad); }
+
+    /* Bottom bar fixed to bottom of viewport */
+    .actions{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:12px 16px 16px;
+      z-index: 20;
+      pointer-events:none;
+    }
+    .bar{
+      pointer-events:auto;
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    .barLeft{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .barRight{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
+    .status{ font-size:13px; color:var(--muted); }
+    .labelStrong{ font-weight:1000; color:var(--muted); font-size:12px; }
+
+    /* Modals */
+    .modalBackdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index: 50;
+    }
+    .modal{
+      width:min(820px, 100%);
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:14px;
+      max-height: min(80vh, 820px);
+      overflow:auto;
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      position:sticky;
+      top:0;
+      background:var(--panel);
+      padding-bottom:10px;
+      border-bottom:1px solid var(--border);
+      z-index: 1;
+    }
+    .modalTitle{ font-weight:1000; }
+    .modalBody{ color:var(--muted); font-size:13px; }
+    .modalActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      margin-top:12px;
+      position:sticky;
+      bottom:0;
+      background:var(--panel);
+      padding-top:10px;
+      border-top:1px solid var(--border);
+    }
+
+    .iconBtn{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      padding:0;
+    }
+    .iconBtn svg{ width:18px; height:18px; }
+
+    /* Summary table */
+    table{
+      width:100%;
+      border-collapse: collapse;
+      font-size:13px;
+      color:var(--text);
+    }
+    th, td{
+      border-bottom:1px solid var(--border);
+      padding:10px 8px;
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:1000;
+      position:sticky;
+      top:0;
+      background:var(--panel);
+      z-index: 1;
+    }
+    .tdNote{ white-space:pre-wrap; color:var(--muted); }
+
+    .credit{
+      margin-top:14px;
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+    }
+  
+    .dayHead .pill{
+      padding:4px 8px;
+      border-radius:999px;
+    }
+    .dayHead .pill .k{ font-size:10px; }
+    .dayHead .pill .v{ font-size:11px; }
+
+  
+.creditBottom{
+  pointer-events:auto;
+  max-width:1100px;
+  margin:6px auto 0;
+  text-align:center;
+  font-size:10.5px;
+  line-height:1.2;
+  color:var(--muted);
+  padding:0 10px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+  
+/* Modal scrolling fix: keep header/footer visible, scroll only body */
+.modal{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.modalBody{
+  overflow:auto;
+  flex:1;
+  padding-right:2px; /* avoids scrollbar overlaying text */
+}
+.modalActions{
+  position:static;
+}
+th{
+  top:0;
+}
+  
+/* Summary header with stationary period + totals */
+.summaryHead{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.summaryHeadTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.summaryMeta{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.summaryTotals{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+/* Sticky header row inside scrollable modal body */
+#summaryModal th{
+  position:sticky;
+  top:0;
+  background:var(--panel);
+  z-index: 2;
+}
+  
+/* Ensure Note modal overlays Summary when opened from it */
+#summaryModal{ z-index: 50; }
+#noteModal{ z-index: 80; }
+  </style>
+</head>
+
+<body data-theme="light">
+  <div class="wrap">
+    <div class="topbar">
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <h1>Time Manager</h1>
+        <div id="periodSubtitle" class="muted" style="font-size:13px;"></div>
+      </div>
+      <div class="topbarRight">
+        <button type="button" id="helpBtn" class="pillBtn">Help</button>
+        <button type="button" id="themeToggle" class="pillBtn" aria-label="Toggle theme">Dark</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <form id="logForm" novalidate>
+        <div id="days" class="days"></div>
+</form>
+    </div>
+  </div>
+
+  <div class="actions" id="actions">
+    <div class="bar" id="bar">
+      <div class="barLeft">
+        <div class="status" id="status" aria-live="polite"></div>
+        <span class="labelStrong">Period totals:</span>
+        <span class="pill"><span class="k">Worked</span> <span class="v mono" id="rangeWorked">—</span></span>
+        <span class="pill"><span class="k">Flex</span> <span class="v mono" id="rangeFlex">—</span></span>
+      </div>
+
+      <div class="barRight">
+<button type="button" id="summaryBtn" class="ghost">Summary</button>
+        <button type="button" id="clearBtn" class="ghost">Clear</button>
+
+        <button type="button" id="settingsBtn" class="ghost iconBtn" aria-label="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            <path d="M19.4 15a7.9 7.9 0 0 0 .1-2l2-1.5-2-3.5-2.4.7a7.9 7.9 0 0 0-1.7-1L15 3h-6l-.4 2.7a7.9 7.9 0 0 0-1.7 1L4.5 6 2.5 9.5l2 1.5a7.9 7.9 0 0 0 0 2l-2 1.5 2 3.5 2.4-.7a7.9 7.9 0 0 0 1.7 1L9 21h6l.4-2.7a7.9 7.9 0 0 0 1.7-1l2.4.7 2-3.5-2-1.5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+<div class="creditBottom">
+  Form created by <a href="mailto:Joshua.robertson@ato.gov.au">Joshua Robertson</a>
+</div>
+  </div>
+
+  <!-- Help modal -->
+  <div class="modalBackdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal">
+      <div class="modalHead">
+        <div class="modalTitle" id="helpTitle">Help</div>
+        <button type="button" class="ghost tiny" data-close="helpModal">Close</button>
+      </div>
+      <div class="modalBody">
+  <ul style="margin:0; padding-left:18px;">
+    <li><strong>What this is:</strong> Log your day by entering your <em>Shift start</em>, <em>Lunch start</em>, <em>Lunch end</em>, and <em>Shift end</em>.</li>
+
+    <li><strong>Now buttons:</strong> On <strong>today</strong> only, each time field has a <strong>Now</strong> button to stamp the current time (minute accurate). You can still manually edit any day.</li>
+
+    <li><strong>Views:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Daily</strong>: shows just today (if it’s Saturday or Sunday, it shows the closest Monday).</li>
+        <li><strong>Weekly</strong>: shows the current work week (Monday to Friday).</li>
+        <li><strong>2-weekly / 4-weekly</strong>: shows 2 or 4 work weeks grouped into Week 1, Week 2, etc.</li>
+      </ul>
+      <div class="muted" style="margin-top:6px;">The view mode can be changed at any time in <strong>Settings</strong>.</div>
+    </li>
+
+    <li><strong>Totals:</strong> Each day shows <strong>Total work</strong>, <strong>Total lunch</strong>, and <strong>Flex</strong> next to the date.</li>
+
+    <li><strong>Notes:</strong> Use the <strong>Note</strong> button to attach a note to that day. Notes appear in the <strong>Summary</strong>.</li>
+
+    <li><strong>Summary:</strong> Use the <strong>Summary</strong> button when you need to copy or review your hours for entry into <strong>TMS</strong>. It shows every day in the 4‑week period with all times and notes.</li>
+
+    <li><strong>Saving &amp; backup:</strong> The form saves automatically to your browser cache (local storage). If you ever need to clear your browser cache, use <strong>Settings → Export CSV</strong> first, then <strong>Import CSV</strong> to restore your data.</li>
+  </ul>
+</div>
+
+
+      <div class="modalActions">
+        <button type="button" class="ghost" data-close="helpModal">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings modal (calendar removed) -->
+  <div class="modalBackdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal">
+      <div class="modalHead">
+        <div class="modalTitle" id="settingsTitle">Settings</div>
+        <button type="button" class="ghost tiny" data-close="settingsModal">Close</button>
+      </div>
+
+      <div class="modalBody">
+        <fieldset style="margin:0;">
+          <legend>View</legend>
+          <div class="grid g2">
+            <label>Default view mode
+              <select id="modeSelect" name="mode">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="2-weekly">2-weekly</option>
+                <option value="4-weekly">4-weekly</option>
+              </select>
+              
+            </label>
+
+            <label>Period start
+              <input id="periodStart" type="date" />
+              
+            </label>
+          </div>
+        <div class="muted" style="margin-top:10px;">Autosaves to browser cache (local storage).</div>
+        </fieldset>
+      <fieldset style="margin-top:12px;">
+  <legend>Data</legend>
+  <div class="muted" style="margin-bottom:10px;">
+    This form saves automatically to your browser cache (local storage). If you ever need to clear your browser cache,
+    you can export your data first, then import it back later.
+  </div>
+
+  <div class="grid g2">
+    <label>Export
+      <button type="button" id="settingsExportBtn" class="ghost">Export CSV</button>
+      <div class="hint">Downloads a CSV with all saved days in this browser.</div>
+    </label>
+
+    <label>Import
+      <input type="file" id="settingsImportFile" accept=".csv,text/csv" />
+      <button type="button" id="settingsImportBtn" class="ghost" style="margin-top:8px;">Import CSV</button>
+      <div class="hint">Imports days from a CSV export. Matching dates will be overwritten.</div>
+    </label>
+  </div>
+</fieldset>
+
+      </div>
+
+      <div class="modalActions">
+        <button type="button" class="ghost" data-close="settingsModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note modal -->
+  <div class="modalBackdrop" id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <div class="modal">
+      <div class="modalHead">
+        <div class="modalTitle" id="noteTitle">Note</div>
+        <button type="button" class="ghost tiny" data-close="noteModal">Close</button>
+      </div>
+      <div class="modalBody">
+        <div class="muted" id="noteDateLine" style="margin-bottom:10px;"></div>
+        <label>Add / edit note
+          <textarea id="noteText" placeholder="Write a note for this day..."></textarea>
+        </label>
+      </div>
+      <div class="modalActions">
+        <button type="button" class="ghost" id="noteClearBtn">Clear note</button>
+        <button type="button" id="noteSaveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary modal -->
+  <div class="modalBackdrop" id="summaryModal" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+  <div class="modal">
+    <div class="modalHead summaryHead">
+      <div class="summaryHeadTop">
+        <div class="modalTitle" id="summaryTitle">Summary</div>
+        <button type="button" class="ghost tiny" data-close="summaryModal">Close</button>
+      </div>
+      <div class="summaryMeta">
+        <div class="muted" id="summaryRange"></div>
+        <div class="summaryTotals">
+          <span class="pill"><span class="k">Worked</span> <span class="v mono" id="summaryWorked">—</span></span>
+          <span class="pill"><span class="k">Flex</span> <span class="v mono" id="summaryFlex">—</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="modalBody">
+        <div class="muted" id="summaryRange" style="margin-bottom:10px;"></div>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:170px;">Day</th>
+                <th>Shift start</th>
+                <th>Lunch start</th>
+                <th>Lunch end</th>
+                <th>Shift end</th>
+                <th style="width:260px;">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="summaryBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modalActions">
+        <button type="button" class="ghost" id="copySummaryBtn">Copy as TSV</button>
+        <button type="button" class="ghost" data-close="summaryModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const LS_THEME_KEY = "workLog.theme";
+    const LS_MODE_KEY  = "workLog.mode";
+    const LS_PERIOD_START_KEY = "workLog.periodStart";
+    const LS_DATA_KEY  = "workLog.entries.v6"; // { "YYYY-MM-DD": { ss, ls, le, se, note } }
+
+    const FLEX_TARGET_MINS = 7*60 + 21; // 441
+
+    function pad2(n){ return String(n).padStart(2,"0"); }
+
+    // Dates
+    function toISODate(d){
+      return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+    }
+    function fromISODate(s){
+      const [y,m,dd] = s.split("-").map(Number);
+      return new Date(y, (m||1)-1, dd||1, 12, 0, 0, 0);
+    }
+    function addDays(d, n){
+      const x = new Date(d);
+      x.setDate(x.getDate() + n);
+      return x;
+    }
+    function isWeekend(d){
+      const day = d.getDay();
+      return day === 0 || day === 6;
+    }
+    function closestMondayForWeekend(d){
+      const day = d.getDay();
+      if (day === 6) return addDays(d, 2);
+      if (day === 0) return addDays(d, 1);
+      return d;
+    }
+    function formatHuman(d){
+      return d.toLocaleDateString(undefined, { weekday:"short", year:"numeric", month:"short", day:"numeric" });
+    }
+
+    // Mode logic (weekday counts)
+    function modeSpanWeekdays(mode){
+      if (mode === "weekly") return 5;
+      if (mode === "2-weekly") return 10;
+      if (mode === "4-weekly") return 20;
+      return 1;
+    }
+    function modeLabel(mode){
+      if (mode === "2-weekly") return "2-weekly";
+      if (mode === "4-weekly") return "4-weekly";
+      return mode.charAt(0).toUpperCase() + mode.slice(1);
+    }
+
+    // Storage
+    function loadAll(){
+      try{
+        const raw = localStorage.getItem(LS_DATA_KEY);
+        const obj = raw ? JSON.parse(raw) : {};
+        return (obj && typeof obj === "object") ? obj : {};
+      }catch{ return {}; }
+    }
+    function saveAll(obj){
+      localStorage.setItem(LS_DATA_KEY, JSON.stringify(obj || {}));
+    }
+    function getEntry(map, iso){
+      const v = map[iso];
+      if (!v || typeof v !== "object") return { ss:"", ls:"", le:"", se:"", note:"" };
+      return { ss: v.ss||"", ls: v.ls||"", le: v.le||"", se: v.se||"", note: v.note||"" };
+    }
+    function setEntry(map, iso, patch){
+      map[iso] = { ...getEntry(map, iso), ...patch };
+    }
+
+    // Time (minute-accurate)
+    function nowHHMM(){
+      const d = new Date();
+      return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+    }
+    function minutesBetween(a, b){
+      if (!a || !b) return null;
+      const [ah, am] = a.split(":").map(Number);
+      const [bh, bm] = b.split(":").map(Number);
+      if (![ah,am,bh,bm].every(n => Number.isFinite(n))) return null;
+      return (bh*60+bm) - (ah*60+am);
+    }
+    function fmtMin(min){
+      if (min === null) return "";
+      const sign = min < 0 ? "-" : "";
+      const m = Math.abs(min);
+      const h = Math.floor(m/60);
+      const r = m % 60;
+      return `${sign}${h}h ${pad2(r)}m`;
+    }
+
+    function currentMode(){ return $("#modeSelect").value || "daily"; }
+    function todayISO(){
+      return toISODate(closestMondayForWeekend(new Date()));
+    }
+
+    // Theme
+    function setTheme(theme){
+      document.body.dataset.theme = theme;
+      localStorage.setItem(LS_THEME_KEY, theme);
+      $("#themeToggle").textContent = (theme === "dark") ? "Light" : "Dark";
+    }
+    function initTheme(){
+      setTheme(localStorage.getItem(LS_THEME_KEY) || "light");
+      $("#themeToggle").addEventListener("click", () => {
+        setTheme((document.body.dataset.theme || "light") === "dark" ? "light" : "dark");
+      });
+    }
+
+    function setMode(mode){
+      $("#modeSelect").value = mode;
+      localStorage.setItem(LS_MODE_KEY, mode);
+    }
+    function initMode(){
+      setMode(localStorage.getItem(LS_MODE_KEY) || "daily");
+    }
+
+    function setPeriodStart(iso){
+      $("#periodStart").value = iso || "";
+      localStorage.setItem(LS_PERIOD_START_KEY, iso || "");
+    }
+    function initPeriodStart(){
+      $("#periodStart").value = localStorage.getItem(LS_PERIOD_START_KEY) || "";
+    }
+
+    function buildWeekdayList(startISO, count){
+      const out = [];
+      let d = fromISODate(startISO);
+      while (out.length < count){
+        if (!isWeekend(d)) out.push(toISODate(d));
+        d = addDays(d, 1);
+      }
+      return out;
+    }
+
+    function weekdayBackFromISO(iso, n){
+      let d = fromISODate(iso);
+      let remaining = n;
+      while (remaining > 0){
+        d = addDays(d, -1);
+        if (!isWeekend(d)) remaining--;
+      }
+      return toISODate(d);
+    }
+
+    // 4-week base list (20 weekdays) used to decide week numbering
+    function computeFourWeekBase(){
+      const tISO = todayISO();
+      const manual = ($("#periodStart").value || "").trim();
+      const startISO = manual ? manual : weekdayBackFromISO(tISO, Math.floor(20/2));
+      const list = buildWeekdayList(startISO, 20);
+      return { startISO, list };
+    }
+
+    function computeVisibleISOList(){
+      const mode = currentMode();
+      const tISO = todayISO();
+
+      if (mode === "daily") return [tISO];
+
+      const span = modeSpanWeekdays(mode);
+      const manual = ($("#periodStart").value || "").trim();
+
+      if (manual){
+        return buildWeekdayList(manual, span);
+      }
+
+      const startISO = weekdayBackFromISO(tISO, Math.floor(span/2));
+      return buildWeekdayList(startISO, span);
+    }
+
+    function computeFourWeekISOList(){
+      return computeFourWeekBase().list;
+    }
+
+    function computeTotalsForISOList(isoList, map){
+      let totalWorkMin = 0;
+      let totalFlexMin = 0;
+      let anyWork = false;
+
+      isoList.forEach(iso => {
+        const e = getEntry(map, iso);
+        const workMin = minutesBetween(e.ss, e.se);
+        if (workMin !== null){
+          anyWork = true;
+          totalWorkMin += workMin;
+          totalFlexMin += (workMin - FLEX_TARGET_MINS);
+        }
+      });
+
+      return { anyWork, totalWorkMin, totalFlexMin };
+    }
+
+    function weekLabelForISO(iso, fourWeekList){
+      const idx = fourWeekList.indexOf(iso);
+      if (idx === -1) return null;
+      return Math.floor(idx / 5) + 1; // 1..4
+    }
+    function rangeLabelForWeek(isoList){
+      const startD = fromISODate(isoList[0]);
+      const endD = fromISODate(isoList[isoList.length - 1]);
+      return `${formatHuman(startD)} → ${formatHuman(endD)}`;
+    }
+
+    function buildDayCard(iso, tISO, entry){
+      const d = fromISODate(iso);
+      const isToday = iso === tISO;
+
+      const card = document.createElement("div");
+      card.className = "dayCard";
+      card.dataset.iso = iso;
+
+      if (isToday) card.classList.add("todayHighlight");
+
+      const head = document.createElement("div");
+      head.className = "dayHead";
+
+      const title = document.createElement("div");
+      title.className = "dayTitle";
+      // Per-day totals (shown in header)
+      const workMin = minutesBetween(entry.ss, entry.se);
+      const lunchMin = minutesBetween(entry.ls, entry.le);
+      const flexMin = (workMin === null) ? null : (workMin - FLEX_TARGET_MINS);
+      const flexClass = (flexMin === null) ? "" : (flexMin < 0 ? "bad" : "good");
+
+title.innerHTML = `
+  <div class="date">${formatHuman(d)}</div>
+  ${isToday ? `<span class="badge today">Today</span>` : ``}
+  <span class="pill"><span class="k">Total work</span> <span class="v mono">${fmtMin(workMin) || "—"}</span></span>
+  <span class="pill"><span class="k">Total lunch</span> <span class="v mono">${fmtMin(lunchMin) || "—"}</span></span>
+  <span class="pill"><span class="k">Flex</span> <span class="v mono ${flexClass}">${(flexMin === null) ? "—" : fmtMin(flexMin)}</span></span>
+`;
+const right = document.createElement("div");
+      right.innerHTML = `
+        <button type="button" class="tiny ghost" data-act="note">Note</button>
+        <button type="button" class="tiny ghost" data-act="clearDay">Clear day</button>
+      `;
+
+      head.appendChild(title);
+      head.appendChild(right);
+      card.appendChild(head);
+
+      const grid = document.createElement("div");
+      grid.className = "dayGrid";
+
+      const slots = [
+        { key:"ss", label:"Shift start", act:"nowSS" },
+        { key:"ls", label:"Lunch start", act:"nowLS" },
+        { key:"le", label:"Lunch end",   act:"nowLE" },
+        { key:"se", label:"Shift end",   act:"nowSE" },
+      ];
+
+      slots.forEach(s => {
+        const slot = document.createElement("div");
+        slot.className = "slot";
+        const nowBtn = isToday ? `<button type="button" class="tiny wide" data-act="${s.act}">Now</button>` : ``;
+
+        slot.innerHTML = `
+          <div class="slotTitle">${s.label}</div>
+          <input type="time" step="60" inputmode="numeric" data-field="${s.key}" value="${entry[s.key] || ""}" />
+          ${nowBtn}
+        `;
+        grid.appendChild(slot);
+      });
+
+      card.appendChild(grid);
+
+if ((entry.note || "").trim()){
+        const noteBadge = document.createElement("span");
+        noteBadge.className = "badge";
+        noteBadge.textContent = "Note";
+        title.appendChild(noteBadge);
+      }
+
+      return card;
+    }
+
+    function render(opts={scroll:true}){
+      const mode = currentMode();
+      const tISO = todayISO();
+      const isoList = computeVisibleISOList();
+      const { list: fourWeekList } = computeFourWeekBase();
+
+      const startD = fromISODate(isoList[0]);
+      const endD = fromISODate(isoList[isoList.length - 1]);
+      $("#periodSubtitle").textContent = `[Period: ${formatHuman(startD)} → ${formatHuman(endD)}]`;
+
+      const map = loadAll();
+      const daysEl = $("#days");
+      daysEl.innerHTML = "";
+
+      if (mode === "2-weekly" || mode === "4-weekly"){
+        const weeksWrap = document.createElement("div");
+        weeksWrap.className = "weeks";
+
+        for (let wStart = 0; wStart < isoList.length; wStart += 5){
+          const weekDays = isoList.slice(wStart, wStart + 5);
+          if (!weekDays.length) continue;
+
+          const weekBox = document.createElement("div");
+          weekBox.className = "weekBox";
+
+          const wkNum = weekLabelForISO(weekDays[0], fourWeekList);
+          const weekHead = document.createElement("div");
+          weekHead.className = "weekHead";
+          weekHead.innerHTML = `
+            <div class="weekLabel">Week ${wkNum ?? (wStart/5 + 1)}</div>
+            <div class="weekRange">${rangeLabelForWeek(weekDays)}</div>
+          `;
+          weekBox.appendChild(weekHead);
+
+          const weekDaysWrap = document.createElement("div");
+          weekDaysWrap.className = "weekDays";
+          weekDays.forEach(iso => {
+            weekDaysWrap.appendChild(buildDayCard(iso, tISO, getEntry(map, iso)));
+          });
+          weekBox.appendChild(weekDaysWrap);
+
+          weeksWrap.appendChild(weekBox);
+        }
+
+        daysEl.appendChild(weeksWrap);
+      } else {
+        isoList.forEach(iso => {
+          daysEl.appendChild(buildDayCard(iso, tISO, getEntry(map, iso)));
+        });
+      }
+
+      const totals = computeTotalsForISOList(isoList, map);
+      $("#rangeWorked").textContent = totals.anyWork ? fmtMin(totals.totalWorkMin) : "—";
+
+      const flexEl = $("#rangeFlex");
+      flexEl.textContent = totals.anyWork ? fmtMin(totals.totalFlexMin) : "—";
+      flexEl.classList.remove("good", "bad");
+      if (totals.anyWork){
+        flexEl.classList.add(totals.totalFlexMin < 0 ? "bad" : "good");
+      }
+
+      const manual = ($("#periodStart").value || "").trim();
+      if (opts.scroll && mode !== "daily" && !manual){
+        const todayCard = $("#days").querySelector(`[data-iso="${tISO}"]`);
+        if (todayCard) todayCard.scrollIntoView({ block:"center", inline:"nearest" });
+      }
+
+      syncBarHeight();
+    }
+
+    function syncBarHeight(){
+      const actions = $("#actions");
+      const h = actions.offsetHeight || 120;
+      document.documentElement.style.setProperty("--bar-h", `${h}px`);
+    }
+
+    function flash(msg){
+      $("#status").textContent = msg;
+      setTimeout(() => { if ($("#status").textContent === msg) $("#status").textContent = ""; }, 2500);
+    }
+
+    function updateFromCard(card){
+      const iso = card.dataset.iso;
+      const map = loadAll();
+      const patch = {};
+      $$("input[type='time'][data-field]", card).forEach(inp => {
+        patch[inp.dataset.field] = (inp.value || "").trim();
+      });
+      setEntry(map, iso, patch);
+      saveAll(map);
+    }
+
+    function clearDay(iso){
+      const map = loadAll();
+      map[iso] = { ss:"", ls:"", le:"", se:"", note:"" };
+      saveAll(map);
+    }
+
+    function clearVisibleRange(){
+      const map = loadAll();
+      $$(".dayCard", $("#days")).forEach(c => {
+        map[c.dataset.iso] = { ss:"", ls:"", le:"", se:"", note:"" };
+      });
+      saveAll(map);
+      render({scroll:false});
+      flash("Cleared.");
+    }
+
+    function exportVisibleCSV(){
+      const map = loadAll();
+      const isoList = computeVisibleISOList();
+
+      const header = ["Date","ShiftStart","LunchStart","LunchEnd","ShiftEnd","WorkMinutes","LunchMinutes","FlexMinutes","Note"];
+      const lines = [header.join(",")];
+
+      isoList.forEach(iso => {
+        const e = getEntry(map, iso);
+        const workMin = minutesBetween(e.ss, e.se);
+        const lunchMin = minutesBetween(e.ls, e.le);
+        const flexMin = (workMin === null) ? "" : (workMin - FLEX_TARGET_MINS);
+
+        const row = [
+          iso, e.ss||"", e.ls||"", e.le||"", e.se||"",
+          (workMin ?? ""), (lunchMin ?? ""), flexMin, e.note || ""
+        ].map(v => `"${String(v).replaceAll('"','""')}"`);
+
+        lines.push(row.join(","));
+      });
+
+      const blob = new Blob([lines.join("\n")], { type:"text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `time-manager_${currentMode()}_${todayISO()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      flash("Exported.");
+    }
+function exportAllCSV(){
+  const map = loadAll();
+  const keys = Object.keys(map).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+  const header = ["Date","ShiftStart","LunchStart","LunchEnd","ShiftEnd","WorkMinutes","LunchMinutes","FlexMinutes","Note"];
+  const lines = [header.join(",")];
+
+  keys.forEach(iso => {
+    const e = getEntry(map, iso);
+    const workMin = minutesBetween(e.ss, e.se);
+    const lunchMin = minutesBetween(e.ls, e.le);
+    const flexMin = (workMin === null) ? "" : (workMin - FLEX_TARGET_MINS);
+
+    const row = [
+      iso, e.ss||"", e.ls||"", e.le||"", e.se||"",
+      (workMin ?? ""), (lunchMin ?? ""), flexMin, e.note || ""
+    ].map(v => `"${String(v).replaceAll('"','""')}"`);
+
+    lines.push(row.join(","));
+  });
+
+  const blob = new Blob([lines.join("\n")], { type:"text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `time-manager_backup_${todayISO()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+
+  flash("Exported (backup).");
+}
+
+function parseCSV(text){
+  // Simple CSV parser supporting quoted fields.
+  const rows = [];
+  let row = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for (let i=0; i<text.length; i++){
+    const ch = text[i];
+    const next = text[i+1];
+
+    if (inQuotes){
+      if (ch === '"' && next === '"'){
+        cur += '"'; i++;
+      } else if (ch === '"'){
+        inQuotes = false;
+      } else {
+        cur += ch;
+      }
+      continue;
+    }
+
+    if (ch === '"'){ inQuotes = true; continue; }
+    if (ch === ","){ row.push(cur); cur=""; continue; }
+    if (ch === "\r"){ continue; }
+    if (ch === "\n"){
+      row.push(cur); cur="";
+      if (row.length > 1 || row[0] !== "") rows.push(row);
+      row = [];
+      continue;
+    }
+
+    cur += ch;
+  }
+  // last cell
+  row.push(cur);
+  if (row.length > 1 || row[0] !== "") rows.push(row);
+  return rows;
+}
+
+async function importCSVFromFile(){
+  const file = $("#settingsImportFile").files?.[0];
+  if (!file){
+    flash("Choose a CSV file first.");
+    return;
+  }
+
+  const text = await file.text();
+  const rows = parseCSV(text);
+  if (!rows.length){
+    flash("CSV appears empty.");
+    return;
+  }
+
+  // Accept both our export header and anything with Date in col 0.
+  const header = rows[0].map(s => (s || "").trim().toLowerCase());
+  let startIdx = 0;
+
+  // If first row looks like a header, skip it
+  if (header[0] === "date" || header.includes("shiftstart") || header.includes("shift start")){
+    startIdx = 1;
+  }
+
+  const map = loadAll();
+  let imported = 0;
+
+  for (let r = startIdx; r < rows.length; r++){
+    const cols = rows[r];
+    const iso = (cols[0] || "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) continue;
+
+    // Try to map by position (our export format)
+    const ss = (cols[1] || "").trim();
+    const ls = (cols[2] || "").trim();
+    const le = (cols[3] || "").trim();
+    const se = (cols[4] || "").trim();
+    const note = (cols[8] || "").trim();
+
+    setEntry(map, iso, { ss, ls, le, se, note });
+    imported++;
+  }
+
+  saveAll(map);
+  render({scroll:false});
+  flash(`Imported ${imported} day(s).`);
+}
+
+    let noteISO = null;
+    function openNote(iso){
+      noteISO = iso;
+      $("#noteDateLine").textContent = `${formatHuman(fromISODate(iso))} (${iso})`;
+      $("#noteText").value = getEntry(loadAll(), iso).note || "";
+      openModal("noteModal");
+      $("#noteText").focus();
+    }
+    function saveNote(){
+      if (!noteISO) return;
+      const map = loadAll();
+      setEntry(map, noteISO, { note: ($("#noteText").value || "").trim() });
+      saveAll(map);
+      closeModal("noteModal");
+      render({scroll:false});
+      flash("Note saved.");
+    }
+    function clearNote(){
+      if (!noteISO) return;
+      const map = loadAll();
+      setEntry(map, noteISO, { note: "" });
+      saveAll(map);
+      $("#noteText").value = "";
+      render({scroll:false});
+      flash("Note cleared.");
+    }
+
+    function openSummary(){
+      const map = loadAll();
+      const isoList = computeFourWeekISOList();
+      $("#summaryRange").textContent = `${formatHuman(fromISODate(isoList[0]))} → ${formatHuman(fromISODate(isoList[isoList.length - 1]))}`;
+      const totals = computeTotalsForISOList(isoList, map);
+      $("#summaryWorked").textContent = totals.anyWork ? fmtMin(totals.totalWorkMin) : "—";
+      const sFlex = $("#summaryFlex");
+      sFlex.textContent = totals.anyWork ? fmtMin(totals.totalFlexMin) : "—";
+      sFlex.classList.remove("good","bad");
+      if (totals.anyWork) sFlex.classList.add(totals.totalFlexMin < 0 ? "bad" : "good");
+const body = $("#summaryBody");
+      body.innerHTML = "";
+
+      isoList.forEach(iso => {
+        const e = getEntry(map, iso);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${formatHuman(fromISODate(iso))}</strong></td>
+          <td class="mono">${e.ss || ""}</td>
+          <td class="mono">${e.ls || ""}</td>
+          <td class="mono">${e.le || ""}</td>
+          <td class="mono">${e.se || ""}</td>
+          <td class="tdNote"></td>
+        `;
+        const td = tr.querySelector(".tdNote");
+        if ((e.note || "").trim()){
+          td.innerHTML = `<a href="#" data-act="openNote" data-iso="${iso}">Open Note</a>`;
+        } else {
+          td.textContent = "";
+        }
+        body.appendChild(tr);
+      });
+
+      openModal("summaryModal");
+    }
+
+    function copySummaryTSV(){
+      const map = loadAll();
+      const isoList = computeFourWeekISOList();
+      const lines = [];
+      lines.push(["Date","ShiftStart","LunchStart","LunchEnd","ShiftEnd","Note"].join("\t"));
+      isoList.forEach(iso => {
+        const e = getEntry(map, iso);
+        lines.push([iso, e.ss||"", e.ls||"", e.le||"", e.se||"", (e.note||"").replaceAll("\n"," ")].join("\t"));
+      });
+
+      const text = lines.join("\n");
+      if (navigator.clipboard?.writeText){
+        navigator.clipboard.writeText(text).then(() => flash("Copied.")).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    }
+    function fallbackCopy(text){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      flash("Copied.");
+    }
+
+    function handleCardClick(e){
+      const card = e.target.closest(".dayCard");
+      if (!card) return;
+
+      const act = e.target?.dataset?.act;
+      if (!act) return;
+
+      const iso = card.dataset.iso;
+
+      if (act === "clearDay"){
+        clearDay(iso);
+        render({scroll:false});
+        flash(`Cleared ${iso}.`);
+        return;
+      }
+      if (act === "note"){
+        openNote(iso);
+        return;
+      }
+
+      if (iso !== todayISO()) return;
+
+      const map = loadAll();
+      const now = nowHHMM();
+      if (act === "nowSS") setEntry(map, iso, { ss: now });
+      if (act === "nowLS") setEntry(map, iso, { ls: now });
+      if (act === "nowLE") setEntry(map, iso, { le: now });
+      if (act === "nowSE") setEntry(map, iso, { se: now });
+
+      saveAll(map);
+      render({scroll:false});
+      flash(`Stamped ${iso} (${now}).`);
+    }
+
+    function handleInput(e){
+      const card = e.target.closest(".dayCard");
+      if (!card) return;
+
+      if (e.target.matches("input[type='time'][data-field]")){
+        updateFromCard(card);
+        render({scroll:false});
+      }
+    }
+
+    function openModal(id){ $("#"+id).style.display = "flex"; document.body.style.overflow = "hidden"; syncBarHeight(); }
+    function closeModal(id){ $("#"+id).style.display = "none"; document.body.style.overflow = ""; }
+
+    initTheme();
+    initMode();
+    initPeriodStart();
+
+    $("#helpBtn").addEventListener("click", () => openModal("helpModal"));
+    $("#settingsBtn").addEventListener("click", () => openModal("settingsModal"));
+
+        $("#summaryBtn").addEventListener("click", openSummary);
+    $("#clearBtn").addEventListener("click", () => {
+      const ok = confirm("Are you sure?\n\nAll entered data will be cleared from the form.");
+      if (!ok) return;
+      clearVisibleRange();
+    });
+
+    $("#noteSaveBtn").addEventListener("click", saveNote);
+    $("#noteClearBtn").addEventListener("click", clearNote);
+
+    $("#copySummaryBtn").addEventListener("click", copySummaryTSV);
+
+    // Summary note links
+    $("#summaryBody").addEventListener("click", (e) => {
+      const a = e.target.closest('a[data-act="openNote"]');
+      if (!a) return;
+      e.preventDefault();
+      const iso = a.getAttribute("data-iso");
+      if (iso) openNote(iso);
+    });
+
+    $$(".modalBackdrop [data-close]").forEach(btn => {
+      btn.addEventListener("click", (e) => closeModal(e.target.dataset.close));
+    });
+    $$(".modalBackdrop").forEach(backdrop => {
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) { backdrop.style.display = "none"; document.body.style.overflow = ""; }
+      });
+    });
+
+    $("#modeSelect").addEventListener("change", () => {
+      localStorage.setItem(LS_MODE_KEY, currentMode());
+      render({scroll:true});
+    });
+
+    $("#periodStart").addEventListener("change", () => {
+      setPeriodStart(($("#periodStart").value || "").trim());
+      render({scroll:true});
+    });
+
+    $("#days").addEventListener("click", handleCardClick);
+    $("#days").addEventListener("input", handleInput);
+
+    window.addEventListener("resize", syncBarHeight);
+
+
+// Settings data (import/export)
+$("#settingsExportBtn").addEventListener("click", exportAllCSV);
+$("#settingsImportBtn").addEventListener("click", () => {
+  importCSVFromFile().catch(() => flash("Import failed."));
+});
+
+    syncBarHeight();
+    render({scroll:true});
+  </script>
+</body>
+</html>
