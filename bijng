@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bingo Sheet Generator</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 60%;
+      position: relative;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    /* Help icon */
+    .help-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .help-icon:hover {
+      color: #0056b3;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+    a#titleLink {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .form-group > div {
+      flex: 1 1 150px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+    textarea, input, select, button {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      color: #333;
+      background: #fff;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #recipientContainer {
+      margin-bottom: 20px;
+    }
+    /* Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+    /* Popup shared */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    /* Instructions popup matches form width */
+    #instructionsPopup {
+      width: 60%;
+      max-width: 90%;
+    }
+    .popup h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #333;
+    }
+    .popup p {
+      margin: 10px 0;
+      line-height: 1.4;
+    }
+    .popup ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    .popup .close-btn {
+      margin-top: 15px;
+      text-align: right;
+    }
+    .popup .close-btn button {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+    /* Color popup specifics */
+    #colorPopup label {
+      margin-bottom: 10px;
+      display: block;
+    }
+    #colorPopup input[type="color"] {
+      width: 100%;
+      height: 60px;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    #colorPopup .rainbow-toggle {
+      text-align: center;
+      margin: 10px 0;
+    }
+    #colorPopup .rainbowLabel {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: linear-gradient(90deg,
+        darkred, darkorange, goldenrod, olive, forestgreen,
+        seagreen, darkcyan, steelblue, royalblue,
+        navy, indigo, darkviolet, deeppink, maroon, saddlebrown);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    #rainbowCheckbox {
+      display: none;
+    }
+    #rainbowCheckbox:checked + .rainbowLabel {
+      box-shadow: 0 0 0 4px #007bff, 0 0 8px rgba(0,123,255,0.6);
+    }
+    #colorPopup .controls {
+      margin-top: 10px;
+      text-align: right;
+    }
+    #colorPopup .controls button {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay -->
+  <div id="popupOverlay" class="overlay"></div>
+
+  <!-- Instructions Popup -->
+  <div id="instructionsPopup" class="popup">
+    <h2>How to Use the Bingo Sheet Generator</h2>
+    <p>-----</p>
+    <ul>
+      <li><strong>Bingo Options:</strong> Type each Bingo entry on its own line.</li>
+      <li><strong>Grid Size:</strong> Set <em>Rows</em> &amp; <em>Columns</em> (e.g. 5×5) for the number of squares on the sheets.</li>
+      <li><strong>Number of Sheets:</strong> Choose how many unique Bingo sheets you need.</li>
+      <li><strong>Sheet Title/Recipient:</strong> Enter a title that will appear at the top of each Bingo sheet. Click “Recipient” to add individual names - one per line; each name will appear below the title on each individual sheet.</li>
+      <li><strong>Center Square Type:</strong>
+        <ul>
+          <li><em>No Free:</em> Regular grid, no special center.</li>
+          <li><em>Wild:</em> Displays three lines of “WILD.”</li>
+          <li><em>Free:</em> Displays three lines of “FREE.”</li>
+          <li><em>ATO:</em> Inserts the ATO icon.</li>
+        </ul>
+      </li>
+      <li><strong>Download Type:</strong>
+        <ul>
+          <li><em>Single PDF:</em> Bundles all sheets into one document.</li>
+          <li><em>Mass Download:</em> Triggers all PDFs to download individually per sheet.<em>You may need to allow Multiple Downloads in your browser to use this feature.</em></li>
+          <li><em>Zip File:</em> Packages all sheets into a ZIP file for bulk download.</li>
+        </ul>
+      </li>
+      <li><strong>Colour:</strong> Click the “Bingo Sheet Generator” text to open the colour picker. Choose a colour to have all sheets change to that colour, or toggle “Rainbow” button for random per-page hues. Click “Reset” to revert to default colour.</li>
+      <li><strong>Generate &amp; Export:</strong> Click the button when ready to download.</li>
+    </ul>
+    <div class="close-btn">
+      <button id="closeInstructions">Got it!</button>
+    </div>
+  </div>
+
+  <!-- Color Picker Popup -->
+  <div id="colorPopup" class="popup">
+    <label>Select Bingo Colour:</label>
+    <input type="color" id="colorPicker" value="#333333"/>
+    <div class="rainbow-toggle">
+      <input type="checkbox" id="rainbowCheckbox"/>
+      <label for="rainbowCheckbox" class="rainbowLabel">🌈 Rainbow</label>
+    </div>
+    <div class="controls">
+      <button id="resetColor">Reset</button>
+      <button id="applyColor">Apply</button>
+      <button id="cancelColor">Cancel</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <a id="helpLink" class="help-icon" title="Instructions">❔</a>
+    <h1><a id="titleLink">Bingo Sheet Generator</a></h1>
+
+    <label for="options">Bingo Options:</label>
+    <textarea id="options" rows="10" placeholder="Enter Bingo options here, one per line."></textarea>
+
+    <div class="form-group">
+      <div>
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" value="3" min="1">
+      </div>
+      <div>
+        <label for="cols">Columns:</label>
+        <input type="number" id="cols" value="3" min="1">
+      </div>
+      <div>
+        <label for="sheetCount">Number of Sheets:</label>
+        <input type="number" id="sheetCount" value="1" min="1">
+      </div>
+      <div>
+        <label for="sheetTitle">
+          Sheet Title/<a id="recipientLink">Recipient</a>:
+        </label>
+        <input type="text" id="sheetTitle" value="Bingo Sheet">
+      </div>
+      <div>
+        <label for="wild">Center Square Type:</label>
+        <select id="wild">
+          <option value="none">No Free</option>
+          <option value="wild">Wild</option>
+          <option value="free">Free</option>
+          <option value="ato">ATO</option>
+        </select>
+      </div>
+      <div>
+        <label for="downloadType">Download Type:</label>
+        <select id="downloadType">
+          <option value="one">Single PDF (All Sheets)</option>
+          <option value="mass">Mass Download</option>
+          <option value="zip">Zip File</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="recipientContainer"></div>
+    <button onclick="generateBingoSheets()">Generate & Export</button>
+  </div>
+
+  <script>
+    const defaultColorHex = '#333333';
+    const defaultColor = { r:0.2, g:0.2, b:0.2 };
+    let selectedColor = {...defaultColor};
+    let rainbowMode = false;
+    const rainbowColors = [
+      { r:139/255, g:0, b:0 },    { r:1, g:140/255, b:0 },
+      { r:184/255, g:134/255, b:11/255 },
+      { r:85/255, g:107/255, b:47/255 },
+      { r:34/255, g:139/255, b:34/255 },
+      { r:46/255, g:139/255, b:87/255 },
+      { r:0, g:102/255, b:102/255 },
+      { r:70/255, g:130/255, b:180/255 },
+      { r:65/255, g:105/255, b:225/255 },
+      { r:0, g:0, b:128/255 },
+      { r:75/255, g:0, b:130/255 },
+      { r:148/255, g:0, b:211/255 },
+      { r:199/255, g:21/255, b:133/255 },
+      { r:128/255, g:0, b:0 },
+      { r:139/255, g:69/255, b:19/255 }
+    ];
+
+    function showPopup(id) {
+      document.getElementById('popupOverlay').style.display = 'block';
+      document.getElementById(id).style.display = 'block';
+    }
+    function hidePopups() {
+      document.getElementById('popupOverlay').style.display = 'none';
+      document.getElementById('colorPopup').style.display = 'none';
+      document.getElementById('instructionsPopup').style.display = 'none';
+    }
+
+    document.getElementById('helpLink').addEventListener('click', () => showPopup('instructionsPopup'));
+    document.getElementById('closeInstructions').addEventListener('click', hidePopups);
+
+    document.getElementById('titleLink').addEventListener('click', () => showPopup('colorPopup'));
+    document.getElementById('cancelColor').addEventListener('click', hidePopups);
+    document.getElementById('rainbowCheckbox').addEventListener('change', function() {
+      document.getElementById('colorPicker').style.display = this.checked ? 'none' : 'block';
+    });
+    document.getElementById('resetColor').addEventListener('click', () => {
+      rainbowMode = false;
+      selectedColor = {...defaultColor};
+      document.getElementById('rainbowCheckbox').checked = false;
+      const p = document.getElementById('colorPicker');
+      p.value = defaultColorHex;
+      p.style.display = 'block';
+    });
+    document.getElementById('applyColor').addEventListener('click', () => {
+      rainbowMode = document.getElementById('rainbowCheckbox').checked;
+      if (!rainbowMode) {
+        const hex = document.getElementById('colorPicker').value;
+        selectedColor = {
+          r: parseInt(hex.substr(1,2),16)/255,
+          g: parseInt(hex.substr(3,2),16)/255,
+          b: parseInt(hex.substr(5,2),16)/255
+        };
+      }
+      hidePopups();
+    });
+
+    document.getElementById('recipientLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      const c = document.getElementById('recipientContainer');
+      if (c.querySelector('#recipientBox')) c.innerHTML = '';
+      else {
+        const cnt = +document.getElementById('sheetCount').value;
+        c.innerHTML = `
+          <label for="recipientBox">Recipient(s):</label>
+          <textarea id="recipientBox" rows="${cnt}"
+            placeholder="Enter each participants name, one per line."></textarea>
+        `;
+        c.querySelector('#recipientBox').addEventListener('input', () => {
+          const max = +document.getElementById('sheetCount').value;
+          const lines = c.querySelector('#recipientBox').value.split('\n');
+          if (lines.length > max)
+            c.querySelector('#recipientBox').value = lines.slice(0, max).join('\n');
+        });
+      }
+    });
+    document.getElementById('sheetCount').addEventListener('input', function(){
+      const cnt = +this.value;
+      const ta = document.getElementById('recipientBox');
+      if (ta) {
+        ta.rows = cnt;
+        const lines = ta.value.split('\n');
+        if (lines.length > cnt) ta.value = lines.slice(0,cnt).join('\n');
+      }
+    });
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+    function wrapText(text,font,size,maxWidth){
+      const words=text.split(' '), lines=[]; let cur='';
+      for(let w of words){
+        const test=cur?cur+' '+w:w;
+        if(font.widthOfTextAtSize(test,size)<=maxWidth) cur=test;
+        else{
+          if(cur) lines.push(cur);
+          if(font.widthOfTextAtSize(w,size)<=maxWidth) cur=w;
+          else{ let sub='';for(let ch of w){
+              const t2=sub+ch;
+              if(font.widthOfTextAtSize(t2,size)<=maxWidth) sub=t2;
+              else{ lines.push(sub); sub=ch; }
+            } cur=sub; }
+        }
+      }
+      if(cur) lines.push(cur);
+      return lines;
+    }
+    function fitText(text,font,width,height,initial){
+      let size=initial, lines=[], spacing=2;
+      while(size>4){
+        lines=wrapText(text,font,size,width);
+        const need=lines.length*size+(lines.length-1)*spacing;
+        if(need<=height) break;
+        size--;
+      }
+      return { lines, size, spacing };
+    }
+    async function loadGrayscalePng(url){
+      return new Promise(res=>{
+        const img=new Image(); img.crossOrigin='Anonymous';
+        img.onload=()=>{
+          const canvas=document.createElement('canvas');
+          canvas.width=img.width; canvas.height=img.height;
+          const ctx=canvas.getContext('2d');
+          ctx.drawImage(img,0,0);
+          const d=ctx.getImageData(0,0,canvas.width,canvas.height);
+          for(let i=0;i<d.data.length;i+=4){
+            const avg=0.3*d.data[i]+0.59*d.data[i+1]+0.11*d.data[i+2];
+            d.data[i]=d.data[i+1]=d.data[i+2]=avg;
+          }
+          ctx.putImageData(d,0,0);
+          canvas.toBlob(b=>{
+            const fr=new FileReader();
+            fr.onload=()=>res(fr.result);
+            fr.readAsArrayBuffer(b);
+          },'image/png');
+        };
+        img.src=url;
+      });
+    }
+
+    async function generateBingoSheets(){
+      const opts=document.getElementById('options').value.trim().split(/\r?\n/).filter(Boolean);
+      const rows=+document.getElementById('rows').value;
+      const cols=+document.getElementById('cols').value;
+      const count=+document.getElementById('sheetCount').value;
+      const centerType=document.getElementById('wild').value;
+      const needed=rows*cols - ((centerType!=='none'&&rows%2===1&&cols%2===1)?1:0);
+      if(opts.length<needed){
+        alert('Not enough options to fill one sheet. Add more lines!');
+        return;
+      }
+      const sheetTitle=document.getElementById('sheetTitle').value || 'Bingo Sheet';
+      const downloadType=document.getElementById('downloadType').value;
+      const recTa=document.getElementById('recipientBox');
+      const recList=recTa?recTa.value.split('\n'):[];
+      const hasRec=recList.length>0;
+
+      const { PDFDocument, StandardFonts, rgb } = PDFLib;
+      const baseWidth=595.28, bleed=baseWidth*0.05;
+      const contentW3=baseWidth-2*bleed;
+      const cellSize=contentW3/3;
+      const cellW=cellSize, cellH=cellSize*1.15;
+      const pageW=cellW*cols+2*bleed;
+      let titleFS=cellW*(56/(contentW3/3));
+      const optionFS=titleFS/2;
+
+      // scale title if too wide
+      const tmpDoc=await PDFDocument.create();
+      const tmpFnt=await tmpDoc.embedFont(StandardFonts.Helvetica);
+      const maxTW=pageW-2*bleed;
+      const measured=tmpFnt.widthOfTextAtSize(sheetTitle,titleFS);
+      if(measured>maxTW) titleFS*=maxTW/measured;
+      const recFS=titleFS;
+      const recGap=hasRec?recFS+5:0;
+      const contentH=titleFS+recGap+30+cellH*rows;
+      const pageH=contentH+2*bleed;
+
+      const cbScale=Math.min(0.6,40/Math.max(rows,cols));
+      const cbSize=Math.max(10,cellH*cbScale);
+      const cbPad=(cellW-cbSize)/2;
+      const textTop=5;
+      const availH=cellH-cbSize-10-textTop;
+
+      const atoUrl='https://play-lh.googleusercontent.com/zIV5obz-zA9I15v6NYeBSS9kjxlBqnApI4ke3T38l6S2uJJP1yN951yI-SPdQJd_Qg';
+      const atoGray=await loadGrayscalePng(atoUrl);
+
+      const docs=[];
+      for(let s=0; s<count; s++){
+        const pdfDoc=await PDFDocument.create();
+        const page=pdfDoc.addPage([pageW,pageH]);
+        const font=await pdfDoc.embedFont(StandardFonts.Helvetica);
+        const form=pdfDoc.getForm();
+        const atoImg=await pdfDoc.embedPng(atoGray);
+        const topY=pageH-bleed;
+
+        let pageColor = rainbowMode
+          ? rainbowColors[Math.floor(Math.random()*rainbowColors.length)]
+          : selectedColor;
+
+        // Title
+        const tW=font.widthOfTextAtSize(sheetTitle,titleFS);
+        page.drawText(sheetTitle,{
+          x:(pageW-tW)/2, y:topY-titleFS,
+          size:titleFS,font,
+          color: rgb(pageColor.r,pageColor.g,pageColor.b)
+        });
+        // Recipient
+        if(hasRec && recList[s]){
+          const rec=recList[s];
+          const rW=font.widthOfTextAtSize(rec,recFS);
+          page.drawText(rec,{
+            x:(pageW-rW)/2,
+            y:topY-titleFS-recGap,
+            size:recFS,font,
+            color: rgb(pageColor.r,pageColor.g,pageColor.b)
+          });
+        }
+
+        // Prepare options
+        const total=rows*cols;
+        const centerIdx=(rows%2===1&&cols%2===1)
+          ? Math.floor(rows/2)*cols + Math.floor(cols/2)
+          : -1;
+        const pool=[...opts];
+        shuffleArray(pool);
+        const cellOpts=pool.slice(0, total - ((centerIdx!==-1&&centerType!=='none')?1:0));
+        let optIdx=0;
+
+        // Draw grid
+        for(let r=0; r<rows; r++){
+          for(let c=0; c<cols; c++){
+            const idx=r*cols + c;
+            const x=bleed + c*cellW;
+            const y=topY-titleFS-recGap-30-r*cellH;
+
+            page.drawRectangle({
+              x, y:y-cellH,
+              width:cellW, height:cellH,
+              borderColor: rgb(pageColor.r,pageColor.g,pageColor.b),
+              borderWidth:1
+            });
+
+            let isWild=false;
+            if(idx===centerIdx && centerType!=='none'){
+              isWild=true;
+              if(centerType==='ato'){
+                const dims=atoImg.scaleToFit(cellW*0.7,cellH*0.7);
+                page.drawImage(atoImg,{
+                  x:x+(cellW-dims.width)/2,
+                  y:y-cellH+(cellH-dims.height)/2,
+                  width:dims.width, height:dims.height
+                });
+              } else {
+                let arr;
+                if(centerType==='wild') arr=['WILD','WILD','WILD'];
+                else if(centerType==='free') arr=['FREE','FREE','FREE'];
+                else if(centerType==='star') arr=['☆','☆','☆'];
+                let ty=y-(cellH/2) + (((arr.length*recFS)+(arr.length-1)*2)/2) - recFS;
+                for(let txt of arr){
+                  const w2=font.widthOfTextAtSize(txt,recFS);
+                  page.drawText(txt,{
+                    x:x+(cellW-w2)/2, y:ty,
+                    size:recFS,font,
+                    color: rgb(pageColor.r,pageColor.g,pageColor.b)
+                  });
+                  ty -= (recFS+2);
+                }
+              }
+            } else {
+              const txt=cellOpts[optIdx++]||'';
+              const { lines, size, spacing } = fitText(txt,font,cellW-10,availH,optionFS);
+              let ty2 = y - textTop - size;
+              for(let ln of lines){
+                const w3=font.widthOfTextAtSize(ln,size);
+                page.drawText(ln,{
+                  x:x+(cellW-w3)/2, y:ty2,
+                  size,font,
+                  color: rgb(pageColor.r,pageColor.g,pageColor.b)
+                });
+                ty2 -= (size+spacing);
+              }
+            }
+
+            if(!isWild){
+              const cb=form.createCheckBox(`s${s}_r${r}_c${c}`);
+              cb.addToPage(page,{
+                x:x+cbPad,
+                y:y-cellH+10,
+                width:cbSize, height:cbSize,
+                borderColor: rgb(pageColor.r,pageColor.g,pageColor.b),
+                borderWidth:1
+              });
+            }
+          }
+        }
+
+        form.updateFieldAppearances();
+        docs.push(await pdfDoc.save());
+      }
+
+      // Download logic
+      if(downloadType==='one'){
+        const merged=await PDFDocument.create();
+        for(let b of docs){
+          const tmp=await PDFDocument.load(b);
+          const ps=await merged.copyPages(tmp,tmp.getPageIndices());
+          ps.forEach(p=>merged.addPage(p));
+        }
+        const blob=new Blob([await merged.save()],{type:'application/pdf'});
+        const a=document.createElement('a');
+        a.href=URL.createObjectURL(blob);
+        a.download=`${sheetTitle}.pdf`;
+        a.click();
+      } else if(downloadType==='mass'){
+        docs.forEach((b,i)=>{
+          const blob=new Blob([b],{type:'application/pdf'});
+          const a=document.createElement('a');
+          a.href=URL.createObjectURL(blob);
+          const namePart=hasRec&&recList[i]?recList[i]:(i+1);
+          a.download=`${sheetTitle} ${namePart}.pdf`;
+          a.click();
+        });
+      } else {
+        const zip=new JSZip();
+        docs.forEach((b,i)=>{
+          const namePart=hasRec&&recList[i]?recList[i]:(i+1);
+          zip.file(`${sheetTitle} ${namePart}.pdf`,b);
+        });
+        const blob=await zip.generateAsync({type:'blob'});
+        const a=document.createElement('a');
+        a.href=URL.createObjectURL(blob);
+        a.download=`${sheetTitle}.zip`;
+        a.click();
+      }
+    }
+  </script>
+</body>
+</html>
