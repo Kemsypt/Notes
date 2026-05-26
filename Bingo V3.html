@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bingo Sheet Generator</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f9f9f9;margin:0;padding:40px 0;display:flex;justify-content:center;color:#333}.container{width:60%;position:relative;background:#fff;border:1px solid #ccc;border-radius:8px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1)}.help-icon{position:absolute;top:12px;right:12px;font-size:16px;cursor:pointer;color:#007bff;text-decoration:none}.help-icon:hover{color:#0056b3}h1{text-align:center;margin-top:0}a#titleLink{text-decoration:none;color:inherit;cursor:pointer}.form-group{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:20px}.form-group>div{flex:1 1 150px}label{display:block;margin-bottom:5px;color:#555;font-weight:bold}textarea,input,select,button{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;color:#333;background:#fff}button{background-color:#007bff;color:#fff;font-weight:bold;border:none;cursor:pointer;margin-top:10px}button:hover{background-color:#0056b3}button:disabled{background:#8ebbe9;cursor:not-allowed}#recipientContainer{margin-bottom:20px}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999}.popup{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1px solid #ccc;border-radius:8px;padding:20px;width:300px;box-shadow:0 2px 10px rgba(0,0,0,.2);z-index:1000}#instructionsPopup{width:60%;max-width:90%;max-height:85vh;overflow:auto}.popup h2{margin-top:0;font-size:18px;color:#333}.popup p{margin:10px 0;line-height:1.4}.popup ul{padding-left:20px;margin:10px 0}.popup .close-btn{margin-top:15px;text-align:right}.popup .close-btn button{padding:6px 12px;font-size:14px;width:auto}#colorPopup label{margin-bottom:10px;display:block}#colorPopup input[type=color]{width:100%;height:60px;border:none;cursor:pointer;margin-bottom:10px}#colorPopup .rainbow-toggle{text-align:center;margin:10px 0}#colorPopup .rainbowLabel{display:inline-block;padding:8px 12px;border-radius:4px;background:linear-gradient(90deg,darkred,darkorange,goldenrod,olive,forestgreen,seagreen,darkcyan,steelblue,royalblue,navy,indigo,darkviolet,deeppink,maroon,saddlebrown);color:#fff;font-weight:bold;cursor:pointer;transition:box-shadow .2s}#rainbowCheckbox{display:none}#rainbowCheckbox:checked+.rainbowLabel{box-shadow:0 0 0 4px #007bff,0 0 8px rgba(0,123,255,.6)}#colorPopup .controls{margin-top:10px;text-align:right}#colorPopup .controls button{margin-left:5px;width:auto}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1 1 180px}#status{display:none;margin-top:15px;padding:10px;border-radius:4px;background:#eef6ff;color:#174a7c;border:1px solid #b7d7f2}#pdfPanel{display:none;margin-top:20px;border-top:1px solid #ddd;padding-top:15px}#pdfPanel h2{margin:0 0 10px;font-size:18px}#pdfList{display:grid;gap:8px;margin-bottom:12px}.pdf-item{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:4px;padding:8px;background:#fafafa}.pdf-item span{overflow-wrap:anywhere;flex:1}.pdf-item button,.pdf-item a{width:auto;min-width:86px;text-align:center;padding:8px 10px;margin:0;border-radius:4px;text-decoration:none;font-weight:bold;box-sizing:border-box}.pdf-item a{background:#28a745;color:#fff;border:none;cursor:pointer}#pdfViewer{width:100%;height:75vh;min-height:500px;border:1px solid #ccc;border-radius:4px;background:#f2f2f2}@media(max-width:900px){.container,#instructionsPopup{width:90%}.pdf-item{align-items:stretch;flex-direction:column}.pdf-item button,.pdf-item a{width:100%}}
+  </style>
+</head>
+<body>
+  <div id="popupOverlay" class="overlay"></div>
+  <div id="instructionsPopup" class="popup">
+    <h2>How to Use the Bingo Sheet Generator</h2>
+    <ul>
+      <li><strong>Bingo Options:</strong> Type each Bingo entry on its own line.</li>
+      <li><strong>Grid Size:</strong> Set rows and columns for the sheet.</li>
+      <li><strong>Number of Sheets:</strong> Choose how many unique Bingo sheets to create.</li>
+      <li><strong>Sheet Title/Recipient:</strong> Enter a title. Click Recipient to add names, one per line.</li>
+      <li><strong>Download Type:</strong> Single PDF, individual PDFs, or a ZIP file.</li>
+      <li><strong>View PDFs:</strong> After generation, use the View buttons to preview PDFs in this page without downloading.</li>
+      <li><strong>Colour:</strong> Click the title to open the colour picker or use rainbow mode.</li>
+    </ul>
+    <div class="close-btn"><button id="closeInstructions" type="button">Got it!</button></div>
+  </div>
+  <div id="colorPopup" class="popup">
+    <label>Select Bingo Colour:</label>
+    <input type="color" id="colorPicker" value="#333333" />
+    <div class="rainbow-toggle"><input type="checkbox" id="rainbowCheckbox" /><label for="rainbowCheckbox" class="rainbowLabel">🌈 Rainbow</label></div>
+    <div class="controls"><button id="resetColor" type="button">Reset</button><button id="applyColor" type="button">Apply</button><button id="cancelColor" type="button">Cancel</button></div>
+  </div>
+  <div class="container">
+    <a id="helpLink" class="help-icon" title="Instructions">❔</a>
+    <h1><a id="titleLink">Bingo Sheet Generator</a></h1>
+    <label for="options">Bingo Options:</label>
+    <textarea id="options" rows="10" placeholder="Enter Bingo options here, one per line."></textarea>
+    <div class="form-group">
+      <div><label for="rows">Rows:</label><input type="number" id="rows" value="3" min="1" /></div>
+      <div><label for="cols">Columns:</label><input type="number" id="cols" value="3" min="1" /></div>
+      <div><label for="sheetCount">Number of Sheets:</label><input type="number" id="sheetCount" value="1" min="1" /></div>
+      <div><label for="sheetTitle">Sheet Title/<a id="recipientLink">Recipient</a>:</label><input type="text" id="sheetTitle" value="Bingo Sheet" /></div>
+      <div><label for="wild">Center Square Type:</label><select id="wild"><option value="none">No Free</option><option value="wild">Wild</option><option value="free">Free</option><option value="ato">ATO</option></select></div>
+      <div><label for="downloadType">Download Type:</label><select id="downloadType"><option value="one">Single PDF (All Sheets)</option><option value="mass">Mass Download</option><option value="zip">Zip File</option></select></div>
+    </div>
+    <div id="recipientContainer"></div>
+    <div class="actions"><button id="generateBtn" type="button">Generate & Export</button><button id="viewLastBtn" type="button" style="display:none">View Latest PDF</button></div>
+    <div id="status" role="status" aria-live="polite"></div>
+    <div id="pdfPanel"><h2>Generated PDFs</h2><div id="pdfList"></div><iframe id="pdfViewer" title="PDF preview"></iframe></div>
+  </div>
+<script>
+(function(){
+  const defaultColorHex='#333333';
+  const defaultColor={r:.2,g:.2,b:.2};
+  let selectedColor={...defaultColor};
+  let rainbowMode=false;
+  const rainbowColors=[{r:139/255,g:0,b:0},{r:1,g:140/255,b:0},{r:184/255,g:134/255,b:11/255},{r:85/255,g:107/255,b:47/255},{r:34/255,g:139/255,b:34/255},{r:46/255,g:139/255,b:87/255},{r:0,g:102/255,b:102/255},{r:70/255,g:130/255,b:180/255},{r:65/255,g:105/255,b:225/255},{r:0,g:0,b:128/255},{r:75/255,g:0,b:130/255},{r:148/255,g:0,b:211/255},{r:199/255,g:21/255,b:133/255},{r:128/255,g:0,b:0},{r:139/255,g:69/255,b:19/255}];
+  let generatedFiles=[];
+  let latestCombinedUrl='';
+  const $=id=>document.getElementById(id);
+  function setStatus(message,isError=false){const el=$('status');el.textContent=message;el.style.display=message?'block':'none';el.style.background=isError?'#fff0f0':'#eef6ff';el.style.color=isError?'#8a1f1f':'#174a7c';el.style.borderColor=isError?'#f0b8b8':'#b7d7f2'}
+  function safeFileName(name){return String(name||'Bingo Sheet').replace(/[\\/:*?"<>|]+/g,'-').replace(/\s+/g,' ').trim().slice(0,120)||'Bingo Sheet'}
+  function makeBlobUrl(bytes,type){return URL.createObjectURL(new Blob([bytes],{type}))}
+  function downloadUrl(url,filename){const a=document.createElement('a');a.href=url;a.download=safeFileName(filename);a.rel='noopener';a.style.display='none';document.body.appendChild(a);a.click();a.remove()}
+  function clearGeneratedFiles(){generatedFiles.forEach(f=>URL.revokeObjectURL(f.url));if(latestCombinedUrl)URL.revokeObjectURL(latestCombinedUrl);generatedFiles=[];latestCombinedUrl='';$('pdfList').innerHTML='';$('pdfViewer').removeAttribute('src');$('pdfPanel').style.display='none';$('viewLastBtn').style.display='none'}
+  function showPdf(url){const viewer=$('pdfViewer');viewer.src=url+'#toolbar=1&navpanes=0';$('pdfPanel').style.display='block';viewer.scrollIntoView({behavior:'smooth',block:'start'})}
+  function renderPdfList(){const list=$('pdfList');list.innerHTML='';generatedFiles.forEach(file=>{const row=document.createElement('div');row.className='pdf-item';const name=document.createElement('span');name.textContent=file.name;const view=document.createElement('button');view.type='button';view.textContent='View';view.addEventListener('click',()=>showPdf(file.url));const download=document.createElement('a');download.href=file.url;download.download=file.name;download.textContent='Download';row.append(name,view,download);list.appendChild(row)});$('pdfPanel').style.display=generatedFiles.length?'block':'none';$('viewLastBtn').style.display=generatedFiles.length?'block':'none';if(generatedFiles.length)showPdf(generatedFiles[0].url)}
+  function showPopup(id){$('popupOverlay').style.display='block';$(id).style.display='block'}
+  function hidePopups(){$('popupOverlay').style.display='none';$('colorPopup').style.display='none';$('instructionsPopup').style.display='none'}
+  $('helpLink').addEventListener('click',()=>showPopup('instructionsPopup'));
+  $('closeInstructions').addEventListener('click',hidePopups);
+  $('popupOverlay').addEventListener('click',hidePopups);
+  $('titleLink').addEventListener('click',()=>showPopup('colorPopup'));
+  $('cancelColor').addEventListener('click',hidePopups);
+  $('rainbowCheckbox').addEventListener('change',function(){$('colorPicker').style.display=this.checked?'none':'block'});
+  $('resetColor').addEventListener('click',()=>{rainbowMode=false;selectedColor={...defaultColor};$('rainbowCheckbox').checked=false;$('colorPicker').value=defaultColorHex;$('colorPicker').style.display='block'});
+  $('applyColor').addEventListener('click',()=>{rainbowMode=$('rainbowCheckbox').checked;if(!rainbowMode){const hex=$('colorPicker').value;selectedColor={r:parseInt(hex.substr(1,2),16)/255,g:parseInt(hex.substr(3,2),16)/255,b:parseInt(hex.substr(5,2),16)/255}}hidePopups()});
+  $('recipientLink').addEventListener('click',e=>{e.preventDefault();const c=$('recipientContainer');if(c.querySelector('#recipientBox'))c.innerHTML='';else{const cnt=+$('sheetCount').value||1;c.innerHTML=`<label for="recipientBox">Recipient(s):</label><textarea id="recipientBox" rows="${cnt}" placeholder="Enter each participant's name, one per line."></textarea>`;c.querySelector('#recipientBox').addEventListener('input',()=>{const max=+$('sheetCount').value||1;const lines=c.querySelector('#recipientBox').value.split('\n');if(lines.length>max)c.querySelector('#recipientBox').value=lines.slice(0,max).join('\n')})}});
+  $('sheetCount').addEventListener('input',function(){const cnt=+this.value||1;const ta=$('recipientBox');if(ta){ta.rows=cnt;const lines=ta.value.split('\n');if(lines.length>cnt)ta.value=lines.slice(0,cnt).join('\n')}});
+  $('generateBtn').addEventListener('click',generateBingoSheets);
+  $('viewLastBtn').addEventListener('click',()=>{if(latestCombinedUrl)showPdf(latestCombinedUrl);else if(generatedFiles[0])showPdf(generatedFiles[0].url)});
+  function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}}
+  function wrapText(text,font,size,maxWidth){const words=String(text).split(' '),lines=[];let cur='';for(const w of words){const test=cur?cur+' '+w:w;if(font.widthOfTextAtSize(test,size)<=maxWidth)cur=test;else{if(cur)lines.push(cur);if(font.widthOfTextAtSize(w,size)<=maxWidth)cur=w;else{let sub='';for(const ch of w){const t2=sub+ch;if(font.widthOfTextAtSize(t2,size)<=maxWidth)sub=t2;else{if(sub)lines.push(sub);sub=ch}}cur=sub}}}if(cur)lines.push(cur);return lines}
+  function fitText(text,font,width,height,initial){let size=initial,lines=[],spacing=2;while(size>4){lines=wrapText(text,font,size,width);const need=lines.length*size+(lines.length-1)*spacing;if(need<=height)break;size--}return{lines,size,spacing}}
+  async function generateBingoSheets(){
+    const btn=$('generateBtn');btn.disabled=true;setStatus('Generating PDFs...');clearGeneratedFiles();
+    try{
+      if(!window.PDFLib)throw new Error('PDF library did not load. Check your internet connection and try again.');
+      const opts=$('options').value.trim().split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+      const rows=Math.max(1,+$('rows').value||1),cols=Math.max(1,+$('cols').value||1),count=Math.max(1,+$('sheetCount').value||1);
+      const centerType=$('wild').value;
+      const hasCenter=centerType!=='none'&&rows%2===1&&cols%2===1;
+      const needed=rows*cols-(hasCenter?1:0);
+      if(opts.length<needed){setStatus('Not enough options to fill one sheet. Add more lines.',true);alert('Not enough options to fill one sheet. Add more lines!');return}
+      const sheetTitle=$('sheetTitle').value||'Bingo Sheet';
+      const downloadType=$('downloadType').value;
+      const recTa=$('recipientBox');
+      const recList=recTa?recTa.value.split('\n').map(x=>x.trim()):[];
+      const hasRec=recList.some(Boolean);
+      const {PDFDocument,StandardFonts,rgb}=PDFLib;
+      const baseWidth=595.28,bleed=baseWidth*.05,contentW3=baseWidth-2*bleed,cellSize=contentW3/3,cellW=cellSize,cellH=cellSize*1.15,pageW=cellW*cols+2*bleed;
+      let titleFS=cellW*(56/(contentW3/3));
+      const tmpDoc=await PDFDocument.create(),tmpFnt=await tmpDoc.embedFont(StandardFonts.Helvetica),maxTW=pageW-2*bleed,measured=tmpFnt.widthOfTextAtSize(sheetTitle,titleFS);
+      if(measured>maxTW)titleFS*=maxTW/measured;
+      const recFS=titleFS,optionFS=titleFS/2,recGap=hasRec?recFS+5:0,contentH=titleFS+recGap+30+cellH*rows,pageH=contentH+2*bleed;
+      const cbScale=Math.min(.6,40/Math.max(rows,cols)),cbSize=Math.max(10,cellH*cbScale),cbPad=(cellW-cbSize)/2,textTop=5,availH=cellH-cbSize-10-textTop;
+      const docs=[];
+      for(let s=0;s<count;s++){
+        const pdfDoc=await PDFDocument.create(),page=pdfDoc.addPage([pageW,pageH]),font=await pdfDoc.embedFont(StandardFonts.Helvetica),form=pdfDoc.getForm(),topY=pageH-bleed;
+        const pageColor=rainbowMode?rainbowColors[Math.floor(Math.random()*rainbowColors.length)]:selectedColor;
+        const colour=rgb(pageColor.r,pageColor.g,pageColor.b);
+        const tW=font.widthOfTextAtSize(sheetTitle,titleFS);page.drawText(sheetTitle,{x:(pageW-tW)/2,y:topY-titleFS,size:titleFS,font,color:colour});
+        if(hasRec&&recList[s]){const rec=recList[s],rW=font.widthOfTextAtSize(rec,recFS);page.drawText(rec,{x:(pageW-rW)/2,y:topY-titleFS-recGap,size:recFS,font,color:colour})}
+        const total=rows*cols,centerIdx=(rows%2===1&&cols%2===1)?Math.floor(rows/2)*cols+Math.floor(cols/2):-1,pool=[...opts];shuffleArray(pool);const cellOpts=pool.slice(0,total-(hasCenter?1:0));let optIdx=0;
+        for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+          const idx=r*cols+c,x=bleed+c*cellW,y=topY-titleFS-recGap-30-r*cellH;
+          page.drawRectangle({x,y:y-cellH,width:cellW,height:cellH,borderColor:colour,borderWidth:1});
+          let isSpecial=false;
+          if(idx===centerIdx&&centerType!=='none'){
+            isSpecial=true;
+            if(centerType==='ato'){
+              const atoText='ATO',atoSize=Math.min(recFS,cellW*.28),w2=font.widthOfTextAtSize(atoText,atoSize),circleSize=Math.min(cellW,cellH)*.56;
+              page.drawEllipse({x:x+cellW/2,y:y-cellH/2,xScale:circleSize/2,yScale:circleSize/2,borderColor:colour,borderWidth:2});
+              page.drawText(atoText,{x:x+(cellW-w2)/2,y:y-cellH/2-atoSize/3,size:atoSize,font,color:colour});
+            }else{
+              const arr=centerType==='wild'?['WILD','WILD','WILD']:['FREE','FREE','FREE'];let ty=y-(cellH/2)+(((arr.length*recFS)+(arr.length-1)*2)/2)-recFS;
+              for(const txt of arr){const w2=font.widthOfTextAtSize(txt,recFS);page.drawText(txt,{x:x+(cellW-w2)/2,y:ty,size:recFS,font,color:colour});ty-=recFS+2}
+            }
+          }else{
+            const txt=cellOpts[optIdx++]||'',fit=fitText(txt,font,cellW-10,availH,optionFS);let ty2=y-textTop-fit.size;
+            for(const ln of fit.lines){const w3=font.widthOfTextAtSize(ln,fit.size);page.drawText(ln,{x:x+(cellW-w3)/2,y:ty2,size:fit.size,font,color:colour});ty2-=fit.size+fit.spacing}
+          }
+          if(!isSpecial){const cb=form.createCheckBox(`s${s}_r${r}_c${c}`);cb.addToPage(page,{x:x+cbPad,y:y-cellH+10,width:cbSize,height:cbSize,borderColor:colour,borderWidth:1})}
+        }
+        form.updateFieldAppearances();docs.push(await pdfDoc.save());
+      }
+      docs.forEach((b,i)=>{const namePart=hasRec&&recList[i]?recList[i]:(i+1);generatedFiles.push({name:`${safeFileName(sheetTitle)} ${safeFileName(namePart)}.pdf`,url:makeBlobUrl(b,'application/pdf'),bytes:b})});
+      if(downloadType==='one'){
+        const merged=await PDFDocument.create();for(const b of docs){const tmp=await PDFDocument.load(b);const ps=await merged.copyPages(tmp,tmp.getPageIndices());ps.forEach(p=>merged.addPage(p))}
+        const mergedBytes=await merged.save();latestCombinedUrl=makeBlobUrl(mergedBytes,'application/pdf');const combinedName=`${safeFileName(sheetTitle)}.pdf`;generatedFiles.unshift({name:combinedName,url:latestCombinedUrl,bytes:mergedBytes});downloadUrl(latestCombinedUrl,combinedName);
+      }else if(downloadType==='mass'){
+        generatedFiles.forEach(file=>downloadUrl(file.url,file.name));
+      }else{
+        if(!window.JSZip)throw new Error('ZIP library did not load. Check your internet connection and try again.');
+        const zip=new JSZip();generatedFiles.forEach(file=>zip.file(file.name,file.bytes));const blob=await zip.generateAsync({type:'blob'}),zipUrl=URL.createObjectURL(blob);downloadUrl(zipUrl,`${safeFileName(sheetTitle)}.zip`);setTimeout(()=>URL.revokeObjectURL(zipUrl),30000);
+      }
+      renderPdfList();setStatus(`Generated ${docs.length} PDF${docs.length===1?'':'s'}. Use the View buttons below to open PDFs without downloading.`);
+    }catch(err){console.error(err);setStatus(`Could not generate/export: ${err&&err.message?err.message:err}`,true)}finally{btn.disabled=false}
+  }
+})();
+</script>
+</body>
+</html>
