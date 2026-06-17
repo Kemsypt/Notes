@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FTL/GIC/SIC Remission Request</title>
+  <style>
+    :root{
+      --gap: 12px;
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --danger:#b42318;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+    }
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --danger:#f97066;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{ max-width: 980px; margin:24px auto; padding:16px; }
+    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 12px; }
+    h1{ margin:0; font-size:20px; }
+    .themeToggle{
+      padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px;
+      background:var(--panel); color:var(--text); border:1px solid var(--border); cursor:pointer; height:32px;
+    }
+    fieldset{ border:1px solid var(--border); background:var(--panel); border-radius:10px; padding:14px; margin:12px 0; }
+    legend{ padding:0 8px; font-weight:800; }
+    .grid{ display:grid; gap:var(--gap); }
+    .g2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    @media (max-width: 860px){ .g2{ grid-template-columns:1fr; } }
+    label{ display:grid; gap:6px; font-size:15px; font-weight:700; }
+    input, select, textarea{
+      width:100%; padding:10px; border:1px solid var(--border-2); border-radius:8px;
+      font-size:14px; font-family: inherit; background:var(--panel); color:var(--text); height:42px;
+    }
+    textarea{ min-height:110px; height:auto; resize:vertical; line-height:1.35; }
+    textarea.large{ min-height:160px; }
+    .hint{ font-size:12px; color:var(--muted); margin-top:4px; }
+    .letterBlock{
+      display:grid; gap:8px; margin-top:12px; padding:12px;
+      border:1px solid var(--border); border-radius:12px; background:var(--panel-2);
+    }
+    .letterHeader{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .letterHeader strong{ font-size:14px; }
+    .standardParagraphs{ display:grid; gap:12px; }
+    .stdGroup{
+      border:1px solid var(--border); background:var(--panel-2); border-radius:12px; overflow:hidden;
+    }
+    .stdGroup summary{
+      cursor:pointer; font-weight:900; font-size:14px; padding:12px;
+      background:var(--panel-2); border-bottom:1px solid var(--border);
+    }
+    .stdGroup:not([open]) summary{ border-bottom:0; }
+    .stdItems{ padding:4px 12px 12px; }
+    .stdItem{
+      display:grid; grid-template-columns: minmax(0,1fr) auto; align-items:center; gap:10px;
+      padding:8px 0; border-top:1px solid var(--border);
+    }
+    .stdItem:first-child{ border-top:0; }
+    .stdText{ display:grid; gap:4px; min-width:0; }
+    .stdTitle{ font-weight:700; font-size:13px; }
+    .stdUse{ color:var(--muted); font-size:12px; line-height:1.35; }
+    .customTooltip{
+      position:fixed;
+      max-width:420px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:var(--panel);
+      color:var(--text);
+      box-shadow:var(--shadow);
+      font-size:12px;
+      line-height:1.35;
+      white-space:pre-wrap;
+      pointer-events:none;
+      z-index:200;
+    }
+    .customTooltip strong{ font-weight:900; }
+    .actions{ position:sticky; bottom:0; padding:12px 0 0; backdrop-filter: blur(4px); }
+    .bar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:12px; box-shadow:var(--shadow);
+    }
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    button{
+      border:0; border-radius:10px; padding:10px 12px; font-weight:900; cursor:pointer;
+      background:var(--accent); color:var(--btn-text); font-size:14px; font-family: inherit; height:42px;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px; user-select:none;
+    }
+    button.small{ height:34px; padding:8px 10px; font-size:12px; border-radius:8px; }
+    button.ghost{ background:var(--panel); color:var(--text); border:1px solid var(--border); }
+    button.warn{ background:var(--panel); color:var(--danger); border:1px solid var(--border); }
+    .status{ font-size:13px; color:var(--muted); }
+    .footer{ font-size:12px; color:var(--muted); text-align:center; margin:18px 0 6px; }
+    .footer a, .footer a:visited{ color:inherit; text-decoration: underline; }
+
+    .conditionalGrid{ margin-top:0; }
+
+    .accountOtherPlacement{ grid-column:1 / 2; }
+    .expandableInput{ position:relative; }
+    .expandableInput input,
+    .expandableInput textarea{ padding-right:38px; }
+    .expandableInput textarea{ min-height:84px; resize:vertical; }
+    .expandToggle{
+      position:absolute;
+      right:4px;
+      top:2px;
+      width:auto;
+      height:auto;
+      min-width:0;
+      padding:0;
+      border:0;
+      border-radius:0;
+      font-size:16px;
+      line-height:1;
+      background:transparent;
+      color:var(--muted);
+      box-shadow:none;
+      font-weight:900;
+      text-decoration:none;
+    }
+    .expandToggle:hover, .expandToggle:focus{
+      text-decoration:none;
+      color:var(--muted);
+      background:transparent;
+      border:0;
+      outline:none;
+    }
+    .expandableInput.expanded .expandToggle{
+      right:18px;
+    }
+    .hidden{ display:none !important; }
+    .full{ grid-column:1 / -1; }
+    .full{ grid-column:1 / -1; }
+    textarea.short{ min-height:84px; }
+    details.preview{
+      background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin:12px 0;
+    }
+    details.preview summary{ cursor:pointer; font-weight:800; }
+    pre{ white-space:pre-wrap; word-break:break-word; margin:10px 0 0; font-size:13px; }
+  
+    /* Larger field labels update */
+    label{
+      font-size:15px;
+      font-weight:700;
+    }
+    label input,
+    label select,
+    label textarea,
+    label .msToggle,
+    label .seg,
+    label .hint,
+    label small{
+      font-weight:400;
+    }
+    .useText,
+    .fieldHint,
+    .helpText{
+      font-weight:400;
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="wrap">
+    <div class="topbar">
+      <h1>FTL/GIC/SIC Remission Request</h1>
+      <button type="button" id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
+    </div>
+
+    <form id="remissionForm" novalidate>
+      <fieldset>
+        <legend title="Core identifying details and the remission request information.">Request Details</legend>
+        <div class="grid g2">
+          <label title="Enter the client or taxpayer name.">Client Name:
+            <input name="clientName" type="text" />
+          </label>
+          <label title="Enter the tax agent name, if applicable.">Tax Agent Name:
+            <input name="taxAgentName" type="text" />
+          </label>
+          <label title="Select the account or accounts the request relates to.">Account/s:
+            <select name="accounts" id="accounts">
+              <option value=""></option>
+              <option value="ICA">ICA</option>
+              <option value="ITA">ITA</option>
+              <option value="ICA + ITA">ICA + ITA</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label id="otherAccountLabel" class="hidden accountOtherPlacement" title="Enter the account details when Other is selected.">Other account/s:
+            <input name="otherAccount" type="text" />
+          </label>
+          <label title="Select the remission type: FTL, GIC or SIC.">Type:
+            <select name="type" id="type">
+              <option value=""></option>
+              <option value="FTL">FTL</option>
+              <option value="GIC">GIC</option>
+              <option value="SIC">SIC</option>
+            </select>
+          </label>
+          <div class="grid g2 full conditionalGrid">
+            <label title="Select how the request was received.">Source:
+              <select name="source" id="source">
+                <option value=""></option>
+                <option value="Correspondence">Correspondence</option>
+                <option value="Tax Agent Portal">Tax Agent Portal</option>
+                <option value="Business Portal">Business Portal</option>
+                <option value="Telephony Tax Agent">Telephony Tax Agent</option>
+                <option value="Telephony Taxpayer">Telephony Taxpayer</option>
+                <option value="Internal referral">Internal referral</option>
+                <option value="OSfA">OSfA</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label title="Record whether this request appears low risk based on available information.">Low Risk:
+              <select name="lowRisk" id="lowRisk">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Unknown">Unknown</option>
+              </select>
+            </label>
+            <label id="otherSourceLabel" class="hidden" title="Enter the source details when Other is selected.">Other source:
+              <input name="otherSource" type="text" />
+            </label>
+            <label id="lowRiskDetailsLabel" class="hidden lowRiskPlacement" title="Briefly explain why the request is considered low risk.">Low Risk details:
+              <textarea name="lowRiskDetails" class="short"></textarea>
+            </label>
+          </div>
+        </div>
+        <label style="margin-top:12px;" title="Summarise what the client or agent is asking for and why.">Request:
+          <textarea name="request" class="large"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend title="Record the key period, date and amount details for the penalty or interest remission.">Penalty &amp; Interest Details</legend>
+        <div class="grid g2">
+          <label title="Enter the tax period or periods the request relates to.">Period/s:
+            <span class="expandableInput" data-expandable-name="periods">
+              <input name="periods" type="text" />
+              <textarea class="hidden" data-alt-name="periods"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Period/s" title="Expand to multiline">+</button>
+            </span>
+          </label>
+          <label title="Enter the lodgment or payment due date/s relevant to the request.">Relevant due date/s:
+            <span class="expandableInput" data-expandable-name="relevantDueDates">
+              <input name="relevantDueDates" type="text" />
+              <textarea class="hidden" data-alt-name="relevantDueDates"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Relevant due date/s" title="Expand to multiline">+</button>
+            </span>
+          </label>
+          <label title="Enter the amount the client or agent asked to have remitted.">Amount requested:
+            <span class="expandableInput" data-expandable-name="amountRequested">
+              <input name="amountRequested" type="text" />
+              <textarea class="hidden" data-alt-name="amountRequested"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Amount requested" title="Expand to multiline">+</button>
+            </span>
+          </label>
+          <label title="Enter the amount approved for remission, if any.">Amount approved/remitted:
+            <span class="expandableInput" data-expandable-name="amountApprovedRemitted">
+              <input name="amountApprovedRemitted" type="text" />
+              <textarea class="hidden" data-alt-name="amountApprovedRemitted"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Amount approved/remitted" title="Expand to multiline">+</button>
+            </span>
+          </label>
+          <label title="Enter the amount not remitted or still payable.">Amount remaining/refused:
+            <span class="expandableInput" data-expandable-name="amountRemainingRefused">
+              <input name="amountRemainingRefused" type="text" />
+              <textarea class="hidden" data-alt-name="amountRemainingRefused"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Amount remaining/refused" title="Expand to multiline">+</button>
+            </span>
+          </label>
+          <label title="Select whether there has already been a remission request for the same period/s.">Previous request for same period/s?
+            <select name="previousRequest" id="previousRequest">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </label>
+          <label id="previousRequestDetailsLabel" class="hidden full" title="Summarise the earlier request and outcome if known.">Previous request details:
+            <span class="expandableInput" data-expandable-name="previousRequestDetails">
+              <input name="previousRequestDetails" type="text" />
+              <textarea class="hidden" data-alt-name="previousRequestDetails"></textarea>
+              <button type="button" class="expandToggle" aria-label="Expand Previous request details" title="Expand to multiline">+</button>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend title="Record the key facts considered when making the remission decision.">Investigation</legend>
+        <label title="List relevant dates such as due dates, lodgment dates, payment dates, and the period the circumstances occurred.">Key Dates
+          <textarea name="investigationKeyDates"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Outline whether obligations were met on time, late, partially paid, or show a pattern of non-compliance.">Lodgement / Payment Behaviour
+          <textarea name="investigationLodgementPaymentBehaviour"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Note any contact with the ATO, including deferral requests, payment plans, or timing of engagement (before or after due date).">ATO Engagement
+          <textarea name="investigationAtoEngagement"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Summarise the reasons provided and assess whether they explain the delay or non-compliance.">Circumstances
+          <textarea name="investigationCircumstances"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Explicitly determine whether the circumstances prevented lodgment (FTL) or genuinely impacted the ability to pay (GIC).">Impact on Ability (Key Test)
+          <textarea name="investigationImpactOnAbility"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Identify steps taken to reduce the impact (e.g. follow-ups, prompt lodgment/payment once aware, seeking assistance).">Mitigation Actions
+          <textarea name="investigationMitigationActions"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Highlight prior lodgment or payment history and whether the behaviour is a one-off issue or part of an ongoing pattern.">Compliance
+          <textarea name="investigationCompliance"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Include any additional relevant factors not covered above (e.g. vulnerability, low-risk factors, debt status, agent involvement, or special considerations).">Other
+          <textarea name="investigationOther"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="State whether remission is approved or refused (full or partial) and briefly why.">Decision
+          <textarea name="investigationDecision"></textarea>
+        </label>
+        <label style="margin-top:12px;" title="Record what was done following the decision (e.g. letter issued, penalties remain payable, remission processed).">Action Taken
+          <textarea name="investigationActionTaken"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend title="Select the outcome of the remission request.">Decision</legend>
+        <label title="Select the outcome of the remission request.">
+          <span class="srOnly">Decision</span>
+          <select name="decision" id="decision" aria-label="Decision">
+            <option value=""></option>
+            <option value="Approved">Approved</option>
+            <option value="Partial">Partial</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset id="rejectionSection" class="hidden">
+        <legend id="letterLegend" title="Draft wording for the letter outcome. This is not included in the generated note.">Decision Letter</legend>
+        <div class="letterBlock">
+          <div class="letterHeader">
+            <strong title="Record the main points or circumstances the client told us.">You Told Us:</strong>
+            <button type="button" class="small ghost" data-copy-target="youToldUs">Copy</button>
+          </div>
+          <textarea name="youToldUs" id="youToldUs" class="bulletBox" data-bullets="true"></textarea>
+        </div>
+        <div class="letterBlock">
+          <div class="letterHeader">
+            <strong title="Record other relevant facts considered in the decision.">We Also Considered:</strong>
+            <button type="button" class="small ghost" data-copy-target="weAlsoConsidered">Copy</button>
+          </div>
+          <textarea name="weAlsoConsidered" id="weAlsoConsidered" class="bulletBox" data-bullets="true"></textarea>
+        </div>
+        <div class="letterBlock">
+          <div class="letterHeader">
+            <strong title="Record the explanation for the decision to approve, partially approve, or reject remission.">Reason for decision:</strong>
+            <button type="button" class="small ghost" data-copy-target="reasonForDecision">Copy</button>
+          </div>
+          <textarea name="reasonForDecision" id="reasonForDecision" class="large"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset id="standardParagraphsFieldset" class="hidden">
+        <legend>Standard Paragraphs</legend>
+        <div class="hint" id="stdHint">Select FTL, GIC, or SIC above to load paragraph options.</div>
+        <div class="standardParagraphs" id="standardParagraphs"></div>
+      </fieldset>
+
+      <details class="preview">
+        <summary>Preview generated note</summary>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="btnrow">
+            <button type="button" class="warn" id="clearBtn">Clear</button>
+            <button type="button" id="copyMainBtn">Copy</button>
+            <button type="button" id="copyLetterBtn">Copy</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      Form created by <a href="mailto:Joshua.Robertson@ato.gov.au">Joshua Robertson</a>
+    </div>
+  </div>
+
+  <div id="customTooltip" class="customTooltip" hidden></div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const LS_THEME_KEY = "remissionRequest.theme";
+
+    const STANDARD_PARAGRAPHS = {
+      GIC: [
+        {
+          title: "Circumstances did not directly impact the ability to pay by the due date",
+          sections: [
+            {
+              subtitle: "No circumstances provided",
+              use: "This paragraph may be suitable when the taxpayer has not provided any circumstances.",
+              refusal: "You have not demonstrated how circumstances prevented payment by the due date."
+            },
+            {
+              subtitle: "Payment plan completed (no other circumstances provided)",
+              use: "This paragraph may be suitable when no circumstances have been provided, and the remission request is solely based on the existence of a completed or active payment plan. This paragraph should not be used when circumstances have been provided.",
+              refusal: "You have not demonstrated how circumstances prevented payment by the due date. As a condition of entering into a payment plan, General Interest Charge (GIC) will continue to accrue until the outstanding debt is fully paid."
+            },
+            {
+              subtitle: "Circumstances did not impact their ability to pay",
+              use: "This paragraph may be suitable when the taxpayer has provided circumstances, but those circumstances did not affect their ability to make payment by the due date.",
+              refusal: "Although you have indicated that circumstances contributed to the delay in payment, it has been observed that your capacity to pay during that period was not affected."
+            },
+            {
+              subtitle: "Late lodgment or agent issues",
+              use: "This paragraph may be suitable when the taxpayer has cited late lodgment or delays caused by their agent, but has not demonstrated how these circumstances affected their ability to pay by the due date.",
+              refusal: "While you have outlined circumstances that affected your ability to lodge, there is no indication that your capacity to pay was impacted. It appears that voluntary pre-payments could have been made at any time during this period."
+            },
+            {
+              subtitle: "Has not demonstrated they would, but for those circumstances, have paid on time",
+              use: "This paragraph may be suitable when the taxpayer’s compliance history does not support the likelihood that the debt would have been paid, regardless of the circumstances provided.",
+              refusal: "Whilst you have detailed circumstances impacting your ability to pay, your prior compliance does not support that you would, but for those circumstances, have paid on time."
+            },
+            {
+              subtitle: "General adverse business conditions/economic downturn/fluctuations of currency exchange rates",
+              use: "This paragraph may be suitable when the taxpayer has cited generally unfavourable business conditions, general economic downturn or fluctuations of currency exchange rates as the reason for delayed payment.",
+              refusal: "General adverse business conditions within an industry, broader economic downturns, or fluctuations in currency exchange rates do not, on their own, justify remission. These factors are experienced across the wider Australian community, and other entities or taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time."
+            }
+          ]
+        },
+        {
+          title: "Did not take reasonable mitigating steps",
+          sections: [
+            {
+              subtitle: "Reasonable mitigating steps not taken",
+              use: "This paragraph may be suitable where the taxpayer is considered not to have taken reasonable steps to mitigate the situation.",
+              refusal: "You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted."
+            },
+            {
+              subtitle: "Reasonable mitigating steps not taken within reasonable timeframe",
+              use: "This paragraph may be suitable where the taxpayer took no mitigating action prior to due date, or did not take steps within a reasonable timeframe relevant to the payment due date, and has only recently contacted the ATO to discuss or taken other mitigating steps.",
+              refusal: "You have not demonstrated that you acted within a reasonable timeframe to address and reduce the impact of the circumstances that prevented timely payment."
+            },
+            {
+              subtitle: "Late Lodgment or agent issues",
+              use: "This paragraph may be suitable when the taxpayer has only cited late lodgment or agent delays, and their ability to pay was affected, but they did not take reasonable steps to mitigate the impact of those circumstances.",
+              refusal: "It is your responsibility to manage your affairs in a way that ensures lodgment and payment by the due date. You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted."
+            },
+            {
+              subtitle: "Not selling assets or seeking finance",
+              use: "This paragraph may be suitable where the taxpayer has not taken steps such as selling or borrowing against assets to pay their debt to the ATO.",
+              refusal: "You have not demonstrated that you took reasonable steps, such as selling assets or seeking finance, to pay the ATO."
+            }
+          ]
+        },
+        {
+          title: "Circumstances are within the taxpayer’s control and it would not be fair and reasonable to remit",
+          sections: [
+            {
+              subtitle: "General within taxpayer’s control",
+              use: "This paragraph may be suitable where the taxpayer’s circumstances are considered to be within their control, and it would not be fair or reasonable to grant remission.",
+              refusal: "You have not demonstrated that the circumstances leading to the delayed payment were beyond your control. Remission would not be considered fair and reasonable in this instance, as other taxpayers facing similar conditions have taken appropriate steps to pay on time."
+            },
+            {
+              subtitle: "General adverse business conditions/economic downturn/fluctuations of currency exchange rates",
+              use: "This paragraph may be suitable when the taxpayer has cited generally unfavourable business conditions, general economic downturn or fluctuations of currency exchange rates as the reason for delayed payment.",
+              refusal: "General adverse business conditions within an industry, broader economic downturns, or currency exchange rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time."
+            },
+            {
+              subtitle: "Not prioritising tax affairs",
+              use: "This paragraph may be suitable when the taxpayer has not prioritised their tax affairs.",
+              refusal: "You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment and payment by the due date. Remission would not be considered fair and reasonable, as other taxpayers have taken appropriate steps to pay on time despite similar circumstances."
+            },
+            {
+              subtitle: "Purchased non-essential assets/preferential payment to other creditors",
+              use: "This paragraph may be suitable when the taxpayer has chosen to use available funds to purchase non-essential assets or prioritise payments to other creditors over settling their debt with the ATO.",
+              refusal: "You chose to use available funds to purchase non-essential assets or prioritise payments to other creditors instead of paying your tax debt. In this context, remission would not be considered fair and reasonable, as other taxpayers have taken steps to pay on time."
+            }
+          ]
+        },
+        {
+          title: "Specific situation",
+          sections: [
+            {
+              subtitle: "Deceased estates",
+              use: "This paragraph may be suitable when the deceased estate had available funds that were not utilised for on-time payment or assets that were not sold in a timely fashion to prevent the delay in payment.",
+              refusal: "During the period of administration, assets were not sold promptly and/or available funds were not utilised to prevent delayed payment."
+            },
+            {
+              subtitle: "PAYG ITI related GIC",
+              use: "These paragraphs may be suitable where the taxpayer is requesting remission of PAYG ITI related GIC.",
+              refusal: "Remission of GIC on the sole basis that your subsequent tax assessment is less than the PAYG instalments for that year is not generally considered a valid remission request.\nOR\nRemission of GIC on the sole basis that you chose a varied instalment rate that is lower than the rate previously used and are eligible for a credit in respect of earlier instalments is not generally considered a valid remission request."
+            },
+            {
+              subtitle: "Superannuation Guarantee Charge (SGC)",
+              use: "This paragraph may be suitable where the taxpayer is requesting remission of SGC related GIC.",
+              refusal: "Remission of the General Interest Charge (GIC) related to unpaid Superannuation Guarantee Charge (SGC) is not considered fair or reasonable. As an employer, you are responsible for collecting and remitting superannuation on behalf of your employees. Failure to provide the prescribed minimum level of superannuation support compromises their retirement outcomes. Granting remission under these circumstances would be unfair to the broader Australian community."
+            },
+            {
+              subtitle: "SGC – nominal interest and administrative charges",
+              use: "This paragraph may be suitable where the taxpayer is requesting remission of nominal interest and administrative charges imposed on their SGC assessment.",
+              refusal: "The Commissioner does not have discretion to remit nominal interest and administration charges imposed on your superannuation guarantee charge (SGC) assessments as these components form part of the SGC raised when an employer fails to pay the prescribed amount to an employee’s chosen fund on time."
+            },
+            {
+              subtitle: "SGC – shortfall GIC",
+              use: "This paragraph may be suitable where the taxpayer is requesting remission of the shortfall component of their SGC debt.",
+              refusal: "As the GIC imposed on the shortfall component of the employer’s SGC debt is passed on to employees to compensate them for lost earnings, it would need to be agreed that it is fair and reasonable to all parties concerned that the remission is granted."
+            }
+          ]
+        },
+        {
+          title: "Partial remission",
+          sections: [
+            {
+              subtitle: "Period of time",
+              use: "This paragraph may be suitable where the taxpayer’s circumstances only affected their ability to pay during part of the period in which General Interest Charge (GIC) accrued.",
+              refusal: "As you have demonstrated that your ability to pay was affected by the circumstances between <date> and <date>, a remission has been approved for that period."
+            }
+          ]
+        }
+      ],
+      SIC: [
+        {
+          title: "SIC Rejections",
+          sections: [
+            { subtitle: "No circumstances provided", use: "Temporary placeholder.", refusal: "No circumstances provided" },
+            { subtitle: "Circumstances did not impact ability to pay", use: "Temporary placeholder.", refusal: "Circumstances did not impact ability to pay" },
+            { subtitle: "Reasonable mitigating steps not taken", use: "Temporary placeholder.", refusal: "Reasonable mitigating steps not taken" },
+            { subtitle: "Partial remission period of time", use: "Temporary placeholder.", refusal: "Partial remission period of time" }
+          ]
+        }
+      ],
+      FTL: [
+        {
+          title: "FTL Rejections",
+          sections: [
+            {
+              subtitle: "No circumstances provided for late lodgment",
+              use: "This paragraph may be suitable where the taxpayer has not provided any circumstances for late lodgment.",
+              refusal: "You have not demonstrated how circumstances prevented you from lodging by the due date."
+            },
+            {
+              subtitle: "Did not request further time to lodge",
+              use: "This paragraph may be suitable when the taxpayer didn’t request extra time or didn’t request extra time within a reasonable period and hasn’t demonstrated they were unable to do so.",
+              refusal: "You did not request additional time to lodge <within a reasonable timeframe> and have not demonstrated that you were unable to do so."
+            },
+            {
+              subtitle: "Agent issues (does not meet safe harbour criteria)",
+              use: "This paragraph may be suitable when the circumstances involve agent delays, and the taxpayer has not met the safe harbour requirements.",
+              refusal: "While you have indicated that issues with your agent affected your ability to lodge on time, it remains your responsibility to manage your affairs to meet the lodgment due date. Reasons related to agent delays do not justify penalty remission."
+            },
+            {
+              subtitle: "Lack of time or reminders",
+              use: "This paragraph can be applied where the taxpayer has cited a lack of time or lack of reminders from the ATO as the reason for the delayed lodgment.",
+              refusal: "You can request a lodgment deferral at any stage. Reasons related to <lack of time / lack of reminders received from the ATO> do not justify penalty remission."
+            },
+            {
+              subtitle: "Financial hardship related issues - cannot pay agent",
+              use: "This paragraph can be applied where the taxpayer has mentioned an inability to pay their agent as the reason for the delayed lodgment.",
+              refusal: "Although you have stated financial circumstances have impacted your capacity to lodge, you can self-lodge or access support by way of government funded Tax Help and National Tax Clinic programs at no cost.\nVisit the National Tax Clinic program Opens in a new window or search National Tax Clinics to:\ncheck if you are eligible, and\nfind a tax clinic that may be able to assist."
+            },
+            {
+              subtitle: "Impeded access to records/information with no action taken",
+              use: "This paragraph may be suitable where lodgment was delayed as the taxpayer did not have access to records/information from other parties and they have not shown they persistently tried to get this information.",
+              refusal: "While limited access to records or information from other parties may have contributed to the delay in lodging, you have not provided sufficient evidence of consistent efforts to obtain this information."
+            },
+            {
+              subtitle: "General within control",
+              use: "This paragraph may be suitable when the delay was within the taxpayer’s control and they haven’t shown that remission is fair or reasonable.",
+              refusal: "You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment by the due date. Remission would not be considered fair or reasonable when other taxpayers have taken steps to lodge on time."
+            },
+            {
+              subtitle: "Not onboarded to Single Touch Payroll",
+              use: "Use this paragraph when a taxpayer has not onboarded to Single Touch Payroll by the mandated date:\n1 July 2018 – for employers with more than 20 employees, and\n1 July 2019 – for employers with less than 20 employees.",
+              refusal: "The decision to onboard after the penalty has been applied is not grounds for penalty remission."
+            }
+          ]
+        },
+        {
+          title: "Partial remission",
+          sections: [
+            {
+              subtitle: "Period of time",
+              use: "This paragraph may be suitable where only part of the late lodgment period supports remission.",
+              refusal: "As you have demonstrated that remission is appropriate for part of the penalty period, a partial remission has been approved."
+            }
+          ]
+        }
+      ]
+    };
+
+    function v(name){
+      const el = document.querySelector(`[name="${name}"]`);
+      return (el?.value ?? "").toString().trim();
+    }
+
+    function setTheme(theme){
+      document.body.dataset.theme = theme;
+      localStorage.setItem(LS_THEME_KEY, theme);
+      const t = $("#themeToggle");
+      if (t) t.textContent = (theme === "dark") ? "Light" : "Dark";
+    }
+
+    function initTheme(){
+      setTheme(localStorage.getItem(LS_THEME_KEY) || "light");
+      $("#themeToggle")?.addEventListener("click", () => {
+        setTheme((document.body.dataset.theme || "light") === "dark" ? "light" : "dark");
+      });
+    }
+
+    function selectedAccount(){
+      return v("accounts") === "Other" ? v("otherAccount") : v("accounts");
+    }
+
+    function selectedSource(){
+      return v("source") === "Other" ? v("otherSource") : v("source");
+    }
+
+    function ensureLeadingBullet(e){
+      const el = e.currentTarget;
+      if (!el.value.trim()) el.value = "› ";
+      else el.value = normaliseChevronBullets(el.value);
+    }
+
+    function initBulletBoxes(){
+      $$('.bulletBox').forEach(ta => {
+        ta.addEventListener('focus', ensureLeadingBullet);
+        ta.addEventListener('keydown', e => {
+          if (e.key !== 'Enter' || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          const start = ta.selectionStart;
+          const end = ta.selectionEnd;
+          const before = ta.value.slice(0, start);
+          const after = ta.value.slice(end);
+          const insert = "\n› ";
+          ta.value = before + insert + after;
+          const pos = start + insert.length;
+          ta.selectionStart = ta.selectionEnd = pos;
+          buildPreview();
+        });
+      });
+    }
+
+    function tooltipHtml(section){
+      const refusal = escapeHtml((section.refusal || section.subtitle || "").toString());
+      return `<strong>Refusal reason:</strong>\n${refusal}`;
+    }
+
+    function escapeHtml(text){
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function isPartialRemissionGroup(group){
+      return (group.title || "").toString().trim().toLowerCase() === "partial remission";
+    }
+
+    function renderStandardParagraphs(){
+      const type = v("type");
+      const holder = $("#standardParagraphs");
+      const fieldset = $("#standardParagraphsFieldset");
+      const hint = $("#stdHint");
+      if (!holder || !fieldset) return;
+      holder.innerHTML = "";
+
+      const decision = v("decision");
+      const showForDecision = decision === "Rejected" || decision === "Partial";
+      if (!showForDecision || !type || !STANDARD_PARAGRAPHS[type]){
+        fieldset.classList.add("hidden");
+        return;
+      }
+
+      const groups = STANDARD_PARAGRAPHS[type].filter(group => {
+        const partialGroup = isPartialRemissionGroup(group);
+        if (decision === "Partial") return partialGroup;
+        if (decision === "Rejected") return !partialGroup;
+        return false;
+      });
+
+      if (!groups.length){
+        fieldset.classList.add("hidden");
+        return;
+      }
+
+      fieldset.classList.remove("hidden");
+      if (hint) { hint.textContent = ""; hint.hidden = true; }
+
+      groups.forEach((group, idx) => {
+        const details = document.createElement('details');
+        details.className = 'stdGroup';
+        if (idx === 0) details.open = true;
+
+        const summary = document.createElement('summary');
+        summary.textContent = group.title;
+        details.appendChild(summary);
+
+        const items = document.createElement('div');
+        items.className = 'stdItems';
+
+        group.sections.forEach(section => {
+          const row = document.createElement('div');
+          row.className = 'stdItem';
+          const textWrap = document.createElement('div');
+          textWrap.className = 'stdText';
+
+          const title = document.createElement('div');
+          title.className = 'stdTitle';
+          title.textContent = section.subtitle;
+          title.dataset.tooltip = tooltipHtml(section);
+
+          const useText = document.createElement('div');
+          useText.className = 'stdUse';
+          useText.textContent = section.use || '';
+
+          textWrap.appendChild(title);
+          if (section.use) textWrap.appendChild(useText);
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'small';
+          btn.textContent = 'Add';
+          btn.addEventListener('click', () => addReasonText(section.refusal || section.subtitle));
+
+          row.appendChild(textWrap);
+          row.appendChild(btn);
+          items.appendChild(row);
+        });
+
+        details.appendChild(items);
+        holder.appendChild(details);
+      });
+    }
+
+    function addReasonText(text){
+      const ta = $("#reasonForDecision");
+      if (!ta) return;
+      const current = ta.value.trimEnd();
+      ta.value = current ? current + "\n" + text : text;
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+      buildPreview();
+      flashStatus("Added.");
+    }
+
+    function buildRequestNote(){
+      const lines = [];
+      const push = (text = "") => lines.push(text);
+      const clean = (val) => (val || "").toString().trim();
+      const nonEmptyRows = (rows) => rows
+        .map(([k, val]) => [k, clean(val)])
+        .filter(([, val]) => val);
+      const pushRows = (rows) => {
+        nonEmptyRows(rows).forEach(([k, val]) => push(`${k}: ${val}`));
+      };
+      const pushSection = (title, rows = [], blocks = []) => {
+        const filledRows = nonEmptyRows(rows);
+        const filledBlocks = blocks
+          .map(([k, val]) => [k, clean(val)])
+          .filter(([, val]) => val);
+
+        if (!filledRows.length && !filledBlocks.length) return;
+
+        if (lines.length) push("");
+        push(title);
+
+        filledRows.forEach(([k, val]) => push(`${k}: ${val}`));
+        filledBlocks.forEach(([k, val]) => {
+          push("");
+          push(`${k}:`);
+          push(val);
+        });
+      };
+
+      pushSection("Request Details", [
+        ["Client Name", v("clientName")],
+        ["Tax Agent Name", v("taxAgentName")],
+        ["Account/s", selectedAccount()],
+        ["Type", v("type")],
+        ["Source", selectedSource()],
+        ["Low Risk", v("lowRisk")]
+      ], [
+        ["Low Risk details", v("lowRiskDetails")],
+        ["Request", v("request")]
+      ]);
+
+      pushSection("Penalty & Interest Details", [
+        ["Period/s", v("periods")],
+        ["Relevant due date/s", v("relevantDueDates")],
+        ["Amount requested", v("amountRequested")],
+        ["Amount approved/remitted", v("amountApprovedRemitted")],
+        ["Amount remaining/refused", v("amountRemainingRefused")],
+        ["Previous request for same period/s", v("previousRequest")]
+      ], [
+        ["Previous request details", v("previousRequestDetails")]
+      ]);
+
+      pushSection("Investigation", [], [
+        ["Key Dates", v("investigationKeyDates")],
+        ["Lodgement / Payment Behaviour", v("investigationLodgementPaymentBehaviour")],
+        ["ATO Engagement", v("investigationAtoEngagement")],
+        ["Circumstances", v("investigationCircumstances")],
+        ["Impact on Ability (Key Test)", v("investigationImpactOnAbility")],
+        ["Mitigation Actions", v("investigationMitigationActions")],
+        ["Compliance", v("investigationCompliance")],
+        ["Other", v("investigationOther")],
+        ["Decision", v("investigationDecision")],
+        ["Action Taken", v("investigationActionTaken")]
+      ]);
+
+      pushSection("Outcome", [
+        ["Decision", v("decision")]
+      ]);
+
+      return lines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+    }
+
+    function letterTitle(){
+      const type = v("type");
+      const decision = v("decision");
+      if (!type || !decision) return "Decision Letter";
+      if (decision === "Approved") return `${type} Approval Letter`;
+      if (decision === "Partial") return `${type} Partial Remission Letter`;
+      if (decision === "Rejected") return `${type} Rejection Letter`;
+      return `${type} Decision Letter`;
+    }
+
+    function normaliseChevronBullets(text){
+      return (text || "").toString().replace(/(^|\n)\s*>\s*/g, "$1› ");
+    }
+
+    function buildDecisionLetter(){
+      if (!v("type") || !["Approved", "Partial", "Rejected"].includes(v("decision"))) return "";
+      const blocks = [];
+      if (v("youToldUs")) blocks.push("You Told Us:\n" + normaliseChevronBullets(v("youToldUs")));
+      if (v("weAlsoConsidered")) blocks.push("We Also Considered:\n" + normaliseChevronBullets(v("weAlsoConsidered")));
+      if (v("reasonForDecision")) blocks.push("Reason for decision:\n" + v("reasonForDecision"));
+      return blocks.join("\n\n").trim();
+    }
+
+    function buildPreview(){
+      const note = buildRequestNote();
+      const preview = $("#preview");
+      if (preview) preview.textContent = note;
+      return note;
+    }
+
+    async function copyText(text, msg){
+      try{
+        await navigator.clipboard.writeText(text);
+        flashStatus(msg || "Copied.");
+      }catch{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        flashStatus(ok ? (msg || "Copied.") : "Clipboard copy failed (browser blocked it).");
+      }
+    }
+
+    function flashStatus(msg){
+      const status = $("#status");
+      if (!status) return;
+      status.textContent = msg;
+      setTimeout(() => status.textContent = "", 2500);
+    }
+
+
+    function resetExpandableInputs(){
+      $$('.expandableInput').forEach(wrap => {
+        const name = wrap.dataset.expandableName;
+        const input = wrap.querySelector('input');
+        const textarea = wrap.querySelector('textarea');
+        const btn = wrap.querySelector('.expandToggle');
+        if (!name || !input || !textarea || !btn) return;
+        textarea.value = '';
+        textarea.removeAttribute('name');
+        textarea.classList.add('hidden');
+        input.setAttribute('name', name);
+        input.classList.remove('hidden');
+        btn.textContent = '+';
+        btn.title = 'Expand to multiline';
+      });
+    }
+
+    function clearForm(){
+      const form = $("#remissionForm");
+      if (!form) return;
+      form.reset();
+      resetExpandableInputs();
+      $("#otherAccountLabel")?.classList.add("hidden");
+      $("#otherSourceLabel")?.classList.add("hidden");
+      $("#lowRiskDetailsLabel")?.classList.add("hidden");
+      $("#previousRequestDetailsLabel")?.classList.add("hidden");
+      $("#rejectionSection")?.classList.add("hidden");
+      $("#standardParagraphsFieldset")?.classList.add("hidden");
+      const holder = $("#standardParagraphs");
+      if (holder) holder.innerHTML = "";
+      buildPreview();
+      flashStatus("Cleared.");
+    }
+
+    function initCustomTooltips(){
+      const tip = $("#customTooltip");
+      if (!tip) return;
+
+      function place(e){
+        const pad = 14;
+        const x = Math.min(e.clientX + pad, window.innerWidth - tip.offsetWidth - pad);
+        const y = Math.min(e.clientY + pad, window.innerHeight - tip.offsetHeight - pad);
+        tip.style.left = Math.max(pad, x) + "px";
+        tip.style.top = Math.max(pad, y) + "px";
+      }
+
+      document.addEventListener("mouseover", e => {
+        const target = e.target.closest("[data-tooltip]");
+        if (!target) return;
+        tip.innerHTML = target.dataset.tooltip || "";
+        tip.hidden = false;
+      });
+
+      document.addEventListener("mousemove", e => {
+        if (!tip.hidden) place(e);
+      });
+
+      document.addEventListener("mouseout", e => {
+        if (e.target.closest("[data-tooltip]")) tip.hidden = true;
+      });
+    }
+
+
+    function initPenaltyExpandable(){
+      $$('.expandableInput').forEach(wrap => {
+        const name = wrap.dataset.expandableName;
+        const input = wrap.querySelector('input');
+        const textarea = wrap.querySelector('textarea');
+        const btn = wrap.querySelector('.expandToggle');
+        if (!name || !input || !textarea || !btn) return;
+
+        function setExpanded(expanded){
+          if (expanded){
+            wrap.classList.add('expanded');
+            textarea.value = input.value;
+            input.removeAttribute('name');
+            textarea.setAttribute('name', name);
+            input.classList.add('hidden');
+            textarea.classList.remove('hidden');
+            btn.textContent = '-';
+            btn.title = 'Return to single line';
+            btn.setAttribute('aria-label', 'Collapse ' + name);
+            textarea.focus();
+          }else{
+            input.value = textarea.value.replace(/\n+/g, ' ');
+            textarea.removeAttribute('name');
+            input.setAttribute('name', name);
+            textarea.classList.add('hidden');
+            input.classList.remove('hidden');
+            btn.textContent = '+';
+            btn.title = 'Expand to multiline';
+            btn.setAttribute('aria-label', 'Expand ' + name);
+            input.focus();
+          }
+          buildPreview();
+        }
+
+        btn.addEventListener('click', () => setExpanded(input.hasAttribute('name')));
+      });
+    }
+
+    function syncVisibility(){
+      const isOther = v("accounts") === "Other";
+      $("#otherAccountLabel")?.classList.toggle("hidden", !isOther);
+      if (!isOther){
+        const other = document.querySelector('[name="otherAccount"]');
+        if (other) other.value = "";
+      }
+
+      const isOtherSource = v("source") === "Other";
+      $("#otherSourceLabel")?.classList.toggle("hidden", !isOtherSource);
+      if (!isOtherSource){
+        const otherSource = document.querySelector('[name="otherSource"]');
+        if (otherSource) otherSource.value = "";
+      }
+
+      const showLowRiskDetails = v("lowRisk") === "Yes";
+      $("#lowRiskDetailsLabel")?.classList.toggle("hidden", !showLowRiskDetails);
+      if (!showLowRiskDetails){
+        const lowRiskDetails = document.querySelector('[name="lowRiskDetails"]');
+        if (lowRiskDetails) lowRiskDetails.value = "";
+      }
+
+      const showPreviousRequestDetails = v("previousRequest") === "Yes";
+      $("#previousRequestDetailsLabel")?.classList.toggle("hidden", !showPreviousRequestDetails);
+      if (!showPreviousRequestDetails){
+        const previousRequestDetails = document.querySelector('[name="previousRequestDetails"]');
+        if (previousRequestDetails) previousRequestDetails.value = "";
+      }
+
+      const showLetter = !!v("type") && ["Approved", "Partial", "Rejected"].includes(v("decision"));
+      $("#rejectionSection")?.classList.toggle("hidden", !showLetter);
+      const legend = $("#letterLegend");
+      if (legend) legend.textContent = letterTitle();
+      renderStandardParagraphs();
+      buildPreview();
+    }
+
+    function init(){
+      initTheme();
+      initBulletBoxes();
+      initCustomTooltips();
+      initPenaltyExpandable();
+      syncVisibility();
+
+      document.addEventListener("input", e => {
+        if (e.target && e.target.closest("#remissionForm")) buildPreview();
+      });
+      document.addEventListener("change", e => {
+        if (e.target && e.target.closest("#remissionForm")) syncVisibility();
+      });
+      ["accounts", "source", "lowRisk", "previousRequest", "type", "decision"].forEach(id => {
+        const el = $("#" + id);
+        if (!el) return;
+        el.addEventListener("input", syncVisibility);
+        el.addEventListener("change", syncVisibility);
+      });
+
+      $$('[data-copy-target]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.copyTarget;
+          const el = id ? $("#" + id) : null;
+          copyText((el?.value || "").trim(), "Copied.");
+        });
+      });
+
+      $("#clearBtn")?.addEventListener("click", clearForm);
+      $("#copyMainBtn")?.addEventListener("click", () => copyText(buildPreview(), "Copied full note."));
+      $("#copyLetterBtn")?.addEventListener("click", () => copyText(buildDecisionLetter(), "Copied letter."));
+      buildPreview();
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  </script>
+</body>
+</html>
