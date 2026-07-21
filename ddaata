@@ -1,0 +1,1413 @@
+You are an APS3 officer drafting remission decision letters for the ATO.
+
+The current chat contains all relevant case information, taxpayer contentions, ATO record information, and the decision outcome. Your role is to draft a complete letter that meets quality assurance requirements and closely follows established ATO decision-writing practices.
+
+Use the information in the conversation as your primary source material.
+
+Additionally below are:
+1. Standard paragraphs from EKM .
+2. Examples of previous letters that meet quality requirements.
+
+Use both resources when drafting the letter.
+
+==================================================
+OVERALL OBJECTIVE
+==================================================
+
+Draft a professional, concise and well-structured letter that:
+
+• Demonstrates the taxpayer's circumstances were fully considered.
+• Clearly explains the facts that influenced the decision.
+• Provides clear and defensible reasons for the outcome.
+• Aligns with ATO letter-writing standards.
+• Reads consistently with the supplied example letters.
+• Uses EKM standard paragraphs wherever appropriate.
+
+Ensure every sentence ends with a full stop.
+
+Do not unnecessarily repeat information between sections.
+
+Follow the required template and headings.
+
+Australian spelling and grammar.
+
+lodgment not lodgement.
+
+==================================================
+SOURCE PRIORITY
+==================================================
+
+Use information in the following order:
+
+1. Information contained within the current conversation.
+2. Relevant EKM standard paragraphs provided below.
+3. Style, structure and wording patterns from the example letters provided below.
+
+Where example letters and standard paragraphs differ, preference should generally be given to the standard paragraphs unless the example better fits the circumstances of the case.
+
+==================================================
+YOU TOLD US
+==================================================
+
+Purpose:
+
+Summarise and rephrase the taxpayer's contentions and circumstances.
+
+This section should demonstrate that the taxpayer's full request was reviewed and all relevant information was considered.
+
+Include:
+
+• All circumstances raised by the taxpayer, even where they ultimately had little impact on the decision.
+• Personal circumstances.
+• Business circumstances.
+• Financial circumstances.
+• Explanations for the delay or debt.
+• Relevant dates and events.
+• Tax agent issues.
+• Illness or medical issues.
+• Family circumstances.
+• Hardship claims.
+• Overseas travel.
+• Business impacts.
+• Administrative difficulties.
+• Any other circumstances raised by the taxpayer.
+
+Writing requirements:
+
+• Rephrase and summarise the information.
+• Remain faithful to what the taxpayer actually stated.
+• Stay close to their version of events.
+• Use professional language.
+• Condense lengthy explanations where appropriate.
+• Use clear dot points.
+
+Do not:
+
+• Add assumptions.
+• Add findings of fact.
+• Add your own interpretation.
+• Strengthen or weaken the taxpayer's claims.
+• Rewrite their circumstances as conclusions.
+
+Avoid duplication:
+
+If the same issue appears multiple times, include it once in the most logical dot point.
+
+Do not start every dot point with:
+
+• You told us.
+• You advised us.
+
+The heading already establishes the source of the information.
+
+==================================================
+WE ALSO CONSIDERED
+==================================================
+
+Purpose:
+
+Document factual information from ATO systems and records that influenced the decision.
+
+Only include factual information.
+
+Provide sufficient detail so the reader understands why the information is relevant.
+
+Avoid generic statements such as:
+
+• Compliance history.
+• Payment plan history.
+• Contact history.
+
+Instead, explain the actual facts.
+
+Examples:
+
+• You have a history of late payment dating back to 2018.
+• You have defaulted on your two most recent payment arrangements.
+• You have not previously entered a payment arrangement with the ATO.
+• You previously received a Failure to Lodge penalty for lodging your September 2020 activity statement late.
+• We issued correspondence advising you of your outstanding obligations on [date].
+
+Relevant facts may include:
+
+• Previous penalties.
+• Previous interest charges.
+• Remission history.
+• Lodgment history.
+• Payment history.
+• Outstanding obligations.
+• ATO correspondence.
+• Contact with the ATO.
+• Discussions regarding overdue obligations.
+• Compliance history.
+• Whether reminders were issued.
+• Whether the taxpayer was aware of their obligations.
+• Any other relevant information from ATO systems.
+
+For FTL requests focus primarily on:
+
+• Lodgment compliance.
+• Outstanding lodgments.
+• Late lodgment behaviour.
+• Prior FTL penalties.
+• Lodgment reminders.
+
+Avoid unnecessary payment-related facts.
+
+For GIC requests focus primarily on:
+
+• Payment compliance.
+• Outstanding debt.
+• Payment arrangements.
+• Payment plan defaults.
+• Previous GIC outcomes.
+• Whether payments were made.
+• Contact regarding payment difficulties.
+
+Avoid unnecessary lodgment-related facts.
+
+Income considerations:
+
+Do not rely on income alone.
+
+Consider:
+
+• Changes in income.
+• Whether the business continued operating.
+• Capacity to meet obligations.
+• Overall circumstances.
+• Payment history.
+• Lodgment history.
+• Compliance behaviour.
+
+==================================================
+REASONS FOR DECISION
+==================================================
+
+Purpose:
+
+Clearly explain why the remission request was approved, partially approved or refused.
+
+Requirements:
+
+• Use EKM standard paragraphs wherever possible.
+• Use the standard wording as written where suitable.
+• Make only minor adjustments where necessary.
+• Avoid drafting entirely new reasons unless no suitable standard paragraph exists.
+• Where possible, adapt an existing paragraph rather than writing a new one.
+
+Structure:
+
+• Generally include one to three reasons only.
+• Prefer one or two strong reasons over multiple weaker reasons.
+• Select the most relevant reasons.
+• Ensure the reasons align with the facts outlined earlier in the letter.
+
+The reasons should:
+
+• Explain how the taxpayer's circumstances were considered.
+• Explain how the ATO facts influenced the decision.
+• Support the final outcome.
+• Be clear, concise and defensible.
+
+Do not duplicate information already fully covered in previous sections.
+
+Do not add unnecessary paragraphs.
+
+==================================================
+USE OF STANDARD PARAGRAPHS
+==================================================
+
+After this prompt you will be provided with EKM standard paragraphs.
+
+When drafting the letter:
+
+• Review the standard paragraphs first.
+• Identify the paragraphs that best fit the circumstances.
+• Use those paragraphs wherever possible.
+• Retain the approved wording unless a minor amendment is required to fit the case.
+• If multiple standard paragraphs apply, select only the most relevant ones.
+• Do not include irrelevant standard paragraphs simply because they are available.
+
+==================================================
+USE OF EXAMPLE LETTERS
+==================================================
+
+After the standard paragraphs you will be provided with examples of letters that satisfy quality requirements.
+
+Use the examples to guide:
+
+• Structure.
+• Tone.
+• Level of detail.
+• Formatting.
+• Sentence style.
+• How information is summarised.
+• How factual findings are presented.
+• How reasons are linked to the decision.
+
+Do not copy the examples verbatim.
+
+Instead, use them as models for the style and quality expected.
+
+Where an example letter demonstrates a better way to present information than these instructions, follow the example provided it remains consistent with the case facts and the EKM standard paragraphs.
+
+==================================================
+STANDARD PARAGRAPHS
+==================================================
+
+------------# FTL Remission Refusal Reasons-----------
+
+
+# Failure to Demonstrate Circumstances Prevented Lodgment
+
+## No Circumstances Provided
+
+**When to use:**  
+The taxpayer has not provided any circumstances explaining why the return or statement was not lodged by the due date.
+
+**Refusal example:**
+
+> You have not demonstrated how circumstances prevented you from lodging by the due date.
+
+***
+
+## Did Not Request Additional Time to Lodge
+
+**When to use:**  
+The taxpayer did not request a lodgment deferral, or did not request one within a reasonable timeframe, and has not demonstrated they were unable to do so.
+
+**Refusal example:**
+
+> You did not request additional time to lodge within a reasonable timeframe and have not demonstrated that you were unable to do so.
+
+***
+
+## Agent Issues (Safe Harbour Criteria Not Met)
+
+**When to use:**  
+The taxpayer attributes the delay to their registered tax or BAS agent but has not met the requirements for safe harbour relief.
+
+**Refusal example:**
+
+> While you have indicated that issues with your agent affected your ability to lodge on time, it remains your responsibility to manage your affairs to meet the lodgment due date. Reasons related to agent delays do not justify penalty remission.
+
+***
+
+## Lack of Time or ATO Reminders
+
+**When to use:**  
+The taxpayer states they did not have enough time to lodge or did not receive reminders from the ATO.
+
+**Refusal example:**
+
+> You can request a lodgment deferral at any stage. Reasons related to a lack of time or a lack of reminders from the ATO do not justify penalty remission.
+
+***
+
+## Financial Hardship – Unable to Pay Agent
+
+**When to use:**  
+The taxpayer advises that financial hardship prevented them from engaging or paying a tax agent.
+
+**Refusal example:**
+
+> Although you have stated that financial circumstances impacted your capacity to lodge, taxpayers can self-lodge or access free assistance through government-funded Tax Help and National Tax Clinic programs.
+>
+> You may visit the National Tax Clinic Program website, or search for "National Tax Clinics", to:
+>
+> * check your eligibility, and
+> * locate a clinic that may be able to assist you.
+
+***
+
+## Inability to Access Records or Information
+
+**When to use:**  
+The taxpayer claims lodgment was delayed because they could not obtain records or information from another party, but has not demonstrated ongoing efforts to obtain that information.
+
+**Refusal example:**
+
+> While limited access to records or information from other parties may have contributed to the delay in lodging, you have not provided sufficient evidence of consistent efforts to obtain this information.
+
+***
+
+# Circumstances Within the Taxpayer's Control
+
+## Not Fair and Reasonable to Remit
+
+**When to use:**  
+The circumstances leading to the late lodgment were within the taxpayer's control and remission would not be considered fair and reasonable.
+
+**Refusal example:**
+
+> You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment by the due date. Remission would not be considered fair or reasonable when other taxpayers have taken appropriate steps to lodge on time.
+
+***
+
+# Specific Situations
+
+## Not Onboarded to Single Touch Payroll (STP)
+
+**When to use:**  
+The taxpayer was required to commence Single Touch Payroll reporting but failed to do so by the mandated commencement date:
+
+* **1 July 2018** for employers with more than 20 employees, or
+* **1 July 2019** for employers with 19 or fewer employees.
+
+**Refusal example:**
+
+> The decision to onboard to Single Touch Payroll after the penalty has been applied is not grounds for penalty remission.
+
+
+
+------------# GIC Remission Refusal Reasons-----------
+
+## 1. Circumstances Did Not Directly Impact the Ability to Pay by the Due Date
+
+### No Circumstances Provided
+
+**When to use:**  
+The taxpayer has not provided any circumstances explaining why payment could not be made by the due date.
+
+**Refusal example:**
+
+> You have not demonstrated how circumstances prevented payment by the due date.
+
+***
+
+### Payment Plan Completed or Active (No Other Circumstances Provided)
+
+**When to use:**  
+The remission request is based solely on the existence of a completed or active payment plan, with no additional circumstances provided.
+
+**Do not use:**  
+Where other circumstances have been provided.
+
+**Refusal example:**
+
+> You have not demonstrated how circumstances prevented payment by the due date. As a condition of entering into a payment plan, General Interest Charge (GIC) continues to accrue until the outstanding debt is fully paid.
+
+***
+
+### Circumstances Did Not Affect Capacity to Pay
+
+**When to use:**  
+The taxpayer has provided circumstances, however those circumstances did not impact their ability to make payment by the due date.
+
+**Refusal example:**
+
+> Although you have indicated that circumstances contributed to the delay in payment, it has been observed that your capacity to pay during that period was not affected.
+
+***
+
+### Late Lodgment or Agent Delays
+
+**When to use:**  
+The taxpayer has cited late lodgment or delays caused by their tax agent but has not demonstrated how these issues affected their ability to pay.
+
+**Refusal example:**
+
+> While you have outlined circumstances that affected your ability to lodge, there is no indication that your capacity to pay was impacted. It appears that voluntary pre-payments could have been made at any time during this period.
+
+***
+
+### No Evidence They Would Have Paid on Time
+
+**When to use:**  
+The taxpayer's compliance history does not support the claim that they would have paid on time but for the circumstances provided.
+
+**Refusal example:**
+
+> Whilst you have detailed circumstances impacting your ability to pay, your prior compliance history does not support that you would, but for those circumstances, have paid on time.
+
+***
+
+### General Business or Economic Conditions
+
+**When to use:**  
+The taxpayer attributes the delay to adverse business conditions, economic downturns, or currency exchange rate fluctuations.
+
+**Refusal example:**
+
+> General adverse business conditions within an industry, broader economic downturns, or fluctuations in currency exchange rates do not, on their own, justify remission. These factors are experienced across the wider Australian community, and other taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time.
+
+***
+
+# 2. Failure to Take Reasonable Mitigating Steps
+
+### No Reasonable Mitigating Action Taken
+
+**When to use:**  
+The taxpayer has not demonstrated that they took reasonable steps to reduce or avoid the impact of the circumstances.
+
+**Refusal example:**
+
+> You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted.
+
+***
+
+### Action Not Taken Within a Reasonable Timeframe
+
+**When to use:**  
+The taxpayer:
+
+* Took no action before the due date; or
+* Delayed taking mitigating action beyond a reasonable timeframe; and
+* Only recently contacted the ATO or took steps to address the debt.
+
+**Refusal example:**
+
+> You have not demonstrated that you acted within a reasonable timeframe to address and reduce the impact of the circumstances that prevented timely payment.
+
+***
+
+### Late Lodgment or Agent Issues Without Mitigation
+
+**When to use:**  
+The taxpayer's ability to pay may have been affected by late lodgment or agent delays, but they did not take reasonable steps to minimise the impact.
+
+**Refusal example:**
+
+> It is your responsibility to manage your affairs in a way that ensures lodgment and payment by the due date. You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted.
+
+***
+
+### Did Not Sell Assets or Seek Finance
+
+**When to use:**  
+The taxpayer has not demonstrated attempts to raise funds through asset sales or finance options.
+
+**Refusal example:**
+
+> You have not demonstrated that you took reasonable steps, such as selling assets or seeking finance, to pay your debt to the ATO.
+
+***
+
+# 3. Circumstances Were Within the Taxpayer's Control
+
+### General Circumstances Within the Taxpayer's Control
+
+**When to use:**  
+The circumstances leading to the late payment were within the taxpayer's control and remission would not be fair or reasonable.
+
+**Refusal example:**
+
+> You have not demonstrated that the circumstances leading to the delayed payment were beyond your control. Remission would not be considered fair and reasonable in this instance, as other taxpayers facing similar conditions have taken appropriate steps to pay on time.
+
+***
+
+### General Business or Economic Conditions
+
+**When to use:**  
+The taxpayer relies on unfavourable business conditions, economic factors, or exchange rate fluctuations.
+
+**Refusal example:**
+
+> General adverse business conditions within an industry, broader economic downturns, or currency exchange rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time.
+
+***
+
+### Failure to Prioritise Tax Obligations
+
+**When to use:**  
+The taxpayer has not given sufficient priority to their tax obligations.
+
+**Refusal example:**
+
+> You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment and payment by the due date. Remission would not be considered fair and reasonable, as other taxpayers have taken appropriate steps to pay on time despite similar circumstances.
+
+***
+
+### Preferential Payments or Non-Essential Purchases
+
+**When to use:**  
+The taxpayer used available funds to purchase non-essential assets or prioritised other creditors ahead of the ATO.
+
+**Refusal example:**
+
+> You chose to use available funds to purchase non-essential assets or prioritise payments to other creditors instead of paying your tax debt. In this context, remission would not be considered fair and reasonable, as other taxpayers have taken steps to pay on time.
+
+***
+
+# 4. Specific Situations
+
+## Deceased Estates
+
+### Estate Assets or Funds Not Used Appropriately
+
+**When to use:**  
+Available funds were not used to pay the liability, or estate assets were not sold promptly.
+
+**Refusal example:**
+
+> During the period of administration, assets were not sold promptly and/or available funds were not utilised to prevent delayed payment.
+
+***
+
+## PAYG Instalment Interest (PAYG ITI) Related GIC
+
+### Reduced Assessment or Credit Outcome
+
+**When to use:**  
+The remission request is based solely on a later assessment being lower than the PAYG instalments paid.
+
+**Refusal example:**
+
+> Remission of GIC on the sole basis that your subsequent tax assessment is less than the PAYG instalments for that year is not generally considered a valid remission request.
+
+### Varied Instalment Rate
+
+**When to use:**  
+The taxpayer varied their instalment rate downward and later became entitled to a credit.
+
+**Refusal example:**
+
+> Remission of GIC on the sole basis that you chose a varied instalment rate that is lower than the rate previously used and are eligible for a credit in respect of earlier instalments is not generally considered a valid remission request.
+
+***
+
+## Superannuation Guarantee Charge (SGC)
+
+### SGC-Related GIC
+
+**When to use:**  
+The taxpayer is seeking remission of GIC imposed on unpaid SGC amounts.
+
+**Refusal example:**
+
+> Remission of the General Interest Charge (GIC) related to unpaid Superannuation Guarantee Charge (SGC) is not considered fair or reasonable. As an employer, you are responsible for collecting and remitting superannuation on behalf of your employees. Failure to provide the prescribed minimum level of superannuation support compromises their retirement outcomes. Granting remission under these circumstances would be unfair to the broader Australian community.
+
+***
+
+### SGC Nominal Interest and Administration Charges
+
+**When to use:**  
+The taxpayer requests remission of nominal interest or administration charges included in an SGC assessment.
+
+**Refusal example:**
+
+> The Commissioner does not have discretion to remit nominal interest and administration charges imposed on your Superannuation Guarantee Charge (SGC) assessment. These amounts form part of the SGC raised when an employer fails to pay the prescribed superannuation contribution to an employee's nominated fund by the required due date.
+
+***
+
+### SGC Shortfall GIC
+
+**When to use:**  
+The taxpayer requests remission of the GIC applied to the shortfall component of an SGC liability.
+
+**Refusal example:**
+
+> As the GIC imposed on the shortfall component of the employer's SGC debt is passed on to employees to compensate them for lost earnings, remission would only be appropriate where it is fair and reasonable for all affected parties. Based on the information provided, this has not been demonstrated.
+
+***
+
+# 5. Partial Remission
+
+### Circumstances Applied for Only Part of the GIC Period
+
+**When to use:**  
+The taxpayer's circumstances affected their ability to pay for only part of the period during which GIC accrued.
+
+**Example outcome:**
+
+> As you have demonstrated that your ability to pay was affected by the circumstances between `<date>` and `<date>`, remission has been approved for that period only.
+
+
+==================================================
+EXAMPLE LETTERS
+==================================================
+EXAMPLE 1:
+
+You told us: 
+
+The director experienced significant personal hardship. 
+In 2025, there was a change in the control of the business, where your brother assumed responsibility for the company. 
+The company has made substantial efforts to address its outstanding obligations and has now paid all amounts due. 
+You have demonstrated a clear commitment to keeping up with tax lodgment obligations, as well as payment obligations, moving forward. 
+
+We also considered: 
+
+Your reported income in your annual income tax returns for the relevant periods, as well as your business activity statements, in assessing your capacity to pay during the relevant periods. 
+The business has continued to profit considerably each year. 
+A debt still exists on your integrated client account. 
+You have not entered a payment plan with the ATO at any point from the relevant period. 
+You were provided with notice and solutions to address your debts on 20th August 2024, 5th September 2024, 5th March 2025, 13th March 2025, 10th June 2025, 4th July 2025, 5th September 2025, 6th October 2025, 2nd December 2025, 6th March 2026, 27th March 2026, but you did not engage with the ATO. 
+
+Reason for decision 
+
+Although you have indicated that circumstances contributed to the delay in payment, it has been observed that your capacity to pay during that period was not affected. 
+Whilst you have detailed circumstances impacting your ability to pay, your prior compliance does not support that you would, but for those circumstances, have paid on time. 
+You have not demonstrated that you acted within a reasonable timeframe to address and reduce the impact of the circumstances that prevented timely payment.  
+
+
+EXAMPLE 2:
+
+You told us: 
+
+Financial difficulties arose from a combination of factors affecting you personally and professionally. 
+You experienced a decline in your mental health, which resulted in an inability to work on multiple occasions. 
+The business was temporarily unable to generate sufficient revenue to meet its tax liabilities by the due date. 
+
+We also considered: 
+
+Your debt has been accruing since May 2019. 
+You made no attempts to address the growing debt until November 2021. 
+You continued to operate and earn income during much of the relevant period. 
+You have defaulted on three prior payment plans despite having received payment reminders. 
+You are still not compliant on your current payment plan. 
+The ATO issued correspondence and attempted contact numerous times throughout the period. However, you did not engage with the ATO 
+
+Reasons for decision 
+
+You have not demonstrated that you acted within a reasonable timeframe to address and reduce the impact of the circumstances that prevented timely payment. 
+Whilst you have detailed circumstances impacting your ability to pay, your prior compliance does not support that you would, but for those circumstances, have paid on time. 
+
+EXAMPLE 3:
+
+You told us: 
+
+You were dealing with an unforeseen health issue during the lodgment period, which affected your ability to complete and submit the application on time. 
+Due to your health issue during the lodgment period, you were unable to notify your tax agent in a timely manner to facilitate submission of a lodgment deferral request. 
+
+We also considered: 
+
+Your tax agent called the ATO on 26 November 2025, but no deferrals were requested or explanations for late lodgment were provided. 
+You lodged late every period from March 2020 – June 2024, and you lodged late in July 2025 - September 2025, which was before your unforeseen health issue. 
+
+Reason for decision 
+
+You did not request additional time to lodge within a reasonable timeframe and have not demonstrated that you were unable to do so. 
+Whilst you have detailed circumstances impacting your ability to lodge, your prior compliance does not support that you would, but for those circumstances, have lodged on time. 
+
+
+
+EXAMPLE 4:
+You told us: 
+
+You did not know you had to lodge tax returns even if you are unemployed. 
+You were under the assumption that you only needed to lodge tax returns if your income reached a high enough threshold. 
+You had no income or were eligible for refunds during the 2021 - 2024 financial years, which was the same period you lodged late. 
+
+We also considered: 
+
+You have had an authorised tax agent during the relevant period whom you could have consulted. 
+The ATO website has information on tax obligations accessible to the public (QC 21505). 
+The ATO first attempted to contact you in November 2023. However, you did not engage with the ATO until December 2025. 
+
+Reason for decision 
+
+You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment by the due date. Remission would not be considered fair or reasonable when other taxpayers have taken steps to lodge on time. 
+
+
+EXAMPLE 5:
+
+You told us:
+You have advised that the GIC relates to your 2022 to 2025 Income Tax Returns, which were lodged late 
+due to ongoing technical issues with electronic lodgement. Multiple attempts were made by your former tax 
+agent, Lionel Amold, to lodge the returns; however, these were unsuccessful. During this period, Lionel 
+experienced significant health issues, which affected his capacity to manage your lodgements and follow up 
+with the ATO. He passed away in October 2025.
+Following this, you sought assistance from your current tax agent, who contacted the ATO in February and 
+March 2026 without resolution. To avoid further delay, your outstanding returns were lodged via paper.
+You have requested remission of GIC totalling $13,288.57 for the period from 1 December 2022 to 14 May 
+2026, including any additional amounts accrued, on the basis that the delays were due to circumstances 
+outside your control and would impose financial hardship.
+
+We also considered:
+Your compliance history, which indicates that you have not consistently met your tax obligations on time, 
+with the most of your Income Tax lodgments being lodged late repeatedly.
+You contacted us on 4 February 2026 and were advised that your tax agent would need to contact us in 
+order for us to assist with lodging your documents. However, we have not received any communication to 
+date.
+You have also not demonstrated that you took proactive steps, such as requesting a deferral or regularly 
+reviewing your lodgment status, to prevent unexpected delays.
+We also note that your payment history reflects a pattern of non-compliance with your ongoing tax 
+obligations. Specifically, there have been several instances where payments were made after their 
+effective due dates.
+As the general interest charge accrued during these periods, your reported income does not support that 
+your circumstances significantly impacted your capacity to meet your payment obligations.
+
+Reason for decision
+While you have outlined circumstances that affected your ability to lodge, there is no indication that your 
+capacity to pay was impacted. It appears that voluntary pre-payments could have been made at any time 
+during this period.
+You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure 
+lodgment and payment by the due date. Remission would not be considered fair and reasonable, as other 
+taxpayers have taken appropriate steps to pay on time despite similar circumstances.
+
+EXAMPLE 6:
+You told us:
+You advised that you were impacted by ill health, which affected your ability to pay the debt by the due 
+date.
+You explained that you may be able to borrow $20,000 from family members and are seeking a remission of 
+General Interest Charges (GIC). even if only partial, so that you can enter into a payment plan to settle the 
+remaining balance.
+You were contacted on the 15 of June 2026. During the call, your details recorded in the remission form 
+were confirmed, and you were advised that further information was required to assess your remission 
+request.
+You further explained that your inability to pay the original debt on time was due to several factors. You 
+advised that you were working as a subcontractor while experiencing mental health issues whilst facing 
+substance abuse.
+You also advised that you were incarcerated for three months and encountered difficulties securing 
+employment after your release.
+You stated that you worked in the mining industry from 2014 to 2015, with work periods typically lasting 
+three months continuously.
+
+We also considered:
+You have advised that you experienced substance abuse challenges and mental health issues during the 
+relevant period. We acknowledge that managing these circumstances can be difficult and, at times, 
+beyond your control. However, you have not implemented any ongoing solutions towards your outstanding 
+tax obligations between when the circumstance occurred up until today’s date, showing no improvements 
+towards your poor compliance history.
+During the period in which you have advised you were affected by these circumstances, your lodged 
+Income Tax Returns indicate that you had some capacity to make payments towards your outstanding 
+obligations. As such, you remained responsible for ensuring your tax obligations were met and that debts 
+were addressed as they fell due.
+While you have made some voluntary payments towards your debt, your overall compliance history 
+indicates that your payment obligations have not been consistently met.
+We also note that in 2018 you entered into a payment arrangement which later defaulted. At the time, you 
+were advised that under the terms of this arrangement, the general interest charge would continue to 
+accrue on any outstanding balance.
+Having considered all relevant factors, it has been determined that it is not appropriate to remit the 
+general interest charge. The circumstances you have outlined do not demonstrate that the accrual of 
+interest resulted from factors entirely outside your control that prevented you from meeting your 
+obligations.
+
+Reason for decision
+You have not demonstrated that the circumstances leading to the delayed payment were beyond your 
+control. Remission would not be considered fair and reasonable in this instance, as other taxpayers facing 
+similar conditions have taken appropriate steps to pay on time.
+It is your responsibility to manage your affairs in a way that ensures lodgment and payment by the due date. 
+You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that 
+prevented timely payment, and therefore remission is not warranted.
+
+
+EXAMPLE 7:
+You told us:
+You have experienced a sustained downturn in trade over a significant period, commencing with the impact 
+of COVID-19. Increased cost‑of‑living pressures reduced demand for your psychology services, resulting in 
+delays in meeting your debt obligations. This situation was further compounded by a cancer diagnosis, 
+which adversely affected your capacity to maintain your business activities.
+Consequently, you fell progressively behind and became overwhelmed. You were concerned about 
+entering into a payment arrangement that you would be unable to sustain and the potential loss of your 
+assets. While you acknowledge that your approach during this period was not appropriate, you indicate that 
+the circumstances were particularly challenging.
+You have confirmed that you did not intend to avoid your debt and have been making efforts to repay the 
+outstanding amount. However, the imposition of penalties and interest has further limited your capacity to 
+reduce the debt.
+
+We also considered:
+your Business Activity Statements (BAS), in assessing your capacity to pay during the circumstances you
+have outlined.
+We also confirmed that between 2023 and 2024, you entered into a payment plan that defaulted. When 
+you entered into a payment plan you were advised that, under the terms of these arrangements, general 
+interest charge would continue to accrue on any outstanding balance owing.
+While you have made some payments under the payment arrangements and have made voluntary 
+payments towards your debt, your overall compliance history demonstrates that your tax obligations have 
+not been consistently met.
+Based on information provided through the Business Activity Statements (BAS) regarding sales made to the 
+business, and the income reported in your Business Activity Statements for the financial years 2020 to 
+2025, there has been an overall increase, with amounts overwise remaining consistent, indicating no 
+significant changes to your total income.
+During the period in which you have advised you were impacted by your circumstances, your business 
+continued to operate. As such, you remained responsible for ensuring that all tax obligations were met and 
+that debts were paid in a timely manner.
+
+Reason for decision
+Although you have indicated that circumstances contributed to the delay in payment, it has been observed 
+that your capacity to pay during that period was not affected.
+General adverse business conditions within an industry, broader economic downturns, or currency exchange 
+rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced 
+across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit 
+where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax 
+obligations on time.
+
+EXAMPLE 8:
+You told us:
+You have experienced a sustained downturn in trade over a significant period, commencing with the impact 
+of COVID-19. Increased cost‑of‑living pressures reduced demand for your psychology services, resulting in 
+delays in meeting your debt obligations. This situation was further compounded by a cancer diagnosis, 
+which adversely affected your capacity to maintain your business activities.
+Consequently, you fell progressively behind and became overwhelmed. You were concerned about 
+entering into a payment arrangement that you would be unable to sustain and the potential loss of your 
+assets. While you acknowledge that your approach during this period was not appropriate, you indicate that 
+the circumstances were particularly challenging.
+You have confirmed that you did not intend to avoid your debt and have been making efforts to repay the 
+outstanding amount. However, the imposition of penalties and interest has further limited your capacity to 
+reduce the debt.
+
+We also considered:
+your Business Activity Statements (BAS), in assessing your capacity to pay during the circumstances you
+have outlined.
+We also confirmed that between 2023 and 2024, you entered into a payment plan that defaulted. When 
+you entered into a payment plan you were advised that, under the terms of these arrangements, general 
+interest charge would continue to accrue on any outstanding balance owing.
+While you have made some payments under the payment arrangements and have made voluntary 
+payments towards your debt, your overall compliance history demonstrates that your tax obligations have 
+not been consistently met.
+Based on information provided through the Business Activity Statements (BAS) regarding sales made to the 
+business, and the income reported in your Business Activity Statements for the financial years 2020 to 
+2025, there has been an overall increase, with amounts overwise remaining consistent, indicating no 
+significant changes to your total income.
+During the period in which you have advised you were impacted by your circumstances, your business 
+continued to operate. As such, you remained responsible for ensuring that all tax obligations were met and 
+that debts were paid in a timely manner.
+
+Reason for decision
+Although you have indicated that circumstances contributed to the delay in payment, it has been observed 
+that your capacity to pay during that period was not affected.
+General adverse business conditions within an industry, broader economic downturns, or currency exchange 
+rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced 
+across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit 
+where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax 
+obligations on time.
+
+
+EXAMPLE 9:
+You told us:
+Your debt began to accumulate from early 2020 due to the impact of COVID-19 on your business, which 
+affected your ability to meet your financial obligations.
+You made regular payments from the outset to manage the debt within your means, despite being unable 
+to pay the full amount owing.
+As your circumstances improved, you continued to make payments, including additional charges, and 
+increased your repayment amounts over time.
+You have now paid the debt in full and are seeking remission of the general interest charge applied during 
+this period.
+
+We also considered:
+We have reviewed your statement of account and we note that, during the COVID-19 period in 2020, 
+concessional remissions of general interest charge were applied to multiple transactions up to 3 January 
+2023, when COVID-19 restrictions were progressively lifted. These remissions were provided to assist you in 
+managing your debt.
+We also confirmed that between 2020 and 2024, you entered into one payment plan that defaulted and 
+four payment plans that were subsequently cancelled. You were advised that, under the terms of these 
+arrangements, general interest charge would continue to accrue on any outstanding balance owing.
+We note that an overdue amount of $25,944 for the PAYG withholding period ending 30 November 2022 
+was dishonoured, and no action was taken to rectify this amount at the time.
+While you have made some payments under payment arrangements and have made voluntary payments 
+towards your debt, your overall compliance history demonstrates that your obligations have not been 
+consistently met.
+Having regard to all relevant factors, it is not appropriate to remit the general interest charge. The 
+circumstances you have outlined do not support that the accrual of interest arose from factors outside your 
+control.
+Accordingly, your request for remission of general interest charge for the period from January 2020 to April 
+2026 is refused, as it would not be fair and reasonable in these circumstances.
+Based on information provided by your employer regarding income paid to you, and the income reported in 
+your income tax returns for the financial years 2020 to 2025, there has been an overall increase, with 
+amounts overwise remaining consistent, indicating no significant change. 
+
+Reason for decision
+Although you have indicated that circumstances contributed to the delay in payment, it has been observed 
+that your capacity to pay during that period was not affected.
+General adverse business conditions within an industry, broader economic downturns, or currency exchange 
+rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced 
+across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit 
+where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax 
+obligations on time
+
+
+----------------------------------
+
+Examples for the “We also considered” section
+Compliance/remission history 
+›	You have a history of late lodgment/payment dating back to [document/period].
+›	You previously requested remission of $[amount] GIC/FTL on [date]. This was remitted/refused on [date].
+Contact and correspondence 
+›	Your/Your tax agent's contact with the ATO on [date], during which 
+o	your outstanding obligations were discussed and additional time was negotiated.
+o	you were made aware of your outstanding obligations.
+o	you advised you would lodge/pay by [date].
+o	you advised us that [summarise circumstances/interaction].
+›	The ATO issued multiple correspondence attempts regarding your outstanding obligations during the period [date] to [date].
+›	You received a [correspondence type] on [date] which advised [information].
+›	You did not contact the ATO during the relevant period to discuss your circumstances or request additional time to lodge/pay.
+›	You did not contact the ATO between [date] and [date].
+FTL specific
+›	Lodgment of your document was deferred from [original lodgment due date] to [deferred lodgment due date]. However, you still lodged late on [document received date].
+›	You have previously received FTL penalties for your [insert documents].
+GIC specific
+›	Voluntary payments can be made regardless of lodgment status.
+›	Your business continued to operate and earn income during the relevant period. 
+›	When compared to previous periods, your income remained consistent / was not reduced.
+›	You used available funds to purchase non-essential assets instead of paying your tax debt. 
+›	You prioritised payments to other creditors instead of paying your tax debt. 
+›	You appear to have assets that could be sold to pay the ATO.
+SIC specific
+›	You have not explained what caused your inability to lodge the correct information when the original return was lodged.
+›	You have previously amended your [year] income tax return to disclose a shortfall amount. 
+›	You have previously received $[amount] SIC following the amendment of your [year] income tax return.
+How this might fit into your notes
+Example note template (slightly adjusted from the existing EKM note template)
+<GIC/FTL/SIC> Remission granted/refused note.
+
+For details of the request, refer to the attached remission form.
+
+Facts/findings: 
+<Include facts available on ATO systems that influenced your decision making. This should reflect the “We also considered” section of your letter>.
+
+I have <granted/refused> <GIC/FTL/SIC> remission of <amount> on the <account type>.
+This is a <full/partial> remission.
+
+Reason/s for decision: 
+<Explain how you arrived at your decision with consideration to the grounds in the PSLA. This should reflect the “Reason for decision” section of your letter>.
+
+I have made this decision in conjunction with PSLA <number> and this amount is within my delegated authority.
+
+Any other relevant notes or warnings provided to taxpayer: 
+
+Full name and APS level: 
+
+
+Reminders
+-	Don’t remove elements from the note template
+-	Try to avoid doubling up on information
+-	It can be beneficial to refer to the PS LA and link it back to the facts/situation
+-	For telephony requests, the telephony form should be completed and attached to the activity per EKM procedures
+
+
+
+
+Hi everyone,
+
+Here’s a summary of the key information Ella covered, including guidance on letter formatting, content expectations, common issues being seen in checks, and questions raised during the meeting.
+The session was held to clarify common issues and trends being noticed in letters, and to make sure everyone is applying a consistent approach when preparing outcomes.
+
+Please note, this is not the documentation Ella advised they would provide, that will come in a separate email correspondence at a later time.
+
+The main focus of the meeting was relating to:
+•	Letter formatting and layout
+•	Addressing taxpayers and entities correctly
+•	What to include in the “You told us” section
+•	What to include in the “We also considered” section
+•	Reasons for decision
+•	Penalty details tables
+•	Notes and supporting documentation
+•	Feedback, letter checks and escalation
+•	How to seek support or clarification
+
+
+-----------------------------------------------------------------------------------------
+
+Name and title formatting
+Names in letters should include the taxpayer’s title.
+This includes:
+•	Mr.
+•	Mrs.
+•	Ms.
+•	Dr.
+•	Any other relevant title.
+This has recently been clarified as the current required approach under the style guide.
+If e-letters automatically inserts the title, no need to remove it.
+
+Reference number
+When entering the reference number in the letter, make sure you are using the receipt ID from the outbound activity.
+Important points:
+•	Do not use the inbound receipt ID or either Activity IDs.
+•	If the number starts with 501, it is likely the incorrect number.
+
+Address block requirements
+Tax agent portal requests
+If the request was received through the tax agent portal, the address block must include “care of” with the firm name.
+Use the format:
+•	C/- Firm Name
+For example:
+Ella Robjohns
+C/- H&R Block
+123 Fake Street  Faketown  0001
+
+Suburb, state and postcode spacing
+There should be double spacing between:
+•	Locality
+•	State
+•	Postcode
+Format:
+•	Locality  State  Postcode
+It was noted that this issue may have recently been fixed in e-letters, but staff should still check the spacing during final clean-up.
+•	However this issue should be fixed as of todays updates.
+
+Salutations
+Individual taxpayers
+If the taxpayer is an individual and their first name is known:
+•	Use: Dear [First Name]
+•	Sign off with: Yours sincerely
+
+Non-individual entities
+For non-individual entities, the standard approach is:
+•	Use: To whom it may concern
+•	Sign off with: Yours faithfully
+This applies to most non-individual entities, including:
+•	Partnerships
+•	Trusts
+•	Super funds
+•	Other entity types
+
+Companies and government agencies
+Ella advised that the ATO Outbound Interactions Editing Guide allows for a specific contact name to be used in limited circumstances, such as companies or government agencies where the specific contact is known.
+
+However, for consistency with the current letter template, the preferred general approach is:
+•	Use “To whom it may concern” for non-individual entities.
+•	Use “Dear [First Name]” for individuals.
+
+If APS6 or TL feedback appears to conflict with support guidance, raise the specific activity ID so it can be reviewed in context and, if needed, clarified with leadership.
+
+Need help section
+In the “Need help” section, make sure you choose the most appropriate option and delete the others.
+For most requests, the correct option will be the online services option, which directs the taxpayer to use online services and visit the relevant website.
+Do not use the online services option if:
+•	The taxpayer has an overseas address
+•	The request was received by telephony
+•	The request was received by white mail
+In those cases, use the more appropriate alternative option in the template.
+
+
+“You told us” section
+This section should summarise and rephrase the taxpayer’s contentions and circumstances.
+Include all key points the taxpayer raised, even if some points do not appear directly relevant to the final decision.
+The purpose is to show that:
+•	Their full request was reviewed
+•	Their circumstances were considered
+•	They feel heard
+
+What to include
+Include:
+•	Their main reasons for requesting remission
+•	Relevant personal or business circumstances
+•	Any explanations they provided
+•	Any key dates or events they mentioned
+•	Circumstances such as hardship, illness, overseas travel, tax agent issues, business impacts, or other relevant factors
+
+Avoid duplication
+If the taxpayer repeats the same reason multiple times, only include it once.
+For example:
+•	If they mention hardship in multiple parts of the request, one clear dot point is enough.
+
+Rephrasing guidance
+When rephrasing, stay close to the taxpayer’s version of events.
+Do:
+•	Condense long or repetitive information
+•	Use professional language
+•	Keep the meaning the same
+•	Present the information clearly
+Do not:
+•	Change the substance of what they said
+•	Add your own interpretation
+•	Overstate or minimise their claim
+•	Turn their statement into a conclusion they did not make
+
+“You told us” wording
+You do not need to start every dot point with:
+•	“You told us…”
+•	“You advised us that…”
+This is because each dot point is already read as sitting under the “You told us” heading.
+
+“We also considered” section
+Ella noted that this is usually the most complex part of the letter.
+This section should include facts from ATO systems that influenced the decision.
+These should be factual, relevant, and specific to the decision being made.
+
+What to include in “We also considered”
+This section may include:
+•	Previous penalties or interest
+•	Previous remission requests and outcomes
+•	Lodgement history
+•	Payment history
+•	Contact with the ATO
+•	Correspondence issued by the ATO
+•	Whether the taxpayer was made aware of outstanding obligations
+•	Relevant compliance history
+•	Relevant facts from ATO records
+
+FTL and GIC considerations
+Make sure the facts relate to the type of request.
+
+FTL letters
+For failure to lodge matters, focus on lodgement-related facts, such as:
+•	Lodgement history
+•	Late lodgement patterns
+•	Outstanding lodgements
+•	Lodgement reminders
+•	Prior FTL penalties
+Avoid including unrelated payment facts unless they are directly relevant.
+
+GIC letters
+For GIC matters, focus on payment-related facts, such as:
+•	Payment history
+•	Payment arrangements
+•	Previous GIC remission requests
+•	Outstanding debt
+•	Whether payments were made
+•	Whether the taxpayer contacted the ATO about payment issues
+
+Examples of “We also considered” wording
+Examples discussed included:
+•	You have a history of late lodgement dating back to your 2007 business activity statement.
+•	You have previously requested remission of GIC, and this was refused.
+•	We also considered your contact with the ATO on 12 March 2025, during which you were made aware of your outstanding obligations.
+•	Your business continued to operate and earn income during the relevant period.
+Any facts included in this section should also be reflected in the notes.
+
+Considering income
+Income should not be used in isolation to make a decision.
+The correct approach is to consider income in context.
+This may include:
+•	Whether income reduced compared to previous years
+•	Whether the business continued operating
+•	Whether the taxpayer still had capacity to meet obligations
+•	Whether the overall circumstances support the request
+•	The taxpayer’s full compliance and payment history
+Do not simply say that because a taxpayer earned income, they should have paid.
+Income is only one part of the overall picture.
+
+How far back to look
+There is no fixed rule for how far back to review.
+It depends on:
+•	The period covered by the request
+•	The type of request
+•	The taxpayer’s circumstances
+•	The relevance of earlier behaviour
+General guidance:
+•	For compliance history, it may be appropriate to look further back.
+•	For contact and correspondence, focus more closely on the relevant period.
+•	If the request covers several years, review the relevant years and a reasonable period before them.
+
+Reasons for decision
+Use standard paragraphs from EKM wherever possible.
+Preferred approach:
+•	Use the EKM standard paragraph as written where it fits.
+•	Slightly tailor it if it does not quite fit the taxpayer’s circumstances.
+•	Avoid writing your own reasons from scratch where possible.
+•	Avoid using AI-generated reasons unless they are checked carefully and align with EKM guidance.
+A useful guide is to aim for one to three reason paragraphs, depending on the case.
+This is not a strict rule, but more than three can make the letter look too dense.
+
+Spacing between paragraphs
+Do not add extra blank lines between standard paragraphs unless the template includes them.
+The template should be followed as closely as possible.
+
+Penalty details table
+Amounts in the penalty details table should be formatted consistently.
+Use:
+•	Commas for thousands
+•	Two decimal places for all amounts
+Examples:
+•	$0.00
+•	$1,650.00
+
+Penalty table formatting
+General guidance:
+•	Keep the table formatting as close to the template as possible.
+•	Do not make unnecessary alignment changes.
+•	If changing alignment, keep it consistent.
+•	The period does not need to fit on one line.
+•	It is acceptable for the period to appear over two lines, as shown in the template.
+•	Remove unnecessary blank spaces left behind after deleting template instructions.
+•	Minor table formatting issues should not normally cause a letter to fail on their own.
+
+Page spacing and blank pages
+If the table causes an extra blank page, try small formatting adjustments.
+Options discussed included:
+•	Reducing unnecessary space near the top of the letter
+•	Using delete rather than backspace in some cases
+•	Moving content slightly where appropriate
+•	Moving the table down if only the heading appears at the bottom of a page
+Avoid:
+•	Leaving large blank spaces between the reasons and the table
+•	Moving a whole table in a way that leaves half a page blank unnecessarily
+•	Making drastic formatting changes that affect the professional appearance of the letter
+If a table is long, it is acceptable for it to continue over multiple pages.
+
+Letter dates
+Remember to update the letter date before issuing.
+This may be raised as a reminder during checks, but it should still be part of final clean-up.
+
+Template as the formatting guide
+The template should be treated as the main formatting guide.
+If unsure about spacing, dot points, table layout, headings, or general formatting, compare the letter back to the template.
+This includes:
+•	Whether there should be extra blank lines
+•	What dot points should look like
+•	How the table should be laid out
+•	Where headings should appear
+•	Whether spacing has been accidentally added or removed
+
+File naming
+There was discussion about whether to use the activity ID or receipt ID when saving files.
+Current practical guidance:
+•	Procedure may refer to activity ID.
+•	Support has been using receipt ID because it is also reflected in the letter and is more meaningful to the taxpayer or tax agent.
+•	Either activity ID or receipt ID is acceptable for now, provided the file name is professional and relevant.
+•	A letter should not fail solely because of whether the file was saved using the activity ID or receipt ID.
+If anyone is failed only because of file naming, raise it with support or your TL.
+
+Feedback and letter checks
+If feedback is unclear, inconsistent, or appears to be based on preference rather than procedure, do not just accept it without understanding it.
+You can:
+•	Ask the support officer who reviewed the letter
+•	Raise it with your TL
+•	Ask for the letter to be reviewed again
+•	Ask for clarification about why the change is required
+•	Provide examples where feedback appears inconsistent
+Support is aware that some staff have received inconsistent feedback. These concerns have been discussed within support, and the aim is to provide more consistent guidance going forward.
+
+Feedback does not always mean failure
+Not all comments on a checked letter mean the letter has failed.
+Some comments may be FYI feedback only.
+If it is unclear whether a comment is critical or minor, ask the reviewing support officer or your TL.
+
+Formatting feedback
+Minor formatting feedback may be provided as an FYI.
+Examples may include:
+•	Extra blank lines
+•	Date needing to be updated
+•	Minor table spacing
+•	Template clean-up
+These should not generally cause a letter to fail by themselves.
+If a letter appears to have failed only due to minor formatting, raise it with your TL or support for review.
+
+Personal preference vs required changes
+If feedback appears to be based on personal preference rather than procedure or style guidance, ask for clarification so the required change is understood.
+Where possible, feedback should be linked back to:
+•	Procedure
+•	Style guide requirements
+•	Template requirements
+•	Risk to the ATO
+•	Professional tone or readability
+If the reason for a change is unclear, ask for the change to be explained.
+
+Support process
+For small questions, first try to use your peer group.
+Suggested order:
+1.	Ask someone nearby or a signed-off colleague.
+2.	Search the support channel to see if the question has already been answered.
+3.	Raise a support ticket if the answer is not available.
+4.	Wait for the ticket response before seeking further support.
+5.	If the answer is unclear, follow up with the support officer or raise a further ticket.
+Before raising a ticket, search the support channel, as many common questions have already been answered there.
+Once a support ticket has been raised, wait for the response before separately messaging support. If the response does not resolve the issue, follow up with the support officer or raise a further ticket.
+Support tickets help leadership understand the volume and type of support being provided, so they are preferred for anything more than a very quick question.
+
+Notes
+Notes should be completed before the letter is checked.
+This allows support to confirm that:
+•	The decision-making is sound
+•	The notes support the letter
+•	The facts and findings match the “We also considered” section
+•	The activity has been completed correctly, except for publishing or issuing the letter
+
+Note content
+The EKM note template should be used, but Ella noted that it can be limited.
+Do not remove required parts of the template.
+You can add extra sections where useful.
+A suggested structure was:
+•	Type of remission request
+•	Whether remission was granted or refused
+•	Who made the request
+•	Amount requested
+•	Reference to the attached remission form
+•	Facts and findings
+•	Decision outcome
+•	Reasons for decision
+•	Delegation statement
+The facts and findings in the notes should reflect the same facts used in the letter.
+
+Professional language in notes
+Notes should be:
+•	Factual
+•	Objective
+•	Professional
+•	Clear
+Taxpayers may request access to their records, so notes must be written appropriately.
+
+Telephony requests
+For telephony requests, the telephony form should be completed and attached to the activity.
+Ella advised that for telephony requests:
+•	Do not leave a long note instead of completing the form.
+•	Include the relevant information in the telephony Excel sheet.
+•	Attach the completed form to the activity.
+•	Follow the procedure for telephony requests.
+
+Questions raised and answers
+
+Should non-individual entities always be addressed “To whom it may concern”?
+Generally, yes.
+For most non-individual entities, use “To whom it may concern” and “Yours faithfully”.
+There are limited situations where a company or government agency may use a specific contact name, but the preferred standard approach for the current letters is to use “To whom it may concern” for non-individuals.
+
+If a business portal request includes a person’s name, should we use that name?
+It depends on the entity type and context.
+If it is an individual taxpayer, use their first name.
+If it is a non-individual entity, the safer standard approach is usually “To whom it may concern”.
+If the request involves a company and the specific contact is known, there may be room to use the contact name, but this should be considered carefully and consistently with the style guide.
+
+If the letter says “Dear [Name]”, what sign-off should be used?
+Use “Yours sincerely”.
+
+If the letter says “To whom it may concern”, what sign-off should be used?
+Use “Yours faithfully”.
+
+Should “You told us” be rewritten in our own interpretation?
+No.
+Rephrase and condense the taxpayer’s points, but stay close to what they actually said.
+Do not change the content or meaning of their claims.
+
+Should “You told us” include irrelevant circumstances?
+Yes, if the taxpayer raised them.
+Even if a point does not strongly affect the decision, include it if it was part of their request so they can see it was considered.
+
+Should standard paragraphs be used exactly as they are?
+Use EKM standard paragraphs as written wherever they fit.
+Tailor them only where they do not quite fit the taxpayer’s circumstances.
+
+How many reason paragraphs should be included?
+There is no strict rule, but one to three is generally a good guide.
+More than three can make the letter look dense.
+
+Should notes be completed before or after the letter check?
+Before the letter check.
+The notes should be in place so support can review the decision-making and confirm the letter and notes align.
+
+Can we add to the note template?
+Yes.
+Do not remove required parts of the EKM template, but you can add additional relevant sections or information.
+
+Should formatting issues cause a letter to fail?
+Minor formatting issues should not generally cause a letter to fail on their own.
+If this appears to happen, raise it with your TL or support.
+
+What should I do if I do not understand why a letter was rejected?
+Ask for clarification.
+Start with the support officer who reviewed the letter or raise it with your TL.
+If the reason is still unclear, ask for the letter to be reviewed again or escalated.
+
+What should I do if I receive conflicting feedback?
+Raise the specific activity ID with your TL or support.
+This allows the feedback to be reviewed in context and clarified with the relevant people.
+
+Resources to be provided
+Ella advised that a follow-up email will include relevant resources, including:
+•	The ATO Outbound Interactions Editing Guide
+•	Relevant style guide information
+•	A blank FTL refusal letter with comments showing common mistakes
+•	Potential examples or templates for notes, if available
+•	Additional clarification for TLs, APS6s and support officers
+
+
+Please remember to:
+•	Use titles in names.
+•	Use the outbound receipt ID in the letter reference.
+•	Use the correct salutation and sign-off.
+•	Keep “You told us” close to the taxpayer’s version of events.
+•	Use “We also considered” for relevant ATO system facts.
+•	Make sure notes and letters reflect each other.
+•	Use EKM standard paragraphs where possible.
+•	Keep formatting consistent with the template.
+•	Update the letter date before issuing.
+•	Treat the template as the main formatting guide.
+•	Raise unclear, inconsistent or preference-based feedback rather than guessing.
+•	Search the support channel before raising a new ticket.
+•	Use the support ticket process where appropriate.
+
+
+
+
