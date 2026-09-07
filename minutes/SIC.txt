@@ -1,0 +1,58 @@
+SIC remission - Reasons for refusal
+SIC remission refusal examples used to complete the Reason for Decision field for Adv SIC remission decision letter.
+
+Last published 28 April 2026
+
+Favourite Notes Expand all 
+Background
+This page contains shortfall interest charge (SIC) remission refusal examples. These can be used by operatives completing the Reason for Decision field in the Adv SIC remission decision letter.
+
+
+Recent Updates
+In Detail
+When refusing a SIC remission request:
+
+be clear and concise when providing the reason for your decision
+where applicable, more than one reason can be used to explain why the request is being refused. Ensuring the sentence structure makes sense.
+The most frequent remission scenarios are covered in these paragraphs. It is not mandatory to use these paragraphs. Adapt the text to suit the taxpayer's individual circumstances.
+
+If there are other circumstances to be addressed, write the decision and tailor the response to the taxpayer’s circumstances. Reference the remission principles as outlined in the Law Administration Practice Statement PS LA 2006/8Opens in a new window Remission of shortfall interest charge and general interest charge for shortfall periods.
+
+Ensure to:
+
+read though the text carefully
+fill in the required information where < > appears as instructed
+remove the < >
+edit the document, as appropriate.
+Refer to the following standard paragraphs.
+
+
+Unreasonable delay by ATO
+This paragraph can be applied where the taxpayer has cited unreasonable delays by the ATO.
+
+Refusal example:
+
+The ATO has taken action on the audit in a reasonable timeframe. Therefore, remission of the shortfall interest charge is not justified.
+
+
+Delay in obtaining information from third party
+This paragraph can be applied where the taxpayer has stated delays in obtaining information from third parties.
+Refusal example, either:
+
+You have not demonstrated the delay in obtaining information from the third party was excessive.
+The third party is an associate of the taxpayer; therefore, you are not dealing at arm’s length and have not demonstrated that the delay is not reasonable or beyond anyone’s control.
+
+Unprompted voluntary disclosure
+This paragraph can be applied where the taxpayer has initially under-reported and then voluntarily disclosed the correct amounts prior to being advised that an audit or review is commencing.
+
+Refusal example:
+
+Voluntary disclosure on its own does not justify remission. A taxpayer who has self-assessed incorrectly, even if reasonable care was exercised, should not end up in a more beneficial position than a taxpayer who has self-assessed, reported and paid correctly.
+
+
+General insufficient mitigating steps
+This paragraph can be applied as a standalone paragraph for a straightforward refusal where it is not fair and reasonable, and the factors were not beyond the taxpayer’s control.
+
+Refusal example:
+
+You have not demonstrated that the factors were beyond your control. Therefore, it is not fair and reasonable to remit the shortfall interest charge.

@@ -1,0 +1,6654 @@
+-------
+Outbound PORO - PORO Magic | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/outbound-poro-poro-magic
+
+ 
+Outbound PORO - PORO Magic
+
+Procedure for outbound PORO using PORO Magic when initiating an outbound call.
+
+Last published 11 May 2026
+
+Favourite Notes Collapse all 
+Background
+
+This page guides you to establish Proof of Record Ownership (PORO) on outbound calls.
+
+When conducting an outbound call, ensure all appropriate call recording warnings and privacy statements are provided per Outbound protocols.
+
+
+For non-Genesys enabled staff, go to PORO - Outbound process for non-Genesys enabled staff.
+
+
+Recent updates
+11/05/2026	Update to step 2 under 'Confirm identity'.	SD-104381
+09/04/2026	Update to 'Task 2.'	SD-103503
+30/03/2026	Multiple updates made across the page.
+	SD-102166, 103334
+Checks
+Prior relationship and follow-up calls
+
+When you are contacting a person in relation to a complaint, an audit or making a follow-up call, PORO may have been established previously. If you are confident you are speaking to the same person, you do not need to establish PORO again.
+
+Is a Community Language Officer (CLO) required?
+
+A taxpayer may be identified as needing a CLO by the INTERPRETER indicator in Siebel.
+
+If an indicator is present:
+
+review the taxpayer's record to determine the language required, and
+refer to the up-to-date listing of all CLOs available on myATO
+
+ to schedule a conference call.
+
+Such interactions will require extensive PORO. Ensure to select the High Risk PORO and Extensive PORO radio buttons at task 2 step 4.
+
+For more information, refer to the Translating and Interpreting Service.
+
+
+Who are you calling?
+
+Confirm the person you are calling is listed as a primary or authorised contact, a registered agent, professional or third-party representative and their level of access. Go to Primary and authorised contacts.
+
+
+If you are calling a Tax or BAS agent on behalf of a non-individual entity, follow PORO for Tax or BAS agents for non-individual entities.
+
+
+For registered agents, also confirm their RAN status is active on the Tax Practitioner View in Siebel before calling.
+
+Check if you are calling an individual with an ATO record. If:
+
+yes,
+
+before making a call to a taxpayer, check the
+
+Siebel alerts in Client Consolidated View (CCV) for 'ATO Mobile App: Registered', or
+
+app registration status on the ATO app support screen of the Hub tool
+
+check if the taxpayer's ATO app is registered. If
+
+yes,
+
+prepare for a Verify call request.
+
+ Note: the taxpayer may send a Verify call request without stating their intention
+go to Determine number to call
+no,
+promote the ATO app and Verify call
+
+ if appropriate
+go to Determine number to call
+no, go to Determine number to call.
+Determine number to call
+
+Obtain the contact phone number from Siebel or ICP. If the number is not sourced from ATO systems:
+
+Inbound PORO
+
+ must be established regardless of the level of risk, and
+Streamlined PORO with Verify call must not be used.
+Hours of contact
+
+Establish the location of the person you are calling and consider any time zone differences
+
+ or public holidays before making outbound contact. Determine the appropriate hours of contact for the contact type:
+
+registered agents Monday to Friday, 9.00 am - 6.00 pm
+
+all other contacts
+
+Monday to Friday, 8.00 am - 8.00 pm
+
+Saturday, 9.00 am - 5.00 pm.
+
+Deregistered companies
+
+If the outbound call is in relation to a company, check it has not been deregistered.
+
+
+Compromised or potentially compromised TFN
+
+To determine if the record has been compromised or potentially compromised, go to Check if TFN is compromised.
+
+
+If either indicator is present, note that high-risk and extensive PORO will be required. Ensure to select the High Risk PORO and Extensive PORO radio buttons at task 2 step 4.
+
+Determine the level of risk
+
+For dialler, refer to the campaign script, work type or campaign manager/team leader for the level of PORO risk.
+
+If the level of risk increases at any time during the call, update the High Risk PORO and Extensive PORO radio buttons when appropriate and gather the additional items of proof required.
+
+Refer to the table below to assess the level of risk.
+
+Risk level
+
+	
+
+Definition
+
+
+
+
+Low risk
+
+	
+
+Examples of low-risk interactions:
+
+discussing or confirming details on the taxpayer's record without making any changes (never divulge information)
+progress of return (POR) enquiries where an estimated date of issue is provided or escalating a POR enquiry
+applying for a deferral or negotiating a payment arrangement
+discussing penalties and charges including remission
+advising of outstanding lodgments, reporting periods or method of lodgment.
+
+
+
+High risk
+
+	
+
+Examples of high-risk interactions:
+
+an outbound call based on a call-back strategy
+updating details on the taxpayer's record which do not require extensive PORO
+the VA status in the Communication toolbar shows
+Failed Verification, or
+Locked.
+
+High risk and Extensive PORO	
+
+Examples of interactions and updates that require extensive PORO:
+
+enrolling a voiceprint
+confirmed or potentially compromised record
+updates to a taxpayer's financial institution account details
+updates to a taxpayer's name or date of birth. If you are establishing extensive PORO because the taxpayer requests an update to their name or date of birth, ensure the identity document is listed in the relevant procedure
+Client details - Individual entity names
+
+Client details - Date of birth
+
+
+requests for myGov linking codes
+
+the Voice Authentication Helper in PORO Magic directs you to complete Extensive PORO
+
+the VA status in the Communication toolbar shows
+
+Possible Recording, or
+
+Potentially Fraudulent
+
+interactions are via
+
+Community Language Officer (CLO), or
+
+Translating and Interpreting Services (TIS).
+
+Procedure Steps
+Task 1 - Check who you are calling
+If you are calling a...	Then...
+
+
+Individual
+
+	go to task 2.
+Registered agent	
+
+go to task 3.
+
+
+Professional or third-party person	
+
+go to task 4.
+
+Task 2 - Individual
+Check if high-risk PORO is required
+Step	Action
+1	
+
+Open the PORO Magic tool.
+
+
+Select Outbound call type and search for the TFN of the individual you are calling.
+
+If the:
+
+Siebel record does not belong to the call recipient, and
+
+call recipient has an ATO record.
+
+Then:
+
+select Stop in the Voice Biometric Dashboard
+
+obtain the call recipient’s
+
+TFN/ABN or
+
+full name and date of birth (DOB) or address
+
+copy the Siebel activity
+
+ to the call recipient's record (if required)
+
+go to the call recipient's personal record
+
+select Start in the Voice Biometric Dashboard.
+
+
+2	
+
+Check if a Recent Interactions alert is displayed. If:
+
+yes, there are recent failed or PORO unsure interactions on the taxpayer's record. Ensure you
+take extra care when establishing PORO, and
+only grant access if you are confident you are speaking to the correct record owner
+no, go to step 3.
+
+If during the call you suspect the caller is not who they say they are, you can:
+
+decline access to the record, and
+go to Authenticity of caller
+
+ for more information.
+
+3	
+
+Confirm the full name of the person answering the phone. Check if the person answering identifies themselves as the primary or authorised contact. If:
+
+no,
+ask the person answering if they would like to hear the Privacy notice
+
+ and advise them the call is being recorded. If the person advises they do not want the call recorded, stop the call recording
+
+
+ask to speak to the primary or authorised contact. If they are:
+
+available, refer to the information under yes
+not available,
+leave a message following Outbound Protocols - leaving a message
+
+update PORO indicator
+
+yes,
+provide the taxpayer or authorised contact with your full name
+advise you are calling from the ATO
+provide the business line you work in and if required, the name of the taxpayer you are calling about
+ask the taxpayer or authorised contact if they would like to hear the Privacy notice
+
+ and advise them the call is being recorded. If the taxpayer or authorised contact advises they do not want the call recorded, stop the call recording 
+
+go to step 4.
+
+4	
+
+Check if high-risk PORO is required. If:
+
+yes,
+update High Risk PORO radio button to 'Yes'
+check if extensive PORO is required. If
+yes,
+update the Extensive PORO radio button to 'Yes'
+go to Confirm identity
+no,
+update the Extensive PORO radio button to ‘No’
+go to Confirm identity
+no,
+update High Risk PORO radio button to ‘No’
+go to Confirm identity.
+Confirm identity
+Step	Action
+1	
+
+Check if you have called the taxpayer on a number sourced from ATO systems. If:
+
+yes, go to step 2
+no,
+Verify call must not be used to establish PORO
+go to step 5.
+
+2	
+
+Check if the taxpayer has a Siebel alert for 'ATO Mobile App: Registered'. If
+
+yes, go to step 3
+no, go to step 5.
+
+3	
+
+Ask the taxpayer if they have the ATO app. If:
+
+yes,
+explain they can use Verify call to confirm the authenticity of this call. Note: Do not advise this will be used to confirm their identity
+guide the taxpayer to submit a Verify call request
+
+
+check if the Verify call request was successful. If
+
+yes,
+
+select the Verify Call used radio button
+go to step 5
+no, go to step 4
+no, go to step 4.
+
+4	
+
+Check if there are any concerns that the caller may not be who they say they are. If:
+
+yes, go to Authenticity of caller
+
+no, go to step 5.
+
+5	
+
+Check the Voice Biometric Dashboard and input the results into the voice authentication status drop down boxes.
+
+Ensure the High Risk PORO, Low Risk PORO and Extensive PORO radio buttons reflect the correct values.
+
+Check if the PORO Magic progress bar indicates that PORO has been established. If:
+
+yes, go to PORO established
+no, go to step 6.
+
+6	
+
+Check the PORO required outcome in the voice authentication section. If the result is:
+
+Confirm the taxpayer’s full name,
+select the VA Verified radio button
+go to step 9
+Confirm the client's full name as well as their DOB or address, go to step 8
+Extensive PORO,
+select Yes for the High Risk and Extensive PORO radio buttons, if not already selected
+go to step 7
+any other, go to step 7.
+
+7	
+
+Check the value in the PORO Magic progress bar. If the value is:
+
+DVS check required, check if a secret password is presented on the first PORO question in the tool. If
+yes, go to step 2 on Complete PORO questions
+no, go to step 6 on Complete PORO questions
+PORO Not Established, go to step 8.
+
+8	
+
+Confirm the DOB or address of the person you are calling.
+
+Check if the taxpayer or authorised contact answers correctly. If:
+
+yes, and
+the PORO required outcome in the voice authentication section was ‘Confirm the client's full name as well as, their DOB or address’
+select the VA Verified radio button
+go to step 9
+low-risk PORO is required
+select the relevant checkbox for ‘Date of Birth’ or ‘Address’
+go to step 9
+high-risk PORO is required, go to step 9
+no, go to PORO not established.
+
+9	
+
+Check if the PORO Magic progress bar indicates that PORO has been established. If:
+
+yes, go to PORO established
+no, go to Complete PORO questions on the record of the individual you are calling.
+Complete PORO questions
+Step	Action
+1	
+
+Check if a secret password is presented on the first PORO question in the tool. If:
+
+yes, go to step 2
+
+no,
+
+and the VA Verified button is selected, go to step 6
+
+in all other instances, go to step 3.
+
+
+2	
+
+Ask the taxpayer to provide the question and answer as stated in the tool. If the taxpayer answered:
+
+correctly,
+
+select the Correct button
+
+extensive PORO is established, go to PORO established
+
+incorrectly to the question or answer,
+
+select Incorrect button
+
+review and action any pop-up alerts, terminating the call if appropriate
+
+if the VA Verified or Verify Call used checkbox was previously
+
+selected, go to step 6
+
+not selected, go to step 3
+
+they do not remember or know, then
+
+select No Answer button
+
+review and action any pop-up alerts, terminating the call if appropriate
+
+if the VA Verified or Verify Call used checkbox was previously
+
+selected, go to step 6
+
+not selected, go to step 3.
+
+
+3	
+
+Has the taxpayer voluntarily provided a reference number? This reference number must be from:
+
+a Siebel activity with successful PORO, or
+
+an ATO-generated letter or notice less than 5 years old such as
+
+notice of assessment sequence number or reference number
+activity statement document identification number (DIN)
+correspondence reference number.
+
+If:
+
+yes, check if it has been successfully verified in ATO systems. If
+verified,
+select the appropriate option from the Reference Matching drop-down menu
+go to step 4
+not verified, go to step 4
+no, go to step 4
+
+Ensure you do not use the same answer or reference number to meet multiple items of proof. For example, the same notice of assessment reference number cannot be used to select the Reference matching radio button and answer a PORO Magic question.
+
+
+4	
+Warning
+
+The PORO questions must be asked:
+
+in the order they appear, and
+in two parts to ensure protected information is not disclosed.
+
+Ask the taxpayer the questions from the PORO Magic tool. If:
+
+extensive PORO is required, select the Extensive PORO radio button before asking any questions
+all questions are exhausted or cannot be used for the call (e.g. only wallet or passport items are populated), consider the authenticity of caller and if the caller can establish PORO for this interaction
+if you suspect the taxpayer is not who they claim to be, refer to Authenticity of caller
+
+where the taxpayer cannot establish PORO, go to PORO not established
+if you are satisfied the taxpayer is genuine and will be able to pass PORO, go to step 5.
+
+When the PORO Magic status bar updates to 'PORO Established' or 'Standard PORO Established', go to step 6.
+
+
+5	
+
+Ask the taxpayer for a reference number if one was not voluntarily provided in step 3.
+
+Were you able to verify a reference number in ATO systems?
+
+If:
+
+yes, and the PORO Magic status has
+updated, go to step 6
+remained unchanged, go to Alternative items of proof
+no, go to Alternative items of proof.
+
+6	
+
+If extensive PORO is:
+
+not required, go to PORO established
+required, then
+ensure the Extensive PORO radio button is selected
+consider the Wallet/Passport rules before choosing what identity document to verify
+verify the identity document
+
+ in the Document Verification Service (DVS), and
+go to step 7.
+
+7	
+Warning
+
+If standard or extensive PORO is Failed:
+
+do not volunteer the Siebel reference number and advise to call back
+update the PORO Indicator
+
+ as Failed.
+
+If verification of the document was:
+
+successful
+
+select the DVS Verified radio button
+
+go to PORO established
+
+not successful
+
+consider verifying another document
+
+
+if you cannot establish extensive PORO, ask the taxpayer to phone back when they have an alternative document available
+
+go to PORO not established.
+
+Alternative items of proof
+
+Using the table below, determine the number items of proof required to establish PORO. For example, if you need to establish standard PORO and:
+
+you have one item of proof from the tool, then
+
+you will need to obtain at least one additional item of proof.
+
+PORO type...
+	Then...
+
+
+
+Standard PORO
+
+	
+a minimum of 2 items of proof, or
+successful verification of their voice print.
+
+
+
+Extensive PORO
+
+	
+a minimum of 2 items of proof, and
+an identity document verified in DVS, or
+successful verification of their voice print and an identity document verified in DVS, or
+answering the secret password question by providing their secret question and answer.
+Warning
+
+If the call recipient is an authorised contact with no ATO record:
+
+establish standard PORO using items of proof from the record of enquiry
+extensive PORO cannot be established, and
+DVS cannot be used.
+
+If necessary, DVS can be used for:
+
+a maximum of one document as an item of proof for standard inbound PORO, and
+one additional document for extensive PORO.
+
+If during the call you are unsure the call recipient is who they say they are, go to Authenticity of caller
+
+ for further guidance.
+
+Only one item of proof from each of the Wallet or Passport categories can be accepted:
+
+Category
+	Item
+
+
+
+Wallet
+
+	
+Centrelink Reference Number (CRN)
+Centrelink payment type
+Private Health Insurance Membership Number
+Driver's Licence or Learner's Permit
+Medicare Card.
+
+
+
+Passport
+
+	
+Passport or Travel Document details verified in ATO systems
+Australian Visa with an overseas passport verified in DVS.
+Information
+
+You can accept any piece of information, except superannuation details, that directly relates to the questions in PORO Magic that were updated or issued after the time stamp date in PORO Magic.
+
+Secret password
+
+Where a secret password is available on the record, you must ask it before considering other alternative items of proof, except where using Streamlined PORO with Verify call.
+
+As with all PORO questions, the secret password must be asked in 2 parts. If the taxpayer has not already attempted this question yet and one is available, attempt the secret password question now.
+
+Do you have a secret password?
+
+(if yes, then)
+
+Please tell me what the secret question and answer is?
+
+Were they able to provide both the secret question and answer? If:
+
+yes, extensive PORO is established
+no, consider the Authenticity of caller.
+
+ Is it appropriate to continue? If:
+yes, go to Alternative items of proof list
+no,
+decline access to the record
+Go to Authenticity of caller
+
+ for more information.
+Alternative items of proof list
+
+Obtain items of proof from ICP or other ATO systems.
+
+Item of proof
+	PORO question
+
+
+
+Details from an ATO-generated letter or notice less than 5 years old that can be confirmed on ATO systems such as:
+
+notice of assessment sequence number or reference number
+activity statement document identification number (DIN)
+correspondence reference number
+	
+
+Do you have an ATO-generated letter or notice that has been issued to you in the last 5 years?
+
+(If yes, then)
+
+
+Can you tell me the reference number?
+
+
+
+
+A Siebel reference number from a previous interaction with a successful PORO Indicator
+
+	
+
+Have you called the ATO recently?
+
+(If yes, then)
+
+Do you have the reference number from that call?
+
+
+
+
+Centrelink Reference Number (CRN)
+
+	
+
+Do you have a Centrelink Reference Number (CRN)?
+
+(If yes, then)
+
+What is your reference number?
+
+
+
+
+Recent Account Balance
+
+	
+
+Do you have a debt or credit with the ATO?
+
+(If yes, then)
+
+Can you tell me your account balance?
+
+
+
+
+Refund Amount
+
+	
+
+Have you received a refund from the ATO within the last five years?
+
+(If yes, then)
+
+What was the refund amount?
+
+
+
+
+Amount of any payment
+
+	
+
+Have you made any payments to the ATO within the last five years?
+
+(If yes, then)
+
+Can you tell me the amount you paid?
+
+
+Amount of interest (SIC) imposed	
+
+Have you had any interest (GIC/SIC) imposed from the ATO within the last five years?
+
+(If yes, then)
+
+Can you tell me what the interest amount was?
+
+
+
+
+Amount and frequency of a payment plan
+
+
+	
+
+Have you arranged a payment plan with the ATO?
+
+(If yes, then)
+
+Can you tell me the amount and the frequency of the payment plan?
+
+
+
+
+Pay as you go instalment amount or rate
+
+
+	
+
+Do you make pay as you go (PAYG) instalments?
+
+(If yes, then)
+
+Can you tell me the amount or rate of the instalments?
+
+
+
+
+Higher education course code or Student ID
+
+
+	
+
+Have you ever studied a tertiary education course at university, TAFE, or any other higher education institution?
+
+(If yes, then)
+
+What was the course code or your student ID?
+
+
+
+
+Employer name or ABN
+
+ from a recent STP Pay Event or on-boarding form
+
+	
+
+Have you ever been employed?
+
+(If yes, then)
+
+Can you tell me the name or ABN of the employer?
+
+Additionally
+Warning
+
+Do not use a DVS document as an item of proof to establish standard PORO unless the following is exhausted:
+
+all questions from PORO Magic, and
+all items in the Alternative items of proof list.
+
+Verification in DVS
+
+ of an acceptable identity document such as
+
+Australian birth certificate
+
+Australian passport
+
+Australian citizenship certificate
+
+Australian visa (foreign passport)
+
+ImmiCard
+
+Australian marriage certificate
+
+Change of name certificate
+
+Australian driver's licence or learner's permit
+
+Australian Medicare card
+
+For foreign residents, permanent migrants or temporary visitors, if no documents (including an Australian Visa) can be verified using the DVS, the following can be used as an item of proof for standard or extensive PORO
+
+you may be able to use the
+
+Individual auto registration (IAR) transaction ID
+
+passport, or
+
+travel document details
+
+check using
+
+ICP, following Verify identity documents in ICP,
+
+ or
+
+ECP, by selecting
+
+Client tab
+
+DIBP Visa Details in Third party data
+
+confirm the details provided by the taxpayer match
+
+travel document number
+
+DOB, and
+
+name.
+
+Information
+Information alert:
+The above items of proof list is exhaustive.
+
+Task 3 - Registered Agent
+Step	Action
+1	
+
+Open the PORO Magic tool.
+
+
+Select Outbound call type and search for the taxpayer's TFN.
+
+
+2	
+
+Check if a Recent Interactions alert is displayed. If:
+
+yes, there are recent failed or PORO unsure interactions on the taxpayer's record. Ensure you
+take extra care when establishing PORO, and
+only grant access if you are confident you are speaking to the correct record owner
+no, go to step 3.
+
+If during the call you suspect the caller is not who they say they are, you can:
+
+decline access to the record, and
+go to Authenticity of caller
+
+ for more information.
+
+3	
+
+Check if the person answering provides the name of the agent's firm as detailed in the Tax Agent row in PORO Magic. If:
+
+yes,
+
+select No for High Risk PORO
+
+tick Firm Name and RAN radio buttons in PORO Magic
+
+provide your full name, section and advise you are calling from the ATO
+
+ask the person answering if they would like to hear the Privacy notice
+
+ and advise them the call is being recorded. If the person advises they do not want the call recorded, stop the call recording.
+
+ Provide the above warning to each person you speak with throughout the call
+
+provide the name of the taxpayer you are calling about
+
+go to step 4
+
+no,
+
+advise you are calling from the ATO
+
+ask the person answering if they would like to hear the Privacy notice
+
+ and the call is being recorded. If the person advises they do not want the call recorded, stop the call recording.
+
+ Provide the above warning to each person you speak with throughout the call
+
+ask the name of the firm and the registered agent number (RAN) for confirmation. If
+
+provided,
+
+select No for High Risk PORO
+
+tick the RAN and Firm Name radio button and,
+
+provide your full name, section, the name of the taxpayer you are calling about
+
+go to step 4
+
+not provided, go to PORO not established.
+
+
+4	
+
+Ask to speak with the authorised contact or agent dealing with the taxpayer's affairs. Was the authorised contact or relevant agent available? If:
+
+yes, go to PORO established
+no,
+leave a message
+go to PORO established.
+Task 4 - Professional or Third-party representative
+
+Establish PORO on the record they are enquiring about.
+
+If the person answering is...	Then...
+
+
+listed as a contact
+
+	
+provide your full name, section and advise you are calling from the ATO
+specify the name of the taxpayer you are calling about
+ask the representative if they would like to hear the Privacy notice
+
+ and advise the call is being recorded. If the representative advises they do not want the call recorded, stop the call recording
+
+obtain the taxpayer's
+DOB or address, and
+update the PORO indicator.
+
+
+
+not listed as a contact
+
+	
+advise you are calling from the ATO and provide your full name and section
+specify the name of the taxpayer you are calling about
+ask the representative answering if they would like to hear the Privacy notice
+
+ and advise the call is being recorded. If the representative advises they do not want the call recorded, stop the call recording
+
+obtain the taxpayer's
+DOB or address, and
+one item of proof related to the enquiry which can be confirmed in ATO systems
+update the PORO indicator.
+Outcomes
+Call recipient questions authenticity of ATO employee
+
+Are you speaking with an individual taxpayer or financial counsellor? If:
+
+yes,
+Verify call
+
+ is the preferred option to confirm your authenticity
+promote the ATO app and Verify call
+
+no, if you are speaking with a registered agent or professional third-party representative, continue below.
+
+If the person you are speaking with has access to Online Services for Business or Online Services for Agents, you can send them a secure message
+
+ via the mail function in Siebel.
+
+Provide them with:
+
+the Receipt Id for the call
+your full name and your team leader's full name and their extension number (Genesys enabled area)
+your full name and extension number (non-Genesys enabled area).
+
+Ask them if they have access to Online Services for Business or Online Services for Agents.
+
+If no, provide the ATO switchboard number 13 28 69 (can be confirmed on Contact us (QC 33763)
+
+ page on the ATO website)
+they can call the switchboard to confirm the authenticity of the call by providing your contact details
+If yes, advise them you will send them a secure message which will contain the Receipt Id provided earlier to confirm the authenticity of the call.
+Create an Outbound correspondence activity with the wording 'authenticity message required' in the description field
+Use the following template to send them a secure message online using Unstructured correspondence - guidelines and principles.
+
+
+Dear <______>
+
+This message is to confirm the authenticity of your current ATO interaction.
+
+Receipt Id: <______>
+
+Thank you
+
+Warning
+alert:
+Do not copy and paste content into the message. This may cause fatal errors resulting in the message failing to send.
+
+If they terminate the call due to questioning your authenticity, ensure you complete the ATO impersonation scam form. Refer to Clients reporting an ATO scam
+
+ for instructions.
+
+PORO established
+
+Complete the following:
+
+if
+high-risk PORO was required, offer passive enrolment,
+
+ as per voice authentication status drop down boxes (extensive PORO needed if accepted)
+Verify call was used to establish PORO, you must add a note
+
+ to include ‘PORO established with Verify call’ on your outbound Siebel activity
+Update the PORO indicator.
+
+PORO not established
+
+If the taxpayer is unable to establish PORO:
+
+advise you cannot proceed with the call as you are unable to confirm you are talking to the intended person
+update PORO indicator
+
+ to failed.
+Related Resources
+
+Outbound protocols
+
+
+Privacy notice
+
+
+PORO Magic user guide
+
+
+ATO app - Verify call
+
+
+ 
+-------
+
+
+
+-------
+ATO app - Verify call | Enterprise Knowledge Management
+https://ekm/fo/fs/isc/online-services/ato-app/ato-app-verify-call#pfavcr
+
+
+ATO app - Verify call
+
+Information on ATO app feature that allows registered users to confirm whether a call is from an ATO staff.
+
+Last published 11 May 2026
+
+Favourite Notes Collapse all 
+Background
+
+Verify call is a feature in the ATO app. It lets registered users check if a phone call is genuinely from an ATO staff.
+
+Taxpayers can log in to the ATO app and send a Verify call request. Staff must confirm the request in the Hub tool within 30 seconds, before the request expires.
+
+Taxpayers who have registered their device using the ATO app may send a Verify call request without stating their intention.
+
+When staff verify the request, the ATO app:
+
+shows a confirmation
+includes the staff member’s name.
+
+If staff do not verify the request before it expires:
+
+ATO app displays a message instructing the user to treat the call as suspicious and hang up
+it may affect the outcome of the outbound contact attempt.
+
+Prepare for a Verify call request before contacting taxpayer who has registered their device using the ATO app.
+
+Verify call may be used to streamline outbound PORO requirements.
+
+Warning Alert
+Warning
+
+Do not advise taxpayers that Verify call may be used to confirm their identity or establish PORO.
+
+To determine whether Streamlined PORO is appropriate, refer to the outbound PORO procedure appropriate to your work type and business and service line (BSL).
+
+Warning Alert
+Warning
+
+You cannot use Verify call for:
+
+myID enquiries
+a person with no TFN.
+Recent updates
+11/05/2026	Multiple updates made throughout the page.	SD-104384
+30/03/2026	New page created.	SD-102104
+Scenarios
+Verify call for myID enquiries
+
+You must not use Verify call for outbound calls related to troubleshooting a myID.
+
+If your authenticity is questioned during an outbound call:
+
+inform the individual
+legislation bans ATO records from being accessed during a myID enquiry
+you are unable to confirm a Verify call request without accessing their ATO record
+go to Revert to alternate process.
+
+For more information, refer to myID.
+
+
+Individual record not located
+
+If a taxpayer wants to use Verify call, and you have not yet located their individual record:
+
+inform the taxpayer that
+they will need to have registered their device with the ATO app
+you will need to locate their personal record to respond to their request
+ask for their TFN. If
+provided, go to Prepare for a Verify call request
+not provided,
+request their full name and date of birth (DOB)
+search for the TFN in Siebel
+
+ or ICP.
+
+ Note: Do not disclose the TFN without first establishing PORO, and completing the necessary checks as per What's my TFN?
+
+check if the TFN is located. If
+yes, go to Prepare for a Verify call request
+no, go to Revert to alternate process.
+Agent or third-party representative wishes to use Verify call
+
+Verify call can only be used by registered ATO app users when you have located their individual record.
+
+If a registered agent or third-party professional has questioned your authenticity and the interaction does not relate to their individual record, offer to confirm your authenticity via an alternate process, as per the protocol appropriate to your work type, such as:
+
+Outbound PORO - PORO Magic
+
+Conduct the call
+
+ (for FC and Debt Assist staff).
+
+If they insist on using Verify call:
+
+inform them that
+they will need to have registered their device with the ATO app
+you will need to locate their personal record to respond to their request
+ask for their TFN. If
+provided, go to Prepare for a Verify call request
+not provided,
+request their full name and DOB
+search for the TFN in Siebel
+
+ or ICP.
+
+ Note: Do not disclose the TFN without first establishing PORO, and completing the necessary checks as per What's my TFN?
+
+check if the TFN is located. If
+yes, go to Prepare for a Verify call request
+no, go to Revert to alternate process.
+Verify call disabled due to system issues
+
+In the event of significant system failure, the Verify call feature may be disabled within the ATO app, and you will be notified via email alert.
+
+When taxpayers select the ‘Verify call’ button from the Verify call screen, the app will:
+
+display a Feature unavailable message stating ‘Verify call is currently unavailable. If you're unsure that a phone call is from us, ask for a receipt ID and call us back on a publicly listed number.’
+include a hyper link to Contact us.
+
+
+Where your authenticity is questioned and Verify call is not available, go to Revert to alternate process.
+
+Hub tool system issues
+
+If you cannot access the Hub tool and you have not been notified of system issues, speak to your manager to ensure you have one of the required System Access Roles (SARs).
+
+If your authenticity is questioned by a registered ATO app user and you are unable to access the Hub tool, go to Actions after expired or cancelled request.
+
+Revert to alternate process
+
+If your authenticity is questioned during an outbound call and you are unable to confirm your authenticity using Verify call for any reason, you will need to follow an alternate process.
+
+For most Frontline work types, the alternate process will be:
+
+provide the outbound call Receipt Id
+check if the taxpayer has access to online services. If
+yes, send a secure message including the Receipt Id
+no, ask them to call back via the
+switchboard
+campaign number, or
+another publicly listed number as per your business area’s protocol.
+
+Continue with the relevant process for your work type, such as:
+
+Outbound PORO - PORO Magic
+
+Conduct the call
+
+ (for FC and Debt Assist staff).
+Inbound calls due to an expired Verify call request
+
+Taxpayers may enquire about a call they received where a Verify call request expired.
+
+When a Verify call request expires, the ATO app displays ‘Call not verified: We’re unable to verify this call. Treat this call as suspicious and hang up now.’
+
+Staff are required to leave a note when they were unable to confirm a Verify call request. The note should include a reason the Verify call request was not confirmed, which may be explained to the taxpayer. For example, educating taxpayers that they should let ATO staff know before they send a Verify call request.
+
+You can use the date and time of the call to narrow your search for interactions and notes on the relevant records. Note: The interaction may be documented on a related record.
+
+Establish PORO.
+
+
+Go to the taxpayer's Client Consolidated View (CCV) screen in Siebel, then go to:
+
+Hub tool, check the date and time of the interactions, if required
+open the Hub tool from the taxpayer’s CCV or bring the correct record in focus by searching for the TFN in the top right corner
+select ATO app support from the Applications menu, events from
+today will display on the Verify calls tab
+all prior dates will display on the History tab. Note: Events on the History tab can be filtered
+look for an event with
+Action: Verify call
+Type: Expired. Note: The times displayed reflect Canberra time
+Taxpayer Contact History, check the
+notes and outbound phone interactions
+case notes or case activities in an open case in the Case Summary tab
+interactions in the Internal Initiated Action tab
+ECP,
+go to Taxpayer Engagement gadget
+check the interaction date and notes.
+
+Check if you have located an interaction documenting the contact attempt. If:
+
+yes,
+reassure the taxpayer the original phone interaction was genuine
+explain the reason the Verify call request was not confirmed, if appropriate
+review the related activity and action or transfer accordingly. Note: You must not provide another Tax officer's name
+
+no, go to Establish if personal details disclosed or a payment made.
+
+Using a surname for Verify call
+
+Using a surname may provide additional assurance to the taxpayer, but it may also increase the risk of the request expiring.
+
+When confirming a Verify call request:
+
+only your first name will prefill from Directory
+confirm a Verify call request using only the first name you used to introduce yourself on the call in the first instance.
+
+If the taxpayer insists on verifying your surname:
+
+ask them to submit a new Verify call request, and
+include your surname in the name field of the Verify call request window.
+Verify call request confirmed by another operative
+
+You must not confirm a Verify call request unless you are currently on a call with the taxpayer in focus.
+
+If you are speaking with a taxpayer and a Verify call request is confirmed by another staff member:
+
+this may indicate
+misuse of ATO systems or unauthorised access by staff, or
+a separate phone interaction is in progress, and the taxpayer is potentially compromised
+complete as follows
+explain to the taxpayer that an error occurred and request they re-submit a Verify call request
+establish extensive PORO
+note the user who confirmed the original Verify call request, and
+notify your team leader so the incident may be reported and investigated.
+In Detail
+Prepare for a Verify call request
+
+Before making a call to a taxpayer, or as soon as possible during the outbound interaction, check the:
+
+Siebel alerts in CCV for 'ATO Mobile App: Registered', this alert normally populates in Siebel immediately after the first registration event, or
+app registration status on the ATO app support screen of the Hub tool.
+
+Check if the taxpayer's ATO app is registered. If:
+
+yes,
+open the Staff Application Hub (Hub tool) from the Hub button on the taxpayer's CCV screen in Siebel. If you already have the Hub tool open, you can bring the correct record in focus by searching for the TFN in the top right corner
+select ATO app support from the Applications menu
+consider whether it is appropriate to use streamlined outbound PORO, using the outbound PORO process appropriate to your work type
+no,
+Promote the ATO app and Verify call where appropriate
+continue with the outbound call process.
+Info Alert
+Information
+
+The taxpayer may send a Verify call request without stating their intention.
+
+Guide the taxpayer to submit a Verify call request
+
+Ask the taxpayer if they are registered with the ATO app. If:
+
+yes, inform them they can submit a request through the ATO app to verify you are calling from the ATO. Ask if they would like to do that now. If
+yes, guide the taxpayer to
+open the ATO app and login using
+quick login (if they previously set up their device’s biometrics), or
+myGov login. Note: For issues with authentication, refer to ATO app - authentication troubleshooting
+
+select
+Verify call from the centre of the authenticated dashboard (between Messages and Profile). Note: The Verify call screen will be displayed
+Verify call button at the bottom of the screen. Note: The Verifying call screen will be displayed until the request is confirmed, cancelled or expired
+no, go to Promote the ATO app and Verify call
+no, go to Promote the ATO app and Verify call.
+Check for a Verify call request
+
+If the taxpayer tells you they want to use Verify call, you must actively check for a Verify call request. Note: Some taxpayers may send a Verify call request without telling you. If this leads to a transaction showing an expired request in the events list on the Verify calls tab, go to Verify call request expired.
+
+Complete the following steps in the Hub tool to check for a Verify call request:
+
+go to the ATO app support screen
+select the Verify calls tab
+the system automatically scans for active Verify call requests
+the scan happens instantly and only lasts a fraction of a second
+you must select the Verify calls tab after the taxpayer has sent their Verify call request.
+
+Note: If a taxpayer has never registered a device using the ATO app, the Verify calls tab will not be available.
+
+A Verify call request window will pop when an active request is detected. Check if an active request is detected. If:
+
+yes, go to Respond to a Verify call request
+no, manually scan for a request by clicking on the Check for request button on the Verify calls tab
+a manual scan will be completed in a fraction of a second
+the Check for request button will be disabled while the system is actively scanning
+you can scan for a request as many times as necessary.
+Respond to a Verify call request
+Step	Action
+1	
+
+When an active request is detected and a Verify call request window appears, check if the pre-filled name matches the first name you have used during the call. Note: Your name will be pre-filled as your first name from Directory. If:
+
+yes, go to step 2
+no,
+edit the pre-filled name to match the first name you have used during the call
+go to step 2.
+
+2	
+
+Select the checkbox to confirm the name shown in the Verify call request window matches the name you have used during the call.
+
+
+3	
+
+Click the Verify call button to confirm the request.
+
+The taxpayer will receive confirmation stating ‘Verified ATO call: You are speaking with <your name>.’ in app.
+
+
+4	
+
+Continue with the relevant procedure for your work type.
+
+Verify call request expired or cancelled
+Expired request
+
+When a Verify call request has expired during an active outbound call, it will display on the:
+
+ATO app as ‘Call not verified: We’re unable to verify this call. Treat this call as suspicious and hang up now.’
+Verify calls tab of the ATO app support screen in the Hub tool as follows
+Date: today's date and current server time (current time in Canberra)
+Action: Verify call
+Type: Expired
+Actioned by: System.
+
+If a Verify call request window was open, a Request expired message will be displayed.
+
+Cancelled request
+
+When a taxpayer cancels a Verify call request during an active outbound call, it will display on the Verify Calls tab of the ATO app support screen in the Hub tool as follows:
+
+Date: today's date and current server time (current time in Canberra)
+Action: Verify Call
+Type: Cancelled
+Actioned by: Taxpayer.
+
+If a Verify call request window was open, a Request cancelled message will be displayed.
+
+Actions after expired or cancelled request
+Step	Action
+1	
+
+Check if the caller has ended the call. If:
+
+yes, go to step 5
+no, go to step 2.
+
+2	
+
+Check if you are able to access the Verify calls tab from the ATO app support screen in the Hub tool. If:
+
+yes, go to step 3
+no,
+inform the taxpayer 'Due to a system issue, I won’t be able to confirm a Verify call request today but there are other ways you can confirm the authenticity of this call.'
+go to step 4.
+
+3	
+
+Inform the taxpayer:
+
+'I wasn’t able to confirm your Verify call request before it
+
+expired, <with reason, e.g. I wasn’t aware you wanted to use Verify call and the request is only visible when we actively check for it>, or
+
+was cancelled
+If you resubmit that request now, I can send a confirmation. Would you like to try again?'
+
+Check if the taxpayer agrees to resubmit the Verify call request. If:
+
+yes,
+go to Check for a Verify call request
+continue with call as per business as usual (BAU) procedures
+this is the end of the procedure
+no,
+inform the taxpayer 'There are other ways you can confirm the authenticity of this call.'
+go to step 4.
+
+4	
+
+Check if the taxpayer still wants to confirm your authenticity prior to continuing with the call. If:
+
+yes,
+
+provide the taxpayer with
+
+the receipt ID for the outbound phone interaction, and
+
+your full name
+
+offer alternative methods of confirming your authenticity as per the procedure relevant to your work type, for example
+
+'Taxpayer questions authenticity of ATO employee' on Outbound PORO - PORO Magic
+
+
+'Taxpayer questions authenticity of ATO employee' on Outbound PORO
+
+'Taxpayer questions authenticity of ATO employee' on PORO - Outbound process for non-Genesys enabled staff
+
+'Your identity is questioned' on Conduct the call
+
+no, check if the taxpayer agrees to continue the call. If
+yes, 
+continue with call as per BAU procedures
+this is the end of the procedure
+no, go to step 5.
+
+5	
+
+In accordance with your business line procedure, send a:
+
+letter
+post-call SMS, or
+email.
+
+Document the interaction in your outbound phone Siebel activity on the individual record wherever possible.
+
+Add a note
+
+ using the Verify call template in the Notes fly-out tab.
+
+Complete any other updates or actions relevant to the work type.
+
+This is the end of the procedure.
+
+Promote the ATO app and Verify call
+
+Where appropriate, promote Verify call and the ATO app to taxpayers who have not previously registered their device.
+
+Do not advise taxpayers that Verify call can be used to:
+
+verify their identity, or
+streamline PORO requirements. 
+Why we should promote the ATO app and Verify call
+
+Verify call:
+
+is the preferred option to confirm your authenticity for individual taxpayers
+provides taxpayers real-time assurance that a call is legitimate
+empowers taxpayers to identify potential scam calls
+protects taxpayers against identity theft.
+
+As a result, it will enable you to:
+
+have more productive conversations during outbound contact attempts
+resolve your work item in one interaction, leading to reduced
+touchpoints, and
+reverse workflow.
+
+When a taxpayer registers with the ATO app, they will gain access to a growing range of security features, in addition to Verify call. These currently include:
+
+security messaging,
+real-time alerts when critical changes are made to a taxpayer's record
+refer to ATO app - ATO app messaging
+
+account lock and unlock,
+taxpayers can self-lock their record if they suspect fraudulent activity
+refer to ATO app - Lock or unlock ATO record.
+
+
+For more information about the ATO app and its features, refer to:
+
+About the ATO app
+
+Manage your tax and super with the ATO app.
+
+How to promote Verify call when your authenticity is questioned
+
+If a taxpayer has questioned your authenticity, check if the taxpayer is registered with the ATO app. If:
+
+yes, go to Guide the taxpayer to submit a Verify call request
+no, inform the taxpayer
+'Our ATO app has a feature you can use to verify this call is from the ATO, along with other useful features for managing your tax and super.
+You can read about the app by going to Manage your tax and super with the ATO app.
+
+ If you like, I can help you get started.'
+
+Check if the taxpayer agrees to register their device. If:
+
+yes,
+refer to About the ATO app
+
+ and guide them to
+download the ATO app, and
+register their device
+once the taxpayer has registered,
+Prepare for a Verify call request
+Guide the taxpayer to submit a Verify call request
+Check for a Verify call request, and
+Respond to a Verify call request
+no, go to Revert to alternate process.
+Related Resources
+ATO app
+
+ATO app overview
+
+Managing outbound contact in Siebel
+
+ 
+-------
+
+-------
+Deregistered company enquiries | Enterprise Knowledge Management
+https://ekm/fo/nn/007/deregistered-company-enquiries
+ 
+Deregistered company enquiries
+
+Details about deregistered company enquiry types and available actions to resolve enquiries.
+
+Last published 1 April 2026
+
+Favourite Notes Collapse all 
+Background
+
+This page lists deregistered company enquiry types and the actions available to resolve the enquiry.
+
+The ATO is currently working with the Australian Securities and Investment Commission (ASIC) to improve the process to transfer credits.
+
+escalate Manual refund escalation
+
+ to the relevant area
+advise taxpayers making a request on behalf of deregistered companies, requests for manual transfer of credits to ASIC will be held until the new process is in place
+claimants can search MoneySmart for unclaimed money
+
+ held for a deregistered company
+for more details, refer to how to claim monies
+
+ owed to a deregistered company.
+
+For detailed information outlining the impacts of ASIC company deregistration, refer to Companies - taxation effects on registrations overview.
+
+
+Some deregistered companies that may have received invalid refunds due to a recent system issue.
+
+
+In August 2022 the unintentional release of suppressions caused the generation of invalid refunds. 
+
+All enquiries regarding these, go to Invalid refunds from ATO and subsequent remediation.
+
+Recent updates
+01/04/2026	Updated Instalment credits and Payment arrangement sections.	SD-103168
+Checks
+Company deregistration
+
+Determine whether the company is an Australian or foreign ASIC deregistered company. Company enquires for:
+
+Australian private and public ASIC deregistered companies: refer to Procedure Steps on this page
+Foreign (non-resident) ASIC deregistered companies.
+
+To determine if a company is an Australian private or public deregistered company:
+
+check for a Suppress All suppression at the Taxpayer and/or IT account level in ICP and take note of the start date
+review taxpayer notes from the start date of the Suppress All suppression, there will be a note confirming if the company is deregistered
+confirm current ASIC registration status and note the start date the company become deregistered in
+Third Party Data in Enterprise Taxpayer Profile
+
+ASIC Company Details in MASCOT
+company search in ASIC website
+
+if the company is deregistered, do not complete PORO unless an exception applies.
+
+Information
+alert:
+If 'strike off in progress' is the current registration status it indicates that:
+
+the company is still registered
+the company deregistration process has commenced by ASIC, and
+deregistration can be cancelled by ASIC.
+Foreign Companies
+
+Staff may receive enquiries from Authorised contacts, such as Directors, Public Officers or intermediaries, of foreign companies where the ASIC registration status is deregistered.
+
+Foreign companies are governed by a distinct provision of the Corporations Act 2001 (Division 2 of Part 5B.1).
+
+These provisions provide that registration of a foreign company with ASIC permits the entity to carry on business in Australia. Unlike Australian companies, there is no provision under the Act to provide that a foreign deregistered company ceases to exist upon deregistration.
+
+When a foreign company is deregistered, it is no longer lawfully authorised to carry on business in Australia. This means the property of the deregistered foreign company (including taxation credits) will remain the property of the foreign company.
+
+When a foreign company is also deregistered in its place of incorporation the property (including any taxation credits) will go to ASIC.
+
+For enquiries relating to foreign companies deregistered with ASIC, escalate to Frontline Services Support.
+
+
+Guidance for Frontline Services Support staff
+
+If a request is received:
+
+check the company is still registered in its place of incorporation
+contact the authorised representative, establish PORO,
+
+ to request a translated extract from the relevant overseas government department/regulator as proof of foreign registration
+if satisfied with the proof of foreign registration provided, initiate a Manual refund request
+
+ for the credit requested
+if satisfied the company is no longer registered overseas, forward the credit to ASIC.
+
+If foreign registration status cannot be verified, or if further assistance is required, escalate to OPAL.
+
+
+JobKeeper measure
+
+Deregistered companies need to reinstate their registration with ASIC in order to be considered for the JobKeeper measure.
+
+
+Procedure Steps
+Contact by previous authorised contacts
+
+When a company is deregistered with ASIC, the entity ceases to exist, therefore it can no longer authorise anyone to act on its behalf.
+
+Anyone who was an authorised contact, including Directors, Public Officers and registered agents, prior to deregistration is not authorised to discuss the details of the company.
+
+Staff can confirm a company is deregistered (if identified on ATO systems). This is public information provided by ASIC.
+
+ATO staff can outline the ATO's general practices for deregistered companies:
+
+a deregistered company's registrations (including ABN and business roles) will be cancelled
+
+lodgments received after deregistration are considered to be invalid and will be cancelled
+
+any credits relating to pre-deregistration periods that did not issue to the company prior to deregistration will be forwarded to ASIC.
+
+Further information is available on the ATO website for Deregistering a company.
+
+
+Generally, staff cannot discuss protected information relating to a deregistered company.
+
+Protected information can only be disclosed if an exception applies. For example, an exception occurs when a former director needs information to understand their own personal tax affairs:
+
+this can include PAYG withholding and superannuation paid on their behalf by the company
+to check more about when disclosure may be permitted by law, go to Previous Directors on Director penalty notice.
+
+
+Find out more about disclosing protected information
+
+ about deregistered companies.
+
+Request to update details
+
+No company details should be added or modified at the request of previous authorised contacts once it is deregistered.
+
+End date the following details using the ASIC's deregistered date:
+
+authorised contacts and contact details
+
+address details
+
+end date active FIA details
+
+ in ICP.
+
+End date active links to an intermediary on all levels in line with Add or remove tax agent to taxpayer link.
+
+
+End dating the link will show an agent's authorisation has ended at the date of deregistration and will remove the deregistered company from the agent's taxpayer lists and reports.
+
+Companies previously acting as corporate trustees
+
+The Trustee company of a superannuation fund or trust no longer exists once the company is deregistered. Authorised contacts, including the previous director, cannot gain access to the associated superannuation or trust information. The trust will need to arrange for either:
+
+a new entity to be nominated as trustee for the superannuation fund or trust, and will need to advise us of the change once made, or
+the deregistered company trustee to be reinstated with ASIC.
+
+Refer the caller to:
+
+Deregistration
+
+
+Changing, selling or closing your business. 
+
+
+Cancelling ABN or business roles
+
+The ATO will cancel a deregistered company's ABN and all business roles when notified of a company deregistration. This is usually part of an automated process.
+
+Where a deregistered company's ABN, or business roles have not been automatically cancelled, confirm the date of deregistration.
+
+If you are B-1 trained...	Then...
+
+
+yes
+
+	
+cancel the ABN
+
+ using the deregistration date as the effective date
+cancel all active business roles
+
+ using the deregistration date as the effective date
+cancel associated correspondence
+
+add a note
+
+ outlining actions taken and sources checked, including whether deregistration was confirmed on ATO systems.
+
+There are flow on implications for Single Touch Payroll (STP) reporters who have not completed their end of year reporting obligations prior to deregistration. Go to Single Touch Payroll reporting below.
+
+
+
+
+no
+
+	
+
+if you have the taxpayer on the phone:
+
+yes, warm transfer to x92102
+no, create an activity
+
+ with the following classification
+Capability: Operations
+Category: Registrations
+Type: Cancellations
+Template: Add cancel ABN or Role template
+Interaction: Internal
+Status: UnAllocated
+Assigned To: ENTERPRISE_Q.
+Single Touch Payroll reporting
+
+Companies must finalise their STP reporting obligations before deregistering with ASIC.
+
+Where the employer has not been able to finalise before the cancellation of ABN, refer to Pausing or ceasing STP reporting.
+
+
+From July 2023, pre-fill of PAYGW labels W1 and W2 will be available to all STP reporters who lodge electronic activity statements. For details, refer to STP ATO PAYGW pre-fill.
+
+
+Cancelling Income Tax role
+
+To cancel the Income Tax (IT) role the entity must meet the three conditions as outlined in the table below.
+
+Warning alert:
+If any of these conditions are not met the IT role must remain active.
+
+from Siebel, open ICP
+
+select Taxpayer Details from the Client menu
+
+view the Taxpayer type field.
+
+The Resident field will display Yes or No.
+
+Step	Action
+
+
+1
+
+	
+
+Check if the entity is either an Australian Private Company OR Australian Public Company. If:
+
+yes, go to step 2
+no, and this is any other type of entity, no additional checks are needed and the IT role should not be end dated.
+
+2	
+
+Check if the entity is a resident OR non-resident. If:
+
+entity is a resident, go to step 3
+entity is a non-resident, the IT role should not be end dated as foreign entities can operate whilst registered in other jurisdictions.
+
+
+
+3
+
+	
+
+Confirm if the company is registered with The Office of the Registrar of Indigenous Corporations (ORIC):
+
+follow the link to the ORIC
+
+ website
+select the FIND A CORPORATION (PUBLIC REGISTER) option
+enter the corporation name or Indigenous Corporation Number (ICN) and select Search
+select the Extract link to view the entity required.
+
+If the entity is registered with ORIC do not cancel the IT role, otherwise go to ICP - Add a Further Return Not Necessary (FRNN).
+
+
+myID/RAM enquiries
+
+If taxpayers request assistance to link their myID to RAM, advise taxpayer that as the company has been deregistered by ASIC, any action taken on the entity in its current state is not valid.
+
+Taxpayers wanting to reregister their company should contact ASIC regarding their registration status.
+
+If a taxpayer is querying why details of a deregistered company are appearing, advise the taxpayer that the company ABN requires cancellation. Advise the taxpayer that you will initiate the cancellation of the ABN
+
+ or roles.
+
+Lodgments
+Received but not processed prior to deregistration
+
+Process any suspended lodgments with a received date before deregistration of the company. Any credits or liabilities arising from these lodgments are valid.
+
+Where credits arise, refer to Instalment credits and Other credits.
+
+Where liabilities arise, Debt will assess cases for possible remediation.
+
+Received after the date of deregistration
+
+Post-deregistration lodgments (those with a received date after the date of deregistration) are considered invalid.
+
+Lodgments received after the date of deregistration may:
+
+automatically process due to current system constraints. If this happens
+revise Super Guarantee Charge (SGC) statements to nil
+if not already completed via automated process, cancel activity statement
+
+ received after ASIC deregistration date
+cancel any ITR or FBT form
+
+ received after ASIC deregistration date
+
+Associated credits/liabilities arising from invalid lodgments will be reversed on cancellation of the lodgments.
+
+suspend, meaning the form will not be processed. Confirm the status of the company at Check ASIC register in Forms processing - correct suspended form.
+
+
+Outstanding lodgments
+
+Once a company is deregistered with ASIC, there is no requirement for outstanding forms to be lodged (including income tax returns and activity statements).
+
+Where outstanding lodgments relating to pre-deregistration periods remain (including part period lodgments where deregistration occurred part way through a period), terminate any outstanding Activity Statement 
+
+and cancel expected lodgments.
+
+
+Cancelled and revised to nil lodgments
+
+Post-deregistration lodgments (lodgments with a received date after the date of deregistration) are considered invalid. The ATO will identify and cancel or revise to nil (Super Guarantee Charge (SGC) forms only) lodgments meeting this criteria.
+
+Any associated credits or liabilities arising from invalid lodgments will be reversed when the form is cancelled or revised to nil.
+
+Inform former authorised contacts who want to lodge forms for a deregistered company the company needs to be reinstated before making a lodgment, either via request to ASIC or via Court order.
+
+Amendments (including VRO review items)
+
+Taxpayer Amendments (with a received date after the date of deregistration) are considered invalid. The ATO will identify and cancel or revise to nil lodgments meeting this criteria.
+
+Any associated credits or liabilities arising from invalid lodgments will be reversed when the form is cancelled or revised to nil.
+
+Given a company ceases to exist following deregistration, it cannot authorise anyone to act on its behalf. Anyone who was listed as an authorised contact prior to the company's deregistration is not authorised to discuss the details of the company following its deregistration.
+
+You can inform former authorised contacts who want to amend forms for a deregistered company that the company needs to be reinstated before making an amendment, either via request to ASIC or via Court order.
+
+ATO Error Amendments and VRO Review Item amendments 
+
+Subsection 601AD of the Corporations Act 2001 states that a company ceases to exist on deregistration. Upon deregistration, no one can act on its behalf.
+
+The Commissioner may still conduct audits and reviews even if a company is deregistered. However, given a lack of standing upon deregistration, there is no legal basis for the Commissioner to amend the assessments of a deregistered entity . Therefore, the Commissioner may not issue an amended assessment to a deregistered company.
+
+If the actioning ATO officer determines that the tax return requires follow up with the taxpayer, or would require sufficient amendment, the relevant business area may seek reinstatement of the company if necessary. Refer to Application to ASIC by the ATO on Companies - taxation effects of deregistration and reinstatement overview.
+
+If there is minimal risk and reinstatement is not required follow the table below
+
+Status
+	Effects
+
+
+
+Deregistration
+
+	
+
+In the event an original or amended assessment has been raised post company deregistration, the assessment is invalid and should be cancelled. Any open review item raised in ICP set to closed. Review item must not be approved. Note must be left in Siebel outlining steps taken.
+
+
+
+
+Reinstatement
+
+	
+
+Any assessment made while the company was deregistered remains invalid despite the company being reinstated.
+
+The adjustments or revisions should be cancelled and the assessment reissued after reinstatement.
+
+Correspondence from ATO
+
+With the exception of correspondence relating to director penalties, generally correspondence issued by the ATO to the deregistered company can be disregarded if issued after the date of deregistration.
+
+Process improvement
+
+We are currently updating our processes to prevent correspondence from issuing after the date of deregistration.
+
+Copy of returns
+
+Find out how to Request copies of lodged taxed returns.
+
+
+Incorrect payments
+
+If a taxpayer advises payments have been incorrectly made to a deregistered company's ATO account and asks for those amount to be transferred, complete Account checks-payment and credit transfer
+
+ and refer to Deregistered entities.
+
+Instalment credits
+
+Escalate the following instalment credits enquiries to Frontline Services Support service desk FSS Service Desk.
+
+
+Other credits
+
+Credits arising from lodgments made on behalf of a company after deregistration are invalid. Refer to Cancelled and revised to nil lodgments.
+
+If a former authorised contact with a deregistered company wants to lodge forms with the ATO, they will need to reregister the company.
+
+This can be achieved through Court order or ASIC prior to making the lodgments.
+
+If a deregistered company was entitled to a credit prior to the deregistration, the monies will be refunded by the ATO to:
+
+the company only where its registration has been reinstated by ASIC
+
+ASIC in all other cases.
+
+Transfer credit process improvement
+
+The ATO are working with ASIC to improve the process to transfer credits. Manual refund requests
+
+ can be escalated to the relevant area.
+
+Advise taxpayers making requests on behalf of deregistered companies, all requests for manual transfer of credits to ASIC will be held until the new process is in place.
+
+The taxpayer can search the MoneySmart website for unclaimed money held for a deregistered company. Find out how to make a claim on monies owed to a deregistered company
+
+ on the ASIC website.
+
+Invalid refunds from ATO and subsequent remediation
+
+Where a Taxpayer or Tax Agent advises that they have received an unexpected refund for a Deregistered company, advise:
+
+a system issue in August 2022 unintentionally caused refunds to be issued to some of these entities (as suppressions were unintentionally removed which caused the automatic generation of refunds)
+the refund is invalid because it relates to credit that is from a lodgment that has been made post deregistration
+the ATO is working on a remediation process to correct the issue
+any invalid refund received needs to be returned to the ATO via EFT using details
+BSB: 092 009
+Account number: 118 443
+Reference: Lodgment Reference Field (LRF) number received with the refund.
+
+To assist the remediation process obtain from the caller the following details (advising a note will be added to the Deregistered entity):
+
+Callers name
+Deregistered company name
+Deregistered company ABN or ACN
+Invalid refund amount.
+
+Add a note in Siebel for the Deregistered Company, advising that an invalid refund was received by the caller and is being returned to the ATO by EFT. The note will ensure Accounting does not take action to recover the refund
+
+Warning alert:
+
+Any requests for additional information go to Contact by previous authorised contacts before proceeding further.
+
+Reclaiming money from ASIC
+
+Where we have forwarded money to ASIC, the taxpayer can make an application in writing
+
+ to ASIC for unclaimed company money. ASIC will make their own determination on claims.
+
+Outstanding debts
+
+Do not discuss the account or enter a payment plan unless the caller is a Director wanting to pay Director penalties, they are liable for.
+
+If the caller is a director wanting to pay director penalties (Director Penalty Notice) they are liable for, refer to Director Penalty Notices.
+
+
+The ATO may seek reinstatement of companies in certain circumstances.
+
+Where a payment plan exists for the company liabilities, refer to Payment arrangements. Refer the taxpayer to Closing your company
+
+ on the ASIC website.
+
+Payment arrangements
+
+Escalate the following instalment credits enquiries to Frontline Services Support service desk Frontline Services Support Desk.
+
+
+Penalties and interest
+
+Penalties and interest cannot be imposed on a deregistered company as the entity does not exist during the period it is deregistered.
+
+However, directors may be liable for penalties
+
+ related to the company.
+
+General interest change (GIC) calculation on company accounts will be stopped.
+
+You should not consider requests for remission of interest or penalties post-deregistration as the entity cannot make this request.
+
+Refer to Contact by previous authorised contacts.
+
+More information
+
+Advise the taxpayer where to find out more about Closing your company
+
+ on the ASIC website.
+
+ 
+-------
+
+
+-------
+Outbound Protocols - Leaving a message | Enterprise Knowledge Management
+https://ekm/fo/nn/013/outbound-protocols-leaving-a-message
+
+ 
+Outbound Protocols - Leaving a message
+
+Procedure on how to leave a message when an outbound call is made.
+
+Last published 10 December 2025
+
+Favourite Notes Collapse all 
+Background
+
+Guideline on how to leave a message when making an outbound call.
+
+Recent updates
+
+10/12/2025
+
+	
+
+Update to 'Message guide' in Scenarios, and 'Message details' in Procedure Steps.
+
+	
+
+SD-100437
+
+Scenarios
+Message guide
+
+The following examples are a guide on how you can identify the call as tax related business without breaching the taxpayer's privacy.
+
+Care must be taken to protect the taxpayer's privacy when a call is answered by:
+
+an answering machine/voicemail, or
+
+a person other than the primary contact, their agent or an authorised contact.
+
+Do not disclose any personal, protected, sensitive or account-related information that might breach privacy obligations, for example indicating you are calling about a debt.
+
+When providing a reference number, ensure you provide the Siebel receipt ID for:
+
+your Outbound Phone activity, or
+
+an activity with the PORO Indicator set to Not Required.
+
+Registered tax agent or BAS agent
+Type of call
+	Action
+
+Outbound campaign calls	
+
+For campaign calls to an authorised tax agent, you must issue an Overdue obligations message
+
+ when leaving a:
+
+voicemail, or
+
+message with a receptionist or an employee of the agency.
+
+Your message must include:
+
+your full name (first and last name)
+you are from the ATO
+details that
+you are calling about <the lodgment and/or payment obligations> for <entity/taxpayer>
+you will be sending an Online service for agents practice mail message
+the message will have a subject heading Overdue Taxpayer Obligations - Action Required
+actions required by <date> (14 calendar days)
+
+Siebel reference number for this call <Siebel Receipt ID>
+an appropriate call back number and business hours between 8:00am and 6:00pm Monday to Friday.
+
+Issue an Overdue obligations message to the agent
+
+ outlining the taxpayer's outstanding debt obligations. Note, this does not apply if you are actioning Disclosure of Business Tax Debt worktypes.
+
+
+All other outbound calls	
+
+Your message must include:
+
+your full name (first and last name)
+you are from the ATO
+details that you are calling about <the lodgment and/or payment obligations> for <entity/taxpayer>
+advise them to call us back on <phone number> between 8:00am and 6:00pm, Monday to Friday by <insert appropriate date>
+advise them when they call back
+
+to quote reference number <Siebel receipt Id>
+they will be asked to provide information to confirm their identity.
+Individual, non-individual and Third party taxpayer - person or voicemail
+
+This is <your name> from the Australian Taxation Office, can <taxpayer name> call us back on <phone number> between 8:00am and 6:00pm, Monday to Friday by <insert appropriate date> about your <lodgment and/or payment obligations>. When calling back:
+
+quote reference number <Siebel receipt Id> and
+
+you will be asked to provide information to confirm your identity.
+
+Legal practitioner, bookkeeper or other professionals - person or voicemail
+
+This is <your name> from the Australian Taxation Office. Can <Professional's name> call us back on <phone number> between 8:00am and 6:00pm, Monday to Friday by <insert appropriate date> regarding the <lodgment and/or payment obligations> for <taxpayer/entity>. When calling back:
+
+quote reference number <Siebel receipt Id>, and
+
+you will be asked to provide information to confirm your identity.
+
+Procedure Steps
+Stop Voice Authentication
+
+Navigate to the communication toolbar and select Stop.
+
+Message details
+
+When leaving a message, the following details must be included:
+
+your name <first name/last name>
+
+you are from the Australian Taxation Office
+
+name of the taxpayer you are calling for
+
+name of any related entities <if required>
+
+a contact number and operating hours
+
+Individuals - 13 28 61
+
+Business - 13 28 66
+
+Debt - 13 11 42
+
+Super - 13 10 20
+
+Tax agent Info line - 13 72 86, with the relevant Fast Key Codes (FKC) from Tax agent phone services (FKC) guide
+
+ 
+
+Siebel receipt ID
+
+advise they will be asked to confirm their identity when calling back
+
+an expected call return date, and
+
+the reason for your call, i.e. to discuss their <lodgment and/or payment obligations>. Do not disclose any personal, protected, sensitive or account-related information that might breach privacy obligations, for example indicating you are calling about a debt.
+ 
+-------
+
+
+
+-------
+Escalate a new or existing Siebel activity | Enterprise Knowledge Management
+https://ekm/fo/nn/036/escalate-a-new-or-existing-siebel-activity
+ 
+Escalate a new or existing Siebel activity
+
+Procedure to escalate a new or existing Siebel activity, including to a specific case owner.
+
+Last published 6 March 2026
+
+Favourite Notes Collapse all 
+Background
+
+This page contains guidance on how to escalate a Siebel activity that is:
+
+new
+
+existing, or
+
+to be assigned to a specific case owner.
+
+Recent updates
+
+07/07/2025
+
+	
+
+Updated 'To a case owner'.
+
+	SD-94807
+Procedure Steps
+
+If the activity relates to a Terminal Medical Condition taxpayer, have a discussion with your team leader. They can request Enterprise Workflow Management to review the priority.
+
+New Siebel activity
+
+You may need to escalate a new Siebel activity when:
+
+a callback is required, or
+
+there are multiple different topics.
+
+Complete the steps in the following table to escalate a new activity.
+
+Step	Action
+1	
+
+Select Activity ID.
+
+
+2	
+
+You will need to classify the Siebel activity you are escalating. Select the appropriate:
+
+Capability
+
+Category
+
+Type.
+
+
+3	
+
+Check if a template is required. If:
+
+yes, go to step 4
+
+no, go to step 6.
+
+
+4	
+
+Select:
+
+Template
+
+MVG
+
+the appropriate template
+
+OK.
+
+
+5	
+
+Scroll down to view the template attributes. Then:
+
+complete the template
+
+select Save.
+
+Go to step 7.
+
+
+6	
+
+Add a note,
+
+ including the taxpayer's:
+
+contact name, and
+
+phone number.
+
+
+7 	
+
+Are you allocating the activity to a specific organisational unit? If:
+
+yes,
+do not select escalation flag
+update Assigned To field with organisation unit number
+select Save
+no,
+select Escalation Flag
+only tick the Escalation Flag tick box when the interaction type is
+Inbound Phone
+IVR Self Help
+Shopfront, or
+Webchat
+if the interaction type is not listed above, do not select the escalation flag unless directed by a procedure
+update Status to UnAllocated
+select Save.
+
+
+
+8
+
+	
+
+Provide the taxpayer with the:
+
+service standard (where EKM procedure advises differently, provide the specific service standard),
+
+ and
+
+Receipt ID.
+
+Multiple escalations
+
+If different topics require escalation, take the following actions:
+
+in the current activity
+select Create SR
+then, select Copy record for each additional escalation required
+escalate each new activity.
+Escalating from an existing Siebel activity
+
+Follow the below when escalating an activity from inbound correspondence, inbound phone or a support referral.
+
+Task 1 - Review the activity
+Step	Action
+
+
+1
+
+	
+
+Check if the call is regarding inbound correspondence. If:
+
+yes, go to step 2
+
+no, and the activity
+
+relates to an inbound phone interaction, search the activity using
+
+Receipt ID
+
+Siebel CCV, or
+
+TPCV
+
+does not relate to an inbound phone interaction, go to step 2.
+
+
+2	
+
+Check if the Taxpayer name is present in the activity. If:
+
+yes, go to task 2
+
+no, go to step 3.
+
+
+3	
+
+Check if the taxpayer wants the orphan activity attached to their account. If:
+
+no, go to task 2
+
+yes, conduct PORO
+
+ and then update the Taxpayer name field.
+
+Information
+
+PORO must be completed before you attach any activities to a taxpayer's account.
+
+Task 2 - Review status and existing activity
+Warning
+
+Do not create another escalation if the existing activity is in the correct in-tray, even if the Escalation Flag is updated incorrectly. Update the activity with any further details as advised below.
+
+Step	Action
+1	
+
+Check if the activity Status is set to Done or In Progress. If:
+
+yes, and the taxpayer requires
+further action, go to New Siebel activity
+no further action, this is the end of the procedure
+no, go to step 2.
+
+2	
+
+Check if you are able to action the existing activity. If:
+
+yes, and a SR
+
+exists,
+
+add existing SR Id to the new activity
+
+action following business procedure
+
+update Status on both activities to Done
+
+this is the end of the procedure
+
+does not exist,
+
+create and add the SR Id to the existing and new activity
+
+action following business procedure
+
+update Status on both activities to Done
+
+this is the end of the procedure
+
+no, add any additional information to the existing activity, go to step 3.
+
+
+3	
+
+Check if the Assigned To field is allocated to a user Id, or an organisational unit. If:
+
+yes, go to task 4
+
+no, go task 3.
+
+Task 3 - Review the service standard
+
+Check if the entity is a Not-For-Profit organisation requiring an ABN before the service standard.
+
+ If:
+
+yes, go to task 5
+
+no, refer to the below table.
+
+If the service standard has...
+
+	
+
+Then...
+
+
+
+
+passed
+
+	
+
+if the SR Id already exists:
+
+yes, go to task 5
+no, create a service request
+
+ in Siebel and add the SR Id to the existing and new activity
+update Status of the new activity to Done
+go to task 5.
+
+
+
+not passed
+
+	
+
+if the SR Id already exist:
+
+yes, add existing SR Id to the new activity
+no, create a service request in Siebel
+
+ and add the SR Id to the existing new activity
+
+Then take the following action for either answer above:
+
+advise the taxpayer the original request is within service standards
+
+
+update the new support referral activity fields to replicate the existing activity fields, including
+
+PORO
+
+a note including contact name and number
+
+Status of the new activity to Done.
+
+This is the end of the procedure.
+
+Task 4 - Check if SR ID present
+
+Do not attach an existing business as usual activity to a complaint SR.
+
+Refer to the below table for action to take.
+
+If an SR Id is...
+
+	
+
+Then...
+
+
+present in the new activity, but does not relate to the existing activity	
+
+create a separate activity
+
+continue in this table.
+
+
+
+
+present in the existing activity
+
+	
+
+add existing SR ID to the new activity
+
+update Status to Done
+
+go to task 5.
+
+
+
+
+not present in the existing activity
+
+	
+
+create a service request in Siebel
+
+
+add SR Id to the existing and new activity
+
+update Status of the new activity to Done
+
+go to task 5.
+
+Task 5 - Review priority status
+
+There is no specific service standard for an activity once it has been increased to 1-ASAP.
+
+Review the 'Priority' Status of the existing activity.
+
+Status
+	Action
+
+
+
+3-Medium or
+
+2-High
+
+	
+
+Compliance and Recovery:
+
+change Priority of the existing activity to 1-ASAP
+advise the taxpayer you have increased the priority
+update Status of the new activity to Done.
+
+Frontline Services officers:
+
+no action required
+advise the taxpayer that you are unable to increase the priority
+update the Status of the new activity to Done.
+
+
+
+1-ASAP and:
+
+the third (or more) enquiry on the same issue
+
+Not-For-Profit organisation issue.
+
+	
+
+Compliance and Recovery:
+
+discuss the situation with your team leader
+
+where appropriate, your team leader can contact EWM to review the prioritisation using the Activity Prioritisation - FS Siebel Workflow Support (SWS) Service Desk - Service project.
+
+
+Frontline Services officers:
+
+no action required.
+
+
+
+1-ASAP and not:
+
+the third (or more) enquiry on the same issue
+
+Not-For-Profit organisation issue.
+
+	No action to be taken.
+To a case owner
+
+If you have determined a Siebel activity needs to be escalated to a case owner, complete the steps in the following table.
+
+Step	Action
+1	
+
+Confirm a case owner exists by checking the Case summary view on the CCV.
+
+To determine the current case owner:
+
+check the Notes tab on the case ID, and
+review the most recent notes.
+
+2	
+
+Confirm the inbound enquiry is for the case owner.
+
+
+3	
+
+Add a note
+
+ in the Notes field. 
+
+If there are no contact details already added, include the taxpayer's:
+
+name
+
+phone number.
+
+
+4	
+
+Select the appropriate Siebel classification for the escalation, including the:
+
+Capability
+
+Category, and
+
+Type.
+
+
+5	
+
+Update the Assigned To field with the case owner.
+
+
+
+
+6
+
+	
+
+Select Save.
+
+Classification fields locked
+
+If you are unable to update the Category and Type fields in Siebel, they are locked.
+
+You will need to temporarily change the Capability to another selection in the drop-down menu. You can now update the Category and Type.
+
+ 
+-------
+
+
+
+-------
+Seeking support | Enterprise Knowledge Management
+https://ekm/fo/nn/013/seeking-support
+ 
+Seeking support
+
+Guideline for staff when seeking support to answer a taxpayer's enquiry for telephony or non-telephony.
+
+Last published 28 August 2025
+
+Favourite Notes Collapse all 
+Background
+
+This is a guideline for a Frontline Operations Officer (FOO) to use when seeking support.
+
+A FOO will:
+
+receive a call from a taxpayer and seek support whilst the taxpayer is on the phone, or
+review a Siebel activity and require support where a taxpayer is not on the phone (non-telephony). For example, processing work-types.
+Recent updates
+
+28/08/2025
+
+	
+
+Minor updates throughout page.
+
+	
+
+SD-96382
+
+
+
+
+22/07/2025
+
+	
+
+Update under 'Background'.
+
+	
+
+SD-95425
+
+Scenarios
+Incorrect use of support protocols
+
+The incorrect use of support protocols will be reported. These include:
+
+cold transferring the taxpayer to an escalation queue
+escalating to support referral without
+seeking onsite assistance, or
+waiting in the escalation queue for 2 minutes
+referring issues not technical in nature – for example, difficult taxpayers
+requesting the support officer take over a call that needs authorisation approval.
+Procedure Steps
+Prior to seeking support
+
+A FOO is to request the assistance of onsite support only after attempting to research the answer. Research a resolution by using the available reference materials. Including:
+
+EKM
+ato.gov.au
+myATO, and
+your peers.
+Telephony support
+
+A FOO must make every effort to complete the call on first contact with assistance from onsite support where necessary.
+
+Step
+
+	
+
+Action
+
+
+
+
+1
+
+	
+Warning
+
+Ensure PORO has been completed and the Siebel activity updated prior to seeking escalation support.
+
+Complete the following actions:
+
+advise the taxpayer you are seeking assistance with the enquiry
+provide the taxpayer with a timeframe of approximately how long they will be on hold, and
+seek the taxpayer's permission to be placed on hold.
+
+
+
+2
+
+	
+
+Determine if there is onsite support available. If:
+
+yes, seek their support, this is the end of the procedure
+no, go to step 3.
+
+
+
+3
+
+	
+
+Seek support from a support officer via the relevant escalation queue, referring to skill sets directory.
+
+ If a transfer to a support officer is:
+
+required, press conference transfer
+not required, press consultative transfer.
+
+Confirm if you are able to obtain assistance within 2 minutes. If:
+
+yes, go to step 4
+no, and you are
+ISC or SBSC frontline staff, escalate via a non-phone escalation
+
+Debt Assist staff, follow your local escalation process.
+
+
+
+4
+
+	
+
+The support officer may:
+
+provide support or advice on the issues, so you can continue to assist the taxpayer with the enquiry
+take over the call if
+it is more complex or technical, or
+they are unable to locate information within 5 minutes.
+Non-telephony support 
+Step	Action
+
+
+
+1
+
+	
+
+Check if the issue is related to an exception in the Stop-Go workbook.
+
+ If:
+
+yes, escalate as per the workbook. This is the end of the procedure
+no, go to step 2.
+
+
+
+2
+
+	
+
+Check if there is onsite support available. If:
+
+yes,
+and you can complete the activity with support, this is the end of the procedure
+and no immediate support is available, but they will be able to assist later that same day,
+move the activity to the Short Term workbin
+
+do not update the activity status or set a review date
+continue to action other activities
+no, go to step 3.
+
+
+
+3
+
+	
+
+If you have determined you will not receive onsite support today, and you are:
+
+ISC or SBSC frontline staff, escalate your activity to Frontline Services Support with the values
+Note: record the relevant information - document the issue/reason for escalation for support
+Complexity: High
+Escalation Flag: tick
+Status: UnAllocated
+Assigned To: ENTERPRISE_Q
+in the Communication Toolbar, Interaction: Done
+Debt Assist staff, follow your local escalation process.
+ 
+-------
+
+-------
+Quality Notes | Enterprise Knowledge Management
+https://ekm/fo/fc/sri/case-management/quality-notes
+ 
+Quality Notes
+
+Guidelines to ensure notes are of an acceptable standard.
+
+Last published 13 May 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page is a guideline to ensure notes are of an acceptable standard.
+
+Legal and business requirements place the onus on you to ensure your actions, contacts and decisions are professionally and appropriately noted. Notes are a reliable record of ATO interactions with taxpayers.
+
+Quality notes are important because:
+
+we rely on the notes of previous officers to enable us to make quality decisions
+external stakeholders may require them, for example the Tax Ombudsman
+they may be required as evidence in court proceedings
+they justify and substantiate your actions, and
+they may be requested and read by the taxpayer.
+Recent updates
+24/01/2025	Added new bullet point to When to add a note section.	SD-89785
+02/12/2024	Update to 'Note templates'.
+	SD-88457
+In Detail
+Determine if note required
+When to add a note
+
+A note must be added to a taxpayer's record when:
+
+you have been assigned a work item that you are or have been unable to action including any information that may be important to the subsequent processing or progressing of the activity
+completing PORO and cold transferring a call, for example items of proof and DVS items obtained
+actioning a form and a suspense item reports, for example a tax return
+providing account specific information or advice, for example account details
+pre-legal warnings have been provided or taxpayer/ tax agent advised they do not want/need to hear the warnings
+taking action or updating an account, where a suitable ICP adjustment reason or a Siebel finalisation code cannot be used to indicate this
+escalating via email, or non-phone escalation to another area for action/consideration, where an account has been accessed and PORO completed
+adjusting an accidental error made, for example accidentally terminating and then having to reissue an activity statement
+a contact fails PORO, and you have concerns about the taxpayer's privacy or believe the contact was intending to breach privacy, for example contact pretended they were the taxpayer
+the contact specifically requests a note to be added or has provided information that you feel should be noted, for example relative calling to inform that the taxpayer's obligations cannot be met due to sudden illness
+updating or deleting a phone number
+cold transferring and the taxpayers name cannot be selected in the Siebel contact name field
+a verbal declaration has been obtained as required by a procedure.
+When a note is not required
+
+There are some scenarios where you will not be required to add a note.
+
+A note is not required when:
+
+completing PORO and warm transferring a call
+a Siebel template is completed containing all relevant information (unless directed by procedures to also include a note)
+accessing the taxpayer record without giving out any account specific information or advice
+providing publicly available information only
+confirming information, the taxpayer already knew.
+
+Where your area has different requirements, they must be followed.
+
+Siebel note fields
+
+All notes for a taxpayer can be viewed by navigating to the taxpayer contact history (CCH) and reviewing the Notes field in each activity. Notes should be left on the activity that you are actioning.
+
+There are different fields in Siebel where different information for a note can be recorded. Information captured in all these fields is subject to Freedom of Information (FOI) principles. These fields include:
+
+Notes
+Description
+Summary.
+
+If applicable, you must add your note before attaching the Case ID of a Siebel debt case to the activity. This ensures the note is transferred to AIS and is viewable in the Taxpayer notes screen.
+
+Notes field
+
+This field is viewable in the Activity list and Activity details view. If there are multiple notes saved for an activity, the Notes field will default to display the latest created.
+
+The Notes field:
+
+allows up to 1500 characters to be captured
+
+can only be edited for the notes you have created while the activity is open (once set to Done it cannot be edited)
+
+has no limit to the number of separate notes that can be saved to one activity
+
+Activity list view you can view the entire contents of the note by
+
+hanging the mouse over the field, or
+
+clicking in the field. Clicking in the Notes field will enable the MVG button.
+
+The MVG button is automatically displayed in the Notes field. If the MVG button is selected in the Activity list or Activity details view, the Notes dialog box will display. This lists all notes associated with the activity. All notes in relation to the activity should be reviewed before taking action.
+
+From the Notes dialog box, a new note can be created, or you can check for an existing note.
+
+Fields available in the Notes dialog box are:
+
+Activity Id: displays the current Siebel activity Id
+
+Note Id: combination of letters and numbers which make up a unique ID
+
+Notes: displays the text captured in the note
+
+Created: displays the date and time that the note was created
+
+Created by: displays the User ID of the officer who created the note
+
+Last modified by: displays the User ID of the officer who created the note.
+
+If you view a Work Management activity while working in a case, any notes written in the Notes field of the Work Management activity will be viewable in the Comments field.
+
+Description field
+
+This field is viewable in the Activity list and Activity details view.
+
+The Description field:
+
+should not include
+
+taxpayer specific notes
+'return to User ID xxxx'
+
+is used to record administrative text in relation to an activity. Administrative text is used for internal purposes only and does not need to be retained
+
+allows up to 150 characters to be captured
+
+information can be deleted or altered when the activity is active
+
+can be expanded by clicking on the icon (blank page symbol) located in the top right-hand corner
+
+is for internal purposes only and does not need to be retained, for example, information to reclassify an activity.
+
+The text should be relevant to the interaction to best describe the activity. This will assist in improving the ability to be able to search for the right interaction, when necessary.
+
+For example, type:
+
+DPN - if an inbound phone call relates to an enquiry for a Director Penalty Notice that has issued
+
+Lodgment, Summons, S459E, Warning Letter, or Progress of Return, where the enquiry relates to those actions.
+
+Summary field
+
+This field is viewable in the Service request view. Taxpayer specific notes should not be left in the Summary field.
+
+The Summary field:
+
+is used to record administrative text in relation to a service request. Administrative text is used for internal purposes only and does not need to be retained
+
+allows up to 100 characters to be captured
+
+information can be deleted or altered
+
+text box can be expanded by clicking on the icon (blank page symbol) located in the top right-hand corner.
+
+Content of a quality note
+
+A quality note must:
+
+contain new information and enhance subsequent interactions
+be clear and concise
+contain no jargon
+be professional and accurate
+exclude all
+personal comment
+unsupported opinions
+assumptions
+be informative, including reasons for decisions made
+be gender neutral. See 'Gender-neutral language' on ATO style guide.
+
+Use of names
+
+When adding a name to a note, use complete names and relationship. At the first usage, add the full name, for example, as John Smith (primary contact), subsequently use only John. Names must be added to the note:
+
+every time you
+interact with a taxpayer where the contact's name cannot be selected in the Siebel Contact name field
+take action on a case
+when additional third parties enter into the interaction.
+Correct format
+
+The table below provides the format to use, along with examples when creating notes in Siebel.
+
+All approving officers must add a note, regardless of how approval was sought, including:
+
+their decision
+reasons for approving or rejecting the request
+full name and APS level (Position number required for approvals in the case of non-pursuit work types only).
+Required details
+	Required content
+
+
+
+Taxpayer details if applicable.
+
+For example, where the contact's name cannot be selected in the Siebel contact name field.
+
+	
+
+Include the contact's full name and relationship to the entity or individual.
+
+For example, John Smith (primary contact), subsequently use only John.
+
+
+
+
+Brief description of the interaction.
+
+	
+
+For example, Remission of General Interest Charge of <insert amount>.
+
+
+
+
+Decision or action taken including reason or justification.
+
+	
+
+For example, I have taken into consideration this company/taxpayer circumstances are <insert reason/impacts>. The reason/s I have granted this remission are <insert reasons>. This amount is within my delegated authority.
+
+Outsource and labour hire staff must state their delegated authority.
+
+Debt Assist staff must also include:
+
+details of attempted contact (if applicable)
+a short summary of previous actions
+key facts
+key decisions and the reasons for those decisions, including the supporting policy
+an indication of proposed future action (if appropriate)
+details of documents issued, and
+elements and amounts of the debt included in your action.
+
+
+
+Additional information.
+
+	
+
+Any relevant additional information:
+
+any note templates
+legal warnings provided
+mandatory reference to legislation or additional or subsequent action taken
+call dropped out
+where approvals are verbally sought, approving officer's decision and reason, APS level and full name
+where directed to include certain information.
+
+Do not include additional information where decisions have not been made and/or where it does not enhance subsequent interactions.
+
+Debt Assist staff are required to record all attempted contact with taxpayers, their solicitor, tax agent or other representatives.
+
+When taking firmer action, staff must record the:
+
+time of the attempted contact (where not already apparent) including details of any messages left for the taxpayer
+name, phone number and position of the person who took the message
+date of the call, when the notes are not recorded on the same day of the call.
+Note templates
+
+The note page templates are located in the Notes fly-out tab. Note page templates are created to support record consistency and quality notes. A note template will:
+
+already contain some of the necessary information
+contain headings to prompt for relevant information, and
+clearly show where information needs to be added or edited.
+
+EKM scripting will state when to use a note template to add a note. Templates will only appear if they are required for the page. When scripting states to add a note using a template:
+
+select
+Notes button at the top of the EKM page
+Template tab
+Assigned Templates drop-down menu and select the relevant template
+Use template
+edit the template as necessary
+select Copy once the note is ready, and
+paste (Ctrl + V) the note where required, for example, into your Siebel activity note.
+VIPER note templates
+
+For staff actioning the following Frontline Services Debt campaigns:
+
+Campaign 1 - Educating our taxpayers
+Campaign 2 - Engaging our taxpayers
+Campaign 3 - Enduring taxpayers
+Campaign 6 - Defaulted payment plans.
+
+Add a note using the VIPER campaign note templates.
+This link will download a file
+
+For staff actioning the following insolvency correspondence work types:
+
+Day 1 - Non-Individuals
+Day 1 - Individuals
+Tax Clearance
+Finalisation - Non-Individuals
+Finalisation - Individuals
+Creditors Report.
+
+Add a note using VIPER insolvency note templates.
+This link will download a file
+
+To ensure Siebel notes are consistent and contain quality information, do not use general or user customised VIPER note templates.
+
+Record a document received
+
+Where you receive a document directly from a taxpayer, before sending for back scanning, add a note including the following:
+
+type of document
+date of the document
+date the document was received
+author of the document, and
+a brief summary of the key points of the document.
+Third party authorisation discussions
+
+Include in your note:
+
+name of the authorised contact (include name of organisation/ TAN where applicable)
+roles the authorised contact can access
+phone number of authorised contacts, and
+length of time the contact is authorised to act on the taxpayer's behalf.
+IAL and Debt Assist staff requirements
+
+Your payment conversation will be recorded in your lodgment activity. Your note should record your decisions and any actions taken, including:
+
+type of payment plan granted
+payment plan conditions provided
+pre-legal warning provided, or if the taxpayer advises no requirement to provide
+reason for
+granting or refusing payment plan
+not discussing the debt with the taxpayer
+if additional information is required, specify a set date for receipt of this information.
+TFN application processing
+
+All actions and decisions taken to progress a TFN application must be recorded in your note.
+
+Some of the procedures to action suspense errors for TFN applications have a note template included. These templates can be relied upon for a quality note. However, if additional actions or decisions were taken to those specified in the template, these should also be included in the note.
+
+It is beneficial for any suspense error numbers to be included in the note so the actions and decisions can be linked to the original issue.
+
+Related Resources
+'Why Matters' Story Library
+
+ - contains useful real-life scenarios to help navigate conversations and understand pipeline effects of each action taken (For Debt Assist staff)
+'Your Workmate
+
+' - contains useful hints, tips, links and resources
+ 
+-------
+
+
+-------
+PORO for Tax or BAS agent - PORO Magic | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/poro-for-tax-or-bas-agent-poro-magic
+
+
+PORO for Tax or BAS agent - PORO Magic
+
+Guide to help establish proof of record ownership for Tax or BAS agents on inbound calls.
+
+Last published 17 November 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page guides you to establish proof of record ownership (PORO) for Tax or BAS Agents calling on behalf of individuals on inbound calls.
+
+Warning
+
+If the Tax or BAS agent is calling on behalf of a non-individual entity, use PORO for Tax or BAS agents for non-individual entities.
+
+
+Recent updates
+
+17/11/2025
+
+	
+
+Change in 'PORO not established'.
+
+	
+
+SD-97286
+
+
+
+
+30/09/2025
+
+	
+
+Minor change in 'PORO Established'.
+
+	
+
+SD-96530
+
+Checks
+RAN Status
+
+Obtain and record the agent's full name in the Siebel note.
+
+If not provided by the IVR, obtain the Registered Agent Number (RAN).
+
+Check their status in the Tax Practitioner View in Siebel.
+
+If the status is...	Then...
+Active	
+
+associate the activity
+
+
+go to Determine authorisation below.
+
+
+
+
+Inactive
+
+Cancelled
+
+Suspended
+
+Withdrawn/Withdrawal
+
+	
+
+advise the agent:
+
+the RAN registration is inactive or cancelled, and
+
+they should check their registration details with the Tax Practitioner Board (TPB) by
+
+visiting TPB website at www.tpb.gov.au, or
+
+calling on 1300 362 826.
+
+
+
+
+any other status (i.e. Tax Agent initiated, Quality Controlled, ATO initiated, etc)
+
+	
+
+this is a known issue.
+
+To check if the agent is active:
+
+go to ICP
+
+search TAN in Taxpayer Search (Individual or Non-Individual depending on entity type)
+
+select view all roles under Client role summary
+
+check if the Intermediary - Tax Agent role
+
+is end dated, refer to Inactive status above
+
+has an end date of 31/12/9999, refer to Active status above.
+
+Continue to assist the taxpayer with their query and create a new activity and escalate using Registered agent support
+
+ to have the status corrected.
+
+Determine authorisation
+
+To determine the level of authorisation for the agent:
+
+obtain the following for the record of enquiry
+TFN or ABN
+entity name
+check reason for enquiry. If
+
+relates to their taxpayer's CRS application, go to Agent acting for taxpayer on Compassionate Release of Superannuation application
+relates to a deceased taxpayer, go to Agent calling about a deceased taxpayer
+all other reasons, refer to Primary and authorised contacts.
+
+Procedure Steps
+PORO requirements
+
+Identify the PORO requirements from the call scenarios below.
+
+Agent calling about a taxpayer - listed in PORO Magic
+
+Agent calling about a taxpayer - not listed in PORO Magic
+
+Agent calling about a deceased taxpayer
+
+Agent acting for taxpayer on Compassionate Release of Superannuation application
+
+Agent acting on behalf of taxpayer's Superannuation Guarantee obligations
+
+Agent calling about the practice
+
+Agent calling about a taxpayer - listed in PORO Magic
+Step	Action
+1	
+
+Open the PORO Magic tool.
+
+
+Select Inbound call type and search for the taxpayer's TFN.
+
+Where possible, select No for Extensive PORO.
+
+
+2	
+
+Check if a Recent Interactions alert is displayed. If:
+
+yes, there are recent failed or PORO unsure interactions on the taxpayer's record. Ensure you
+
+take extra care when establishing PORO, and
+
+only grant access if you are confident you are speaking to the correct record owner
+
+no, go to step 3
+
+If during the call you suspect the caller is not who they say they are, you can:
+
+decline access to the record, and
+
+go to Authenticity of caller
+
+ for more information.
+
+
+3	
+
+Check if the firm name and RAN provided matches the one listed against the corresponding Tax Agent row in PORO Magic. If:
+
+yes,
+
+select the Firm Name and RAN radio buttons
+
+obtain the
+
+entity name and,
+
+one item of proof
+
+check if you have successfully verified the details in ATO systems. If
+
+verified,
+
+select Correspondence option from the Reference Matching drop-down menu
+
+go to PORO established
+
+not verified, go to PORO not established
+
+no, and the firm is
+
+listed on the record but not on the role, go to step 4
+
+not listed on the record,
+
+close the PORO Magic session, and
+
+go to Agent calling about a taxpayer - not listed in PORO Magic.
+
+
+4	
+
+Select the Firm Name and RAN radio buttons. Obtain the:
+
+entity name
+
+date of birth (DOB) or address (residential, business, or postal)
+
+one item of proof that relates to the role.
+
+Check if you have successfully verified the details in ATO systems. If:
+
+verified,
+
+select Correspondence option from the Reference Matching drop-down menu
+
+go to PORO established
+
+not verified, go to PORO not established.
+
+Agent calling about a taxpayer - not listed in PORO Magic
+
+Obtain the entity name and confirmation to the verbal declaration below.
+
+Verbatim
+
+Obtain declaration from the agent.
+
+Do you have a signed written authority to act in this capacity on the taxpayer's behalf?
+
+Check if the entity name and declaration has been obtained. If:
+
+yes,
+obtain the following from the record of enquiry
+DOB or address (residential, business or postal)
+one item of proof that relates to the role
+check if you have successfully verified the details in ATO systems. If
+verified, go to PORO established
+not verified, go to PORO not established
+no, go to PORO not established.
+Agent calling about a deceased taxpayer
+
+When a taxpayer has passed, their official representative may provide a notification via various channels.
+
+When this has been received:
+
+several account updates are required, and
+previous intermediary authorisations and links will be removed (end-dated) as these cease on that person's passing.
+
+As previous representatives have no legal authority to access the deceased person's record after date of death, any previous agent links will cease.
+
+Information
+
+This may include the interim period the ATO awaits official notification of death.
+
+When the official notification and relevant evidence has been provided by the Legal Personal Representative (LPR), to pass the Tax agent on PORO, you must confirm all of the following:
+
+a deceased indicator is present
+an LPR has been added by ATO staff
+as an authorised contact, and
+by name in Taxpayer links
+the agent link has been added on or after the appointment of the LPR. (If the link is continuous, confirm the appointment in the Notification of deceased person).
+
+If any of the above have not been satisfied, go to PORO not established
+
+Agent acting for taxpayer on Compassionate Release of Superannuation application
+
+Third-party intermediaries (TPI) may phone in relation to their taxpayer's Compassionate Release of Superannuation (CRS) application.
+
+TPIs are considered the applicant's registered agent for this limited purpose. These TPIs are authorised to enquire about the progress or outcome of the CRS application, including any CRS review activities.
+
+TPIs should not be recorded as an authorised contact in ICP. Refer to the table below.
+
+Step	Action
+
+
+1
+
+	
+
+Check if a CRS application has been received by checking for an activity in Siebel, identified as:
+
+Capability: Operations
+Classification: Processing
+Type: ERSB
+
+or
+
+Capability: ICP Suspense Item
+Classification: Exception Superannuation
+Type: ERSB application
+
+If:
+
+yes, go to step 2
+no
+the agent is not authorised
+go to PORO not established.
+
+
+
+2
+
+	
+
+Check if the agent's organisation is recorded in Siebel notes or the CRS application. If:
+
+yes, go to step 3
+
+no,
+
+the agent is not authorised
+go to PORO not established.
+
+
+
+3
+
+	
+
+Obtain the verbal declaration. Read the following statement:
+
+Verbatim
+
+Obtain declaration from the agent.
+
+Do you have a signed written authority to act in this capacity on the taxpayer's behalf?
+
+Check response. If:
+
+yes
+obtain the following
+
+entity name
+DOB or address (residential, business, or postal)
+two items of proof. One item must be related to the enquiry
+if PORO is
+
+established, go to step 4
+not established, go to PORO not established.
+no, go to PORO not established.
+
+
+
+4
+
+	
+
+Check if a TPI authorisation note is already present (recorded in Siebel notes). If:
+
+yes
+do not add another note
+go to PORO established
+no
+
+add a note
+
+ using the TPI Authorisation note template in the Notes fly out tab
+go to PORO established.
+Agent acting on behalf of taxpayer's Superannuation Guarantee obligations
+
+Where the agent is listed on the record but not listed on the Superannuation Guarantee account.
+
+This only applies where the agent doesn't have taxpayer level authority. For example:
+
+BAS agents, and
+Tax agents with role or account specific authorisation (excluding Superannuation Guarantee account).
+
+Read the following statement to the agent:
+
+Verbatim
+
+Obtain declaration from the agent.
+
+Do you have a signed written authority to act in this capacity on the taxpayer's behalf?
+
+Obtain the:
+
+entity name
+
+the verbal declaration above
+
+DOB or address (residential, business or postal)
+
+one item of proof that relates to the role.
+
+Add the agent as an authorised contact
+
+ at the Superannuation Guarantee account level.
+
+If the agent is requesting copies of SOA, employee listings and breakdowns, go to BAS or TA request - SG employee listings, breakdowns or SOA.
+
+
+Agent calling about the practice
+
+Confirm the practice name and address against the Tax Practitioner view in Siebel.
+
+Items of proof
+
+Establish PORO on the record of enquiry.
+
+Items of proof must be:
+
+unique to the taxpayer
+less than 5 years old
+sourced from
+
+an ATO generated letter or notice
+a lodged
+return
+activity statement, or
+application.
+
+For example:
+
+correspondence reference number
+document identification number (DIN)
+lodgment or application reference number
+details from a lodged return, activity statement or application, such as
+lodgment date
+exact figures or amounts.
+Information
+
+This list is not exhaustive.
+
+Outcomes
+PORO established
+Warning
+
+If cold transferring a call, add a note
+
+ with all items of proof obtained and which ones were verified via DVS.
+
+Select the Copy History button in PORO magic to copy the PORO questions to your clipboard.
+
+Update the PORO indicator
+
+ to Successful - Authorised Contact.
+
+If the taxpayer has an incorrect phone number alert in Siebel, go to Self-serve transactions for registered agents
+
+ to recommend self-help options.
+
+PORO not established
+
+If items of proof less than five years old are not able to be provided, refer to the following table to determine if discretion can be applied.
+
+If...	Then...
+
+
+the taxpayer:
+
+is an infrequent lodger, or
+has never lodged
+	consider applying staff and manager's discretion.
+
+
+
+
+there is no deceased indicator and the agent:
+
+provides a record identifier
+is listed on the record and the role
+is requesting record lockdown reactivation
+Information alert:
+All criteria must be met.
+	
+discretion is satisfied
+no further items of proof are required
+go to Taxpayer register - Lockdown suppressions.
+
+
+
+
+there is a deceased indicator and the agent:
+
+provides a record identifier
+is listed on the record and the role
+is requesting record lockdown reactivation, and
+advises they have been appointed by the Legal Personal Representative (LPR)
+Information alert:
+All criteria must be met.
+	
+
+check if an LPR is listed as an authorised contact on the deceased taxpayer record. If:
+
+yes,
+
+the LPR details were not added by the agent
+
+discretion is satisfied
+
+no further items of proof are required
+
+go to Taxpayer register - Lockdown suppressions
+
+
+no,
+
+the agent is not authorised
+
+discretion cannot be applied
+
+advise the agent that, before granting access to the taxpayer record, we require
+
+a Notification of a deceased person, and
+
+supporting documents
+
+refer them to Accessing a deceased person's tax and super information
+
+
+apply a credit suppression
+
+ to the Income Tax Account (and Integrated Client Account if applicable). This is to prevent unauthorised refunds until above requirements are met
+
+Suppression type: Suppress Credit Processing
+
+Start date: today's date
+
+End date: 12 months from today's date
+
+Input reason: Taxpayer Deceased
+
+go to PORO not established.
+
+
+For more information, refer to Deceased person - General information.
+
+
+
+
+
+the taxpayer:
+
+is not an infrequent lodger
+has lodged in the last five years
+	
+staff and manager's discretion cannot be applied
+recommend they
+
+refer to Proof of identity for registered agents
+
+contact their taxpayer to obtain the information needed to access the record and call back, or
+ask their taxpayer to contact the ATO to nominate them as their agent
+go to PORO not established.
+
+Related Resources
+
+PORO Magic user guide
+
+
+ 
+  
+-------
+
+
+
+-------
+Primary/authorised contact - PORO Magic | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/primary-authorised-contact-poro-magic
+
+ 
+Primary/authorised contact - PORO Magic
+
+How to establish PORO for primary or authorised contacts on inbound calls using PORO magic.
+
+Last published 20 March 2026
+
+Favourite Notes Collapse all 
+Background
+Warning
+
+Do not use the PORO Magic tool if you are not trained.
+If you are not trained in PORO Magic tool, go to PORO for a primary or authorised contact.
+
+
+This page advises how to establish PORO for primary or authorised contacts on inbound calls using the PORO Magic tool.
+
+
+Any caller could be a fraudster. If at any time during a call you are unsure if the caller is who they claim to be, refer to Authenticity of caller
+
+ for further information.
+
+Recent updates
+
+20/03/2026
+
+	
+
+Minor change made in ' Voice Biometric Dashboard'.
+
+	
+
+SD-102697
+
+
+
+
+27/01/2026
+
+	
+
+Updates to 'Voice Biometric Dashboard'.
+
+	
+
+SD-101149
+
+Checks
+Name and Siebel record
+
+Obtain the caller's full name.
+
+Check which Siebel record is displayed.
+
+If the Siebel record...
+	Then...
+
+belongs to the caller, and 
+they are calling about their own record
+	
+
+go to Determine if TFN compromised below.
+
+
+
+belongs to the caller, and 
+they are calling about a different record
+	
+
+obtain the TFN/ABN of the record of enquiry
+
+copy the Siebel activity to the record
+
+
+go to Determine if TFN compromised below.
+
+
+
+
+does not belong to the caller, or
+
+no details are displayed, and
+
+the caller has an ATO record
+
+	
+
+press Stop in the Voice Biometric Dashboard
+
+obtain the caller's
+
+TFN/ABN or
+
+full name and DOB or address, then
+
+go to their personal record
+
+associate the activity
+
+ to the caller's record
+
+copy the Siebel activity to the record
+
+ of enquiry (if required)
+
+press Start in the Voice Biometric Dashboard
+
+go to Determine if TFN compromised below.
+
+
+
+
+does not belong to the caller, or
+
+no details are displayed, and
+
+the caller does not have an ATO record
+
+	
+
+press Stop in the Voice Biometric Dashboard
+
+go to Determine if TFN compromised below.
+
+Determine if TFN compromised
+
+To find out if the record of enquiry has been compromised or potentially compromised, check for both an ICP indicator and Siebel alert.
+
+If you are speaking to an authorised contact (individual), you must check their personal record.
+
+Go to Determine if extensive PORO required below if the indicator or Siebel alert is not present on the:
+
+record of enquiry, or
+caller's record.
+Secret password
+
+A secret password consists of a question and answer. The taxpayer must provide both the:
+
+question, and 
+
+answer.
+
+When this is done successfully, the taxpayer has established both standard and extensive PORO.
+
+If the taxpayer has a secret password, it will be recorded in Siebel and the PORO Magic tool. Where it is recorded in Siebel but not in PORO Magic, you must use the secret password for PORO, however corrective action is required.
+
+Information
+
+When using the secret password outside of PORO Magic, your PORO Magic session will show as 'PORO Unsure'. Ensure extensive PORO is completed before taking corrective action under PORO established.
+
+To view the secret password in...
+	Then...
+
+
+
+the PORO Magic tool
+
+	
+view the available PORO questions
+if a secret password is available, it will be the first question presented.
+
+
+
+Siebel
+
+	
+select the Other Authorised contacts tab
+the contact name will show as 'SECRET PASSWORD'. The Siebel activity ID will be embedded in the Email address field
+locate the Siebel activity in the Taxpayer Contact History on the Summary tab, or Archived Activities tab
+the secret question and answer are recorded in the Activity notes.
+
+For Siebel archived activities, go to View taxpayer & tax practice archived activities.
+
+
+Warning
+
+If there is a secret password but the taxpayer has not mentioned it, you must remind them they have one but do not prompt them by asking the secret question noted in our records.
+
+Warning
+
+Taxpayer's phoning via the National Relay Service or Translator Interpreter Service must not be asked for their secret password as the conversation involves a third party.
+
+Determine if extensive PORO required
+
+Extensive PORO can only be established with individuals who are a primary or authorised contact with an ATO record. 
+
+It requires the verification of acceptable identity documents verified in DVS after completing standard inbound PORO. Consider the wallet and passport rules before choosing what document to verify in DVS.
+
+Warning
+
+Do not use a DVS document as an item of proof to establish standard PORO unless the following is exhausted:
+
+all questions from PORO magic, and
+all items in the Alternative items of proof list.
+
+If necessary, DVS can be used for:
+
+a maximum of one document as an item of proof for standard inbound PORO, and
+one additional document for extensive PORO. 
+
+Extensive PORO cannot be completed when an authorised contact does not have an ATO record.
+
+Extensive PORO is required when:
+
+a record is compromised or potentially compromised with an indicator or alert on the caller's record or record of enquiry
+
+to enrol an Active or Passive voiceprint
+
+the Voice Biometric Dashboard shows a voice authentication status of
+
+Potentially Fraudulent, or
+
+Possible Recording
+
+requests are for myGov linking codes
+
+updates to a taxpayer's financial institution account details
+
+updates to a taxpayer's name or date of birth. If you are establishing extensive PORO because the taxpayer requests an update to their name or date of birth, ensure the identity document is listed in the relevant procedure
+
+Taxpayer details - Individual entity names
+
+
+Taxpayer details - Date of birth
+
+
+interactions are via
+
+Community Language Officer (CLO)
+
+National Relay Service (NRS)
+
+Translating and Interpreting Services (TIS)
+
+directed to by a procedure.
+
+Note if extensive PORO is required and continue.
+
+Deceased indicator
+
+If you identify there is a deceased indicator on the callers record that may be incorrect, do not advise the caller. 
+
+Take note of the deceased indicator. Continue to establish PORO as needed. 
+
+Warning alert:
+
+Warning
+
+Do not remove deceased indicator.
+
+I-15 Trained Staff Only: Check caller is Aboriginal or Torres Strait Islander descent
+
+To check if the taxpayer has called via the Aboriginal and Torres Strait Islander taxpayer line (I-15 queue), on the Genesys Workspace Desktop Edition (WDE) Toolbar:
+
+select the blue area next to the inbound phone number within the Call Control panel. This will expand the call window and display the call details
+under the opened case information window, check if the queue history shows CCC_IB_GN_SGI15 (Indigenous line).
+
+For more information on how to access the WDE Toolbar, refer to page 5 in Communication Toolbar: Telephony Channel.
+
+
+If the caller is of Aboriginal or Torres Strait Islander origin refer to Aboriginal and Torres Strait Islander people.
+
+
+Check authorisation
+
+Check Primary and authorised contacts
+
+ to find out the level of authorisation for the caller.
+
+Financial counsellors
+
+Financial counsellors are not professional third-party representatives, they are authorised contacts.
+
+If you are speaking to a financial counsellor:
+
+warm transfer the call to x92439, and
+
+advise they can also call the ATO Advocate Help Desk direct on 1300 137 295, between 9am and 5pm in their local state.
+
+Voice Biometric Dashboard
+
+Check the Voice Biometric Dashboard. If there is a 'Potentially Fraudulent' result, you must stop divulging any record specific information.
+
+If PORO Magic is unavailable, refer to the table below.
+
+Active and Passive status	Action
+Potentially Fraudulent (Passive only)	
+
+Extensive PORO is required.
+
+Go to Completing PORO.
+
+
+
+
+A combination of the following values:
+
+Not Enrolled
+Un-enrolled
+Enrolment Fail (Active only)
+	
+
+Go to Completing PORO.
+
+If PORO is established, offer passive enrolment.
+
+
+Note: If the taxpayer accepts Passive enrolment, extensive PORO must be established before saving the voiceprint.
+
+
+
+
+One of these values:
+
+Possible Recording
+Failed Verification
+Successful Verification
+Verifying Now
+Pending Enrolment
+Locked
+Ineligible
+	
+
+These values are listed in priority order.
+
+Follow the procedure for the first Active or Passive status value in the Voice Biometric Dashboard.
+
+Possible recording
+
+If Active or Passive result is 'Possible Recording' (regardless of other VA result), then extensive PORO is needed.
+
+Failed Verification
+
+Warning: If the Active status displays 'Pending Enrolment', establish extensive PORO. Go to Completing PORO.
+
+For any other combinations, PORO is needed. Go to Completing PORO.
+
+Successful Verification
+
+If the Active or Passive status is 'Possible Recording' or 'Potentially Fraudulent', then establish extensive PORO. Go to Completing PORO.
+
+If the Passive status updates to 'Failed Verification':
+
+stop providing account information
+return to Failed Verification.
+
+Confirm the caller's full name. If the:
+
+Active status is 'Successful Verification', go to step 2 of Completing PORO
+Passive status is 'Successful Verification',
+confirm the caller's DOB or address, and
+go to step 2 of Completing PORO (if confirmed).
+
+Update PORO indicator (before doing extensive PORO, if needed).
+
+Verifying Now
+
+Keep the Voice Biometric Dashboard open to monitor the Passive status value to determine action required.
+
+Go to Completing PORO.
+
+Pending Enrolment
+
+Warning: When the Active status displays 'Pending Enrolment', extensive PORO must be established before saving the voiceprint.
+
+Confirm if the caller spoke the IVR passphrase. If:
+
+yes,
+extensive PORO is needed
+go to Completing PORO
+no, or it is unclear who spoke the passphrase,
+press Stop to prevent incorrect enrolment
+go to Completing PORO.
+Locked
+
+Warning: If the Active status displays 'Pending Enrolment' or 'Possible Recording', establish extensive PORO. Go to Completing PORO.
+
+If the Passive status displays 'Potentially Fraudulent' or 'Possible Recording', establish extensive PORO. Go to Completing PORO.
+
+For any other combinations, PORO is needed. Go to Completing PORO.
+
+Ineligible
+
+If a TFN or ABN has been entered for:
+
+non-individual entities,
+refresh the Voice Biometric Dashboard by completing a binocular search in Siebel, to ensure the caller's individual TFN or ABN is displayed
+monitor the Active and Passive status values to determine action required
+an individual (including sole trader),
+check if the ABN is end-dated, cancelled or invalid
+use the taxpayer's TFN and refresh the Communication Bar by completing a binocular search in Siebel
+monitor the Active and Passive status values to determine action required
+an individual TFN with a lockdown suppression,
+
+ go to Completing PORO.
+
+
+
+Any combination of the values below:
+
+Enrolling Now
+Bypassed IVR
+Enrolment Successful
+Enrolled
+Stopped
+	
+
+Do not press start.
+
+Go to Completing PORO.
+
+
+
+
+Any combination of the following values:
+
+Off
+Blank Voice Biometric Dashboard
+Error
+System Unavailable
+unexpected system behaviour
+	
+
+Do not press Start.
+
+To establish PORO, go to Completing PORO.
+
+If PORO is established, update the PORO indicator to 'Successful - Manual PORO'.
+
+Refer to Known issues at Voice Authentication - how to instructions
+
+ to check if you need to report an issue.
+
+ 
+
+Check Previous Notes
+
+Using the Client Consolidated View (CCV) in Siebel or by selecting the Taxpayer Notes option with ECPs taxpayer experience, briefly review the previous activity notes on the record. While not a complete list, some things to look for include:
+
+if PORO has been completed prior to a cold transfer
+information to help determine the authenticity of caller using
+previously failed interaction notes that conflict with information the caller has provided
+changes to the way the taxpayer contacts us (e.g. utilising an accessibility service where we have history of direct taxpayer contact noted without difficulty or vice versa)
+important notes or warnings left by previous operatives (e.g. confirmed fraud and ongoing identity risks).
+
+If you are unsure if the caller is who they claim to be, refer to Authenticity of caller
+
+ for further guidance on refusal service.
+
+Procedure Steps
+Completing PORO
+Task 1 - Identify caller 
+Step
+	Action
+
+
+1
+
+	
+
+View the Siebel activity PORO indicator. Obtain the callers DOB or address if the status is:
+
+No Activity, 
+TFN, or 
+ABN. 
+
+
+
+2
+
+	
+
+Open the PORO Magic tool.
+
+
+Select Inbound call type and search for the caller's TFN. Did the tool load? If:
+
+yes, go to step 3
+
+no, go to Alternative items of proof. 
+
+
+
+
+3
+
+	
+
+Check if a Recent Interactions alert is displayed. If
+
+yes, there are recent failed or PORO unsure interactions on the taxpayer's record. Ensure you: 
+
+take extra care when establishing PORO, and
+
+only grant access if you are confident you are speaking to the correct record owner. 
+
+no, go to step 4
+
+If during the call you suspect the caller is not who they say they are, you can: 
+
+decline access to the record, and
+
+go to Authenticity of caller
+
+ for more information.
+
+
+ 4	
+
+Check if extensive PORO is required and update the Extensive PORO radio button accordingly.
+
+
+
+
+5
+
+	
+
+Check the Voice Biometric Dashboard and input the results into the voice authentication status drop-down boxes.
+
+Check the PORO required outcome in the voice authentication section. If:
+
+standard PORO has been established (e.g. you received a Confirm the taxpayer's full name result), select the VA Verified radio button. If
+
+extensive PORO is required and taxpayer is
+
+compromised, go to step 6
+
+not compromised, go to task 2 step 7
+
+only standard PORO is required for the interaction, go to PORO established 
+
+standard PORO has not been established, go to step 8.
+
+
+6	
+
+Check if a secret password is presented on the first PORO question in the tool. If:
+
+yes, go to step 7
+no,
+and the VA Verified button is selected, go to task 2, step 7
+in all other instances, go to step 8.
+
+
+
+7
+
+	
+
+Ask the taxpayer to provide the question and answer as stated in the tool. If the taxpayer answered:
+
+correctly, then
+
+select the Correct button
+
+extensive PORO is established, go to PORO established
+
+incorrectly to the question or answer, then
+
+select Incorrect button
+
+review and action any pop-up alerts, terminating the call if appropriate
+
+if the VA Verified radio button was previously 
+
+selected, go to task 2, step 7
+
+not selected, go to step 8.
+
+they don't remember or know, then
+
+select No Answer button
+
+review and action any pop-up alerts, terminating the call if appropriate
+
+if the VA Verified radio button was previously
+
+selected, go to task 2, step 7
+
+not selected, go to step 8. 
+
+
+8	
+
+Has the caller voluntarily provided a reference number? This reference number must be from:
+
+a Siebel activity with successful PORO, or
+
+an ATO-generated letter or notice less than 5 years old such as
+
+notice of assessment sequence number or reference number.
+activity statement document identification number (DIN).
+correspondence reference number.
+
+If:
+
+yes, check if it has been successfully verified in ATO systems. If
+verified
+select the appropriate option from the Reference Matching drop-down menu
+go to step 9
+not verified, go to step 9
+no, go to step 9.
+
+Ensure you do not use the same answer or reference number to meet multiple items of proof. For example, the same notice of assessment reference number cannot be used to select the Reference matching drop-down menu and answer a PORO Magic question.
+
+
+
+
+9
+
+	
+
+Check if the taxpayer's mobile number is listed in the tool. If:
+
+yes, go to task 2
+
+no, go to task 2, step 5.
+
+Information
+
+When there is no mobile number listed in the tool, the taxpayer is not eligible for the SMS. 
+
+Do not try to send the taxpayer a security code using other systems. 
+
+Task 2 - Complete PORO questions
+Step
+	Action
+
+
+1
+
+	
+
+Complete the following:
+
+ask the caller to verbally confirm their mobile number
+
+check if the mobile number matches the number in the tool.
+
+If:
+
+yes, go to step 2
+
+no, go to step 5.
+
+
+
+
+2
+
+	
+
+Ask if the caller has access to the mobile number. If:
+
+yes, then
+
+obtain permission to send the security code via SMS to the mobile
+
+go to step 3
+
+no, go to step 5.
+
+Warning
+
+If the caller provides a mobile number different from the one listed in PORO Magic, it could indicate you are not speaking to the genuine taxpayer. This has been identified in known fraud cases. When this occurs, be more careful when conducting PORO.
+
+
+3	
+
+Select:
+
+the ATO radio button
+
+send SMS.
+
+A confirmation message will appear when the SMS is sent.
+
+
+
+
+4
+
+	
+
+Ask the caller to confirm the security code sent via SMS. 
+
+Select the final digit from the selection of numbers displayed in the PORO Magic tool. 
+
+If the code provided by the caller is:
+
+correct, and
+
+the PORO progress bar has updated to 'PORO established' or 'Standard PORO established', go to step 7
+the PORO progress bar does not show 'PORO established', go to step 5
+incorrect and the PORO progress bar does not show 'PORO established, go to step 5.
+
+
+
+5
+
+	
+Warning
+
+The PORO questions must be asked:
+
+in the order they appear, and
+in two parts to ensure protected information is not disclosed.
+
+Ask the caller the questions from the PORO Magic tool. If:
+
+extensive PORO is required, select the Extensive PORO radio button before asking any questions
+
+the bank details provided by the caller do not match, go to Financial Institution contact list
+
+ to check if it is
+
+a subsidiary, or
+
+known by another name 
+
+all questions are exhausted or cannot be used for the call (e.g. after successfully answering a wallet item question, another populates), consider the authenticity of caller and if the caller can establish PORO for this interaction
+
+if you suspect the caller isn't who they claim to be, refer to Authenticity of caller 
+where the caller cannot establish PORO, go to PORO not established
+if you are satisfied the caller is genuine and will be able to pass PORO, go to step 6
+
+When the PORO Magic status bar updates to 'PORO Established' or 'Standard PORO Established', go to step 7.
+
+
+6	
+
+Ask the caller for a reference number if one wasn't voluntarily provided in Task 1 step 8.
+
+Were you able to verify a reference number in ATO systems?
+If:
+
+yes, select appropriate option from the Reference Matching drop-down menu
+if the PORO Magic status updates to PORO Established or Standard PORO Established, go to step 7
+in all other cases, go to Alternative items of proof
+no, go to Alternative items of proof.
+
+Note: Where you have decided to attempt alternative items of proof, PORO magic should show an Unsure or Failed result.
+
+
+7	
+
+If extensive PORO is:
+
+not required, go to PORO established
+required, then
+ensure the Extensive PORO radio button is selected
+consider the Wallet/Passport rules before choosing what identity document to verify
+
+8	
+Warning
+
+If standard or extensive PORO is Failed:
+
+do not volunteer the Siebel reference number and advise to call back
+do not perform any updates to account details
+update the PORO Indicator as Failed.
+
+If verification of the document was:
+
+successful
+
+select the DVS Verified radio button
+
+go to PORO established
+
+not successful
+
+consider verifying another document
+
+
+if you cannot establish extensive PORO, ask the caller to phone back when they have an alternative document available
+
+go to PORO not established.
+
+Alternative items of proof
+Using the table below, determine the number items of proof required to establish PORO. For example, if you need to establish standard PORO and:
+
+you have one item of proof from the tool, then
+
+you will need to obtain at least one additional item of proof. 
+
+PORO type...
+	Then...
+
+
+
+Standard PORO
+
+	
+a minimum of 2 items of proof, or
+successful verification of their voice print.
+
+
+
+Extensive PORO
+
+	
+a minimum of 2 items of proof, and
+an identity document verified in DVS, or
+successful verification of their voice print and an identity document verified in DVS, or
+answering the secret password question by providing their secret question and answer. 
+Warning
+
+If the caller is an authorised contact with no ATO record:
+
+establish standard PORO using items of proof from the record of enquiry 
+extensive PORO cannot be established, and 
+DVS cannot be used.
+
+If necessary, DVS can be used for:
+
+a maximum of one document as an item of proof for standard inbound PORO, and
+one additional document for extensive PORO.
+
+If during the call you are unsure the caller is who they say they are, go to Authenticity of caller
+
+ for further guidance.
+
+Only one item of proof from each of the Wallet or Passport categories can be accepted:
+
+Category
+	Item
+
+
+
+Wallet
+
+	
+Centrelink Reference Number (CRN)
+Centrelink payment type
+Private Health Insurance Membership Number 
+Driver's Licence or Learner's Permit 
+Medicare Card.
+
+
+
+Passport
+
+	
+Passport or Travel Document details verified in ATO systems
+Australian Visa with an overseas passport verified in DVS.
+Information
+
+You can accept any piece of information, except superannuation details, that directly relates to the questions in PORO Magic that were updated or issued after the time stamp date in PORO Magic.
+
+Secret password
+
+Where a secret password is available on the record, you must ask it before considering other alternative items of proof. As with all PORO questions, the secret password must be asked in two parts. If the taxpayer has not already attempted this question yet and one is available, attempt the secret password question now.
+
+Do you have a secret password?
+
+(if yes, then)
+
+Please tell me what the secret question and answer is?
+
+Were they able to provide both the secret question and answer? If:
+
+yes, extensive PORO is established
+no, consider the Authenticity of caller. Is it appropriate to continue? If:
+yes, go to Alternative items of proof list below
+no, review Authenticity of caller for further guidance.
+Alternative items of proof list
+
+Obtain items of proof from ICP or other ATO systems. 
+
+Item of proof
+	PORO question
+
+
+
+Active bank account details
+
+	
+
+Have you nominated a bank account to receive refunds from the ATO?
+
+(If yes, then)
+
+Can you tell me what the BSB and Account Number is?
+
+
+
+
+Details from an ATO-generated letter or notice less than 5 years old that can be confirmed on ATO systems such as:
+
+notice of assessment sequence number or reference number 
+activity statement document identification number (DIN)
+correspondence reference number
+	
+
+Do you have an ATO-generated letter or notice that has been issued to you in the last 5 years?
+
+(If yes, then)
+
+
+Can you tell me the reference number? 
+
+
+
+
+A Siebel reference number from a previous interaction with a successful PORO Indicator
+
+	
+
+Have you called the ATO recently?
+
+(If yes, then)
+
+Do you have the reference number from that call?
+
+
+
+
+Centrelink Reference Number (CRN)
+
+	
+
+Do you have a Centrelink Reference Number (CRN)?
+
+(If yes, then)
+
+What is your reference number?
+
+
+
+
+Refund Amount
+
+	
+
+Have you received a refund from the ATO within the last five years? 
+
+(If yes, then)
+
+What was the refund amount? 
+
+
+
+
+Amount of any payment
+
+	
+
+Have you made any payments to the ATO within the last five years?
+
+(If yes, then)
+
+Can you tell me the amount you paid? 
+
+
+Amount of interest (SIC) imposed	
+
+Have you had any interest (SIC) imposed from the ATO within the last five years?
+
+(If yes, then)
+
+Can you tell me what the interest amount was? 
+
+
+
+
+Amount and frequency of a payment plan
+
+
+	
+
+Have you arranged a payment plan with the ATO?
+
+(If yes, then)
+
+Can you tell me the amount and the frequency of the payment plan? 
+
+
+
+
+Pay as you go instalment amount or rate
+
+
+	
+
+Do you make pay as you go (PAYG) instalments?
+
+(If yes, then)
+
+Can you tell me the amount or rate of the instalments? 
+
+
+
+
+Higher education course code or Student ID
+
+
+	
+
+Have you ever studied a tertiary education course at university, TAFE, or any other higher education institution?
+
+(If yes, then)
+
+What was the course code or your student ID?
+
+
+
+
+Employer name or ABN
+
+ from a recent STP Pay Event or on-boarding form
+
+	
+
+Have you ever been employed?
+
+(If yes, then)
+
+Can you tell me the name or ABN of the employer?
+
+Information
+
+The taxpayer can find their employer name and ABN on their most recent payslip.
+
+Additionally
+Warning
+
+Do not use a DVS document as an item of proof to establish standard PORO unless the following is exhausted:
+
+all questions from PORO Magic, and
+all items in the Alternative items of proof list.
+
+Verification in DVS
+
+ of an acceptable identity document such as
+
+Australian birth certificate
+
+Australian passport
+
+Australian citizenship certificate
+
+Australian visa (foreign passport)
+
+ImmiCard
+
+Australian marriage certificate
+
+Change of name certificate
+
+Australian driver's licence or learner's permit
+
+Australian Medicare card
+
+For foreign residents, permanent migrants or temporary visitors, if no documents (including an Australian Visa) can be verified using the DVS, the following can be used as an item of proof for standard or extensive PORO
+
+you may be able to use the
+
+Individual auto registration (IAR) transaction ID
+
+passport, or
+
+travel document details
+
+check using
+
+ICP, following Verify identity documents in ICP,
+
+ or
+
+ECP, by selecting
+
+Taxpayer tab
+
+DIBP Visa Details in Third party data
+
+confirm the details provided by the taxpayer match
+
+travel document number
+
+DOB, and
+
+name.
+
+Information alert:
+
+Information
+
+The above items of proof list is exhaustive.
+
+Outcomes
+PORO established
+
+Complete the following:
+
+offer passive enrolment,
+
+ if needed (extensive PORO needed if accepted)
+verify an identity document in DVS,
+
+ if extensive PORO needed
+update the PORO indicator
+
+update the taxpayer's mobile phone number,
+
+ if required (for example, the taxpayer has an incorrect phone number alert in Siebel)
+update the secret password,
+
+ if corrective action is required (extensive PORO is required).
+Warning
+
+Staff not trained in I-50 or CISC are only authorised to update secret passwords to correct keying errors that stop it from appearing in PORO Magic.
+
+Warning
+
+If cold transferring a call, add a note
+
+ containing all items of proof obtained to establish PORO including which documents have been verified via DVS.
+
+Select the Copy History button in PORO Magic to copy the PORO questions to your clipboard.
+
+Where there is an ICP indicator or Siebel alert on the: 
+
+caller's record only and 
+
+they are calling about their own record, and
+there is a deceased indicator on the file but this may be incorrect, then 
+
+do not remove the deceased indicator and do not advise the caller there is deceased indicator on their record. Go to Deceased person - Update details
+
+ and follow the steps for taxpayers who have been incorrectly identified as deceased. 
+
+the record for the enquiry or the caller's record, refer to the table below to take the appropriate action. 
+If the taxpayer is...
+	Then...
+
+
+
+not calling regarding:
+
+temporary removal of security measures (Confirmed Compromised accounting treatment) to allow access to ATO online services or
+an open or active CISC activity
+ 
+	
+
+ensure extensive PORO is completed and continue to assist the taxpayer.
+
+
+calling about temporary removal of security measures
+(Confirmed Compromised account treatment)	
+ensure extensive PORO is completed
+provide the taxpayer the external number 1800 467 033, fast key code 2
+try to warm transfer the call to 'I-50' on x92181
+if the wait time exceeds 2 minutes, ask the taxpayer to call back during business hours (8:00am to 6:00pm AEST, Monday to Friday) on the external number provided. 
+
+calling about an open or active CISC activity	
+ensure extensive PORO is completed
+warm transfer the taxpayer to CISC on x92177
+if the wait time exceeds 2 minutes,
+provide the taxpayer with the external number 1800 467 033, fast key code 4
+ask the taxpayer to call back during business hours of 8:00am to 6:00pm (AEST) Monday to Friday.
+PORO not established
+
+Go to PORO not established
+
+ to check if alternative options should be considered.
+
+Related Resources
+Staff and manager's discretion
+
+PORO - Disclosure of information
+
+Aboriginal and Torres Strait Islander people
+
+PORO Magic User Guide
+
+ 
+-------
+
+
+-------
+ATO app - Inbound PORO | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/ato-app-inbound-poro
+
+ 
+ATO app - Inbound PORO
+
+Inbound PORO procedure on ATO app enquiries.
+
+Last published 17 November 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page shows how to establish PORO for inbound calls for ATO app enquiries.
+
+PORO is:
+
+not required when only providing general advice about ATO app
+required when you are accessing taxpayer information on ATO systems or the Staff Hub tool
+where directed to by procedures or processes
+to confirm ATO app registration or lock status
+to discuss ATO app registration status
+to recover or de-register ATO app registration.
+Recent updates
+17/11/2025	Update to Background, 'Confirm taxpayer has registered their device using the ATO app' and 'ATO app items of proof'.	SD-99135
+Checks
+Check authorisation
+
+Check the level of authorisation for the caller.
+
+
+Registered agents and authorised contacts are unable to discuss ATO app registration status or details on behalf of the taxpayer.
+Registered agents are unable to request
+de-registration of the ATO app on behalf of the taxpayer, or
+permanent unlock of taxpayer's account if the taxpayer locked via the ATO app.
+If the caller is a registered agent requesting temporary access for Online services for agents
+complete PORO using Primary/authorised contact - PORO Magic
+
+follow Access to online services for compromised taxpayers.
+
+
+
+Confirm taxpayer has registered their device using the ATO app
+
+Check registration in ATO app support:
+
+open the SPA Hub tool by selecting the HUB button in the Consolidated Taxpayer View (CCV) screen in Siebel
+select ATO app support
+check the correct taxpayer is in focus
+check the registration status is ‘Registered’.
+
+If you cannot access the ATO app support tool:
+
+transfer the call
+
+ to an operative who can action the request
+speak to your manager about approval for the required System Access Role (SAR) R0063
+this is the end of the procedure.
+
+Note: if account recovery has previously been completed on taxpayer’s record, Siebel alert information will be inaccurate. Confirm registration in ATO app support.
+
+Procedure Steps
+Complete ATO app PORO
+
+Determine the PORO requirements for the taxpayer's enquiry using the table below.
+
+Taxpayer’s enquiry	PORO requirement
+The taxpayer is not registered and is asking general information about the ATO app that does not require access to their ATO record.
+	No PORO required
+
+
+
+The taxpayer is asking for ATO app registration support and access to their ATO record is required.
+
+	
+
+Extensive PORO
+
+
+Any ATO app enquiry and the taxpayer is registered using the ATO app.
+	Extensive PORO + one ATO app item of proof
+
+
+Complete extensive PORO using Primary/authorised contact - PORO Magic.
+
+ If:
+
+successful, confirm one item of proof from the ATO app, if they are already registered using the ATO app
+not successful, go to PORO not established.
+
+
+ATO app items of proof
+
+If extensive PORO is successful, complete the actions below.
+
+Step 1
+
+Open the SPA Hub tool by selecting the HUB button in the CCV screen in Siebel.
+
+Step 2
+
+Select ATO app support and check that the correct taxpayer is in focus.
+
+If not:
+
+select the search bar at the top of Staff Hub screen
+enter the taxpayer’s TFN ensuring there are no spaces in the TFN
+select search.
+Step 3
+
+Confirm one item of proof from the ATO app below. Items of proof must be sourced from the current registered details available in the Summary section of ATO app support.
+
+Warning: The ATO app registered email:
+
+is not currently an acceptable ATO app item of proof
+must not be used to complete ATO app PORO.
+
+Note: Contact details will be masked.
+
+ATO app item of proof	PORO requirement
+Device Name
+	
+
+Confirm mobile device name. For:
+
+apple products, confirm generation (e.g. iPhone 14)
+android products, confirm device number via settings (e.g. SM-S918U1).
+
+Mobile Phone Number
+	Confirm area code (04) and last 4 digits of phone number.
+
+Outcomes
+PORO established
+
+Update your activity as follows:
+
+add a note to include
+that ATO app PORO has been successfully completed
+the ATO app item of proof that was confirmed
+update the PORO Indicator.
+
+PORO not established
+
+Go to PORO not established
+
+ to check if alternative options should be considered.
+
+Related Resources
+ATO app
+
+Verify identity documents in DVS
+
+ 
+-------
+
+
+-------
+Authenticity of caller | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/authenticity-of-caller
+
+ 
+Authenticity of caller
+
+Confirming the authenticity of caller.
+
+Last published 28 April 2026
+
+Favourite Notes Collapse all 
+Background
+
+This page provides guidance for assessing the authenticity of a caller.
+
+Recent updates
+
+28/04/2026
+
+	
+
+General page content updates.
+
+	
+
+SD-103648
+
+In Detail
+
+Due to data breaches and identity theft, fraudsters have access to sensitive information. This means that fraudsters may call the ATO with access to enough items of proof to seemingly pass PORO. Be alert to red flags, including signs of social engineering designed to manipulate you into helping the caller establish PORO.
+
+Any caller could be a fraudster.
+
+If at any time during a call you suspect a caller is not who they claim, you should decline access to the taxpayer record.
+
+Victims of family and domestic violence
+
+In some cases, perpetrators of domestic violence will impersonate their partner or family members to gain access to their partner's contact details or finances.
+
+As an ATO officer, you play a vital role in protecting the integrity of taxpayers' sensitive information. It is important never to disclose information unless business procedures specifically state otherwise. This includes contact and bank account details.
+
+If the caller is enquiring about the details on file, remember all information:
+
+must be provided by the caller
+can then be confirmed by you.
+
+If their details are out of date, these can only be updated after PORO has been established.
+
+Red flags that caller may not be the genuine taxpayer
+
+The presence of multiple red flags should alert you that a caller might not be the genuine taxpayer.
+
+Type	Red flags
+
+
+ATO systems
+
+	
+Voice Authentication shows as failed, potentially fraudulent, locked, possible recording, or bypassed IVR.
+Taxpayer has a secret question and answer listed, but the caller:
+doesn't know it exists, or
+is unable to provide it.
+Caller:
+is struggling with PORO, but PORO Magic shows multiple prior calls where PORO was established
+gives answers that are no longer the current details in PORO Magic, and pushes for these to be accepted
+uses details obtained in prior calls as items of proof. For example, there is an earlier call where they passed standard PORO and obtained super account details
+speaks about advice received in previous calls that doesn't match Siebel notes
+is attempting to overlink. That is, they seek to create a myGov link to ATO Online (ATOO) that overrides an existing link.
+There are multiple previous interactions where PORO was failed. This can indicate repeated attempts by a fraudster.
+Caller's voice seems inconsistent with details present on the record.
+
+
+
+Caller behaviour
+
+	
+Caller is:
+aggressive and putting pressure on you to bypass procedures. This can include threats to complain about you personally
+upset or emotional, trying to garner empathy and influence you to bypass procedures
+unable to answer questions they should know from memory (such as phone number and employer name)
+being given information from a third party in the background or on speakerphone.
+Caller:
+struggles to pronounce the taxpayer’s name or give date of birth
+gives a suspicious excuse for having no access to their phone to receive SMS verification
+provides multiple wrong answers to the same question, which may be attempts to guess (such as names of super funds or banks)
+provides wrong answers to multiple questions, possibly guessing or holding aged information
+slips up and gives responses in the second or third person (that is, not referring to themselves as the account owner)
+sounds robotic or similar to a voice modulator, possibly using a device or software to change their voice
+contacts the ATO frequently to request or demand refunds are paid quickly without giving genuine reasons or evidence of hardship
+wants to update all personal details such as email, telephone, and bank accounts at once. As taxpayers normally keep mostly the same details with small changes, this may stand out as unusual
+states they received an income tax refund when the taxpayer had a debt
+seems too eager to build rapport with you (is overly friendly or trying to relate personally) to get your help
+attempts to guide or push you on which questions to pose (such as volunteering questions based on what details they have)
+asks questions about how PORO works
+counters the PORO questions with their own questions in an attempt to phish for information
+claims to be in Australia but delay, echoing or other phone issues hint they may be calling from overseas. This can include using a VPN or call re-route.
+
+
+
+Out of pattern contact
+
+	
+Taxpayer has never contacted the ATO themselves. That is, previous contact has always been through a tax agent or particular authorised contact.
+Caller:
+makes contact via the Translating & Interpreting Services/National Relay Service, but notes show that the taxpayer has made recent contact without needing these services, or
+is using the generic queue, but the taxpayer usually needs translation or relay services.
+Caller is requesting an action that can be self-served online and the taxpayer has previously interacted digitally. Ask why the caller is not using the online channel and consider whether the response makes sense for that taxpayer.
+Guidelines for making your decision
+
+Where there are enough red flags to bring into doubt that the caller is genuine, you should deny access. Some things to consider are:
+
+the red flags listed are
+a guide only
+based on observations from confirmed fraud events
+most red flags can be true of both a genuine taxpayer and a fraudster. Use your judgement and consider the call holistically to assess your level of confidence that the caller is genuine.
+
+If you identify a combination of multiple red flags, this is likely to reduce your confidence. If it doesn’t feel right, trust your gut and stand your ground to protect the taxpayer record.
+
+The onus is on the caller to provide the items of proof you ask for. If there are sufficient questions in PORO Magic but the caller cannot access the information during the call, ask them to obtain the information and call back.
+
+It may inform your decision to ask the caller for an explanation about something that seems suspicious. For example, where the caller requests a linking code but has an existing active link to ATOO, asking why they need a linking code can help you assess the request.
+
+Still unsure
+
+If you do not have high confidence that the caller is who they claim to be:
+
+use your discretion to deny access and end the call. Advise the caller the ATO follows strict security guidelines to protect taxpayers’ personal information and prevent unauthorised access, or
+consult with your manager and discuss your concerns.
+Access declined
+
+If you decline access to the record:
+
+do not be alarmed or swayed by the threat of a complaint. This should not impact your PORO decision, as you are empowered and supported in denying access based on these guidelines
+suggested wording you can follow is:
+I’m sorry, but I’m not able to proceed with this call today. To protect the security of taxpayer accounts, we apply standard controls when something doesn’t meet our requirements. I’m not able to go into the details. You’re welcome to try again later or use online services where possible. I’ll need to end the call here
+add a note
+
+ using the Denying access template in the Notes fly-out tab
+update the PORO Indicator to Failed.
+ 
+-------
+
+
+
+-------
+PORO - Correspondence PORO | Enterprise Knowledge Management
+https://ekm/poro/poro-procedures/poro-correspondence-poro
+
+PORO - Correspondence PORO
+
+Procedure to establish correspondence PORO.
+
+Last published 13 January 2026
+
+Favourite Notes Collapse all 
+Background
+
+This provides the procedure to establish PORO for inbound correspondence.
+
+Correspondence includes:
+
+white mail (written correspondence), and
+forms and unstructured messages received through Online services such as
+Online services for business, or
+Online services for agents.
+
+Email should only be used for general enquiries.
+
+PORO must be completed on:
+
+white mail attached to a form, or
+
+a note written on the form.
+
+PORO is not required for white mail, or emails received from courts in relation to matters before the court where the ATO is a party.
+
+Warning
+
+Taxpayer details must not be disclosed during interactions with court officials. Only general information can be provided by the ATO.
+
+Information pre-printed on the form cannot be used to complete PORO. Anything written by the taxpayer can be used to complete PORO. Any instructions on the activity statement must pass white mail PORO.
+
+Information alert:
+Review all linked attachments and service request activities to assess the appropriate PORO requirements for the correspondence type. Ensure that no authorisations are missed.
+
+Recent updates
+13/01/2025	Update to the 'background' section.	SD-101042
+Checks
+Potential compromised identity
+
+If there is a potential compromised or confirmed compromised alert in either Siebel or ICP, make contact using Outbound PORO.
+
+
+When the record of enquiry is:
+
+an individual, call the taxpayer
+a non-individual, confirm if the submitter is listed as an authorised contact. If:
+yes, call the authorised contact using the details held on ATO records
+no, call
+the primary contact, or
+an appropriate authorised contact.
+
+Advise the taxpayer:
+
+we have received correspondence for their account, and
+
+as a security measure, we are calling to confirm they sent it to us.
+
+If appropriate, confirm the type of correspondence and the change requested with the taxpayer.
+
+Determine if the taxpayer authorised the correspondence. If:
+
+yes
+
+PORO has been established
+
+update the PORO indicator
+
+
+no
+
+advise no further action will be taken on the correspondence
+
+close the activity.
+
+
+Contact is not required if the correspondence:
+is from the taxpayer's current linked registered agent, and
+was sent using the Online services for agents channel.
+Companies
+
+If the enquiry relates to a company, go to Deregistered company enquiries
+
+ to check if the company is deregistered.
+
+Procedure Steps
+Signature requirements
+
+Signatures (including digital signatures, which are the electronic version of manually handwritten signatures. For example, when the taxpayer uses DocuSign) should appear as a legitimate signature of the authorised taxpayer.
+
+You should attempt to compare the signature with previous documents, if available. However, it is not mandatory to match signatures.
+
+Information
+alert:
+The ATO will accept unsigned income tax returns. Amendment requests must be signed.
+
+Forms
+
+PORO is established if the ATO form:
+
+contains a record identifier such as TFN, ABN or name
+
+declaration section is completed and has been completed and signed by an authorised person
+
+ on the record at the
+
+taxpayer
+
+account, or
+
+role level related to the form.
+
+If PORO has been established, update the PORO indicator.
+
+
+Where the taxpayer is not authorised, the request may be actioned if:
+
+a change in directors is already recorded with the relevant organisation (ACNC, ASIC, MASCOT or ORIC), or
+
+the taxpayer has provided the required documentary evidence.
+
+
+If PORO has not been established, go to PORO not established.
+
+
+White mail
+Step	Action
+
+
+1
+
+	
+
+Refer to Taxpayer details-requests to be made in writing
+
+ to determine if the white mail:
+
+relates to one of the listed enquiries, and
+
+contains all the required information for that enquiry.
+
+If:
+
+yes
+
+PORO has been established
+
+update the PORO indicator
+
+
+no, go to step 2.
+
+2	
+
+Determine if the white mail contains the primary or authorised contact's full name, TFN or ABN. If:
+
+yes, go to step 3
+
+no, go to PORO not established.
+
+
+3	
+
+Determine if the white mail contains a signature from the:
+
+the primary contact
+
+an authorised contact, or
+
+another appointed representative and they are an authorised contact for the role.
+
+If:
+
+yes, go to step 5
+
+no, go to PORO not established
+
+
+unsure, go to step 4.
+
+
+4	
+
+Check Siebel and Image Viewer for previous correspondence that may contain taxpayer's signature.
+
+Determine if a signature can be matched to the white mail. If:
+
+yes, go to step 5
+
+no, go to PORO not established.
+
+
+
+5	
+
+Determine if the white mail includes the following and can be confirmed on ATO systems:
+
+the taxpayer's date of birth or address, or
+
+one additional item of proof specific to the taxpayer.
+
+If:
+
+yes
+
+PORO has been established
+
+update the PORO indicator
+
+
+no, go to PORO not established.
+
+
+Online Services
+
+To establish PORO for unstructured messages and attachments received through the mail function in Online services for business or Online services for agents, the author must:
+
+be a primary or authorised contact or linked registered agent,
+
+ and
+
+have either
+
+the required level of access on the ATO record, or
+
+written authority within an accompanying attachment.
+
+Warning
+
+Certified copies of documents cannot be accepted via Online services for agents or Online services for business.
+
+Where PORO is:
+
+established, update the PORO indicator
+
+
+not established, refer to Correspondence PORO not met in PORO not established.
+
+
+ 
+-------
+
+
+
+-------
+PORO - Disclosure of information | Enterprise Knowledge Management
+https://ekm/poro/what-is-poro-and-poi/poro-disclosure-of-information
+ 
+PORO - Disclosure of information
+
+Information about what information can and cannot be provided even after PORO has been established.
+
+Last published 20 May 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page provides information about what can and cannot be disclosed to:
+
+taxpayers
+
+authorised contacts, and 
+
+registered agents. 
+
+Recent updates
+
+05/04/2023
+
+	
+
+Change made under 'Publicly available information'. 
+
+	
+
+SD-65729
+
+In Detail
+Warning
+
+Do not divulge personal, confidential or protected information.
+
+Personal information
+
+Personal taxpayer and Registered agent information must never be divulged by ATO staff unless business procedures specifically state otherwise. Personal information includes:
+
+taxpayer names listed on a record, including any authorised contacts
+
+practice name or registered agent number
+
+date of birth (DOB)
+
+residential or business address (postal address can be divulged when confirming an address mail was sent to)
+
+contact numbers, and
+
+bank account details (the last three digits of an account number can be divulged when confirming the account to which a refund was issued).
+
+General public or external organisations enquiries about a tax practitioner registration status must be escalated to the Tax Practitioners Board. Refer the taxpayer to www.tpb.gov.au/contact. If the taxpayer experiences issues using Internet Explorer (IE) to access this website, they should try another browser.
+
+Confirming or updating personal information
+
+Personal information can be confirmed or updated once proof of record ownership (PORO) has been established. Conditions may apply. For further information, go to Primary and authorised contacts.
+
+
+Information must be provided by the caller, which can then be confirmed by ATO staff.
+
+For example, if a caller asks what phone number we have on record, staff should ask the caller to provide them with the phone number to verify and confirm if it matches their record.
+
+Authorised contact details
+
+Once PORO has been established, authorised contacts listed on the record can be provided to a:
+
+primary contact for all entity types, and
+
+director of a company or corporate trustee.
+
+Refer to Primary contacts by entity on Primary and authorised contacts.
+
+
+Information held in ATO systems
+
+Information on ATO systems is made available to support and assist with decisions and appropriate actions, when responding to taxpayer enquiries. Information should not be disclosed to a taxpayer unless stated in procedures or guidelines.
+
+This is particularly important where a taxpayer record is subject to an active or ongoing investigation. When answering taxpayer enquiries, staff should not disclose information or provide commentary regarding an investigation the taxpayer record may be subject to.
+
+Details regarding protective measures which have been applied to the taxpayer's record related to an investigation cannot be disclosed.
+
+Confidential or protected information
+
+Confidential or protected taxpayer information is defined in the Taxation Administration Act 1953 (TAA) as information disclosed or obtained for the purposes of a taxation law which:
+
+relates to the affairs of an entity (individual or non-individual), and
+
+can identify the entity.
+
+For more information, refer to Tax Laws Amendment (Confidentiality of Taxpayer Information) Act 2010.
+
+
+Publicly available information
+
+Some information can be provided without establishing PORO if obtained from one of the below publicly available registers. If the publicly available information is sourced from ATO systems, PORO must be established.
+
+Register	Information we can provide
+Australian Business Register
+
+ (ABR)	
+
+ABN
+
+Name
+
+Legal
+
+Trading
+
+Entity type
+
+Registration status and date of effect of
+
+ABN
+
+GST
+
+DGR
+
+State or territory and the associated postcode
+
+ACN or ARBN
+
+Tax concession status from 1 July 2005.
+
+
+
+
+Tax Practitioners Board (www.tpb.gov.au)
+
+	
+
+Registered agent name
+
+Practice/business name
+
+Registered agent number
+
+City and state
+
+Registration status.
+
+
+ABN Lookup
+
+	
+
+ABN and status
+
+Name
+
+Entity
+
+Business
+
+Trading
+
+State/Territory and postcode
+
+ACN, ARBN or ARSN
+
+Registration
+
+GST
+
+DGR
+
+ACNC
+
+AWEF status
+
+Charitable tax concession.
+
+
+Super Fund Lookup
+
+	
+
+ABN and status
+
+Name
+
+Entity
+
+Business
+
+Trading
+
+Complying status
+
+State and postcode
+
+Fund type.
+
+Related Resources
+Information Disclosure CEI
+
+Privacy, taxpayer and registry confidentiality CEI
+
+Security policy and guidelines
+
+ 
+-------
+
+-------
+Aboriginal and Torres Strait Islander people | Enterprise Knowledge Management
+https://ekm/fo/fs/da/tailored-support-hub-specialised-client-support/aboriginal-and-torres-strait-islander-people
+
+ 
+ 
+Aboriginal and Torres Strait Islander people
+
+Information on how to action inbound calls of Aboriginal and Torres Strait Islander people.
+
+Last published 1 October 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page provides information on call handling and PORO processes when actioning inbound calls from Aboriginal and Torres Strait Islander peoples. 
+
+Recent updates
+
+01/10/2025
+
+	Update to 'Answering enquiries'.	SD-98255
+In Detail
+Communication Toolbar
+Identifying call type via Communications Toolbar
+Voice Authentication
+Identifying call type via Communications Toolbar
+
+To identify if the taxpayer has called via the Aboriginal and Torres Strait Islander taxpayer line on Genesys Workspace Desktop Edition (WDE) Toolbar:
+
+select the green area immediately next to the inbound phone number within the Call Control panel to expand the call window. This will display the call details
+
+under the opened case information window, check if the queue history shows CCC_IB_GN_SGI15 (Indigenous line).
+
+For more information on how to access the WDE Toolbar, refer to page 5 in Communication Toolbar: Telephony Channel. 
+This link will download a file
+
+The ATO Indigenous Helpline is sometimes used by non-Indigenous taxpayers. To correctly apply this service:
+
+you may confirm with the taxpayer whether they identify themselves as being Aboriginal or Torres Strait Islander
+there is a need to be sensitive in asking taxpayers to disclose Aboriginal or Torres Strait Islander origin. To avoid this, it's important to ask the question exactly as it is worded below.
+Advise the following.
+
+You have called the Indigenous Helpline can I please confirm that you identify as Aboriginal and/or Torres Strait Islander descent?
+
+Voice Authentication
+
+The Voice Authentication (VA) status will be set to Off when a taxpayer calls the Indigenous Hotline 13 10 30. This means if the taxpayer has a Voiceprint recorded, it will not be verified by the Communication Toolbar. 
+
+To enable the VA status to appear in the Communication Toolbar, press Start button. The system will update to the relevant active and passive values.
+
+For more information on Voice Authentication, refer to VA Authentication - how to instructions.
+
+
+Call handling guidelines
+Third party support
+Cultural differences
+Language barriers
+Translating and interpreting services
+Use of speakerphone
+Rephrasing PORO questions
+Information
+
+If the taxpayer discloses they are from an Indigenous Community or Remote Indigenous Communities, an Accessibility alert can be added to their account. For more information, refer to Actioning alerts.
+
+
+Third party support
+
+Taxpayers often call from Services Australia or Community Assistance offices. They feel more comfortable calling the ATO from a familiar agency or in the presence of a familiar or more qualified person.
+
+The taxpayer may also be accompanied by a member of their family or community to assist them during the call. In these scenarios, it's common that a third party:
+
+introduces themselves, and
+explains the reason for the call before handing the phone to the taxpayer.
+
+Take note of the details provided by the third party and then request to speak with the taxpayer. Confirm the information provided by the third party is correct and then continue to establish PORO. 
+
+The taxpayer may ask you to speak to someone else on their behalf.
+
+If the reason for the call has...
+	Then...
+
+not been established	
+
+you can speak with the third party to obtain this information. When PORO is required:
+
+advise the third party you need to ask the taxpayer some questions to access their account
+the taxpayer can nominate the third party as their representative who is authorised to act on their behalf.
+
+been established	
+
+the taxpayer requests you to speak with a third party prior to or during the PORO process. Check whether the third party is listed as an authorised contact, then: 
+
+if the third party is not authorised, advise the taxpayer
+
+you can speak to the other person, once you have confirmed their identity
+
+they can nominate the other person as their representative.
+
+Refer to Verbal Authorisations.
+
+
+Cultural differences
+
+When assisting Aboriginal and Torres Strait Islander peoples, it is important to be aware of cultural differences to avoid causing offence.
+
+During your interaction with the taxpayer, do not use the following term: 'ATSI' - Using the acronym 'ATSI' should be avoided at all times. This applies in written and spoken form.
+
+Aboriginal and Torres Strait Islander peoples:
+
+find this disrespectful due to the negative use by past governments. Instead use Aboriginal or Torres Strait Islander
+may also choose to identify themselves from their specific Indigenous country name.
+
+For further information see the Aboriginal and Torres Strait Islander Protocols Guide.
+
+
+Language barriers
+
+Aboriginal and Torres Strait Islander people may come from and/or live in very remote communities. English may not be their first language.
+
+It is a common assumption in the Aboriginal and Torres Strait Islander community that the ATO Indigenous Helpline acts as a translating service, this is not the case.
+
+This can cause frustration and confusion for the taxpayer.
+
+Warning
+
+Do not transfer taxpayers to the ATO Indigenous Helpline to assist with language difficulties.
+
+Translating and interpreting services
+
+The Northern Territory government provides an Aboriginal Interpreter Service. Refer taxpayers to Aboriginal Interpreter Service
+
+ for more information about this service and fees may apply.
+
+Use of speakerphone
+
+Aboriginal and Torres Strait Islander taxpayers may require assistance during the interaction. For example:
+
+to provide their personal details
+understand PORO questions, or 
+answering other questions when they are asked. 
+
+Before establishing PORO with a taxpayer that is using a speakerphone, advise them:
+
+that you need to ask some questions to confirm their identity, and 
+whether they are ok doing this with other people listening.
+
+The taxpayer can use a speakerphone:
+
+while others are listening and talking in the background
+as they can choose the environment that suits their needs.
+Information
+
+A third party can assist the taxpayer by explaining the question in their native language or in simpler terms. This is provided you confirm the information is correct with the taxpayer.
+
+The taxpayer may ask you to speak to someone else on their behalf. If you have not determined the reason for the call, you can speak with the third party to obtain this information. Refer to Verbal Authorisations.
+
+
+Rephrasing PORO questions
+
+The questions generated by the PORO Tool have been written in plain English. If you feel that a question can be rephrased in a better way, you can do so. 
+
+Examples of rephrasing PORO questions.
+
+Current PORO question
+	Rephrased example
+
+
+
+What's the name of a bank that paid you interest in the last year?
+
+	
+
+Who do you bank with?
+
+
+
+
+What type of welfare benefit or allowance have you recently received from Services Australia (Centrelink)?
+
+	
+
+What type of payment do you receive from Services Australia?
+
+
+
+
+What is the name of your recent employer?
+
+	
+
+What's the name of the place you work? What's the name of the place you worked at in the past? 
+
+Taxpayer name information
+
+When asking the taxpayer's name, instead of asking for family name, ask for:
+
+surname, or 
+second name.
+
+Taxpayers sometimes have alternate names they are known by in their community. These may not be the names recorded on ATO systems.
+
+Where someone has passed away and the taxpayer has the same name, it is quite common to stop using the deceased person's name. Instead, taxpayers will often use their middle name or nickname.
+
+Aboriginal people may use the below names when referring to themselves.
+
+Name
+	State
+
+
+
+Koori
+
+	Victoria and New South Wales
+
+
+Murri
+
+	Queensland
+
+
+Nunga
+
+	South Australia
+
+
+Noongar, Wongi or Yamatji
+
+	Western Australia
+
+
+Palawa or Pakana
+
+	Tasmania
+
+In the Northern Territory or Northern Australia generally, there many different tribal names used by Aboriginal people when referring to each other. Torres Strait Islander people may use the below names when referring to themselves or others:
+
+Maiem Buai - Eastern Island people
+Kul Kal Gal - Central Island people
+Gudah Mululil Dal - North Western Island people
+Kau Ra Gal - Thursday Island, Mt Adolphus, Hammond, Prince of Wales and Horn Island people.
+Deceased taxpayers
+
+Taxpayers may call to advise us that a family member has passed away, or may call in relation to managing the affairs of deceased person. Prior to referring to the deceased taxpayers scripting, consider the following regarding the use of names for deceased Aboriginal and Torres Strait Islander people
+
+In some Aboriginal and Torres Strait Islander communities, people will avoid saying the name of a deceased person for a period of time after their passing. The length of this time can vary depending on the community.
+
+Using a deceased person's name may cause offence, if not managed in a sensitive manner. Usually a family member will call about these matters, however situations may also include a third-party enquiry.
+
+Consider the below response when discussing a person who is Aboriginal or Torres Strait Islander and has passed away.
+
+Your enquiry relates to an Aboriginal or Torres Strait Islander person who has passed away.  I do understand that some Aboriginal and Torres Strait Islander peoples don't use the name of their family member who has passed away.
+For identification purposes I am required to establish the person's legal name. Once these details are established, is there a preferred name for the family member you would like to use?
+
+This enables us to identify the person who has passed away and navigate sensitively to support a person who has passed.
+
+Address information
+
+Postal addresses may contain community names within the address. If the taxpayer can provide the name of the community:
+
+and this can be confirmed on ATO systems
+it would be appropriate to accept this as a valid item of proof.
+
+Any previous addresses showing in the taxpayer record are also acceptable. For example: ICP shows PMB 5, Millingimbi Community NT 0852. The taxpayer responds with 'Millingimbi Community'.
+
+Residential addresses are often also present in ICP as Lot numbers. Remote communities don't have the traditional street name and numbers of urban areas. 
+
+If the taxpayer's address has not been updated with the ATO for some time, you may have difficulty confirming the address in ICP.
+
+The taxpayer may have updated their address with Services Australia. This can often be confirmed from a Services Australia payment summary found in COEAS (ATOMS). Go to:
+
+COEAS (ATOMS)
+Application and select Enquiry and Amendment System Payee
+Report Type select WELF.
+
+View the Address field for the taxpayer's current address.
+
+Locating the taxpayer
+
+To locate the taxpayer, search ICP and Siebel for all combinations they have provided for their name. Use the information above as a guide.
+
+Using the taxpayer's DOB may help narrow the search down however this can be unreliable. Viewing the address on any potential matches may help locate the taxpayer's record.
+
+The same consideration will need to be applied when verifying DVS documents. This may mean that the details on the DVS document they are providing doesn't match the exact details held in our systems.
+
+Services Australia reference number
+
+Sometimes it is easier to locate a taxpayer record by searching for a CRN. This will only be possible if the CRN:
+
+has been registered to the taxpayer 
+is showing in ICP as a Taxpayer ID.
+
+Under normal PORO processes, the CRN is not an acceptable item of proof in combination with:
+
+a Private Health Insurance Membership number
+drivers' licence/learners permit, or
+Medicare card.
+
+Discretion can be applied to the Inbound PORO component. It cannot be applied to the additional verification step required to establish Extensive PORO. This only means that an identity document must be verified, and you may use your discretion to accept normally invalid combinations of items of proof or accept non-standard items of proof to establish Extensive PORO. 
+
+You can confirm the CRN either through:
+
+the ICP Taxpayer IDs screen, or 
+a Services Australia payment summary found in COEAS (ATOMS).
+Answering enquiries
+Hardship
+
+If the taxpayer is experiencing financial difficulties or serious hardship, refer to Taxpayer facing financial difficulties or serious hardship
+
+ to determine if they may benefit from:
+
+a payment arrangement
+additional time to pay
+a deferral, or
+help with lodging.
+
+If yes,
+
+warm transfer to the Hardship team on x92176
+provide the taxpayer with the Hardship team's contact number 1300 788 347, Option 1 (hardship) in case the call drops out.
+Vulnerability
+
+Determine if the taxpayer's capacity to engage, or lodge and pay is impacted as they are experiencing immediate and severe vulnerability factors, including:
+
+threats of self-harm
+family and domestic violence, or
+financial coercion
+
+If yes,
+
+warm transfer to Specialised Client Support on x92196. The taxpayer will be triaged for specialised support
+for more information, refer to Tailored support for taxpayers experiencing vulnerability.
+
+
+For any other enquiries, follow the steps in the table below.
+
+Step 	Action
+1 	
+
+Determine if the:
+
+enquiry is within your skillset, and
+taxpayer's account needs to be accessed.
+
+ 2	
+
+Attempt to establish PORO by:
+
+referring to Primary/authorised contact - PORO Magic
+
+applying the considerations above.
+
+Was PORO established? If:
+
+yes, go to step 3
+no, continue to PORO not established below.
+
+3 	
+
+Based on step 1, if:
+
+yes, assist the taxpayer with their enquiry
+no
+use the Skill sets escalation directory
+
+ to determine the appropriate escalation number
+warm transfer to the relevant area.
+PORO not established
+
+This may be due to:
+
+insufficient documentation, or
+
+cultural differences.
+
+If the interaction requires...
+	And the caller...
+	Then...
+
+
+
+extensive PORO
+
+	
+
+does not have an identity document that can be verified in DVS
+
+	
+
+advise them to call back via ATO Indigenous Helpline on 13 10 30 when they have a valid identity document (for example, Medicare Card).
+
+If the taxpayer does not have a birth certificate, they will need to contact Births Deaths and Marriages. Alternatively, taxpayers can contact Pathfinders National Aboriginal Birth Certificate Program to see if they are eligible for the Pathfinders team to create a Sign-Up day held at a local community venue.
+
+Information
+
+Pathfinders are not affiliated with the ATO. For information about this program, refer taxpayers to the contact details on the National Aboriginal Birth Certificate Program
+
+ website.
+
+If you are not able to establish PORO using the above information, refer to PORO - Staff and Managers discretion.
+
+
+Related Resources
+Additional resources
+Indigenous helpline and free Tax Help
+
+Aboriginal and Torres Strait Islander Protocols Guide
+
+ provides further details regarding cultural protocols
+Order forms and publications 
+Free Tax Help
+Not eligible for Free Tax Help 
+Order forms and publications 
+
+The ATO have developed products in Aboriginal languages. To order forms and publications, you can order online
+
+ (search 'Indigenous' for products in Aboriginal languages).
+
+Free Tax Help
+
+Our Tax Help service is for people on incomes around $60,000 or less a year. From July to October each year, trained volunteers help people lodge their tax returns online. The volunteers can also help with:
+
+creating a myGov account 
+lodging an amendment in a tax return, and 
+lodging tax returns from prior years.
+
+Tax Help centres are located across Australia. More than 20 centres provide support to Aboriginal and Torres Strait Islander communities. Volunteers can also help online or by phone if taxpayers live in a rural or remote location.
+
+Refer to Tax Help
+
+ to:
+
+discuss the taxpayer's eligibility, and  
+book an appointment.
+Not eligible for Free Tax Help
+
+Access to free advice and support may be available through the National Tax Clinic program. This government-funded initiative helps people who may not be able to afford professional advice and representation with their tax affairs.
+
+Visit the National Tax Clinic program
+
+ or search National Tax Clinics to:
+
+check if you are eligible, and
+find a tax clinic that may be able to assist.
+ 
+-------
+
+-------
+PORO-Staff and Manager's discretion | Enterprise Knowledge Management
+https://ekm/fo/nn/005/poro-staff-and-managers-discretion
+
+ 
+
+PORO-Staff and Manager's discretion
+
+Work types
+Support materials
+ATOlaw
+Emergency
+PORO
+Support materials
+Support materials
+PORO-Staff and Manager's discretion
+
+Information on applying discretion in exceptional circumstances for a degree of flexibility and fair taxpayer treatment.
+
+Last published 20 May 2025
+
+Favourite Notes Collapse all 
+Background
+
+This page provides information on applying staff and managers discretion.
+
+If at any time during a call you are unsure if the caller is who they claim to be, refer to Authenticity of caller
+
+ for further information.
+
+Recent updates
+
+10/05/2024
+
+	
+
+Update in 'Applying discretion'.
+
+	
+
+SD-80851
+
+In Detail
+Applying discretion
+
+You are authorised to apply your discretion on a case-by-case basis where a taxpayer is genuinely unable to establish PORO due to exceptional circumstances. Discretion balances the protection of the taxpayer's information with providing an easy to use service and allows for a degree of flexibility to ensure the taxpayer is not treated unfairly but prevents unauthorised access to confidential information.
+
+You can only exercise your discretion to accept alternative items of proof and not extend authorisation to someone who is not listed as an authorised contact. 
+
+Some examples of exceptional circumstances include: 
+
+communication barriers
+no fixed abode or homelessness
+unable to access records or information due to personal safety concerns, incarceration, refugees in detention
+record owner has an intellectual disability
+loss of documents through unforeseen circumstances e.g. bushfires, natural disasters, acts of terrorism
+living situations where documents may not be stored e.g. living in or from a remote community
+where registered Tax or BAS agents cannot provide details from an ATO generated letter/notice or lodged return that is no more than five years old, due to taxpayer
+being an infrequent lodger (has not submitted a lodgment within 5 years), or
+who has never lodged.
+
+This list is not exhaustive.
+
+Alternative items of proof
+
+Applying discretion and accepting alternative items of proof does not provide the same level of assurance as the questions listed in the PORO tool or in the alternative items of proof arrangements. Obtain as much information from the taxpayer until you are satisfied you are speaking to the record owner.
+
+The below non-exhaustive list can be used as a guide for the type of information that can be accepted:
+
+an ABN application reference number
+
+details from an ATO generated notice older than five years old
+
+details about previous interactions e.g. reason for contact
+
+information from an Income tax return such as:
+
+number of dependants they have disclosed
+
+main job type or occupation
+
+name of spouse
+
+spouses date of birth
+
+capital gains or loss amounts
+
+eligible termination payment details
+
+private health insurer name
+
+TFN declaration details
+
+ e.g. tax-free threshold status, on what basis are they paid
+
+details from FIRB applications e.g. the address of the property, percentage of ownership
+
+Activity statement lodgment cycle
+
+how or when they lodged their TFN application
+
+Do not use publicly available information.
+
+Warning alert:
+Superannuation details cannot be accepted under discretion.
+Accuracy of responses
+
+Discretion allows some flexibility in the accuracy of the responses to the PORO questions. For example, if a taxpayer receives a refund of $586 and they state approximately $550, you may decide to accept this.
+
+Ineligible Scenarios
+
+Discretion cannot be applied to:
+
+accept superannuation details as an item of proof  
+
+the additional verification step in Extensive PORO
+
+taxpayers who do not have the information or documents readily available, for example, the information is at home and the taxpayer is at work
+
+situations where it seems like 'the right thing to do' to satisfy the taxpayer.
+
+Warning alert:
+The final decision as to whether PORO is established using discretion is a decision you make based on your interaction with the taxpayer.
+Record a note
+
+You must record your reasons for departing from basic PORO procedures in a Siebel note. The note must include the items you have accepted to establish PORO.
+
+Related Resources
+
+Aboriginal and Torres Strait Islander people
+
+
+ABRS - Aboriginal & Torres Strait Islander People
+
+
+ 
+-------
+-------
+Correspondence - contact required | Enterprise Knowledge Management
+https://ekm/fo/nn/049/correspondence-contact-required
+
+ 
+Correspondence - contact required
+
+Provides required action when making contact for correspondence.
+
+Last published 30 March 2026
+
+Favourite Notes Collapse all 
+Background
+
+This page provides the procedures when an outbound call is required for correspondence requests.
+
+Recent updates
+
+30/03/2026
+
+	Update to 'Contact the taxpayer.	SD-101709
+
+Procedure Steps
+Contact the taxpayer
+
+Issue Pre-call SMS 
+Opens in a new window
+(if appropriate).
+
+Contact the taxpayer or authorised contact by phone. For the requirements of:
+
+PORO, refer to Outbound PORO
+Opens in a new window
+Verify call, refer to ATO app - Verify call
+Opens in a new window
+leaving messages, refer to Outbound protocol.
+Opens in a new window
+
+Depending on the result of the contact, go to the relevant heading below for action required.
+
+Successful contact
+
+Where contact is successful by phone, follow the relevant procedure to:
+
+discuss the required information or action with the taxpayer
+
+action the request if applicable
+
+add a note
+Opens in a new window
+ and finalise the Siebel activity.
+
+Unsuccessful contact
+Situation	Action
+
+
+Payment plan request where:
+
+PORO is established, and
+
+first instalment date is
+
+not specified, and
+the only additional information required
+	
+Enter the payment plan with a first instalment date as today plus 14 calendar days.
+Go to Update systems for payment plan.
+
+
+
+Payment plan request where:
+
+PORO is established, and
+
+payment method is
+
+not specified, and
+the only additional information required
+Warning alert:
+It is a legal requirement that the taxpayer must be contacted to obtain the payment method.
+	
+
+Where outbound phone contact is unsuccessful, including message left or unable to call due to outside hours of contact, action as follows.
+
+First attempt:
+
+add a note
+Opens in a new window
+ including a list of the specific information the taxpayer must provide
+update the original Siebel activity as follows,
+Call Back Attempts: 1
+Review Date: 
+call return date plus one business day
+for a payment plan request, also update the Siebel Debt case Review Date to call return date plus one business day
+Assigned To: ENTERPRISE_Q
+Status: Information pending
+if you are FC Firmer and Legal Recovery, go to Escalated activities.
+
+Second attempt:
+
+issue Contact us letter
+Opens in a new window
+ (NAT 74951.500845
+This link will download a file
+)
+
+add a note
+Opens in a new window
+ including a list of the specific information the taxpayer needs to provide
+
+update the Siebel activity to Call Back Attempts: 2
+go to update systems for payment plan below.
+
+
+
+Correspondence from taxpayer/authorised contact - first attempt
+
+	
+
+Where outbound phone contact is unsuccessful, including message left or unable to call due to outside hours of contact
+Opens in a new window
+, and the original request was from Online services for business or Online service for agents:
+
+send a reply portal message
+Opens in a new window
+ to the taxpayer/authorised contact stating what they need to provide and the timeframe. The timeframe is generally 2 business days, consider taxpayer or agent circumstance e.g. allow for agent leave when advised
+
+add a note
+Opens in a new window
+ and include a list of the specific information the taxpayer must provide
+
+update the Siebel activity as follows
+
+Call Back Attempt: 1
+
+Review Date: 
+call return date plus one business day
+for a payment plan request, update the Siebel Debt case Review Date to call return date plus one business day
+
+Status: Information pending
+
+Assigned To: ENTERPRISE_Q
+if you are FC Firmer and Legal Recovery, go to Escalated activities.
+
+
+
+Correspondence from taxpayer/authorised contact - second attempt
+
+	
+
+If a previous portal message has been sent, this is not considered a successful contact with the taxpayer. 
+
+Make outbound phone attempts on all available numbers for the taxpayer, before sending a final portal message and closing the activity.
+
+For requests from Online services for business or Online services for agents:
+
+send an unstructured mail message, advising
+
+our contact attempts have been unsuccessful and request the taxpayer to call us on
+
+13 11 42, or
+
+the appropriate contact number
+
+the contact hours are from 8.00am to 6.00pm, Monday to Friday.
+
+update the Siebel activity as follows
+
+Call Back Attempts: 2
+
+if a payment plan request is
+
+included, go to update systems for payment plan below
+not included, select Status: Done.
+
+For requests from other sources, such as white mail, fax, email, internal, inbound phone escalation:
+
+issue Contact us letter
+Opens in a new window
+ (NAT 74951.500845
+This link will download a file
+)
+
+add a note
+Opens in a new window
+ including a list of the specific information the taxpayer needs to provide
+
+if a payment plan request is
+
+included, go to update systems for payment plan below
+not included, select Status: Done.
+
+
+
+Correspondence from an unauthorised person
+
+	
+
+Contact a primary or authorised contact, complete PORO and confirm if the correspondence should be actioned.
+
+If you are unable to contact the primary or authorised contact, issue an Adv-unauthorised enquirer letter as follows:
+
+open Microsoft Word
+
+select
+
+eLetters
+
+Show Picklist
+FRM - Frontline Resource Management
+General
+Adv-Unauthorised enquirer (70219.5821).
+
+Or
+
+Reply via unstructured mail message
+Opens in a new window
+ and state:
+
+We are unable to action your request as you are not authorised to act on this taxpayer's behalf.
+
+Add a note
+Opens in a new window
+ and include the reason why the request cannot be actioned.
+
+Update the Siebel activity as follows:
+
+PORO Indicator: Failed
+
+Status: Done.
+
+
+
+
+No phone number on the correspondence or ATO systems
+
+	
+
+Issue Contact us letter
+Opens in a new window
+ (NAT 74951.500845
+This link will download a file
+).
+
+Add a note
+Opens in a new window
+ and include a list of the specific information the taxpayer needs to provide.
+
+If a payment plan request is:
+
+included, go to Update systems for payment plan below.
+
+not included, update the Siebel activity Status to Done.
+
+Update systems for payment plan
+
+If contact is unsuccessful for a payment plan request, update systems per the table below.
+
+System
+	Action/Update
+
+Siebel activity	
+
+Capability: Debt and Lodgment
+
+Category: DEBT - GENERAL
+
+Type: Payment Arrangements
+
+Note: add a note
+Opens in a new window
+ using the Pymt plan no decision template in the Notes fly out tab. 
+
+Finalisation Code: as appropriate
+
+PORO Indicator: update appropriately
+
+Case Id/Project Id: if there is an active debt case in Siebel, copy and paste the Case ID
+
+Status: Done.
+
+
+
+
+All Siebel debt cases
+
+	
+
+Project: do not update
+
+Project ID: do not update
+
+Next Review Date: allow 7 calendar days plus one business day.
+
+Finalise any open/active case activities.
+
+
+
+
+RMS (Receivable Management System) debt case where the last action is:
+
+PIT garnishee issued
+
+Verbal Firmer Action Warning
+
+Issue Firmer Action Warning
+
+Firmer Action Warning Issued
+
+	
+
+Only update the Review Date to 7 calendar days plus one business day.
+
+Escalated activities (FC Firmer and Legal Recovery only)
+
+To enable iWD to redeliver the Siebel activity for the original operative to make a further attempt, update as follows:
+
+if a service request does not exist, create a service request
+Opens in a new window
+
+update
+Opens in a new window
+ the Central Co-ordinator field
+
+Review Date: As appropriate
+
+Status: Information Pending
+
+Assigned To: ENTERPRISE_Q.
+ 
+
+ 
+-------

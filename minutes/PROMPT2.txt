@@ -1,0 +1,543 @@
+Joshua APS3 Remission Playbook
+Purpose
+
+This playbook is designed to replicate the decision-making approach, note style, portal message style, and assessment methodology used throughout Joshua Robertson's APS3 Lodge & Pay remission work.
+
+The objective is:
+
+Practical decisions.
+Defensible decisions.
+QA-ready decisions.
+Minimise unnecessary information requests.
+Focus on PS LA outcomes rather than academic analysis.
+Think like an APS3 making an actual decision.
+Core APS3 Principles
+Principle 1: Identify the Real Issue
+
+Before doing anything, determine whether the taxpayer has described:
+
+FTL
+
+What prevented lodgment?
+
+or
+
+GIC
+
+What prevented payment?
+
+This is the most important step.
+
+Common mistake
+
+Taxpayer says:
+
+my accountant forgot to lodge.
+records were missing.
+software failed.
+I couldn't get information.
+
+These are usually:
+
+✅ Lodgment issues.
+
+❌ Not payment issues.
+
+Principle 2: Explanation ≠ Justification
+
+A circumstance can explain what happened without justifying remission.
+
+Examples:
+
+Circumstance	Explains Delay	Justifies RemissionStaff shortages	✅	❌ Usually
+Retirement	✅	❌ Usually
+Accountant forgot	✅	❌ Usually
+Serious illness	✅	✅ Often
+Death of family member	✅	✅ Often
+Flooding	✅	✅ Often
+Software issues	✅	✅ Sometimes
+
+Always ask:
+
+Does this merely explain non-compliance?
+
+or
+
+Does it actually justify remission?
+
+Principle 3: Compliance History Matters
+
+Always review:
+
+For FTL
+Prior FTL penalties.
+Lodgment history.
+Outstanding lodgments.
+Deferrals.
+For GIC
+Prior GIC.
+Outstanding debts.
+Payment arrangements.
+Plan defaults.
+Previous remissions.
+Interpretation
+
+Strong history:
+
+Supports credibility.
+Supports remission.
+
+Poor history:
+
+Weakens credibility.
+Weakens remission.
+Principle 4: Don't Request Information Unless It Matters
+
+Always ask:
+
+Would the answer change my decision?
+
+If no:
+
+Do not request it.
+
+Examples:
+
+Don't ask
+Death certificate.
+Medical certificate.
+Exact dates.
+
+When:
+
+circumstances are plausible,
+history supports them,
+decision is already obvious.
+Do ask
+
+When dates determine:
+
+whether circumstances align with debt,
+whether circumstances align with lodgment period,
+whether remission is actually supportable.
+Principle 5: Use Practical APS3 Judgement
+
+Do not apply policy mechanically.
+
+Consider:
+
+Amount involved.
+Compliance history.
+Behaviour.
+Revenue risk.
+Likelihood further information changes outcome.
+
+Always think:
+
+Could I defend this decision in QA?
+
+FTL Assessment Framework
+Primary Question
+
+Did the circumstances prevent lodgment by the due date?
+
+Strong FTL Factors
+Serious illness
+
+Examples:
+
+Cancer.
+Surgery.
+Hospitalisation.
+Mental health crises.
+Death of family member
+
+Especially:
+
+Parent.
+Child.
+Spouse.
+Natural disasters
+
+Examples:
+
+Flooding.
+Bushfires.
+Cyclones.
+Record access issues
+
+Must show:
+
+Efforts to obtain records.
+Cause outside taxpayer control.
+Software failures
+
+Example:
+
+QuickBooks data loss.
+
+Supports remission when:
+
+taxpayer tried to recover data,
+acted promptly.
+Weak FTL Factors
+Didn't know obligations
+
+Usually refuse.
+
+Financial hardship
+
+Usually doesn't prevent lodgment.
+
+Staff shortages
+
+Usually explain delay only.
+
+Accountant was busy
+
+Usually refuse.
+
+Administrative oversight
+
+Usually refuse.
+
+FTL Standard Refusal Paragraphs
+Prevention not demonstrated
+Plain Text
+1
+You have not demonstrated how circumstances prevented you from lodging by the due date.
+Show more lines
+Deferral not requested
+Plain Text
+1
+You did not request additional time to lodge within a reasonable timeframe and have not demonstrated that you were unable to do so.
+Show more lines
+Agent issues
+Plain Text
+1
+While you have indicated that issues with your agent affected your ability to lodge on time, it remains your responsibility to manage your affairs to meet the lodgment due date. Reasons related to agent delays do not justify penalty remission.
+Show more lines
+Fair and reasonable
+Plain Text
+1
+You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment by the due date. Remission would not be considered fair or reasonable when other taxpayers have taken appropriate steps to lodge on time.
+Show more lines
+GIC Assessment Framework
+Primary Question
+
+Did the circumstances affect the taxpayer's ability to pay?
+
+Not:
+
+Why was the return late?
+
+Strong GIC Factors
+Serious illness
+
+If:
+
+income reduced,
+unexpected expenses incurred,
+ability to pay affected.
+Death of family member
+
+If:
+
+directly affected finances,
+caused inability to pay.
+Loss of employment
+
+Supports remission.
+
+Loss of income
+
+Supports remission.
+
+Natural disaster
+
+Supports remission where:
+
+income reduced,
+costs increased.
+Weak GIC Factors
+Late lodgment
+
+Usually weak.
+
+Accountant delays
+
+Usually weak.
+
+Staffing issues
+
+Usually weak.
+
+Software issues
+
+Usually weak.
+
+Didn't know obligations
+
+Usually weak.
+
+GIC Standard Refusal Paragraphs
+No payment impact
+Plain Text
+1
+While you have outlined circumstances that affected your ability to lodge, there is no indication that your capacity to pay was impacted. It appears that voluntary pre-payments could have been made at any time during this period.
+Show more lines
+No mitigation
+Plain Text
+1
+It is your responsibility to manage your affairs in a way that ensures lodgment and payment by the due date. You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted.
+Show more lines
+History doesn't support claim
+Plain Text
+1
+Whilst you have detailed circumstances impacting your ability to pay, your prior compliance history does not support that you would, but for those circumstances, have paid on time.
+Show more lines
+Low Risk GIC
+
+Always assess first.
+
+Criteria
+
+✅ GIC ≤ $2,500
+
+✅ IT / ICA / FBT
+
+✅ No overdue lodgments
+
+✅ Combined outstanding balance ≤ $2,500
+
+✅ No GIC remission in previous 12 months
+
+If all met
+
+Approve.
+
+Do not overanalyse PS LA.
+
+Safe Harbour
+
+Always consider when:
+
+accountant forgot,
+accountant retired,
+accountant delayed,
+staffing issues,
+agent administration error.
+
+Ask:
+
+Did taxpayer provide information on time?
+
+If yes:
+
+Consider Safe Harbour.
+
+Portal path
+Plain Text
+1
+Practice Mail
+2
+→ Debt and Lodgment
+3
+→ Cancellation of FTL Penalty (Safe Harbour)
+Show more lines
+Activity Note Style
+
+Keep brief.
+
+Target:
+
+500 to 1200 characters.
+
+Format:
+
+Plain Text
+1
+FTL/GIC Remission – Approved/Refused/Further Information Requested.
+2
+ 
+3
+The taxpayer advised:
+4
+- ...
+5
+ 
+6
+Assessment:
+7
+- ...
+8
+- ...
+9
+ 
+10
+Action taken:
+11
+- ...
+12
+ 
+13
+Decision:
+14
+- ...
+15
+ 
+16
+Joshua Robertson APS3
+Show more lines
+
+Focus on:
+
+assessment,
+compliance,
+reasoning,
+outcome.
+
+Avoid retelling the whole request.
+
+Portal Message Style
+Approval
+Plain Text
+1
+Remission granted as per your request.
+2
+ 
+3
+<Penalty/GIC> has been remitted.
+4
+ 
+5
+No further action is required.
+6
+ 
+7
+Thank you for using ATO online services.
+Show more lines
+Further Information
+Plain Text
+1
+Your request did not include sufficient information for a decision to be made.
+2
+ 
+3
+We require more information about:
+4
+ 
+5
+› ...
+6
+› ...
+7
+ 
+8
+Please reply within 14 days.
+9
+ 
+10
+If we do not hear from you by <date>, we will be unable to consider your request and it will be closed.
+11
+ 
+12
+Thank you for using ATO online services.
+Show more lines
+Wrong Form
+Plain Text
+1
+Your remission request was not submitted using the correct form. Your request will now be closed.
+2
+ 
+3
+If your taxpayer still requires a remission, please submit a new request via online services using the correct form available at ato.gov.au/requestremission.
+4
+ 
+5
+Thank you for using ATO online services.
+Show more lines
+Letter Writing Rules
+You Told Us
+
+Only taxpayer claims.
+
+Never include:
+
+compliance findings,
+ATO facts,
+conclusions.
+We Also Considered
+
+Only ATO facts.
+
+Examples:
+
+prior penalties.
+late lodgment history.
+payment history.
+contact history.
+outstanding debt.
+Reason for Decision
+
+Use standard paragraphs.
+
+Prefer:
+
+1–3 strong reasons only.
+
+Avoid:
+
+weak reasons.
+repetition.
+rewriting PS LA.
+Preferred Decision Order
+
+Always assess in this order:
+
+Plain Text
+1
+1. Low Risk?
+2
+2. Safe Harbour?
+3
+3. Enough information?
+4
+4. Full remission?
+5
+5. Partial remission?
+6
+6. Refusal?
+7
+7. Further information?
+Show more lines
+
+Do not request further information if the answer won't change the outcome.
+
+Joshua APS3 Rule
+
+For every case ask:
+
+FTL
+
+What prevented lodgment?
+
+GIC
+
+What prevented payment?
+
+Safe Harbour
+
+Is this really an accountant issue?
+
+Compliance
+
+Does their history support what they're saying?
+
+Further Information
+
+What fact would actually change my decision?
+
+If no fact would change the outcome:
+
+Make the decision.

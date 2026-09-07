@@ -1,0 +1,192 @@
+This page contains general interest charge (GIC) remission refusal examples. These can be used by operatives completing the Reason for Decision field in the Advice GIC remission decision letter (NAT 70219.5919).
+
+Recent Updates
+03/09/2025	Re-write.	SD-97328
+In Detail
+
+When refusing a GIC remission request:
+
+provide a clear and concise explanation for your decision
+if applicable, include multiple reasons to support the refusal, ensuring sentence structure is logical and coherent.
+
+The most common remission scenarios are outlined in the following paragraphs. While you are not required to use them verbatim, you may adapt the wording to suit the taxpayer’s specific circumstances.
+
+If the taxpayer presents unique circumstances not covered in the standard scenarios, tailor your response accordingly. Refer to the remission principles outlined in Law Administration Practice Statement PS LA 2011/12
+Opens in a new window
+ – Remission of General Interest Charge.
+
+Make sure to:
+
+carefully review the text
+fill in the required information where < > appears as instructed
+remove the < >
+edit the document as needed to ensure accuracy and relevance.
+
+Refer to the following standard paragraphs.
+
+Info Alert
+Information
+
+In line with GIC remission decision guidelines and tools,
+Opens in a new window
+ the following paragraphs may be suitable where the taxpayer has not shown:
+
+circumstances affecting timely payment
+reasonable mitigating actions
+fair and reasonable (if within their control).
+Circumstances did not directly impact the ability to pay by the due date
+Info Alert
+Information
+These paragraphs may be a suitable starting point and should be tailored to the taxpayer’s specific circumstances.
+No circumstances provided
+
+This paragraph may be suitable when the taxpayer has not provided any circumstances.
+
+Refusal example: You have not demonstrated how circumstances prevented payment by the due date.
+
+Payment plan completed (no other circumstances provided)
+
+This paragraph may be suitable when no circumstances have been provided, and the remission request is solely based on the existence of a completed or active payment plan.
+
+This paragraph should not be used when circumstances have been provided.
+
+Refusal example:You have not demonstrated how circumstances prevented payment by the due date. As a condition of entering into a payment plan, General Interest Charge (GIC) will continue to accrue until the outstanding debt is fully paid.
+
+Circumstances did not impact their ability to pay
+
+This paragraph may be suitable when the taxpayer has provided circumstances, but those circumstances did not affect their ability to make payment by the due date.
+
+Refusal example: Although you have indicated that circumstances contributed to the delay in payment, it has been observed that your capacity to pay during that period was not affected.
+
+Late lodgment or agent issues
+
+This paragraph may be suitable when the taxpayer has cited late lodgment or delays caused by their agent, but has not demonstrated how these circumstances affected their ability to pay by the due date.
+
+Refusal example: While you have outlined circumstances that affected your ability to lodge, there is no indication that your capacity to pay was impacted. It appears that voluntary pre-payments could have been made at any time during this period.
+
+Has not demonstrated they would, but for those circumstances, have paid on time
+
+This paragraph may be suitable when the taxpayer’s compliance history does not support the likelihood that the debt would have been paid, regardless of the circumstances provided.
+
+Refusal example: Whilst you have detailed circumstances impacting your ability to pay, your prior compliance does not support that you would, but for those circumstances, have paid on time.
+
+General adverse business conditions/economic downturn/fluctuations of currency exchange rates
+
+This paragraph may be suitable when the taxpayer has cited generally unfavourable business conditions, general economic downturn or fluctuations of currency exchange rates as the reason for delayed payment.
+
+Refusal example: General adverse business conditions within an industry, broader economic downturns, or fluctuations in currency exchange rates do not, on their own, justify remission. These factors are experienced across the wider Australian community, and other entities or taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time.
+
+Did not take reasonable mitigating steps
+Info Alert
+Information
+These paragraphs may be a suitable starting point and should be tailored to the taxpayer’s specific circumstances.
+Reasonable mitigating steps not taken
+
+This paragraph may be suitable where the taxpayer is considered not to have taken reasonable steps to mitigate the situation.
+
+Refusal example: You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted.
+
+Reasonable mitigating steps not taken within reasonable timeframe
+
+This paragraph may be suitable where the taxpayer:
+
+took no mitigating action prior to due date, or
+did not take steps within a reasonable timeframe relevant to the payment due date, and
+has only recently contacted the ATO to discuss or taken other mitigating steps.
+
+Refusal example: You have not demonstrated that you acted within a reasonable timeframe to address and reduce the impact of the circumstances that prevented timely payment.
+
+Late Lodgment or agent issues
+This paragraph may be suitable when the taxpayer has only cited late lodgment or agent delays, and:
+their ability to pay was affected, but
+they did not take reasonable steps to mitigate the impact of those circumstances.
+
+Refusal example: It is your responsibility to manage your affairs in a way that ensures lodgment and payment by the due date. You have not demonstrated that you took reasonable steps to mitigate the impact of the circumstances that prevented timely payment, and therefore remission is not warranted.
+
+Not selling assets or seeking finance
+
+This paragraph may be suitable where the taxpayer has not taken steps such as selling or borrowing against assets to pay their debt to the ATO.
+
+Refusal example: You have not demonstrated that you took reasonable steps, such as selling assets or seeking finance, to pay the ATO.
+
+Circumstances are within the taxpayer’s control and it would not be fair and reasonable to remit
+Info Alert
+Information
+These paragraphs may be a suitable starting point and should be tailored to the taxpayer’s specific circumstances.
+General within taxpayer’s control
+
+This paragraph may be suitable where:
+
+the taxpayer’s circumstances are considered to be within their control, and
+it would not be fair or reasonable to grant remission.
+
+Refusal example: You have not demonstrated that the circumstances leading to the delayed payment were beyond your control. Remission would not be considered fair and reasonable in this instance, as other taxpayers facing similar conditions have taken appropriate steps to pay on time.
+
+General adverse business conditions/economic downturn/fluctuations of currency exchange rates
+
+This paragraph may be suitable when the taxpayer has cited generally unfavourable business conditions, general economic downturn or fluctuations of currency exchange rates as the reason for delayed payment.
+
+Refusal example: General adverse business conditions within an industry, broader economic downturns, or currency exchange rate fluctuations do not, on their own, justify remission. These circumstances are commonly experienced across the wider Australian community. Therefore, it would not be considered fair and reasonable to remit where other businesses or taxpayers facing similar conditions have taken appropriate steps to meet their tax obligations on time.
+
+Not prioritising tax affairs
+
+This paragraph may be suitable when the taxpayer has not prioritised their tax affairs.
+
+Refusal example: You have not prioritised your tax obligations. It is your responsibility to manage your affairs to ensure lodgment and payment by the due date. Remission would not be considered fair and reasonable, as other taxpayers have taken appropriate steps to pay on time despite similar circumstances.
+
+Purchased non-essential assets/preferential payment to other creditors
+
+This paragraph may be suitable when the taxpayer has chosen to use available funds to purchase non-essential assets or prioritise payments to other creditors over settling their debt with the ATO.
+
+Refusal example: You chose to use available funds to purchase non-essential assets or prioritise payments to other creditors instead of paying your tax debt. In this context, remission would not be considered fair and reasonable, as other taxpayers have taken steps to pay on time.
+
+Specific situation
+Deceased estates
+
+This paragraph may be suitable when the deceased estate had:
+
+available funds that were not utilised for on-time payment
+assets that were not sold in a timely fashion to prevent the delay in payment.
+
+Refusal example: During the period of administration, assets were not sold promptly and/or available funds were not utilised to prevent delayed payment.
+
+PAYG ITI related GIC
+
+These paragraphs may be suitable where the taxpayer is requesting remission of PAYG ITI related GIC.
+
+Refusal examples: Remission of GIC on the sole basis that your subsequent tax assessment is less than the PAYG instalments for that year is not generally considered a valid remission request.
+
+OR
+
+Remission of GIC on the sole basis that you chose a varied instalment rate that is lower than the rate previously used and are eligible for a credit in respect of earlier instalments is not generally considered a valid remission request.
+
+Superannuation Guarantee Charge (SGC)
+
+This paragraph may be suitable where the taxpayer is requesting remission of SGC related GIC.
+
+Refusal example: Remission of the General Interest Charge (GIC) related to unpaid Superannuation Guarantee Charge (SGC) is not considered fair or reasonable. As an employer, you are responsible for collecting and remitting superannuation on behalf of your employees. Failure to provide the prescribed minimum level of superannuation support compromises their retirement outcomes. Granting remission under these circumstances would be unfair to the broader Australian community.
+
+
+SGC – nominal interest and administrative charges
+
+This paragraph may be suitable where the taxpayer is requesting remission of nominal interest and administrative charges imposed on their SGC assessment.
+
+Refusal example: The Commissioner does not have discretion to remit nominal interest and administration charges imposed on your superannuation guarantee charge (SGC) assessments as these components form part of the SGC raised when an employer fails to pay the prescribed amount to an employee’s chosen fund on time.
+
+SGC – shortfall GIC
+
+This paragraph may be suitable where the taxpayer is requesting remission of the shortfall component of their SGC debt.
+
+Refusal example:
+
+As the GIC imposed on the shortfall component of the employer’s SGC debt is passed on to employees to compensate them for lost earnings, it would need to be agreed that it is fair and reasonable to all parties concerned that the remission is granted.
+
+Partial remission
+Period of time
+
+This paragraph may be suitable where the taxpayer’s circumstances only affected their ability to pay during part of the period in which General Interest Charge (GIC) accrued.
+
+Refusal example:
+
+As you have demonstrated that your ability to pay was affected by the circumstances between <date> and <date>, a remission has been approved for that period.
+
