@@ -1,0 +1,227 @@
+GST refund audits — detailed training notes
+Session transcript: 20 October 2026
+
+## 1. Session overview and working approach
+The session focused on identifying Day 30, completing the small-business 10-factor refund-retention worksheet, obtaining approval and preparing an audit notification letter (ANL). It also covered eligible financial institution account (FIA) details, evidence requests, deadlines and case documentation.
+The trainer recommended applying the learning early rather than waiting several weeks for documents to arrive. For the first RNA, work with a buddy or technical support officer. The acronym RNA was not expanded clearly in the recording. Seek support when uncertain about profiling, refund retention or the first assessment of information.
+The trainer mentioned an initial contact target of two days after allocation near the end of the session. This was a brief closing remark rather than a detailed explanation of the contact procedure.
+### Core workflow from the session
+• Review the account position, lodgment history and refund bank details.
+• Establish whether Day 30 applies and identify the earliest qualifying date.
+• Review profiling, BAS analysis, prior compliance activity and available third-party information.
+• Where retention is proposed under the process discussed, complete all 10 factors and obtain the appropriate approval.
+• Make contact, explain the audit and tailor the notification letter and evidence request.
+• Record the reasons, communications, deadlines, approvals and attachments on the case.
+• Review new information and progress the case promptly, while allowing a fair and reasonable opportunity to respond.
+### Reading these notes
+These are notes of what was taught in the session. Recommendations described as the trainer’s preference are distinguished from instructions given to the group. The final section identifies disputed points, unclear transcription and internal guidance to confirm before relying on them operationally.
+
+## 2. Day 30 — identifying the earliest qualifying date
+### The three conditions
+The trainer repeatedly explained that the relevant starting point is the earliest date on which all three conditions are met together:
+• The relevant ICA is in a credit/refundable position.
+• Required BAS lodgments are up to date.
+• Eligible and correct refund FIA/bank details are recorded.
+Do not assume the start date is the newest BAS lodgment, the allocation date or the date the officer first looks at the case. Check the history of all three conditions. A zero balance or a debit balance is not a credit position for this purpose.
+### Later lodgments do not automatically restart the period
+If all three conditions were met on 5 October, a later BAS lodged on 10 October does not itself move the starting point. The trainer said this remains the case even where several additional BAS are lodged, provided the earlier qualifying position had already been reached.
+A BAS not yet due was not treated as an outstanding lodgment in the example. Check actual due dates and applicable deferrals when deciding whether lodgments are up to date.
+### Worked examples discussed
+• Credit created on 5 October; lodgments and eligible refund bank details already up to date: use 5 October as the starting point.
+• Credit created on 5 October, but required outstanding BAS are only lodged on 21 October: use 21 October if that is when all three conditions are first met.
+• Credit and lodgments in order on 5 October, but eligible refund FIA details only updated on 10 October: use 10 October.
+• Numerous BAS lodged together, but no refund account recorded: the starting point is when eligible refund account details are supplied, assuming the other conditions remain met.
+• An earlier audit left an unreleased credit from 1 July, with lodgments and FIA continuously in order: investigate 1 July as the earliest qualifying point. A new case does not automatically create a fresh period.
+### Calculating the deadline
+Count 30 actual days; do not substitute the same date in the following month. The trainer’s example used 5 October as the starting point and 4 November as Day 30. Four weeks equals 28 days, so an additional two days gives 30. The example recorded 15 days since a 5 October lodgment when completing the worksheet on 20 October.
+Record both the qualifying date and Day 30, together with the evidence supporting them. If the qualifying date differs from the BAS lodgment date, explain why, such as a later FIA update. Confirm counting conventions and any special timing rules against the internal procedure.
+
+## 3. Account scope, system checks and FIA eligibility
+### ICA credit versus debts on other accounts
+A participant raised a case with an ICA credit of about $2,500 and an income-tax debt, resulting in an overall debt across accounts. Participants said previous advice suggested Day 30/retention might be outside scope in that situation.
+The trainer’s instruction was to assess the ICA credit because the work concerns GST, retain the relevant ICA refund where appropriate, and explain that some or all of the credit might later offset other debts. The trainer acknowledged that their understanding could have changed. Treat this as a disputed training point requiring confirmation, rather than a resolved general rule.
+### Checks in ICP and ECP
+The trainer used ICP as the main starting point, with ECP as a supporting check. Review the account history to establish when the credit arose; inspect financial details and the date recorded; and check the client calendar/expected lodgments for overdue BAS. ECP was described as useful for explicitly identifying outstanding BAS and for viewing other information relevant to profiling.
+Check that the bank details are for a direct refund. A direct-debit account alone is not evidence of an eligible refund account. The trainer described previously confusing those two account types.
+### Account-name eligibility discussed
+• Sole traders/individuals: the entity’s name or a trading/business name may be acceptable. The eligibility guidance shown also included certain joint arrangements and accounts of registered tax agents or legal practitioners.
+• Companies: use the company or eligible trading name, rather than assuming a director’s personal account is sufficient. The trainer said “Pty Ltd” must appear where required in the company account name.
+• Partnerships: check the partnership naming requirements in the FIA eligibility reference. The question about abbreviated individual partner names was referred back to that reference; the transcript does not provide a reliable blanket answer.
+• Trusts: examples included the trust/trading name and a trustee acting in that capacity. Corporate trustees and trust account descriptions need particular care. Check the actual eligibility table.
+The trainer said the account-name field allows 33 characters, including spaces, and that a longer name matching through the available field length could be accepted. Confirm that detail in the current reference.
+The trainer recommended a cautious approach to ambiguous trustee arrangements. Ambiguity itself should prompt an eligibility check and technical assistance; these notes do not resolve whether any particular account is eligible.
+The FIA eligibility link was said to be available through the EKM refund-retention procedure.
+
+## 4. Setting up the 10-factor worksheet
+### When the worksheet was said to be needed
+The trainer said to use the worksheet when retaining a refund under the Day 30 process being demonstrated. Where the refund is not payable because BAS are outstanding or FIA details are incorrect, the trainer said that this particular retention worksheet is not required at that stage. Continue monitoring, because fixing those issues may establish the qualifying date.
+A retention decision can be considered while the officer is still investigating whether there are signs of enterprise. The worksheet records the evidence and uncertainties available at the time; it does not require the audit outcome to have already been determined.
+### Template and identifying details
+• Select the small-business version and use the Word version of the worksheet.
+• Copy the full entity name from the case to avoid spelling errors. Different name order in systems was not considered critical if the full identity is clear.
+• Copy the ABN accurately. The trainer preferred ABN to TFN because it was acceptable for the worksheet and avoided unnecessary use of a more sensitive identifier.
+• Identify the actual BAS periods under audit, rather than only the income-tax financial year.
+• Include the whole relevant audit period, even if some BAS are payable and others refundable, where the account is overall refundable for the period being examined.
+For consecutive June and September 2026 quarters, the period illustrated was 1 April 2026 to 30 September 2026. One spoken year was inconsistent, so verify the actual quarters rather than copying the verbal slip. Monthly or annual BAS require the appropriate actual periods.
+### How to complete the columns
+Consider every factor, every relevant option and the available evidence. Tick only options supported by the case. Several options can apply to one factor. An unticked option is preferable to an unsupported assertion.
+Every factor should show that it has been considered. If no checkbox fits, add a short explanation. Distinguish “not yet attempted contact” from “attempted but unable to contact”. Do not record a phone conversation or taxpayer admission that has not happened.
+Use profiling notes, the BAS analyser, third-party data, correspondence and prior cases as appropriate. Where relying on a conversation, reference the specific Siebel note ID. For a previous compliance case, include the case ID and outcome. Add enough explanation for the approver to understand the reasoning without reconstructing the entire case.
+The final “other relevant matters” factor was described as the one row that could be left without additional information. The trainer nevertheless recommended writing “No other relevant information” when appropriate.
+
+## 5. Factors 1–3 — accuracy, behaviour and financial impact
+### Factor 1: Likelihood the notified information is incorrect
+Look for an evidence-based reason to question accuracy, without presenting a risk indicator as a proven error. Examples discussed included multiple refundable BAS lodged at once, a refund that has increased substantially without a corresponding sales increase, and GST treatment inconsistent with the reported industry.
+A taxpayer’s statement that revisions are necessary can support this factor only if the statement has actually been made. Record what was said, the affected sales or credits and the note reference.
+The trainer used a refund that had roughly doubled with similar sales as an example requiring explanation. A construction business reporting no 1A was another example of an industry-related question to investigate.
+Do not mechanically treat a refund, low 1A or purchases exceeding sales as proof of inaccuracy. The session’s care-services example illustrated that a business making GST-free supplies may legitimately report sales without corresponding GST on sales. Likewise, 1A not equalling one-eleventh of total sales needs context where taxable and GST-free sales are mixed.
+Possible evidence: profiling, BAS analysis, a documented taxpayer conversation or documents already received. For an “other risk” checkbox, state the specific risk in the comments.
+### Factor 2: Likelihood of fraud, evasion, intentional disregard or recklessness
+The trainer discussed prior compliance history, earlier refunds revised to nil, previous no-signs-of-enterprise decisions and possible third-party fraud indicators. An example indicator was changed bank details around lodgment linked to unrelated entities; this calls for investigation rather than a concluded allegation.
+Where behaviour cannot yet be determined, record that uncertainty. No contact and no prior audit may leave insufficient evidence to establish this factor. A present concern about signs of enterprise does not automatically establish reckless or fraudulent behaviour.
+For the live example, the trainer relied on prior compliance activity and a previous refund revised to nil. Record the previous case and its actual outcome, including whether it was unsubstantiated, a no-signs decision or a partial adjustment. These outcomes should not be treated as interchangeable.
+### Factor 3: Impact of retention on the entity’s financial position
+Assess what is known about the effect of withholding the refund. If contact has not been attempted, say so; do not infer that there is no impact. If contact was attempted unsuccessfully, record that instead.
+If the taxpayer has been told the refund may be retained and raises no concern, record that response accurately in the case note. Silence does not establish financial capacity or rule out hardship.
+If the taxpayer says they need the funds, record the reason and relevant evidence. The trainer gave a development business relying on GST refunds while building, before sales proceeds arrive, as an example of a possible material impact.
+The worksheet must match the underlying note: an approver should be able to see that retention was discussed and what the taxpayer said in response.
+
+## 6. Factors 4–6 — revenue protection, complexity and elapsed time
+### Factor 4: Whether retention is necessary to protect the revenue
+Consider whether an incorrectly released amount could realistically be recovered. The trainer described this as central to their decision to recommend retention; do not assume necessity merely because an audit is open.
+Consider the refund size relative to turnover, assets, existing debts, external liabilities, business age and available information about funding. Distinguish reported sales from funds actually available to repay a liability.
+Examples discussed:
+• A small refund for a business with substantial turnover and identifiable assets may be readily recoverable, which can weigh against retention.
+• A refund representing a large share of a low-income entity’s resources may be difficult to recover.
+• For a sole trader, apparent business surplus may also support personal living costs; it is not necessarily spare repayment capacity.
+• A new entity with unverified funding, substantial purchases and little confirmed income may present a recovery concern.
+The trainer used about 12–18 months as a rough indicator of a “new” entity. This was a case-specific working guide, not a stated fixed threshold. Actual payable BAS and a history of paying them may change the assessment.
+Merchant, TPAR or other third-party information may support evidence of activity, but still leave questions about how larger purchases were funded. Record the gap rather than assuming the information proves all reported amounts.
+### Factor 5: Complexities involved in verifying the information
+Do not establish this factor if no complexity has been identified. Record that profiling has not identified a complexity, or that more information is needed, as appropriate.
+The trainer discussed related entities, construction arrangements and an invoice involving a related entity as examples that could make verification more complex. Some issues only emerge after contact or document review. A business type alone is not proof of complexity.
+### Factor 6: Time the amount has already been retained
+Record the elapsed period and relevant dates. The trainer preferred to include Day 30 explicitly; some officers also record the BAS lodgment date.
+Where lodgment and the qualifying date differ, explain the reason, for example a later FIA update or the lodgment of an overdue BAS. Ensure the retention period is supported by account history rather than simply the age of the current audit case.
+The sample used 15 days since lodgment on 20 October, with Day 30 on 4 November. Keep the worksheet current if the proposed approval date changes.
+
+## 7. Factors 7–10 — verification, assessment readiness and consistency
+### Factor 7: What has already been done to verify the information
+Describe actual work completed: profiling, BAS analysis, internal data checks, relevant third-party information, previous compliance cases and any taxpayer information already reviewed.
+Examples mentioned included merchant data, TPAR information and rideshare data. Prior case outcomes or penalties may be relevant where they explain the previous findings and behaviour.
+Reference previous case IDs and outcomes. Do not claim that documents were requested, reviewed or verified if that has not occurred. Distinguish reviewing available information from having enough information to confirm the refund.
+### Factor 8: Whether enough information exists to make an assessment
+Usually this factor will not be established at the beginning of an audit because further information is needed. Explain the gap and current contact position.
+A taxpayer saying “the BAS is wrong” may not provide enough information to determine the correct amount. An admission of error and the ability to make an assessment are separate questions.
+The trainer described a possible situation where enough information has arrived to determine changes, but calculations, case completion or approval remain outstanding. Explain that position and why a retention decision is still being sought, rather than using a generic statement that more information is needed.
+Where contact has not been attempted, say so. Where attempts have failed, record that. The trainer’s example wording was effectively: contact has not yet been attempted and further information is needed to make an assessment.
+### Factor 9: Consistency with information previously provided
+Compare the current notified information with earlier BAS, income-tax returns and other information from the entity. For a sole trader, consider whether reported business income is consistent across relevant records.
+The trainer generally did not emphasise very small differences, but the relevance of a difference depends on the facts. Ensure any comparison uses compatible periods and information.
+For a new business with no comparable income-tax return, record that there is no suitable return to compare. Do not create a conclusion of inconsistency just because comparison information is absent. BAS patterns and the funding of purchases may still warrant investigation.
+### Factor 10: Any other relevant matter
+Record material matters not adequately captured elsewhere. The trainer’s example was a tax invoice in the wrong entity’s name.
+If nothing additional is relevant, “No other relevant information” demonstrates consideration. If there is another matter, state what it is, its evidence and how it affects the retention recommendation.
+
+## 8. Refund amount, recommendation and approval
+### Calculating the amount to retain
+Use the relevant ICP RBA surplus/due-and-payable account figure demonstrated, rather than simply totalling refundable BAS in the analyser. Existing ICA debts can reduce the amount potentially payable.
+The trainer noted that the displayed balance and the due-and-payable figure can differ, including where a BAS is not yet due and payable. Confirm the correct field in the procedure when those figures differ.
+Record the amount clearly with commas and cents where applicable. The worksheet should reflect the amount actually being considered for retention, rather than an unreconciled gross refund total.
+### Recommendation and authority
+State whether retention is recommended and why. If recommending release while not accredited, send the recommendation and reasons to the appropriate approver.
+The trainer’s identification format was full name, user ID and APS level. APS level was included to assist with checking approval limits, but accreditation and the actual authority limit still need to be checked.
+If accredited and within the relevant limit, complete the decision section as required. Accreditation does not remove the need for referral when the amount exceeds the officer’s limit.
+Date the recommendation and decision accurately. Self-approved work will usually have the same preparation and approval date; work sent to another approver may be decided later. Update dates where preparation runs across days.
+### Relationship to the notification letter
+Do not issue wording that says a refund is being retained under this process before the worksheet has the necessary approval. The trainer described two routes:
+• Submit the worksheet and letter together for approval, ensuring approval is in place before issue.
+• If authorised to approve the worksheet yourself, complete it, attach it and record that approval on the case before relying on it in the letter.
+The trainer distinguished audit retention from a refund that cannot be paid because bank details are ineligible or BAS are outstanding. Letter wording must accurately explain the actual reason payment is delayed.
+
+## 9. Audit notification letter — setup and tailoring
+### Template and correspondence details
+The trainer instructed this group to use the “Uncontactable” e-letters template, including when contact had occurred, because another audit notification template was said to be missing useful information. This was local template advice; check that it remains applicable.
+Use the Siebel case ID as the reference. Check any information populated through ICP. Address correspondence according to the relevant company, trustee or agent guidelines. Examples discussed included a named director followed by the director/company details, and a company addressed care of its tax agent. Use the actual correspondence reference for the required layout.
+The trainer said the group uses first name and surname without Mr/Mrs-style titles.
+### Dates and issue timing
+Use the actual issue/posting date, not merely the approval date. The trainer suggested allowing about two days when submitting for approval and described a local print/post cutoff around 2.30 pm. Check current dispatch arrangements before setting dates.
+The expected audit completion date comes from the case due date. The trainer said this was generally 60 days; do not confuse it with the earlier deadline to supply information.
+All repeated dates must agree, including the front-page response instruction, detailed evidence request and voluntary disclosure date.
+### Audit scope and reasons
+Use audit wording: the group was described as starting with audits, rather than preliminary reviews. Select consecutive-period wording for sequential BAS; list individual periods where the periods are not consecutive.
+Retain only reasons supported by the case, such as an unusual refund compared with history, several refundable BAS lodged together, irregular lodgments, revisions requiring explanation, an uncertain enterprise or specific credits requiring verification.
+Do not call a refund the “first large refund” where earlier large refunds are already on record. If a taxpayer revised a BAS already adjusted by the ATO, investigate the circumstances and the appropriate review/objection pathway.
+Reasons for conducting the audit and reasons for retaining a refund should be consistent. Avoid describing a refund as unusual for an industry where the known business model reasonably explains it.
+### Whether a letter is always needed
+The trainer said a separate letter might not be required if all required information is covered verbally and documented, including scope, timing, voluntary disclosure, requested information and possible consequences. They personally always preferred to send one for completeness and a written record. Confirm the permitted notification process before omitting written notice.
+
+## 10. Explaining a delayed refund and requesting evidence
+### Refund sections
+If the account is in debt and no refund is being held, remove irrelevant refund-holding wording. If there is a credit but payment is blocked by outstanding BAS or FIA details, explain those actual conditions.
+Avoid saying the refund will be held until the audit finishes if the relevant obstacle is instead corrected bank details or outstanding lodgments. Where approved audit retention applies, include the supported retention reasons.
+Explain possible offsets against other debts where applicable. A credit does not necessarily mean the taxpayer will receive the whole amount in cash.
+Follow the template’s instructions about linked mandatory wording. The trainer said retaining either of the relevant preceding refund sections triggered inclusion of associated bottom wording; the recording does not reproduce those paragraphs clearly enough to reconstruct them here.
+### Evidence of enterprise
+Ask for evidence of carrying on an enterprise where that remains an issue. Keep the request consistent with the audit reasons. A first conversation and third-party data may help clarify the activity, but do not assume one item proves every aspect of the enterprise or the claimed credits.
+### Detailed GST transaction lists
+The trainer preferred a full transaction list for the entire review period, including cases with many BAS. Requesting selected periods was also described as acceptable where the scope of the request was clear.
+Reasons given for requesting all periods included the ability to investigate unusual payable periods, follow errors across quarters and retain useful evidence if engagement later stops. Having information for a period does not mean every transaction must receive the same depth of review.
+The trainer also discussed using sample findings to question other periods or applying an error percentage across quarters. This was not explained as a complete sampling method; seek technical guidance before extrapolating adjustments.
+### Invoices and bank statements
+Specify the number of invoices and the exact periods. The trainer commonly requested three invoices, but described varying the sample across the number of quarters. This was a working example, not a universal minimum. In the letter, write the number as a word, such as “three”.
+For bank statements, specify the relevant date range and what they should show: business-expense payments, sales receipts or both, depending on the risks. Do not leave the request as “during the period” without identifying which period.
+Tailor the request where an asset was financed and no relevant payment is expected in a bank account. A deposit or partly self-funded purchase may still warrant payment evidence.
+### Other information and submission channels
+Include rideshare evidence only if relevant. Tailor sales evidence requests to reported activity and third-party information; document any discussion of apparently omitted sales or periods with no reported activity.
+For periods with no reported activity but third-party data, the trainer suggested explaining the discrepancy and seeking clarification. The recording switches between unlodged periods and nil reporting, so confirm the actual lodgment status before applying the example.
+Only include email as a response channel after discussing it and giving the required security/privacy information. The trainer said not to offer email in an uncontactable letter where that discussion had not occurred. Kiteworks wording could remain where applicable; the trainer personally removed fax details.
+
+## 11. Deadlines, voluntary disclosure and non-response
+### Information deadlines
+Where no contact has occurred, the trainer instructed the group to allow 14 days from the actual sending date of the letter. If dispatch moves, recalculate the deadline.
+Where contact has occurred, the trainer preferred negotiating about seven days or less where reasonable. They also allowed longer where justified by the taxpayer’s circumstances or planned review timing. This was a preference, not an automatic entitlement to a shorter deadline.
+Record the agreed date, what is required and the discussion. Send a reminder where appropriate when a negotiated deadline passes.
+### Extensions and late information
+Decide extensions on what is fair and reasonable in the circumstances. Record the reason for granting or refusing an extension. The trainer described often allowing a further seven days after an initial seven-day period, but questioned repeated extensions without adequate reasons.
+Annual leave may justify more time. For longer absences, consider whether another authorised person or someone else in the agent’s firm can assist before negotiating a longer deadline. Repeated requests should prompt a realistic discussion of the time actually needed.
+Information arriving after the deadline must still be considered while the case remains open, according to the trainer. This includes material received after a proposed outcome has gone for approval but before closure. Revisit the proposed decision and assess the new evidence. Progress overdue cases promptly without ignoring relevant material.
+### Voluntary disclosure
+Include the voluntary disclosure opportunity in the audit notification. The trainer said to select option two because the work starts as an audit, rather than escalating a preliminary review.
+The voluntary disclosure date was generally the same date as the information deadline. The trainer also said disclosure can occur later and mentioned a 20% reduction rather than 80%. The applicable penalty rules and conditions were not explained in full; verify them before advising a taxpayer about a reduction.
+### If the taxpayer does not respond
+Describe possible changes precisely and consistently with the evidence. Examples discussed were reducing 1B credits to nil, changing 1A using available sales information, and addressing other claimed credits at their relevant labels.
+Do not say the entire BAS will be reduced to nil where third-party information demonstrates activity or sales that need to be retained or assessed. A possible no-signs-of-enterprise outcome was discussed separately from cases with merchant, TPAR or rideshare evidence.
+Keep only consequences relevant to the case: possible adjustments, GST registration action, ABN action where justified, penalties, interest or repayment of refunds already paid. Do not include repayment wording for a refund that has never been paid. Do not retain interest or cancellation wording automatically; assess the proposed outcome and facts.
+The trainer generally removed review-to-audit/scope-expansion wording from this group’s standard audit-start letter. The “support in difficult times” section was described as requiring no changes.
+
+## 12. Final checks and matters to confirm
+### Case and worksheet checklist
+• Confirm the relevant account, actual credit, outstanding BAS and eligible refund FIA details.
+• Identify the earliest date all three conditions were met; calculate and record Day 30.
+• Reconcile the proposed retention amount to the relevant ICP account figure.
+• Consider all 10 factors and leave a clear explanation where evidence is unavailable.
+• Link factual claims to profiling, note IDs, documents and previous cases.
+• Distinguish unattempted contact, failed contact and actual taxpayer responses.
+• Record the recommendation, officer details, authority limit, decision and dates.
+• Attach the worksheet and record the approval before issuing approved-retention wording.
+### Letter quality checklist
+• Correct entity, addressee, case reference and actual issue date.
+• Correct audit periods, whether consecutive or individually listed.
+• Audit reasons and retention reasons match the known risks and worksheet.
+• Correct explanation of retention, outstanding BAS/FIA obstacles and possible offsets.
+• Clear evidence requested, invoice quantities and exact document periods.
+• Consistent information, voluntary disclosure and completion dates.
+• Only permitted submission channels and relevant non-response consequences.
+• Delete unused options, instructions and irrelevant paragraphs.
+• Check singular/plural wording, capital letters, punctuation and grammar.
+The trainer particularly stressed that reasons presented as a continuing list do not necessarily each start with a capital letter, and the final item needs the appropriate full stop. In “What you need to do”, use a capital letter and full stop for each separate request. Follow the template instructions rather than applying one punctuation rule to every list. Repeated date and formatting errors were said to affect accreditation.
+### Follow-up references and unresolved points
+• Confirm ICA-credit treatment where another account has a debt. Conflicting prior advice was expressly raised in the session.
+• Check the current EKM Day 30/refund-retention procedure. The trainer recalled a move from Day 14 to Day 30 around July; neither the exact change date nor the historical rule was demonstrated.
+• Confirm FIA eligibility, including trust/trustee capacity, abbreviated partnership names, trading names, company suffixes and long-name field limits.
+• Confirm current worksheet version, accreditation requirements and approval limits.
+• Check the local instruction to use the “Uncontactable” template, correspondence addressing rules and current dispatch cutoffs.
+• Confirm the circumstances in which verbal notification can replace a written audit letter.
+• Verify voluntary disclosure reduction rules before quoting percentages, and obtain technical support for sampling/extrapolation or proposed registration cancellations.
+• Clarify uncertain abbreviations and BAS label references against the actual case and template. The transcript’s “ATF” discussion is garbled; do not rely on its spoken expansion.
