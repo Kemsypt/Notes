@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inbound/Outbound Call Note</title>
+  <style>
+    :root{
+      --gap: 12px;
+
+      /* Light (default) */
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+    }
+
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+    [hidden]{ display:none !important; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{ max-width: 900px; margin:24px auto; padding:16px; }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+    h1{ margin:0; font-size:20px; }
+
+    .themeToggle{
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+      cursor:pointer;
+      height:32px;
+    }
+
+    fieldset{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      padding:14px;
+      margin:12px 0;
+    }
+    legend{ padding:0 8px; font-weight:800; }
+
+    .grid{ display:grid; gap:var(--gap); }
+    .g2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .g3{ grid-template-columns:repeat(3, minmax(0,1fr)); align-items:end; }
+    @media (max-width: 860px){ .g2,.g3{ grid-template-columns:1fr; } }
+
+    label{ display:grid; gap:6px; font-size:13px; }
+
+    input, select, textarea{
+      width:100%;
+      padding:10px;
+      border:1px solid var(--border-2);
+      border-radius:8px;
+      font-size:14px;
+      font-family: inherit;
+      background:var(--panel);
+      color:var(--text);
+      height:42px;
+    }
+    textarea{
+      min-height:110px;
+      height:auto;
+      resize:vertical;
+    }
+
+    details{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 12px;
+    }
+    summary{ cursor:pointer; font-weight:800; }
+    pre{ white-space:pre-wrap; word-break:break-word; margin:10px 0 0; font-size:13px; }
+
+    .actions{
+      position:sticky;
+      bottom:0;
+      padding:12px 0 0;
+      backdrop-filter: blur(4px);
+    }
+    .bar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background:var(--accent);
+      color:var(--btn-text);
+      font-size:14px;
+      font-family: inherit;
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      user-select:none;
+    }
+    button.ghost{
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    #settingsBtn{
+      width:42px;
+      padding:0;
+      font-size:18px;
+      line-height:1;
+    }
+
+    .status{ font-size:13px; color:var(--muted); }
+
+    .footer{
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+      margin:18px 0 6px;
+    }
+    .footer a, .footer a:visited{ color:inherit; text-decoration: underline; }
+
+    /* Accessibility */
+    .srOnly{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* Inbound/Outbound segmented control */
+    .seg{
+      display:flex;
+      border:1px solid var(--border-2);
+      border-radius:10px;
+      overflow:hidden;
+      background:var(--panel);
+      height:42px;
+    }
+    .segBtn{
+      flex:1;
+      background:transparent;
+      color:var(--text);
+      border:0;
+      border-right:1px solid var(--border-2);
+      padding:0 10px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:14px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .segBtn:last-child{ border-right:0; }
+    .segBtn[aria-pressed="true"]{
+      background:var(--accent);
+      color:var(--btn-text);
+    }
+
+    /* Date/time input with icon button */
+    .withIcon{
+      display:flex;
+      align-items:stretch;
+      gap:8px;
+    }
+    .withIcon input{ flex:1; }
+    .iconBtn{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      border:1px solid var(--border-2);
+      background:var(--panel);
+      color:var(--text);
+      cursor:pointer;
+      padding:0;
+      flex:0 0 auto;
+    }
+    .iconBtn svg{ width:18px; height:18px; }
+
+    /* Multi-select dropdown (PORO) */
+    .ms{ position:relative; }
+    .msToggle{
+      width:100%;
+      text-align:left;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--border-2);
+      background:var(--panel);
+      color:var(--text);
+      font-weight:800;
+      height:42px;
+      cursor:pointer;
+    }
+    .msMenu{
+      position:absolute;
+      top:calc(100% + 6px);
+      left:0;
+      width:100%;
+      max-height:240px;
+      overflow:auto;
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      box-shadow:var(--shadow);
+      display:none;
+      z-index:50;
+    }
+    .ms.open .msMenu{ display:block; }
+    .msOpt{
+      padding:8px 10px;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .msOpt:hover{ background:var(--panel-2); }
+    .msOpt.selected{
+      background:rgba(37,99,235,.12);
+    }
+    body[data-theme="dark"] .msOpt.selected{
+      background:rgba(96,165,250,.16);
+    }
+
+    /* Settings modal */
+    .modalOverlay[hidden]{ display:none !important; }
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.45);
+      display:grid;
+      place-items:center;
+      padding:16px;
+      z-index:100;
+    }
+    .modal{
+      width:min(720px, 100%);
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .modalHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+      background:var(--panel-2);
+    }
+    .modalBody{ padding:14px; }
+  </style>
+</head>
+
+<body data-theme="light">
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Inbound/Outbound Call Note</h1>
+      <button type="button" id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
+    </div>
+
+    <form id="callForm" novalidate>
+      <fieldset>
+        <legend>Call Details</legend>
+        <div class="grid g3">
+          <label>
+            <span class="srOnly">Inbound/Outbound</span>
+            <div class="seg" role="group" aria-label="Inbound/Outbound">
+              <button class="segBtn" type="button" data-dir="Inbound" aria-pressed="false">Inbound</button>
+              <button class="segBtn" type="button" data-dir="Outbound" aria-pressed="false">Outbound</button>
+            </div>
+            <input type="hidden" name="direction" />
+          </label>
+
+          <label>Date/Time
+            <div class="withIcon">
+              <input name="dateTime" type="text" inputmode="numeric" />
+              <button type="button" class="iconBtn" id="nowBtn" aria-label="Insert current date/time" title="Insert current date/time">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </button>
+            </div>
+          </label>
+
+          <label>Case ID
+            <input name="caseId" type="text" />
+          </label>
+
+          <label>Account name
+            <input name="accountName" type="text" />
+          </label>
+
+          <label>Spoke to
+            <input name="spokeTo" type="text" />
+          </label>
+
+          <label>PORO completed
+            <select name="poroCompleted" id="poroCompleted">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+
+          <label>Privacy statement provided
+            <select name="privacyStatementProvided" id="privacyStatementProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+
+          <label>Phone recording statement provided
+            <select name="phoneRecordingStatementProvided" id="phoneRecordingStatementProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+
+          <label>Email security warning provided
+            <select name="emailSecurityWarningProvided" id="emailSecurityWarningProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset id="poroFieldset" hidden>
+        <legend>PORO</legend>
+        <div class="grid g2">
+          <label>Standard PORO
+            <div class="ms" data-ms="poroStandardSel" id="msStandard">
+              <button type="button" class="msToggle">Select options</button>
+              <div class="msMenu" role="listbox" aria-multiselectable="true">
+                <div class="msOpt" data-value="Name">Name</div>
+                <div class="msOpt" data-value="DOB">DOB</div>
+                <div class="msOpt" data-value="Phone Number">Phone Number</div>
+                <div class="msOpt" data-value="Text Code">Text Code</div>
+                <div class="msOpt" data-value="Address">Address</div>
+                <div class="msOpt" data-value="Super">Super</div>
+                <div class="msOpt" data-value="Bank">Bank</div>
+                <div class="msOpt" data-value="Employment">Employment</div>
+              </div>
+            </div>
+            <input type="hidden" name="poroStandardSel" />
+            <input name="poroStandardTxt" type="text" placeholder="Other proof" />
+          </label>
+
+          <label>Extensive PORO
+            <div class="ms" data-ms="poroExtensiveSel" id="msExtensive">
+              <button type="button" class="msToggle">Select options</button>
+              <div class="msMenu" role="listbox" aria-multiselectable="true">
+                <div class="msOpt" data-value="Drivers License">Drivers License</div>
+                <div class="msOpt" data-value="Passport">Passport</div>
+                <div class="msOpt" data-value="Medicare">Medicare</div>
+                <div class="msOpt" data-value="Birth Certificate">Birth Certificate</div>
+                <div class="msOpt" data-value="Visa">Visa</div>
+              </div>
+            </div>
+            <input type="hidden" name="poroExtensiveSel" />
+            <input name="poroExtensiveTxt" type="text" placeholder="Other Extensive Proof" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Notes</legend>
+
+        <label id="reasonForCallWrap">Reason for call
+          <textarea name="reasonForCall"></textarea>
+        </label>
+
+        <label style="margin-top:12px;">Discussed
+          <textarea name="discussed"></textarea>
+        </label>
+
+        <label id="furtherActionWrap" style="margin-top:12px;">Further Action
+          <textarea name="furtherAction"></textarea>
+        </label>
+      </fieldset>
+
+      <details>
+        <summary>Preview generated note</summary>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="btnrow">
+            <button type="button" id="copyBtn">Copy</button>
+            <button type="reset" class="ghost">Reset</button>
+            <button type="button" id="settingsBtn" class="ghost" aria-label="Settings" title="Settings">⚙︎</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      Form created by <a href="mailto:Joshua.Robertson@ato.gov.au">Joshua Robertson</a>
+    </div>
+  </div>
+
+  <div class="modalOverlay" id="settingsOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modalHeader">
+        <div style="font-weight:900;" id="settingsTitle">Settings</div>
+        <button type="button" class="ghost" id="closeSettings" aria-label="Close settings" style="padding:8px 10px; height:auto;">Close</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="grid g2">
+          <label>Date format
+            <select id="dtDateFmt">
+              <option value="DMY_SLASH">dd/mm/yyyy</option>
+              <option value="YMD_SLASH">yyyy/mm/dd</option>
+              <option value="DMY_DASH">dd-mm-yyyy</option>
+              <option value="YMD_DASH">yyyy-mm-dd</option>
+            </select>
+          </label>
+
+          <label>Time format
+            <select id="dtTimeFmt">
+              <option value="24">24 hour</option>
+              <option value="12">12 hour (AM/PM)</option>
+            </select>
+          </label>
+          <label>Order
+            <select id="dtOrder">
+              <option value="DATE_TIME">Date then time</option>
+              <option value="TIME_DATE">Time then date</option>
+            </select>
+          </label>
+
+
+          <label>Between date &amp; time
+            <input id="dtJoiner" type="text" value="  -  " />
+          </label>
+          <label>Preview
+            <input id="dtPreview" type="text" readonly />
+          </label><label>Agent Name/Signoff
+            <input id="dtAgentSignoff" type="text" />
+          </label>
+
+          <label>No Further Action
+            <select id="setNoFurtherAction">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+
+          <label>No Reason
+            <select id="setNoReason">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+
+          <label>Simple PORO
+            <select id="setSimplePoro">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+
+
+          
+        </div>
+
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:12px;">
+          <button type="button" class="ghost" id="dtReset">Reset</button>
+          <button type="button" id="dtSave">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const LS_THEME_KEY = "callNoteBuilder.theme";
+    const LS_DT_KEY = "callNoteBuilder.dateTimeFormat";
+
+    const DEFAULT_DT = {
+      dateFmt:"DMY_SLASH",
+      timeFmt:"12",
+      joiner:"  -  ",
+      order:"TIME_DATE",
+      signoff:"",
+      noFurtherAction:"No",
+      noReason:"No",
+      simplePoro:"No"
+    };
+
+    function v(name){
+      const el = document.querySelector(`[name="${name}"]`);
+      return (el?.value ?? "").toString().trim();
+    }
+
+    function setVal(name, value){
+      const el = document.querySelector(`[name="${name}"]`);
+      if(el) el.value = value;
+    }
+
+    function getDTSettings(){
+      try{
+        const raw = localStorage.getItem(LS_DT_KEY);
+        if(!raw) return { ...DEFAULT_DT };
+        const parsed = JSON.parse(raw) || {};
+        return { ...DEFAULT_DT, ...parsed };
+      }catch{
+        return { ...DEFAULT_DT };
+      }
+    }
+
+    function saveDTSettings(s){
+      localStorage.setItem(LS_DT_KEY, JSON.stringify(s));
+    }
+
+    function settingYes(key){
+      const s = getDTSettings();
+      return (s[key] || "No") === "Yes";
+    }
+
+    function syncOptionalFields(){
+      const noReason = settingYes("noReason");
+      const noFurtherAction = settingYes("noFurtherAction");
+
+      const reasonWrap = $("#reasonForCallWrap");
+      const furtherWrap = $("#furtherActionWrap");
+      if (reasonWrap) reasonWrap.hidden = noReason;
+      if (furtherWrap) furtherWrap.hidden = noFurtherAction;
+
+      if (noReason) setVal("reasonForCall", "");
+      if (noFurtherAction) setVal("furtherAction", "");
+
+      syncPoroVisibility();
+    }
+
+    function formatDateTime(d, s){
+      const pad = (n)=> String(n).padStart(2,"0");
+      const dd = pad(d.getDate());
+      const mm = pad(d.getMonth()+1);
+      const yyyy = String(d.getFullYear());
+      const hh24 = d.getHours();
+      const mi = pad(d.getMinutes());
+
+      let datePart = "";
+      if (s.dateFmt === "DMY_SLASH") datePart = `${dd}/${mm}/${yyyy}`;
+      else if (s.dateFmt === "YMD_SLASH") datePart = `${yyyy}/${mm}/${dd}`;
+      else if (s.dateFmt === "DMY_DASH") datePart = `${dd}-${mm}-${yyyy}`;
+      else datePart = `${yyyy}-${mm}-${dd}`;
+
+      let timePart = "";
+      if (s.timeFmt === "12"){
+        let h = hh24 % 12;
+        if (h === 0) h = 12;
+        const ampm = hh24 < 12 ? "AM" : "PM";
+        timePart = `${pad(h)}:${mi} ${ampm}`;
+      }else{
+        timePart = `${pad(hh24)}:${mi}`;
+      }
+
+      return (s.order === "TIME_DATE") ? `${timePart}${s.joiner}${datePart}` : `${datePart}${s.joiner}${timePart}`;
+    }
+
+    function formatNowToMinutes(){
+      return formatDateTime(new Date(), getDTSettings());
+    }
+
+    function applyDTPlaceholder(){ /* placeholder removed by request */ }
+
+    function setTheme(theme){
+      document.body.dataset.theme = theme;
+      localStorage.setItem(LS_THEME_KEY, theme);
+      const t = $("#themeToggle");
+      if (t) t.textContent = (theme === "dark") ? "Light" : "Dark";
+    }
+
+    function initTheme(){
+      const saved = localStorage.getItem(LS_THEME_KEY) || "light";
+      setTheme(saved);
+      const t = $("#themeToggle");
+      if (!t) return;
+      t.addEventListener("click", () => {
+        setTheme((document.body.dataset.theme || "light") === "dark" ? "light" : "dark");
+      });
+    }
+
+    function initDirectionToggle(){
+      const buttons = $$('.segBtn[data-dir]');
+      const hidden = document.querySelector('[name="direction"]');
+      if (!hidden || buttons.length === 0) return;
+
+      function setDir(val){
+        hidden.value = val;
+        buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.dir === val ? 'true' : 'false'));
+        buildNote();
+      }
+
+      buttons.forEach(b => b.addEventListener('click', () => setDir(b.dataset.dir)));
+      setDir(hidden.value || "");
+    }
+
+    function initMultiSelect(msEl){
+      if (!msEl) return;
+      const toggle = msEl.querySelector('.msToggle');
+      const opts = [...msEl.querySelectorAll('.msOpt')];
+      const key = msEl.dataset.ms;
+
+      function refresh(){
+        const vals = opts.filter(o => o.classList.contains('selected')).map(o => o.dataset.value);
+        if (toggle) toggle.textContent = vals.length ? vals.join(', ') : 'Select options';
+        setVal(key, vals.join(', '));
+        buildNote();
+      }
+
+      if (toggle){
+        toggle.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); msEl.classList.toggle('open'); });
+      }
+
+      opts.forEach(o => o.addEventListener('click', (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        o.classList.toggle('selected');
+        refresh();
+      }));
+
+      document.addEventListener('click', (e)=>{ if(!msEl.contains(e.target)) msEl.classList.remove('open'); });
+
+      refresh();
+    }
+
+    function syncPoroVisibility(){
+      const poroSelect = $("#poroCompleted");
+      const poroFieldset = $("#poroFieldset");
+      if (!poroSelect || !poroFieldset) return;
+
+      const isYes = (poroSelect.value || "").trim() === "Yes";
+      const simplePoro = settingYes("simplePoro");
+      poroFieldset.hidden = !isYes || simplePoro;
+
+      if(!isYes || simplePoro){
+        setVal("poroStandardSel", "");
+        setVal("poroExtensiveSel", "");
+        setVal("poroStandardTxt", "");
+        setVal("poroExtensiveTxt", "");
+
+        [$("#msStandard"), $("#msExtensive")].forEach(ms => {
+          if (!ms) return;
+          ms.querySelectorAll('.msOpt.selected').forEach(o => o.classList.remove('selected'));
+          const t = ms.querySelector('.msToggle');
+          if (t) t.textContent = "Select options";
+          ms.classList.remove("open");
+        });
+      }
+
+      buildNote();
+    }
+
+    function initPoro(){
+      initMultiSelect($("#msStandard"));
+      initMultiSelect($("#msExtensive"));
+
+      const poroSelect = $("#poroCompleted");
+      const poroFieldset = $("#poroFieldset");
+      if (!poroSelect || !poroFieldset) return;
+
+      function syncPoroVisibility(){
+        const isYes = (poroSelect.value || "").trim() === "Yes";
+        const simplePoro = settingYes("simplePoro");
+        poroFieldset.hidden = !isYes || simplePoro;
+
+        if(!isYes || simplePoro){
+          setVal("poroStandardSel", "");
+          setVal("poroExtensiveSel", "");
+          setVal("poroStandardTxt", "");
+          setVal("poroExtensiveTxt", "");
+
+          [$("#msStandard"), $("#msExtensive")].forEach(ms => {
+            if (!ms) return;
+            ms.querySelectorAll('.msOpt.selected').forEach(o => o.classList.remove('selected'));
+            const t = ms.querySelector('.msToggle');
+            if (t) t.textContent = "Select options";
+            ms.classList.remove("open");
+          });
+        }
+
+        buildNote();
+      }
+
+      poroSelect.addEventListener('change', syncPoroVisibility);
+      syncPoroVisibility();
+    }
+
+    function computePoroCompleted(){
+      const extSel = (v("poroExtensiveSel") || "").trim();
+      const extTxt = (v("poroExtensiveTxt") || "").trim();
+      if (extSel || extTxt) return "Extensive";
+      const base = (v("poroCompleted") || "").trim();
+      return base || "";
+    }
+
+    function poroBlock(){
+      const completed = computePoroCompleted();
+      if (completed === "" || completed === "No" || settingYes("simplePoro")) return "";
+
+      const stdSel = (v("poroStandardSel") || "").trim();
+      const stdTxt = (v("poroStandardTxt") || "").trim();
+      const extSel = (v("poroExtensiveSel") || "").trim();
+      const extTxt = (v("poroExtensiveTxt") || "").trim();
+
+      const lines = ["PORO:"];
+      if (stdSel || stdTxt) lines.push(`Standard PORO: ${[stdSel, stdTxt].filter(Boolean).join(" - ")}`.trim());
+      if (extSel || extTxt) lines.push(`Extensive PORO: ${[extSel, extTxt].filter(Boolean).join(" - ")}`.trim());
+      return lines.join("\n");
+    }
+
+    const TEMPLATE = `{{direction}}
+Date/Time: {{dateTime}}
+Account name: {{accountName}}
+Spoke to: {{spokeTo}}
+PORO completed: {{poroCompleted}}
+Privacy statement provided: {{privacyStatementProvided}}
+Phone recording statement provided: {{phoneRecordingStatementProvided}}
+Email security warning provided: {{emailSecurityWarningProvided}}
+Case ID: {{caseId}}
+
+{{poroSection}}
+
+Reason for call:
+{{reasonForCall}}
+
+Discussed:
+{{discussed}}
+
+Further Action:
+{{furtherAction}}`;
+
+    function buildVars(){
+      return {
+        direction: v("direction"),
+        dateTime: v("dateTime"),
+        accountName: v("accountName"),
+        spokeTo: v("spokeTo"),
+        poroCompleted: computePoroCompleted(),
+        privacyStatementProvided: v("privacyStatementProvided"),
+        phoneRecordingStatementProvided: v("phoneRecordingStatementProvided"),
+        emailSecurityWarningProvided: v("emailSecurityWarningProvided"),
+        caseId: v("caseId"),
+        poroSection: poroBlock(),
+        reasonForCall: v("reasonForCall"),
+        discussed: v("discussed"),
+        furtherAction: v("furtherAction"),
+      };
+    }
+
+    function applyTemplate(template, vars){
+      let out = template.replace(/\{\{\s*([^}]+?)\s*\}\}/g, (_, rawKey) => {
+        const key = String(rawKey).trim();
+        const val = Object.prototype.hasOwnProperty.call(vars, key) ? vars[key] : "";
+        return (val === undefined || val === null) ? "" : String(val);
+      });
+      out = out.replace(/\n{3,}/g, "\n\n").replace(/\n\s+\n/g, "\n\n").trim();
+      return out;
+    }
+
+    function buildNote(){
+      const preview = $("#preview");
+      if (!preview) return "";
+      let template = TEMPLATE;
+      if (settingYes("noReason")){
+        template = template.replace(/\nReason for call:\n\{\{reasonForCall\}\}\n/g, "\n");
+      }
+      if (settingYes("noFurtherAction")){
+        template = template.replace(/\nFurther Action:\n\{\{furtherAction\}\}/g, "");
+      }
+      let note = applyTemplate(template, buildVars());
+
+      const s = getDTSettings();
+      const signoff = (s.signoff || "").toString().trim();
+      if (signoff){
+        note = (note.trimEnd() + "\n\n" + signoff).trimEnd();
+      }
+
+      preview.textContent = note;
+      return note;
+    }
+
+    async function copyFullNote(){
+      const form = $("#callForm");
+      if (form && !form.reportValidity()) return;
+
+      const note = buildNote();
+      const status = $("#status");
+      try{
+        await navigator.clipboard.writeText(note);
+        if (status) status.textContent = "Copied.";
+      }catch{
+        const ta = document.createElement("textarea");
+        ta.value = note;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (status) status.textContent = ok ? "Copied." : "Clipboard copy failed (browser blocked it).";
+      }
+      if (status) setTimeout(() => status.textContent = "", 2500);
+    }
+
+    function openSettings(){
+      const overlay = $("#settingsOverlay");
+      if (!overlay) return;
+      const s = getDTSettings();
+      const df = $("#dtDateFmt"); if (df) df.value = s.dateFmt;
+      const tf = $("#dtTimeFmt"); if (tf) tf.value = s.timeFmt;
+      const jn = $("#dtJoiner"); if (jn) jn.value = s.joiner;
+      const or = $("#dtOrder"); if (or) or.value = s.order || DEFAULT_DT.order;
+      const ag = $("#dtAgentSignoff"); if (ag) ag.value = s.signoff || "";
+      const nfa = $("#setNoFurtherAction"); if (nfa) nfa.value = s.noFurtherAction || DEFAULT_DT.noFurtherAction;
+      const nr = $("#setNoReason"); if (nr) nr.value = s.noReason || DEFAULT_DT.noReason;
+      const sp = $("#setSimplePoro"); if (sp) sp.value = s.simplePoro || DEFAULT_DT.simplePoro;
+      const pv = $("#dtPreview"); if (pv) pv.value = formatNowToMinutes();
+      overlay.hidden = false;
+    }
+
+    function closeSettings(){
+      const overlay = $("#settingsOverlay");
+      if (overlay) overlay.hidden = true;
+    }
+
+    function updateSettingsPreview(){
+      const pv = $("#dtPreview");
+      if (!pv) return;
+      const s = {
+        dateFmt: $("#dtDateFmt")?.value || DEFAULT_DT.dateFmt,
+        timeFmt: $("#dtTimeFmt")?.value || DEFAULT_DT.timeFmt,
+        joiner: $("#dtJoiner")?.value ?? DEFAULT_DT.joiner,
+        order: $("#dtOrder")?.value || DEFAULT_DT.order,
+        signoff: $("#dtAgentSignoff")?.value?.trim() || "",
+        noFurtherAction: $("#setNoFurtherAction")?.value || DEFAULT_DT.noFurtherAction,
+        noReason: $("#setNoReason")?.value || DEFAULT_DT.noReason,
+        simplePoro: $("#setSimplePoro")?.value || DEFAULT_DT.simplePoro
+      };
+      pv.value = formatDateTime(new Date(), s);
+    }
+
+    function initSettings(){
+      const settingsBtn = $("#settingsBtn");
+      const closeBtn = $("#closeSettings");
+      const overlay = $("#settingsOverlay");
+      const resetBtn = $("#dtReset");
+      const saveBtn = $("#dtSave");
+
+      if (settingsBtn) settingsBtn.addEventListener("click", openSettings);
+      if (closeBtn) closeBtn.addEventListener("click", closeSettings);
+      if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSettings(); });
+
+      ["dtDateFmt","dtTimeFmt","dtJoiner","dtOrder","dtAgentSignoff","setNoFurtherAction","setNoReason","setSimplePoro"].forEach(id => {
+        const el = $("#" + id);
+        if (!el) return;
+        el.addEventListener("input", updateSettingsPreview);
+        el.addEventListener("change", updateSettingsPreview);
+      });
+
+      if (resetBtn) resetBtn.addEventListener("click", () => {
+        // Clear saved settings and reset UI to defaults
+        localStorage.removeItem(LS_DT_KEY);
+
+        const df = $("#dtDateFmt"); if (df) df.value = DEFAULT_DT.dateFmt;
+        const tf = $("#dtTimeFmt"); if (tf) tf.value = DEFAULT_DT.timeFmt;
+        const jn = $("#dtJoiner"); if (jn) jn.value = DEFAULT_DT.joiner;
+        const or = $("#dtOrder"); if (or) or.value = DEFAULT_DT.order;
+        const ag = $("#dtAgentSignoff"); if (ag) ag.value = DEFAULT_DT.signoff;
+        const nfa = $("#setNoFurtherAction"); if (nfa) nfa.value = DEFAULT_DT.noFurtherAction;
+        const nr = $("#setNoReason"); if (nr) nr.value = DEFAULT_DT.noReason;
+        const sp = $("#setSimplePoro"); if (sp) sp.value = DEFAULT_DT.simplePoro;
+
+        applyDTPlaceholder();
+        syncOptionalFields();
+        updateSettingsPreview();
+        buildNote();
+      });
+if (saveBtn) saveBtn.addEventListener("click", () => {
+        const s = {
+          dateFmt: $("#dtDateFmt")?.value || DEFAULT_DT.dateFmt,
+          timeFmt: $("#dtTimeFmt")?.value || DEFAULT_DT.timeFmt,
+          joiner: $("#dtJoiner")?.value ?? DEFAULT_DT.joiner,
+          order: $("#dtOrder")?.value || DEFAULT_DT.order,
+          signoff: $("#dtAgentSignoff")?.value?.trim() || "",
+          noFurtherAction: $("#setNoFurtherAction")?.value || DEFAULT_DT.noFurtherAction,
+          noReason: $("#setNoReason")?.value || DEFAULT_DT.noReason,
+          simplePoro: $("#setSimplePoro")?.value || DEFAULT_DT.simplePoro
+        };
+        saveDTSettings(s);
+        applyDTPlaceholder();
+        syncOptionalFields();
+        closeSettings();
+        buildNote();
+      });
+    }
+
+    function init(){
+      initTheme();
+      initSettings();
+      initDirectionToggle();
+      initPoro();
+      syncOptionalFields();
+      applyDTPlaceholder();
+
+      document.addEventListener("input", (e) => {
+        if (e.target && e.target.closest("#callForm")) buildNote();
+      });
+
+      const nowBtn = $("#nowBtn");
+      if (nowBtn) nowBtn.addEventListener("click", () => {
+        setVal("dateTime", formatNowToMinutes());
+        buildNote();
+      });
+
+      const copyBtn = $("#copyBtn");
+      if (copyBtn) copyBtn.addEventListener("click", copyFullNote);
+
+      const form = $("#callForm");
+      if (form) form.addEventListener("reset", () => setTimeout(() => {
+        setVal("direction", "");
+        $$('.segBtn[aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed','false'));
+        const poroFieldset = $("#poroFieldset");
+        if (poroFieldset) poroFieldset.hidden = true;
+        
+        // Reset settings to defaults
+        localStorage.removeItem(LS_DT_KEY);
+        applyDTPlaceholder();
+        syncOptionalFields();
+        closeSettings();
+        buildNote();
+      }, 0));
+
+      buildNote();
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  </script>
+</body>
+</html>
