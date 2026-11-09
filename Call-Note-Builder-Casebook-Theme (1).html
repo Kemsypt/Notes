@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Call Note</title>
+  <style>
+    :root{
+      --gap: 12px;
+
+      /* Light (default) */
+      --bg:#f6f7f9;
+      --panel:#ffffff;
+      --panel-2:#fcfcfd;
+      --text:#111827;
+      --muted:#475467;
+      --border:#d6d9de;
+      --border-2:#cfd5dd;
+      --accent:#2563eb;
+      --btn-text:#ffffff;
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+    }
+
+    body[data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --panel-2:#111c33;
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --border:#26324a;
+      --border-2:#2b3852;
+      --accent:#60a5fa;
+      --btn-text:#0b1220;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+    [hidden]{ display:none !important; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{ max-width: 900px; margin:24px auto; padding:16px; }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+    h1{ margin:0; font-size:20px; }
+
+    .themeToggle{
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+      cursor:pointer;
+      height:32px;
+    }
+
+    fieldset{
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      padding:14px;
+      margin:12px 0;
+    }
+    legend{ padding:0 8px; font-weight:800; }
+
+    .grid{ display:grid; gap:var(--gap); }
+    .g2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .g3{ grid-template-columns:repeat(3, minmax(0,1fr)); align-items:end; }
+    @media (max-width: 860px){ .g2,.g3{ grid-template-columns:1fr; } }
+
+    label{ display:grid; gap:6px; font-size:13px; }
+
+    input, select, textarea{
+      width:100%;
+      padding:10px;
+      border:1px solid var(--border-2);
+      border-radius:8px;
+      font-size:14px;
+      font-family: inherit;
+      background:var(--panel);
+      color:var(--text);
+      height:42px;
+    }
+    textarea{
+      min-height:110px;
+      height:auto;
+      resize:vertical;
+    }
+
+    details{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 12px;
+    }
+    summary{ cursor:pointer; font-weight:800; }
+    pre{ white-space:pre-wrap; word-break:break-word; margin:10px 0 0; font-size:13px; }
+
+    .actions{
+      position:sticky;
+      bottom:0;
+      padding:12px 0 0;
+      backdrop-filter: blur(4px);
+    }
+    .bar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background:var(--accent);
+      color:var(--btn-text);
+      font-size:14px;
+      font-family: inherit;
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      user-select:none;
+    }
+    button.ghost{
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    #settingsBtn{
+      width:42px;
+      padding:0;
+      font-size:18px;
+      line-height:1;
+    }
+
+    .status{ font-size:13px; color:var(--muted); }
+
+    .footer{
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+      margin:18px 0 6px;
+    }
+    .footer a, .footer a:visited{ color:inherit; text-decoration: underline; }
+
+    /* Accessibility */
+    .srOnly{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* Inbound/Outbound segmented control */
+    .seg{
+      display:flex;
+      border:1px solid var(--border-2);
+      border-radius:10px;
+      overflow:hidden;
+      background:var(--panel);
+      height:42px;
+    }
+    .segBtn{
+      flex:1;
+      background:transparent;
+      color:var(--text);
+      border:0;
+      border-right:1px solid var(--border-2);
+      padding:0 10px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:14px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .segBtn:last-child{ border-right:0; }
+    .segBtn[aria-pressed="true"]{
+      background:var(--accent);
+      color:var(--btn-text);
+    }
+
+    /* Date/time input with icon button */
+    .withIcon{
+      display:flex;
+      align-items:stretch;
+      gap:8px;
+    }
+    .withIcon input{ flex:1; }
+    .iconBtn{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      border:1px solid var(--border-2);
+      background:var(--panel);
+      color:var(--text);
+      cursor:pointer;
+      padding:0;
+      flex:0 0 auto;
+    }
+    .iconBtn svg{ width:18px; height:18px; }
+
+    /* Multi-select dropdown (PORO) */
+    .ms{ position:relative; }
+    .msToggle{
+      width:100%;
+      text-align:left;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--border-2);
+      background:var(--panel);
+      color:var(--text);
+      font-weight:800;
+      height:42px;
+      cursor:pointer;
+    }
+    .msMenu{
+      position:absolute;
+      top:calc(100% + 6px);
+      left:0;
+      width:100%;
+      max-height:240px;
+      overflow:auto;
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      box-shadow:var(--shadow);
+      display:none;
+      z-index:50;
+    }
+    .ms.open .msMenu{ display:block; }
+    .msOpt{
+      padding:8px 10px;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .msOpt:hover{ background:var(--panel-2); }
+    .msOpt.selected{
+      background:rgba(37,99,235,.12);
+    }
+    body[data-theme="dark"] .msOpt.selected{
+      background:rgba(96,165,250,.16);
+    }
+
+    /* Settings modal */
+    .modalOverlay[hidden]{ display:none !important; }
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.45);
+      display:grid;
+      place-items:center;
+      padding:16px;
+      z-index:100;
+    }
+    .modal{
+      width:min(720px, 100%);
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .modalHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+      background:var(--panel-2);
+    }
+    .modalBody{ padding:14px; }
+  .topbar{flex-wrap:wrap}.scriptButtons{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}.scriptButtons button{height:32px;padding:6px 10px;font-size:12px;font-weight:800;border-radius:999px}#themeToggle{margin-left:12px}.modal{max-height:calc(100dvh - 32px);display:flex;flex-direction:column}.modalBody{overflow:auto}.scriptText{line-height:1.65}.scriptText p:first-child{margin-top:0}.scriptText p:last-child{margin-bottom:0}.scriptText a{color:var(--accent)}.segBtn{font-size:13px;padding:0 6px}
+  </style>
+<style>
+/* Casebook companion theme */
+:root{
+  --bg:#f2f5f7;--panel:#fff;--panel-2:#f8fafc;--text:#23354b;
+  --muted:#5d7084;--border:#dce4ec;--border-2:#ced8df;
+  --accent:#006b98;--btn-text:#fff;--soft:#e6f2f7;--brand:#153956;
+  --focus:#70b4a5;--shadow:0 6px 18px #142a3b0d;
+}
+body[data-theme="dark"]{
+  color-scheme:dark;--bg:#101d2a;--panel:#192a3b;--panel-2:#213447;
+  --text:#e3edf5;--muted:#a2b6c8;--border:#34465a;--border-2:#485e74;
+  --accent:#65bfe8;--btn-text:#142233;--soft:#203d51;--brand:#e3edf5;
+  --focus:#65bfe8;--shadow:0 6px 18px #00000020;
+}
+body{font:14px Arial,system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:22px 24px 16px}
+.topbar{
+  padding:18px 24px;margin:0;background:var(--panel);
+  border-top:5px solid #153956;border-bottom:1px solid var(--border);
+  justify-content:flex-start;gap:12px;
+}
+body[data-theme="dark"] .topbar{border-top-color:#65bfe8}
+h1{font-size:21px;font-weight:750;letter-spacing:-.7px;color:var(--brand);line-height:1.3}
+h1 span{color:var(--accent)}
+.scriptButtons{margin-left:auto;gap:6px}
+.scriptButtons button,.themeToggle{font-family:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:6px 10px;height:32px}
+#themeToggle{margin-left:12px}
+fieldset{border-radius:12px;padding:18px 20px 20px;margin:12px 0 20px;background:var(--panel)}
+legend{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:0 8px}
+label{font-size:12px;font-weight:600;gap:6px}
+input,select,textarea{font:14px Arial,system-ui,sans-serif;border-radius:7px;padding:9px 11px}
+textarea{line-height:1.6;font-weight:400;min-height:110px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--focus);outline-offset:1px}
+button{font-family:inherit;font-weight:600;border-radius:8px;border:1px solid var(--accent)}
+button.ghost,.themeToggle,.iconBtn,.msToggle{border-color:var(--border)}
+button:hover{filter:brightness(.97)}
+button.ghost:hover,.themeToggle:hover,.iconBtn:hover,.msToggle:hover{background:var(--soft);filter:none}
+button:focus-visible,.msOpt:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.seg{border-radius:8px}
+.segBtn{font-weight:600;border-radius:0;border:0;border-right:1px solid var(--border-2)}
+.segBtn[aria-pressed="true"]{background:var(--soft);color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+.msToggle{font-weight:600}
+.msOpt.selected,body[data-theme="dark"] .msOpt.selected{background:var(--soft);color:var(--accent)}
+.msMenu{box-shadow:0 12px 32px #142a3b20}
+details{border-radius:12px;padding:14px 18px}
+summary{font-size:13px;font-weight:600}
+pre{line-height:1.6;color:var(--text)}
+.actions{padding-top:8px;bottom:12px}
+.bar{border-radius:12px;box-shadow:var(--shadow);padding:12px 14px}
+.status{font-size:12px}
+.footer{margin-top:20px;font-size:11px}
+.modalOverlay{background:#1c2d405c}
+.modal{border-radius:14px;box-shadow:0 24px 80px #142a3b33}
+.modalHeader{background:var(--panel);padding:18px 20px}
+.modalHeader #settingsTitle,.modalHeader #scriptTitle{font-size:20px;font-weight:700!important;letter-spacing:-.3px}
+.modalBody{padding:20px}
+.scriptText{font-size:14px;line-height:1.7}
+body[data-theme="dark"] #copyBtn,body[data-theme="dark"] #dtSave{background:#096b96;border-color:#096b96;color:#fff}
+@media(max-width:860px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{padding:16px}.wrap{padding:16px}.topbar h1{flex:1 1 100%}.scriptButtons{margin-left:0}#themeToggle{margin-left:auto}}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}fieldset{padding:14px}.topbar{gap:10px}.scriptButtons{gap:5px}.scriptButtons button,.themeToggle{padding:6px 9px}.modalBody{padding:16px}.wrap{padding:12px}.actions{bottom:8px}}
+
+</style>
+<style>
+.withIcon input{min-width:0}
+body[data-theme="dark"]{--tz-red:#ffadb4;--tz-warning:#ffcb80}
+</style>
+<style>
+.settingsGroup{margin:0 0 20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.settingsGroup:last-of-type{margin-bottom:0;padding-bottom:0;border-bottom:0}
+.settingsGroup h3{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.settingCaption{display:flex;align-items:center;gap:6px}
+.settingHelp{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:0 0 16px;width:16px;height:16px;border:1px solid var(--border-2);border-radius:50%;font-size:10px;font-weight:600;color:var(--muted);cursor:help}
+.settingHelp::after{content:attr(data-tooltip);display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 7px);width:200px;max-width:65vw;padding:8px 10px;background:var(--text);color:var(--panel);border-radius:7px;box-shadow:var(--shadow);font:12px/1.5 Arial,sans-serif;letter-spacing:0;text-transform:none;z-index:10;pointer-events:none}
+.settingHelp:hover::after,.settingHelp:focus::after{display:block}
+.settingHelp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.settingWide{grid-column:1/-1}
+</style>
+<style>
+.topbar .scriptButtons{margin-left:24px}
+.headerTools{display:flex;align-items:center;gap:20px;margin-left:auto}
+.headerTools #settingsBtn{width:auto;height:32px;padding:6px 10px;font-size:12px;line-height:normal;font-weight:600;border-radius:999px}
+.headerTools #themeToggle{margin-left:0}
+@media(max-width:860px){.topbar .scriptButtons{margin-left:0}.headerTools{margin-left:auto}}
+</style>
+</head>
+
+<body data-theme="light">
+    <header class="topbar">
+      <h1>Call <span>Note</span></h1>
+      <div class="scriptButtons" aria-label="Call scripts">
+        <button type="button" class="ghost" data-script="email">Email</button>
+        <button type="button" class="ghost" data-script="recording">Recording</button>
+        <button type="button" class="ghost" data-script="privacy">Privacy</button>
+        <button type="button" class="ghost" data-script="voicemail">Voicemail</button>
+      </div>
+      <div class="headerTools">
+        <button type="button" id="settingsBtn" class="ghost" aria-label="Settings" title="Settings">Settings</button>
+        <button type="button" id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
+      </div>
+    </header>
+  <div class="wrap">
+
+    <form id="callForm" novalidate>
+      <fieldset>
+        <legend>Call Details</legend>
+        <div class="grid g3">
+          <label>
+            <span class="srOnly">Inbound/Outbound</span>
+            <div class="seg" role="group" aria-label="Inbound/Outbound">
+              <button class="segBtn" type="button" data-dir="Inbound" aria-pressed="false">Inbound</button>
+              <button class="segBtn" type="button" data-dir="Outbound" aria-pressed="false">Outbound</button>
+              <button class="segBtn" type="button" data-dir="Unanswered" aria-pressed="false">Unanswered</button>
+            </div>
+            <input type="hidden" name="direction" />
+          </label>
+
+          <label>Date/Time
+            <div class="withIcon">
+              <input name="dateTime" type="text" inputmode="numeric" />
+              <button type="button" class="iconBtn" id="nowBtn" aria-label="Insert current date/time" title="Insert current date/time">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </button>
+              <button type="button" class="iconBtn" id="timezonesBtn" aria-label="Check Australian timezones" title="Check Australian timezones" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </label>
+
+          <label>Case ID
+            <input name="caseId" type="text" />
+          </label>
+
+          <label id="numberDialedWrap" hidden>Number Dialed
+            <input name="numberDialed" type="tel" />
+          </label>
+
+          <label>Account name
+            <input name="accountName" type="text" />
+          </label>
+
+          <label id="spokeToWrap">Spoke to
+            <input name="spokeTo" type="text" />
+          </label>
+
+          <label id="poroCompletedWrap">PORO completed
+            <select name="poroCompleted" id="poroCompleted">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+
+          <label id="privacyStatementProvidedWrap">Privacy statement provided
+            <select name="privacyStatementProvided" id="privacyStatementProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+
+          <label id="phoneRecordingStatementProvidedWrap">Phone recording statement provided
+            <select name="phoneRecordingStatementProvided" id="phoneRecordingStatementProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+
+          <label id="emailSecurityWarningProvidedWrap">Email security warning provided
+            <select name="emailSecurityWarningProvided" id="emailSecurityWarningProvided">
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NA">NA</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset id="poroFieldset" hidden>
+        <legend>PORO</legend>
+        <div class="grid g2">
+          <label>Standard PORO
+            <div class="ms" data-ms="poroStandardSel" id="msStandard">
+              <button type="button" class="msToggle">Select options</button>
+              <div class="msMenu" role="listbox" aria-multiselectable="true">
+                <div class="msOpt" data-value="Name">Name</div>
+                <div class="msOpt" data-value="DOB">DOB</div>
+                <div class="msOpt" data-value="Phone Number">Phone Number</div>
+                <div class="msOpt" data-value="Text Code">Text Code</div>
+                <div class="msOpt" data-value="Address">Address</div>
+                <div class="msOpt" data-value="Super">Super</div>
+                <div class="msOpt" data-value="Bank">Bank</div>
+                <div class="msOpt" data-value="Employment">Employment</div>
+              </div>
+            </div>
+            <input type="hidden" name="poroStandardSel" />
+            <input name="poroStandardTxt" type="text" placeholder="Other proof" />
+          </label>
+
+          <label>Extensive PORO
+            <div class="ms" data-ms="poroExtensiveSel" id="msExtensive">
+              <button type="button" class="msToggle">Select options</button>
+              <div class="msMenu" role="listbox" aria-multiselectable="true">
+                <div class="msOpt" data-value="Drivers License">Drivers License</div>
+                <div class="msOpt" data-value="Passport">Passport</div>
+                <div class="msOpt" data-value="Medicare">Medicare</div>
+                <div class="msOpt" data-value="Birth Certificate">Birth Certificate</div>
+                <div class="msOpt" data-value="Visa">Visa</div>
+              </div>
+            </div>
+            <input type="hidden" name="poroExtensiveSel" />
+            <input name="poroExtensiveTxt" type="text" placeholder="Other Extensive Proof" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Notes</legend>
+
+        <label id="reasonForCallWrap">Reason for call
+          <textarea name="reasonForCall"></textarea>
+        </label>
+
+        <label id="discussedWrap" style="margin-top:12px;">Discussed
+          <textarea name="discussed"></textarea>
+        </label>
+
+        <label id="furtherActionWrap" style="margin-top:12px;">Further Action
+          <textarea name="furtherAction"></textarea>
+        </label>
+      </fieldset>
+
+      <details id="notePreview" hidden>
+        <summary>Preview generated note</summary>
+        <pre id="preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="bar">
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="btnrow">
+            <button type="button" id="copyBtn">Copy</button>
+            <button type="reset" class="ghost">Reset</button>
+            
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      Form created by <a href="mailto:Joshua.Robertson@ato.gov.au">Joshua Robertson</a>
+    </div>
+  </div>
+
+  <div class="modalOverlay" id="settingsOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modalHeader">
+        <div style="font-weight:900;" id="settingsTitle">Settings</div>
+        <button type="button" class="ghost" id="closeSettings" aria-label="Close settings" style="padding:8px 10px; height:auto;">Close</button>
+      </div>
+
+      <div class="modalBody">
+<section class="settingsGroup" aria-label="Agent details"><h3>Agent details</h3><div class="grid g2">
+<label><span class="settingCaption">Agent Name <span class="settingHelp" tabindex="0" role="img" aria-label="Used in the voicemail script and at the end of copied notes." data-tooltip="Used in the voicemail script and at the end of copied notes.">?</span></span>
+<input id="dtAgentSignoff" type="text" />
+          </label>
+<label><span class="settingCaption">PIN <span class="settingHelp" tabindex="0" role="img" aria-label="Your four-digit callback PIN for the voicemail script." data-tooltip="Your four-digit callback PIN for the voicemail script.">?</span></span>
+<input id="setPin" type="text" inputmode="numeric" maxlength="4" />
+          </label>
+</div></section>
+<section class="settingsGroup" aria-label="Call hours"><h3>Call hours</h3><div class="grid g2">
+<label><span class="settingCaption">Call start time <span class="settingHelp" tabindex="0" role="img" aria-label="Start of your call window in each location’s local time." data-tooltip="Start of your call window in each location’s local time.">?</span></span>
+<input id="setCallStart" type="time" value="08:30" required />
+          </label>
+<label><span class="settingCaption">Call end time <span class="settingHelp" tabindex="0" role="img" aria-label="End of your call window in each location’s local time." data-tooltip="End of your call window in each location’s local time.">?</span></span>
+<input id="setCallEnd" type="time" value="16:30" required />
+          </label>
+</div></section>
+<section class="settingsGroup" aria-label="Note options"><h3>Note options</h3><div class="grid g2">
+<label><span class="settingCaption">Reason <span class="settingHelp" tabindex="0" role="img" aria-label="Show the Reason for call field and include it when filled." data-tooltip="Show the Reason for call field and include it when filled.">?</span></span>
+<select id="setReason">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Further Action <span class="settingHelp" tabindex="0" role="img" aria-label="Show the Further Action field and include it when filled." data-tooltip="Show the Further Action field and include it when filled.">?</span></span>
+<select id="setFurtherAction">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Simple PORO <span class="settingHelp" tabindex="0" role="img" aria-label="Keep PORO as Yes/No without detailed proof selections." data-tooltip="Keep PORO as Yes/No without detailed proof selections.">?</span></span>
+<select id="setSimplePoro">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Preview generated note <span class="settingHelp" tabindex="0" role="img" aria-label="Show the expandable preview of the note to be copied." data-tooltip="Show the expandable preview of the note to be copied.">?</span></span>
+<select id="setPreviewNote"><option value="No">No</option><option value="Yes">Yes</option></select>
+          </label>
+</div></section>
+<section class="settingsGroup" aria-label="Date and time"><h3>Date and time</h3><div class="grid g2">
+<label><span class="settingCaption">Date format <span class="settingHelp" tabindex="0" role="img" aria-label="Date style used by the insert-current-time button." data-tooltip="Date style used by the insert-current-time button.">?</span></span>
+<select id="dtDateFmt">
+              <option value="DMY_SLASH">dd/mm/yyyy</option>
+              <option value="YMD_SLASH">yyyy/mm/dd</option>
+              <option value="DMY_DASH">dd-mm-yyyy</option>
+              <option value="YMD_DASH">yyyy-mm-dd</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Time format <span class="settingHelp" tabindex="0" role="img" aria-label="Use 12-hour or 24-hour time when inserting the timestamp." data-tooltip="Use 12-hour or 24-hour time when inserting the timestamp.">?</span></span>
+<select id="dtTimeFmt">
+              <option value="24">24 hour</option>
+              <option value="12">12 hour (AM/PM)</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Order <span class="settingHelp" tabindex="0" role="img" aria-label="Choose whether the date or time comes first." data-tooltip="Choose whether the date or time comes first.">?</span></span>
+<select id="dtOrder">
+              <option value="DATE_TIME">Date then time</option>
+              <option value="TIME_DATE">Time then date</option>
+            </select>
+          </label>
+<label><span class="settingCaption">Between date &amp; time <span class="settingHelp" tabindex="0" role="img" aria-label="Text placed between the date and time." data-tooltip="Text placed between the date and time.">?</span></span>
+<input id="dtJoiner" type="text" value="  -  " />
+          </label>
+<label class="settingWide"><span class="settingCaption">Preview <span class="settingHelp" tabindex="0" role="img" aria-label="Example timestamp using the options above." data-tooltip="Example timestamp using the options above.">?</span></span>
+<input id="dtPreview" type="text" readonly />
+          </label>
+</div></section>
+
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:12px;">
+          <button type="button" class="ghost" id="dtReset" title="Restore all settings to their defaults.">Reset settings</button>
+          <button type="button" id="dtSave">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modalOverlay" id="scriptOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="scriptTitle" tabindex="-1">
+      <div class="modalHeader"><strong id="scriptTitle"></strong><button type="button" class="ghost" id="closeScript">Close</button></div>
+      <div class="modalBody scriptText" id="scriptBody"></div>
+    </div>
+  </div>
+<script>
+    function formatDateTime(d, s){
+      const pad = (n)=> String(n).padStart(2,"0");
+      const dd = pad(d.getDate());
+      const mm = pad(d.getMonth()+1);
+      const yyyy = String(d.getFullYear());
+      const hh24 = d.getHours();
+      const mi = pad(d.getMinutes());
+
+      let datePart = "";
+      if (s.dateFmt === "DMY_SLASH") datePart = `${dd}/${mm}/${yyyy}`;
+      else if (s.dateFmt === "YMD_SLASH") datePart = `${yyyy}/${mm}/${dd}`;
+      else if (s.dateFmt === "DMY_DASH") datePart = `${dd}-${mm}-${yyyy}`;
+      else datePart = `${yyyy}-${mm}-${dd}`;
+
+      let timePart = "";
+      if (s.timeFmt === "12"){
+        let h = hh24 % 12;
+        if (h === 0) h = 12;
+        const ampm = hh24 < 12 ? "AM" : "PM";
+        timePart = `${pad(h)}:${mi} ${ampm}`;
+      }else{
+        timePart = `${pad(hh24)}:${mi}`;
+      }
+
+      return (s.order === "TIME_DATE") ? `${timePart}${s.joiner}${datePart}` : `${datePart}${s.joiner}${timePart}`;
+    }
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const LS_DT_KEY='callNoteBuilder.dateTimeFormat', LS_THEME_KEY='callNoteBuilder.theme';
+const DEFAULT_DT={dateFmt:'DMY_SLASH',timeFmt:'12',joiner:'  -  ',order:'TIME_DATE',signoff:'',pin:'',callStart:'08:30',callEnd:'16:30',furtherAction:'Yes',reason:'Yes',simplePoro:'Yes',previewNote:'No',version:2};
+function getDTSettings(){try{const saved=JSON.parse(localStorage.getItem(LS_DT_KEY)||'{}');if(saved.version!==2){saved.furtherAction=saved.noFurtherAction==='Yes'?'No':'Yes';saved.reason=saved.noReason==='Yes'?'No':'Yes';saved.simplePoro='Yes';}return {...DEFAULT_DT,...saved,version:2};}catch{return {...DEFAULT_DT};}}
+let settings=getDTSettings();
+function persist(){try{localStorage.setItem(LS_DT_KEY,JSON.stringify(settings));}catch{}}
+function v(name){return ($(`[name="${name}"]`)?.value||'').trim();}
+function setVal(name,value){$(`[name="${name}"]`).value=value;}
+const unansweredReason='Attempted Call - Left Voicemail';
+let priorReason='', lastDirection='';
+function syncVisibility(){const dir=v('direction'),unanswered=dir==='Unanswered',inbound=dir==='Inbound';
+for(const name of ['spokeTo','poroCompleted','emailSecurityWarningProvided'])$('#'+name+'Wrap').hidden=unanswered;
+for(const name of ['privacyStatementProvided','phoneRecordingStatementProvided'])$('#'+name+'Wrap').hidden=unanswered||inbound;
+$('#numberDialedWrap').hidden=dir!=='Outbound'&&!unanswered;
+$('#poroFieldset').hidden=unanswered||v('poroCompleted')!=='Yes'||settings.simplePoro==='Yes';
+$('#reasonForCallWrap').hidden=settings.reason!=='Yes';$('#furtherActionWrap').hidden=settings.furtherAction!=='Yes';
+$('#discussedWrap').hidden=unanswered;$('#notePreview').hidden=settings.previewNote!=='Yes';
+buildNote();}
+function changeDirection(dir){if(dir==='Unanswered'&&lastDirection!==dir){priorReason=v('reasonForCall');setVal('reasonForCall',unansweredReason);}else if(lastDirection==='Unanswered'&&dir!=='Unanswered'&&v('reasonForCall')===unansweredReason){setVal('reasonForCall',priorReason);}
+setVal('direction',dir);lastDirection=dir;$$('[data-dir]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.dir===dir)));syncVisibility();}
+function buildNote(){const dir=v('direction'),unanswered=dir==='Unanswered',inbound=dir==='Inbound';let head=[];if(dir)head.push(dir);
+function line(label,name){const val=v(name);if(val)head.push(label+': '+val);}
+line('Date/Time','dateTime');if(dir==='Outbound'||unanswered)line('Number Dialed','numberDialed');line('Account name','accountName');
+if(!unanswered){line('Spoke to','spokeTo');let poro=v('poroCompleted');if(poro==='Yes'&&settings.simplePoro!=='Yes'&&(v('poroExtensiveSel')||v('poroExtensiveTxt')))poro='Extensive';if(poro)head.push('PORO completed: '+poro);
+if(!inbound){line('Privacy statement provided','privacyStatementProvided');line('Phone recording statement provided','phoneRecordingStatementProvided');}line('Email security warning provided','emailSecurityWarningProvided');}
+line('Case ID','caseId');const blocks=head.length?[head.join('\n')]:[];
+if(!unanswered&&v('poroCompleted')==='Yes'&&settings.simplePoro!=='Yes'){let proof=[];for(const [label,sel,txt] of [['Standard PORO','poroStandardSel','poroStandardTxt'],['Extensive PORO','poroExtensiveSel','poroExtensiveTxt']]){const val=[v(sel),v(txt)].filter(Boolean).join(' - ');if(val)proof.push(label+': '+val);}if(proof.length)blocks.push('PORO:\n'+proof.join('\n'));}
+function section(label,name,enabled){if(enabled&&v(name))blocks.push(label+':\n'+v(name));}
+section('Reason for call','reasonForCall',settings.reason==='Yes');section('Discussed','discussed',!unanswered);section('Further Action','furtherAction',settings.furtherAction==='Yes');
+if(settings.signoff.trim())blocks.push(settings.signoff.trim());const note=blocks.join('\n\n');$('#preview').textContent=note;return note;}
+function setTheme(theme){document.body.dataset.theme=theme;$('#themeToggle').textContent=theme==='dark'?'Light':'Dark';try{localStorage.setItem(LS_THEME_KEY,theme);}catch{}}
+try{setTheme(localStorage.getItem(LS_THEME_KEY)||'light');}catch{setTheme('light');}
+$('#themeToggle').onclick=()=>setTheme(document.body.dataset.theme==='dark'?'light':'dark');
+$$('[data-dir]').forEach(b=>b.onclick=()=>changeDirection(b.dataset.dir));
+$$('.ms').forEach(ms=>{const toggle=$('.msToggle',ms);toggle.onclick=()=>{const open=ms.classList.contains('open');$$('.ms').forEach(m=>m.classList.remove('open'));ms.classList.toggle('open',!open);};$$('.msOpt',ms).forEach(opt=>{opt.tabIndex=0;opt.setAttribute('role','option');opt.setAttribute('aria-selected','false');function select(){opt.classList.toggle('selected');opt.setAttribute('aria-selected',String(opt.classList.contains('selected')));const vals=$$('.selected',ms).map(o=>o.dataset.value).join(', ');setVal(ms.dataset.ms,vals);toggle.textContent=vals||'Select options';buildNote();}opt.onclick=select;opt.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();select();}};});});
+document.addEventListener('click',e=>$$('.ms').forEach(ms=>{if(!ms.contains(e.target))ms.classList.remove('open');}));
+$('#callForm').addEventListener('input',syncVisibility);$('#callForm').addEventListener('change',syncVisibility);$('#callForm').addEventListener('submit',e=>e.preventDefault());
+$('#nowBtn').onclick=()=>{setVal('dateTime',formatDateTime(new Date(),settings));buildNote();};
+$('#copyBtn').onclick=async()=>{const note=buildNote();let ok=false;try{await navigator.clipboard.writeText(note);ok=true;}catch{const ta=document.createElement('textarea');ta.value=note;ta.style.position='fixed';ta.style.left='-9999px';document.body.append(ta);ta.select();try{ok=document.execCommand('copy');}catch{}ta.remove();}$('#status').textContent=ok?'Copied.':'Clipboard copy failed (browser blocked it).';setTimeout(()=>$('#status').textContent='',2500);};
+$('#callForm').addEventListener('reset',()=>setTimeout(()=>{lastDirection='';priorReason='';setVal('direction','');$$('[data-dir]').forEach(b=>b.setAttribute('aria-pressed','false'));$$('.ms').forEach(ms=>{ms.classList.remove('open');$$('.msOpt',ms).forEach(o=>{o.classList.remove('selected');o.setAttribute('aria-selected','false');});$('.msToggle',ms).textContent='Select options';});$('#status').textContent='';syncVisibility();},0));
+const settingsFields={dateFmt:'dtDateFmt',timeFmt:'dtTimeFmt',joiner:'dtJoiner',order:'dtOrder',signoff:'dtAgentSignoff',pin:'setPin',callStart:'setCallStart',callEnd:'setCallEnd',furtherAction:'setFurtherAction',reason:'setReason',simplePoro:'setSimplePoro',previewNote:'setPreviewNote'};
+function fillSettings(){for(const [key,id] of Object.entries(settingsFields))$('#'+id).value=settings[key];updateSettingsPreview();}
+function readSettings(){const out={...DEFAULT_DT};for(const [key,id] of Object.entries(settingsFields))out[key]=$('#'+id).value;out.signoff=out.signoff.trim();out.pin=out.pin.trim();return out;}
+function updateSettingsPreview(){$('#dtPreview').value=formatDateTime(new Date(),readSettings());}
+let modalReturnFocus=null;
+function openModal(id){modalReturnFocus=document.activeElement;$('#'+id).hidden=false;$('button',$('#'+id)).focus();}
+function closeModal(id){$('#'+id).hidden=true;modalReturnFocus?.focus();}
+$('#settingsBtn').onclick=()=>{fillSettings();openModal('settingsOverlay');};$('#closeSettings').onclick=()=>closeModal('settingsOverlay');
+Object.values(settingsFields).forEach(id=>$('#'+id).addEventListener('input',updateSettingsPreview));
+$('#dtSave').onclick=()=>{const start=$('#setCallStart'),end=$('#setCallEnd');end.setCustomValidity(start.value===end.value?'Choose different call start and end times.':'');if(!start.reportValidity()||!end.reportValidity())return;settings=readSettings();persist();syncVisibility();closeModal('settingsOverlay');};
+$('#dtReset').onclick=()=>{settings={...DEFAULT_DT};persist();fillSettings();syncVisibility();};
+for(const id of ['settingsOverlay','scriptOverlay'])$('#'+id).onclick=e=>{if(e.target===$('#'+id))closeModal(id);};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){for(const id of ['settingsOverlay','scriptOverlay'])if(!$('#'+id).hidden)closeModal(id);$$('.ms').forEach(ms=>ms.classList.remove('open'));}if(e.key==='Tab'){const overlay=['settingsOverlay','scriptOverlay'].map(id=>$('#'+id)).find(el=>!el.hidden);if(!overlay)return;const focusable=$$('button,input,select,textarea,a[href]',overlay).filter(el=>!el.disabled);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+const scripts={
+email:{title:'Email Warning',html:'<p><em>You should be aware that the internet is not a secure environment. The ATO does not control the path of inbound and outbound emails, so the privacy of personal information sent by unencrypted email cannot be guaranteed. You should be aware of this risk if you choose email to communicate with the ATO and those communications include your personal details. If an email looks suspicious, do not respond. Instead, forward the email to <a href="mailto:spamreporting@ato.gov.au">spamreporting@ato.gov.au</a></em></p>'},
+recording:{title:'Recording statement',html:'<p><strong>All calls are recorded and monitored for training and quality purposes</strong></p>'},
+privacy:{title:'Privacy Policy',html:`<p>The <em>Taxation Administration Act 1953</em> authorises us to request your tax file number (TFN). It is not an offence not to quote your TFN. We will use your TFN to help us identify you and your record in our systems. If you don't quote your TFN we may need extra information and your call may take longer.</p>
+<p>The <em>Income Tax Assessment Acts of 1936 and 1997</em>, the <em>Taxation Administration Act 1953</em>, the <em>Superannuation Unclaimed Money and Lost Members Act 1999</em>, and the <em>Superannuation Industry Supervision Act 1993</em> authorise us to collect other personal information about you.</p>
+<p>We need this information to help us administer taxation and superannuation laws. If the information is not collected we will not be able to assist you with arrangements about your tax obligations, and more action may be taken by the ATO to enforce your obligations without further warning.</p>
+<p>Taxation law authorises us to disclose information about you to other agencies – for example, benefit payment agencies such as the Services Australia (SA), law enforcement agencies such as state and federal police, and other agencies such as the Australian Bureau of Statistics.</p>
+<p>The ATO also provides taxpayer information to treaty partners overseas under international tax agreements with many other countries. Information about our treaties is on our website.</p>
+<p>If you have an Australian business number, we collect information about you for the purposes of the <em>New Tax System Australian Business Number Act 1999</em> and may use your information to update your details on the Australian Business Register. Selected information from the Australian Business Register is made publicly available and some is passed to a wide range of government agencies, including Commonwealth, state and local government agencies. You can find details of the agencies regularly receiving information from the Australian Business Register at <a href="http://www.abr.gov.au/" target="_blank" rel="noopener noreferrer">www.abr.gov.au</a></p>
+<p>The ATO's privacy policy is also on our website. The policy contains important information about your privacy, including information about how you can access and seek correction of information we hold about you, how you may complain about a breach of the Australian Privacy Principles and how the ATO will deal with any privacy complaint.</p>`}
+};
+$$('[data-script]').forEach(b=>b.onclick=()=>{if(b.dataset.script==='voicemail'){$('#scriptTitle').textContent='Voicemail Message';$('#scriptBody').replaceChildren();for(const text of [`Hello, this is ${settings.signoff||'[Name]'} and I’m calling from the Australian Taxation Office.`,`Please call me back on 1300 650 286 and enter four digit pin ${settings.pin||'[PIN]'} to come through to me.`]){const p=document.createElement('p'),strong=document.createElement('strong');strong.textContent=text;p.append(strong);$('#scriptBody').append(p);}}else{const script=scripts[b.dataset.script];$('#scriptTitle').textContent=script.title;$('#scriptBody').innerHTML=script.html;}openModal('scriptOverlay');});
+$('#closeScript').onclick=()=>closeModal('scriptOverlay');
+syncVisibility();
+
+</script>
+<script>
+function openAustralianTimes() {
+  'use strict';
+  const ID = 'au_time_popup_v5';
+  if (document.getElementById(ID)) return;
+  const HOLIDAYS = {"2026":{"ACT":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-03-09":[["Canberra Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["Easter Saturday – the day after Good Friday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-04-27":[["Additional public holiday for Anzac Day",0,0,1440]],"2026-06-01":[["Reconciliation Day",0,0,1440]],"2026-06-08":[["King’s Birthday",0,0,1440]],"2026-10-05":[["Labour Day",0,0,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]]},"NSW":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["Easter Saturday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-04-27":[["Additional public holiday for Anzac Day",0,0,1440]],"2026-06-08":[["King’s Birthday",0,0,1440]],"2026-10-05":[["Labour Day",0,0,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2026-02-06":[["Walcha Cup (local area)",1,720,1080]],"2026-02-13":[["Kangaroo Valley Show (local area)",1,540,1020]],"2026-03-20":[["Albury Gold Cup (local area)",1,720,1440]],"2026-04-22":[["Maclean Show (local area)",1,780,1020]],"2026-05-12":[["Yeoval Show (local area)",1,510,1140]],"2026-05-15":[["Scone Cup (local area)",1,720,1440]],"2026-05-18":[["Nyngan Show (local area)",1,720,1440]],"2026-05-27":[["Coonamble Show (local area)",1,0,1440]],"2026-07-15":[["Ramornie Race Day (local area)",1,780,1020]],"2026-07-16":[["Grafton Cup (local area)",1,780,1020]],"2026-08-19":[["Trundle Show (local area)",1,540,1020]],"2026-08-26":[["Peak Hill Show (local area)",1,540,1020]],"2026-09-01":[["Parkes Show (local area)",1,720,1020]],"2026-09-09":[["West Wyalong Show (local area)",1,720,1080]],"2026-11-03":[["Muswellbrook Mayors Cup Race Day (local area)",1,720,1080]],"2026-11-05":[["Jacaranda Festival (local area)",1,780,1020]]},"NT":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["Easter Saturday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-05-04":[["May Day",0,0,1440]],"2026-06-08":[["King’s Birthday",0,0,1440]],"2026-08-03":[["Picnic Day",0,0,1440]],"2026-12-24":[["Christmas Eve (from 7 pm to midnight)",0,1140,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2026-12-31":[["New Year's Eve (from 7 pm to midnight)",0,1140,1440]],"2026-07-03":[["Alice Springs Show Day (regional)",1,0,1440]],"2026-07-10":[["Tennant Creek Show Day (regional)",1,0,1440]],"2026-07-17":[["Katherine Show Day (regional)",1,0,1440]],"2026-07-24":[["Darwin Show Day (regional)",1,0,1440]],"2026-08-14":[["Borroloola Show Day (regional)",1,0,1440]]},"QLD":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["The day after Good Friday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-05-04":[["Labour Day",0,0,1440]],"2026-08-12":[["Royal Queensland Show (Brisbane area only)",1,0,1440],["Royal Queensland Show (selected districts)",1,0,1440]],"2026-10-05":[["King’s Birthday",0,0,1440]],"2026-12-24":[["Christmas Eve (from 6 pm to midnight)",0,1080,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2026-01-30":[["Stanthorpe Annual Show (selected districts)",1,0,1440]],"2026-02-06":[["Allora Annual Show (selected districts)",1,0,1440]],"2026-02-20":[["Killarney Annual Show (selected districts)",1,0,1440]],"2026-03-13":[["Inglewood Annual Show (selected districts)",1,0,1440],["Miles and District Show (selected districts)",1,0,1440]],"2026-03-20":[["Warwick Annual Show (selected districts)",1,0,1440]],"2026-03-27":[["Toowoomba Royal Agricultural Show (selected districts)",1,0,1440]],"2026-04-10":[["Dalby and District Annual Show (selected districts)",1,0,1440]],"2026-04-17":[["Wandoan Annual Show (selected districts)",1,0,1440]],"2026-05-01":[["Goondiwindi Annual Show (selected districts)",1,0,1440]],"2026-05-05":[["Taroom Annual Show (selected districts)",1,0,1440]],"2026-05-08":[["Roma Agricultural Show (selected districts)",1,0,1440],["Mundubbera Annual Show (selected districts)",1,0,1440]],"2026-05-12":[["Mitchell Agricultural Show (selected districts)",1,0,1440],["Theodore Annual Show (selected districts)",1,0,1440]],"2026-05-15":[["Ipswich Annual Show (selected districts)",1,0,1440],["Gympie Annual Show (selected districts)",1,0,1440],["Callide Valley Agricultural and Pastoral Show (selected districts)",1,0,1440],["Charleville and District Annual Show (selected districts)",1,0,1440]],"2026-05-20":[["Alpha Annual Show (selected districts)",1,0,1440]],"2026-05-22":[["Capella and District Agricultural Show (selected districts)",1,0,1440],["Fraser Coast Agricultural Show (selected districts)",1,0,1440],["Longreach Agricultural Show (selected districts)",1,0,1440],["Shindig Festival (selected districts)",1,0,1440],["Chinchilla Annual Show (selected districts)",1,0,1440]],"2026-05-27":[["Clermont Show Day (selected districts)",1,0,1440]],"2026-05-28":[["Bundaberg Annual Show (selected districts)",1,0,1440]],"2026-05-29":[["Springsure and District Agricultural Show (selected districts)",1,0,1440],["Hughenden Show (selected districts)",1,0,1440],["Maleny Annual Show (selected districts)",1,0,1440]],"2026-06-03":[["Emerald and District Agricultural Show (selected districts)",1,0,1440]],"2026-06-05":[["Normanton Show Day (selected districts)",1,0,1440]],"2026-06-08":[["Weipa Fishing Classic (selected districts)",1,0,1440]],"2026-06-11":[["Rockhampton Agricultural Show (selected districts)",1,0,1440]],"2026-06-12":[["Rockhampton Agricultural Show (selected districts)",1,0,1440],["Cloncurry and District Annual Show (selected districts)",1,0,1440],["Richmond Annual Field Day (selected districts)",1,0,1440],["Sunshine Coast Agricultural Show (selected districts)",1,0,1440]],"2026-06-18":[["Mackay Agricultural Show (selected districts)",1,0,1440]],"2026-06-19":[["Mount Isa Agricultural Show (selected districts)",1,0,1440],["Whitsunday Show (selected districts)",1,0,1440]],"2026-06-23":[["Bowen Annual Show (selected districts)",1,0,1440]],"2026-06-24":[["Burdekin Annual Show (selected districts)",1,0,1440]],"2026-06-26":[["Laura Rodeo, Campdraft and Races Weekend (selected districts)",1,0,1440],["Ingham Annual Show (selected districts)",1,0,1440]],"2026-06-30":[["Atherton Annual Show (selected districts)",1,0,1440]],"2026-07-06":[["Townsville Annual Show (selected districts)",1,0,1440]],"2026-07-10":[["Innisfail and District Annual Show (selected districts)",1,0,1440]],"2026-07-17":[["Cairns Annual Show (selected districts)",1,0,1440]],"2026-07-20":[["Mossman Annual Show (selected districts)",1,0,1440]],"2026-07-24":[["Tully and District Annual Show (selected districts)",1,0,1440]],"2026-07-28":[["Charters Towers Annual Show (selected districts)",1,0,1440]],"2026-07-31":[["Etheridge Shire Show (selected districts)",1,0,1440]],"2026-08-10":[["Royal Queensland Show (selected districts)",1,0,1440],["Texas Show Holiday (selected districts)",1,0,1440]],"2026-08-14":[["Cunnamulla and District Show (selected districts)",1,0,1440]],"2026-08-28":[["Gold Coast Show (selected districts)",1,0,1440]],"2026-09-11":[["Noosa Show (selected districts)",1,0,1440],["Annual Quilpie and District Show (selected districts)",1,0,1440]],"2026-09-09":[["Westech Field Day (selected districts)",1,0,1440]],"2026-09-18":[["Torres Shire Council Show (selected districts)",1,0,1440],["Torres Strait Islands Show Day (selected districts)",1,0,1440]],"2026-09-25":[["Annual NPA Show Day (selected districts)",1,0,1440]],"2026-11-03":[["Collinsville  Annual Show (selected districts)",1,0,1440]]},"SA":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-03-09":[["Adelaide Cup Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["Easter Saturday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-06-08":[["King’s Birthday",0,0,1440]],"2026-10-05":[["Labour Day",0,0,1440]],"2026-12-24":[["Christmas Eve (from 7 pm to midnight)",0,1140,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Proclamation Day holiday",0,0,1440]],"2026-12-28":[["Additional public holiday for Proclamation Day holiday",0,0,1440]],"2026-12-31":[["New Year's Eve (from 7 pm to midnight)",0,1140,1440]]},"TAS":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-02-09":[["Royal Hobart Regatta (regional)",1,0,1440]],"2026-03-09":[["Eight Hours Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-07":[["Easter Tuesday (generally Tasmanian Public Service only)",1,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-06-08":[["King's Birthday",0,0,1440]],"2026-10-22":[["Royal Hobart Show (regional)",1,0,1440]],"2026-11-02":[["Recreation Day (regional)",1,0,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-28":[["Boxing Day",0,0,1440]],"2026-01-07":[["Devonport Cup - generally Tasmanian State Service only (regional)",1,0,1440]],"2026-02-25":[["Launceston Cup - generally Tasmanian Public Service only (regional)",1,0,1440]],"2026-03-03":[["King Island Show (regional)",1,0,1440]],"2026-05-08":[["Agfest (regional)",1,0,1440]],"2026-10-02":[["Burnie Show (regional)",1,0,1440]],"2026-10-08":[["Royal Launceston Show (regional)",1,0,1440]],"2026-10-16":[["Flinders Island Show (regional)",1,0,1440]],"2026-11-27":[["Devonport Show (regional)",1,0,1440]]},"VIC":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-03-09":[["Labour Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-04":[["Saturday before Easter Sunday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-06-08":[["King's Birthday",0,0,1440]],"2026-09-25":[["Friday before the AFL Grand Final",0,0,1440]],"2026-11-03":[["Melbourne Cup (some regional areas in Victoria hold the Melbourne Cup public holiday on a different date)",1,0,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2026-05-07":[["Warrnambool City Council local holiday",1,0,1440],["Moyne Shire Council local holiday",1,0,1440]],"2026-10-21":[["Greater Geelong City Council local holiday",1,0,1440],["Moira Shire Council local holiday",1,0,1440]],"2026-11-04":[["Macedon Ranges Shire Council local holiday",1,0,1440]],"2026-11-27":[["Wodonga City Council local holiday",1,0,1440]],"2026-10-13":[["Hindmarsh Shire Council local holiday",1,0,1440]],"2026-10-15":[["Hindmarsh Shire Council local holiday",1,0,1440]],"2026-10-08":[["Yarriambiack Shire Council local holiday (half-day; check local hours)",1,0,1440]],"2026-10-07":[["Mildura Rural City Council local holiday",1,0,1440]],"2026-10-28":[["Greater Bendigo City Council local holiday",1,0,1440]]},"WA":{"2026-01-01":[["New Year's Day",0,0,1440]],"2026-01-26":[["Australia Day",0,0,1440]],"2026-03-02":[["Labour Day",0,0,1440]],"2026-04-03":[["Good Friday",0,0,1440]],"2026-04-05":[["Easter Sunday",0,0,1440]],"2026-04-06":[["Easter Monday",0,0,1440]],"2026-04-25":[["Anzac Day",0,0,1440]],"2026-04-27":[["Additional public holiday for Anzac Day",0,0,1440]],"2026-06-01":[["Western Australia Day",0,0,1440]],"2026-09-28":[["King's Birthday (some regional areas in WA hold the King's Birthday public holiday on a different date)",0,0,1440]],"2026-12-25":[["Christmas Day",0,0,1440]],"2026-12-26":[["Boxing Day",0,0,1440]],"2026-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2026-08-03":[["King's Birthday (Karratha / Port Hedland)",1,0,1440]]}},"2027":{"ACT":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-08":[["Canberra Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["Easter Saturday – the day after Good Friday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-25":[["Additional public holiday for Anzac Day",0,0,1440]],"2027-04-26":[["Anzac Day",0,0,1440]],"2027-05-31":[["Reconciliation Day",0,0,1440]],"2027-06-14":[["King’s Birthday",0,0,1440]],"2027-10-04":[["Labour Day",0,0,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]]},"NSW":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["Easter Saturday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-25":[["Anzac Day",0,0,1440]],"2027-04-26":[["Additional public holiday for Anzac Day",0,0,1440]],"2027-06-14":[["King’s Birthday",0,0,1440]],"2027-10-04":[["Labour Day",0,0,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2027-02-05":[["Walcha Cup (local area)",1,720,1080]],"2027-02-12":[["Kangaroo Valley Show (local area)",1,540,1020]],"2027-03-19":[["Albury Gold Cup (local area)",1,720,1440]],"2027-05-12":[["Coonamble Show (local area)",1,0,1440]],"2027-05-14":[["Scone Cup (local area)",1,720,1440]],"2027-08-18":[["Trundle Show (local area)",1,540,1020]],"2027-08-25":[["Peak Hill Show (local area)",1,540,1020]],"2027-08-31":[["Parkes Show (local area)",1,720,1020]]},"NT":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["Easter Saturday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-26":[["Anzac Day",0,0,1440]],"2027-05-03":[["May Day",0,0,1440]],"2027-06-14":[["King’s Birthday",0,0,1440]],"2027-08-02":[["Picnic Day",0,0,1440]],"2027-12-24":[["Christmas Eve (from 7 pm to midnight)",0,1140,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2027-12-31":[["New Year's Eve (from 7 pm to midnight)",0,1140,1440]],"2027-07-02":[["Alice Springs Show Day (regional)",1,0,1440]],"2027-07-09":[["Tennant Creek Show Day (regional)",1,0,1440]],"2027-07-16":[["Katherine Show Day (regional)",1,0,1440]],"2027-07-23":[["Darwin Show Day (regional)",1,0,1440]],"2027-08-13":[["Borroloola Show Day (regional)",1,0,1440]]},"QLD":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["The day after Good Friday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-26":[["Anzac Day",0,0,1440]],"2027-05-03":[["Labour Day",0,0,1440]],"2027-08-11":[["Royal Queensland Show (Brisbane area only)",1,0,1440],["Royal Queensland Show (selected districts)",1,0,1440]],"2027-10-04":[["King’s Birthday",0,0,1440]],"2027-12-24":[["Christmas Eve (from 6 pm to midnight)",0,1080,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]],"2027-01-29":[["Stanthorpe Annual Show (selected districts)",1,0,1440]],"2027-02-05":[["Allora Annual Show (selected districts)",1,0,1440]],"2027-02-19":[["Killarney Annual Show (selected districts)",1,0,1440]],"2027-03-12":[["Inglewood Annual Show (selected districts)",1,0,1440],["Miles and District Show (selected districts)",1,0,1440]],"2027-03-19":[["Warwick Annual Show (selected districts)",1,0,1440]],"2027-04-02":[["Wandoan Annual Show (selected districts)",1,0,1440]],"2027-04-09":[["Dalby and District Annual Show (selected districts)",1,0,1440]],"2027-04-16":[["Toowoomba Royal Agricultural Show (selected districts)",1,0,1440]],"2027-04-30":[["Goondiwindi Annual Show (selected districts)",1,0,1440]],"2027-05-04":[["Taroom Annual Show (selected districts)",1,0,1440]],"2027-05-07":[["Roma Agricultural Show (selected districts)",1,0,1440],["Mundubbera Annual Show (selected districts)",1,0,1440]],"2027-05-11":[["Mitchell Agricultural Show (selected districts)",1,0,1440],["Theodore Annual Show (selected districts)",1,0,1440]],"2027-05-14":[["Ipswich Annual Show (selected districts)",1,0,1440],["Gympie Annual Show (selected districts)",1,0,1440],["Callide Valley Agricultural and Pastoral Show (selected districts)",1,0,1440],["Charleville and District Annual Show (selected districts)",1,0,1440]],"2027-05-19":[["Alpha Annual Show (selected districts)",1,0,1440]],"2027-05-21":[["Capella and District Agricultural Show (selected districts)",1,0,1440],["Fraser Coast Agricultural Show (selected districts)",1,0,1440],["Longreach Agricultural Show (selected districts)",1,0,1440],["Chinchilla Annual Show (selected districts)",1,0,1440]],"2027-05-26":[["Clermont Show Day (selected districts)",1,0,1440]],"2027-05-27":[["Bundaberg Annual Show (selected districts)",1,0,1440]],"2027-05-28":[["Springsure and District Agricultural Show (selected districts)",1,0,1440],["Hughenden Show (selected districts)",1,0,1440],["Maleny Annual Show (selected districts)",1,0,1440]],"2027-06-02":[["Emerald and District Agricultural Show (selected districts)",1,0,1440]],"2027-06-04":[["Hungerford Field Day (selected districts)",1,0,1440]],"2027-06-07":[["Weipa Fishing Classic (selected districts)",1,0,1440]],"2027-06-10":[["Rockhampton Agricultural Show (selected districts)",1,0,1440]],"2027-06-11":[["Rockhampton Agricultural Show (selected districts)",1,0,1440],["Normanton Show Day (selected districts)",1,0,1440],["Cloncurry and District Annual Show (selected districts)",1,0,1440],["Richmond Annual Field Day (selected districts)",1,0,1440],["Sunshine Coast Agricultural Show (selected districts)",1,0,1440]],"2027-06-17":[["Mackay Agricultural Show (selected districts)",1,0,1440]],"2027-06-18":[["Mount Isa Agricultural Show (selected districts)",1,0,1440],["Whitsunday Show (selected districts)",1,0,1440]],"2027-06-22":[["Bowen Annual Show (selected districts)",1,0,1440]],"2027-06-23":[["Burdekin Annual Show (selected districts)",1,0,1440]],"2027-06-25":[["Laura Rodeo, Campdraft and Races Weekend (selected districts)",1,0,1440],["Ingham Annual Show (selected districts)",1,0,1440]],"2027-06-29":[["Atherton Annual Show (selected districts)",1,0,1440]],"2027-07-05":[["Townsville Annual Show (selected districts)",1,0,1440]],"2027-07-09":[["Innisfail and District Annual Show (selected districts)",1,0,1440]],"2027-07-16":[["Cairns Annual Show (selected districts)",1,0,1440]],"2027-07-19":[["Mossman Annual Show (selected districts)",1,0,1440]],"2027-07-23":[["Tully and District Annual Show (selected districts)",1,0,1440]],"2027-07-27":[["Charters Towers Annual Show (selected districts)",1,0,1440]],"2027-08-06":[["Etheridge Shire Show (selected districts)",1,0,1440]],"2027-08-09":[["Royal Queensland Show (selected districts)",1,0,1440],["Texas Show Holiday (selected districts)",1,0,1440]],"2027-08-13":[["Cunnamulla and District Show (selected districts)",1,0,1440]],"2027-08-27":[["Gold Coast Show (selected districts)",1,0,1440]],"2027-09-03":[["Westech Field Day (selected districts)",1,0,1440]],"2027-09-10":[["Noosa Show (selected districts)",1,0,1440],["Annual Quilpie and District Show (selected districts)",1,0,1440]],"2027-09-17":[["Torres Shire Council Show (selected districts)",1,0,1440],["Torres Strait Islands Show Day (selected districts)",1,0,1440]],"2027-11-02":[["Collinsville Annual Show (selected districts)",1,0,1440]]},"SA":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-08":[["Adelaide Cup Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["Easter Saturday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-25":[["Anzac Day",0,0,1440]],"2027-06-14":[["King’s Birthday",0,0,1440]],"2027-10-04":[["Labour Day",0,0,1440]],"2027-12-24":[["Christmas Eve (from 7 pm to midnight)",0,1140,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Proclamation Day holiday",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Proclamation Day holiday",0,0,1440]],"2027-12-31":[["New Year's Eve (from 7 pm to midnight)",0,1140,1440]]},"TAS":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-02-08":[["Royal Hobart Regatta (regional)",1,0,1440]],"2027-03-08":[["Eight Hours Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-03-30":[["Easter Tuesday (generally Tasmanian Public Service only)",1,0,1440]],"2027-04-25":[["Anzac Day",0,0,1440]],"2027-06-14":[["King's Birthday",0,0,1440]],"2027-10-21":[["Royal Hobart Show (regional)",1,0,1440]],"2027-11-01":[["Recreation Day (regional)",1,0,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Boxing Day",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-01-06":[["Devonport Cup - generally Tasmanian State Service only (regional)",1,0,1440]],"2027-02-24":[["Launceston Cup - generally Tasmanian Public Service only (regional)",1,0,1440]],"2027-03-02":[["King Island Show (regional)",1,0,1440]],"2027-05-07":[["Agfest (regional)",1,0,1440]],"2027-10-01":[["Burnie Show (regional)",1,0,1440]],"2027-10-07":[["Royal Launceston Show (regional)",1,0,1440]],"2027-10-15":[["Flinders Island Show (regional)",1,0,1440]],"2027-11-26":[["Devonport Show (regional)",1,0,1440]]},"VIC":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-08":[["Labour Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-27":[["Saturday before Easter Sunday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-25":[["Anzac Day",0,0,1440]],"2027-06-14":[["King's Birthday",0,0,1440]],"2027-11-02":[["Melbourne Cup (some regional areas in Victoria hold the Melbourne Cup public holiday on a different date)",1,0,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]]},"WA":{"2027-01-01":[["New Year's Day",0,0,1440]],"2027-01-26":[["Australia Day",0,0,1440]],"2027-03-01":[["Labour Day",0,0,1440]],"2027-03-26":[["Good Friday",0,0,1440]],"2027-03-28":[["Easter Sunday",0,0,1440]],"2027-03-29":[["Easter Monday",0,0,1440]],"2027-04-25":[["Anzac Day",0,0,1440]],"2027-04-26":[["Additional public holiday for Anzac Day",0,0,1440]],"2027-06-07":[["Western Australia Day",0,0,1440]],"2027-09-27":[["King's Birthday (some regional areas in WA hold the King's Birthday public holiday on a different date)",0,0,1440]],"2027-12-25":[["Christmas Day",0,0,1440]],"2027-12-26":[["Boxing Day",0,0,1440]],"2027-12-27":[["Additional public holiday for Christmas Day",0,0,1440]],"2027-12-28":[["Additional public holiday for Boxing Day",0,0,1440]]}},"2028":{"ACT":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-03-13":[["Canberra Day",0,0,1440,"published"]],"2028-05-29":[["Reconciliation Day",0,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-10-02":[["Labour Day",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]]},"NSW":{"2028-01-01":[["New Year's Day",0,0,1440,"rule"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"rule"]],"2028-01-26":[["Australia Day",0,0,1440,"rule"]],"2028-04-14":[["Good Friday",0,0,1440,"rule"]],"2028-04-15":[["Easter Saturday",0,0,1440,"rule"]],"2028-04-16":[["Easter Sunday",0,0,1440,"rule"]],"2028-04-17":[["Easter Monday",0,0,1440,"rule"]],"2028-04-25":[["Anzac Day",0,0,1440,"rule"]],"2028-06-12":[["King's Birthday",0,0,1440,"rule"]],"2028-10-02":[["Labour Day",0,0,1440,"rule"]],"2028-12-25":[["Christmas Day",0,0,1440,"rule"]],"2028-12-26":[["Boxing Day",0,0,1440,"rule"]]},"NT":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-05-01":[["May Day",0,0,1440,"published"]],"2028-08-07":[["Picnic Day",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]],"2028-12-24":[["Christmas Eve (part-day)",0,1140,1440,"published"]],"2028-12-31":[["New Year's Eve (part-day)",0,1140,1440,"published"]],"2028-07-07":[["Alice Springs Show Day (regional)",1,0,1440,"published"]],"2028-07-14":[["Tennant Creek Show Day (regional)",1,0,1440,"published"]],"2028-07-21":[["Katherine Show Day (regional)",1,0,1440,"published"]],"2028-07-28":[["Darwin Show Day (regional)",1,0,1440,"published"]],"2028-08-11":[["Borroloola Show Day (regional)",1,0,1440,"published"]]},"QLD":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-10-02":[["King's Birthday",0,0,1440,"published"]],"2028-05-01":[["Labour Day",0,0,1440,"published"]],"2028-08-16":[["Royal Queensland Show (Brisbane area only)",1,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]],"2028-12-24":[["Christmas Eve (part-day)",0,1080,1440,"published"]]},"SA":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-03-13":[["Adelaide Cup Day",0,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-10-02":[["Labour Day",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Proclamation Day",0,0,1440,"published"]],"2028-12-24":[["Christmas Eve (part-day)",0,1140,1440,"published"]],"2028-12-31":[["New Year's Eve (part-day)",0,1140,1440,"published"]]},"TAS":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-03-13":[["Eight Hours Day",0,0,1440,"published"]],"2028-04-18":[["Easter Tuesday (generally Tasmanian Public Service only)",1,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]],"2028-01-05":[["Devonport Cup (half-day; generally Tasmanian State Service only) (regional)",1,0,1440,"published"]],"2028-02-14":[["Royal Hobart Regatta (regional)",1,0,1440,"published"]],"2028-02-23":[["Launceston Cup (generally Tasmanian Public Service only) (regional)",1,0,1440,"published"]],"2028-03-07":[["King Island Show (regional)",1,0,1440,"published"]],"2028-05-05":[["Agfest (regional)",1,0,1440,"published"]],"2028-10-06":[["Burnie Show (regional)",1,0,1440,"published"]],"2028-10-12":[["Royal Launceston Show (regional)",1,0,1440,"published"]],"2028-10-20":[["Flinders Island Show (regional)",1,0,1440,"published"]],"2028-10-26":[["Royal Hobart Show (regional)",1,0,1440,"published"]],"2028-11-06":[["Recreation Day (regional)",1,0,1440,"published"]],"2028-12-01":[["Devonport Show (regional)",1,0,1440,"published"]]},"VIC":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-03-13":[["Labour Day",0,0,1440,"published"]],"2028-11-07":[["Melbourne Cup (regional alternatives may apply)",1,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]]},"WA":{"2028-01-01":[["New Year's Day",0,0,1440,"published"]],"2028-01-03":[["New Year's Day (additional holiday)",0,0,1440,"published"]],"2028-01-26":[["Australia Day",0,0,1440,"published"]],"2028-04-14":[["Good Friday",0,0,1440,"published"]],"2028-04-15":[["Easter Saturday",0,0,1440,"published"]],"2028-04-16":[["Easter Sunday",0,0,1440,"published"]],"2028-04-17":[["Easter Monday",0,0,1440,"published"]],"2028-04-25":[["Anzac Day",0,0,1440,"published"]],"2028-03-13":[["Labour Day",0,0,1440,"published"]],"2028-11-13":[["Western Australia Day",0,0,1440,"published"]],"2028-06-12":[["King's Birthday",0,0,1440,"published"]],"2028-12-25":[["Christmas Day",0,0,1440,"published"]],"2028-12-26":[["Boxing Day",0,0,1440,"published"]]}},"2029":{"ACT":{"2029-01-01":[["New Year's Day",0,0,1440,"published"]],"2029-01-26":[["Australia Day",0,0,1440,"published"]],"2029-03-30":[["Good Friday",0,0,1440,"published"]],"2029-03-31":[["Easter Saturday",0,0,1440,"published"]],"2029-04-01":[["Easter Sunday",0,0,1440,"published"]],"2029-04-02":[["Easter Monday",0,0,1440,"published"]],"2029-04-25":[["Anzac Day",0,0,1440,"published"]],"2029-03-12":[["Canberra Day",0,0,1440,"published"]],"2029-05-28":[["Reconciliation Day",0,0,1440,"published"]],"2029-06-11":[["King's Birthday",0,0,1440,"published"]],"2029-10-01":[["Labour Day",0,0,1440,"published"]],"2029-12-25":[["Christmas Day",0,0,1440,"published"]],"2029-12-26":[["Boxing Day",0,0,1440,"published"]]},"NSW":{"2029-01-01":[["New Year's Day",0,0,1440,"rule"]],"2029-01-26":[["Australia Day",0,0,1440,"rule"]],"2029-03-30":[["Good Friday",0,0,1440,"rule"]],"2029-03-31":[["Easter Saturday",0,0,1440,"rule"]],"2029-04-01":[["Easter Sunday",0,0,1440,"rule"]],"2029-04-02":[["Easter Monday",0,0,1440,"rule"]],"2029-04-25":[["Anzac Day",0,0,1440,"rule"]],"2029-06-11":[["King's Birthday",0,0,1440,"rule"]],"2029-10-01":[["Labour Day",0,0,1440,"rule"]],"2029-12-25":[["Christmas Day",0,0,1440,"rule"]],"2029-12-26":[["Boxing Day",0,0,1440,"rule"]]},"NT":{"2029-01-01":[["New Year's Day",0,0,1440,"rule"]],"2029-01-26":[["Australia Day",0,0,1440,"rule"]],"2029-03-30":[["Good Friday",0,0,1440,"rule"]],"2029-03-31":[["Easter Saturday",0,0,1440,"rule"]],"2029-04-01":[["Easter Sunday",0,0,1440,"rule"]],"2029-04-02":[["Easter Monday",0,0,1440,"rule"]],"2029-04-25":[["Anzac Day",0,0,1440,"rule"]],"2029-06-11":[["King's Birthday",0,0,1440,"rule"]],"2029-05-07":[["May Day",0,0,1440,"rule"]],"2029-08-06":[["Picnic Day",0,0,1440,"rule"]],"2029-12-25":[["Christmas Day",0,0,1440,"rule"]],"2029-12-26":[["Boxing Day",0,0,1440,"rule"]],"2029-12-24":[["Christmas Eve (part-day)",0,1140,1440,"rule"]],"2029-12-31":[["New Year's Eve (part-day)",0,1140,1440,"rule"]]},"QLD":{"2029-01-01":[["New Year's Day",0,0,1440,"published"]],"2029-01-26":[["Australia Day",0,0,1440,"published"]],"2029-03-30":[["Good Friday",0,0,1440,"published"]],"2029-03-31":[["Easter Saturday",0,0,1440,"published"]],"2029-04-01":[["Easter Sunday",0,0,1440,"published"]],"2029-04-02":[["Easter Monday",0,0,1440,"published"]],"2029-04-25":[["Anzac Day",0,0,1440,"published"]],"2029-10-01":[["King's Birthday",0,0,1440,"published"]],"2029-05-07":[["Labour Day",0,0,1440,"published"]],"2029-08-15":[["Royal Queensland Show (Brisbane area only)",1,0,1440,"published"]],"2029-12-25":[["Christmas Day",0,0,1440,"published"]],"2029-12-26":[["Boxing Day",0,0,1440,"published"]],"2029-12-24":[["Christmas Eve (part-day)",0,1080,1440,"published"]]},"SA":{"2029-01-01":[["New Year's Day",0,0,1440,"rule"]],"2029-01-26":[["Australia Day",0,0,1440,"rule"]],"2029-03-30":[["Good Friday",0,0,1440,"rule"]],"2029-03-31":[["Easter Saturday",0,0,1440,"rule"]],"2029-04-01":[["Easter Sunday",0,0,1440,"rule"]],"2029-04-02":[["Easter Monday",0,0,1440,"rule"]],"2029-04-25":[["Anzac Day",0,0,1440,"rule"]],"2029-03-12":[["Adelaide Cup Day",0,0,1440,"rule"]],"2029-06-11":[["King's Birthday",0,0,1440,"rule"]],"2029-10-01":[["Labour Day",0,0,1440,"rule"]],"2029-12-25":[["Christmas Day",0,0,1440,"rule"]],"2029-12-26":[["Proclamation Day",0,0,1440,"rule"]],"2029-12-24":[["Christmas Eve (part-day)",0,1140,1440,"rule"]],"2029-12-31":[["New Year's Eve (part-day)",0,1140,1440,"rule"]]},"TAS":{"2029-01-01":[["New Year's Day",0,0,1440,"rule"]],"2029-01-26":[["Australia Day",0,0,1440,"rule"]],"2029-03-30":[["Good Friday",0,0,1440,"rule"]],"2029-04-01":[["Easter Sunday",0,0,1440,"rule"]],"2029-04-02":[["Easter Monday",0,0,1440,"rule"]],"2029-04-25":[["Anzac Day",0,0,1440,"rule"]],"2029-03-12":[["Eight Hours Day",0,0,1440,"rule"]],"2029-04-03":[["Easter Tuesday (generally Tasmanian Public Service only)",1,0,1440,"rule"]],"2029-06-11":[["King's Birthday",0,0,1440,"rule"]],"2029-12-25":[["Christmas Day",0,0,1440,"rule"]],"2029-12-26":[["Boxing Day",0,0,1440,"rule"]],"2029-01-10":[["Devonport Cup (half-day; generally Tasmanian State Service only) (regional)",1,0,1440,"rule"]],"2029-02-12":[["Royal Hobart Regatta (regional)",1,0,1440,"rule"]],"2029-02-28":[["Launceston Cup (generally Tasmanian Public Service only) (regional)",1,0,1440,"rule"]],"2029-03-06":[["King Island Show (regional)",1,0,1440,"rule"]],"2029-05-04":[["Agfest (regional)",1,0,1440,"rule"]],"2029-10-05":[["Burnie Show (regional)",1,0,1440,"rule"]],"2029-10-11":[["Royal Launceston Show (regional)",1,0,1440,"rule"]],"2029-10-19":[["Flinders Island Show (regional)",1,0,1440,"rule"]],"2029-10-25":[["Royal Hobart Show (regional)",1,0,1440,"rule"]],"2029-11-05":[["Recreation Day (regional)",1,0,1440,"rule"]],"2029-11-30":[["Devonport Show (regional)",1,0,1440,"rule"]]},"VIC":{"2029-01-01":[["New Year's Day",0,0,1440,"rule"]],"2029-01-26":[["Australia Day",0,0,1440,"rule"]],"2029-03-30":[["Good Friday",0,0,1440,"rule"]],"2029-03-31":[["Easter Saturday",0,0,1440,"rule"]],"2029-04-01":[["Easter Sunday",0,0,1440,"rule"]],"2029-04-02":[["Easter Monday",0,0,1440,"rule"]],"2029-04-25":[["Anzac Day",0,0,1440,"rule"]],"2029-03-12":[["Labour Day",0,0,1440,"rule"]],"2029-11-06":[["Melbourne Cup (regional alternatives may apply)",1,0,1440,"rule"]],"2029-06-11":[["King's Birthday",0,0,1440,"rule"]],"2029-12-25":[["Christmas Day",0,0,1440,"rule"]],"2029-12-26":[["Boxing Day",0,0,1440,"rule"]]},"WA":{"2029-01-01":[["New Year's Day",0,0,1440,"published"]],"2029-01-26":[["Australia Day",0,0,1440,"published"]],"2029-03-30":[["Good Friday",0,0,1440,"published"]],"2029-03-31":[["Easter Saturday",0,0,1440,"published"]],"2029-04-01":[["Easter Sunday",0,0,1440,"published"]],"2029-04-02":[["Easter Monday",0,0,1440,"published"]],"2029-04-25":[["Anzac Day",0,0,1440,"published"]],"2029-03-19":[["Labour Day",0,0,1440,"published"]],"2029-11-12":[["Western Australia Day",0,0,1440,"published"]],"2029-06-11":[["King's Birthday",0,0,1440,"published"]],"2029-12-25":[["Christmas Day",0,0,1440,"published"]],"2029-12-26":[["Boxing Day",0,0,1440,"published"]]}},"2030":{"ACT":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-03-11":[["Canberra Day",0,0,1440,"rule"]],"2030-05-27":[["Reconciliation Day",0,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-10-07":[["Labour Day",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]]},"NSW":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-10-07":[["Labour Day",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]]},"NT":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-05-06":[["May Day",0,0,1440,"rule"]],"2030-08-05":[["Picnic Day",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]],"2030-12-24":[["Christmas Eve (part-day)",0,1140,1440,"rule"]],"2030-12-31":[["New Year's Eve (part-day)",0,1140,1440,"rule"]]},"QLD":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-10-07":[["King's Birthday",0,0,1440,"rule"]],"2030-05-06":[["Labour Day",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]],"2030-12-24":[["Christmas Eve (part-day)",0,1080,1440,"rule"]]},"SA":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-03-11":[["Adelaide Cup Day",0,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-10-07":[["Labour Day",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Proclamation Day",0,0,1440,"rule"]],"2030-12-24":[["Christmas Eve (part-day)",0,1140,1440,"rule"]],"2030-12-31":[["New Year's Eve (part-day)",0,1140,1440,"rule"]]},"TAS":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-03-11":[["Eight Hours Day",0,0,1440,"rule"]],"2030-04-23":[["Easter Tuesday (generally Tasmanian Public Service only)",1,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]],"2030-01-09":[["Devonport Cup (half-day; generally Tasmanian State Service only) (regional)",1,0,1440,"rule"]],"2030-02-11":[["Royal Hobart Regatta (regional)",1,0,1440,"rule"]],"2030-02-27":[["Launceston Cup (generally Tasmanian Public Service only) (regional)",1,0,1440,"rule"]],"2030-03-05":[["King Island Show (regional)",1,0,1440,"rule"]],"2030-05-03":[["Agfest (regional)",1,0,1440,"rule"]],"2030-10-04":[["Burnie Show (regional)",1,0,1440,"rule"]],"2030-10-10":[["Royal Launceston Show (regional)",1,0,1440,"rule"]],"2030-10-18":[["Flinders Island Show (regional)",1,0,1440,"rule"]],"2030-10-24":[["Royal Hobart Show (regional)",1,0,1440,"rule"]],"2030-11-04":[["Recreation Day (regional)",1,0,1440,"rule"]],"2030-11-29":[["Devonport Show (regional)",1,0,1440,"rule"]]},"VIC":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-03-11":[["Labour Day",0,0,1440,"rule"]],"2030-11-05":[["Melbourne Cup (regional alternatives may apply)",1,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]]},"WA":{"2030-01-01":[["New Year's Day",0,0,1440,"rule"]],"2030-01-28":[["Australia Day",0,0,1440,"rule"]],"2030-04-19":[["Good Friday",0,0,1440,"rule"]],"2030-04-20":[["Easter Saturday",0,0,1440,"rule"]],"2030-04-21":[["Easter Sunday",0,0,1440,"rule"]],"2030-04-22":[["Easter Monday",0,0,1440,"rule"]],"2030-04-25":[["Anzac Day",0,0,1440,"rule"]],"2030-03-11":[["Labour Day",0,0,1440,"rule"]],"2030-11-11":[["Western Australia Day",0,0,1440,"rule"]],"2030-06-10":[["King's Birthday",0,0,1440,"rule"]],"2030-12-25":[["Christmas Day",0,0,1440,"rule"]],"2030-12-26":[["Boxing Day",0,0,1440,"rule"]]}}};
+  function callMinutes(value,fallback) {
+    if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(value||''))return fallback;
+    const [h,m]=value.split(':').map(Number);return h*60+m;
+  }
+  const callStart=callMinutes(settings.callStart,510),callEnd=callMinutes(settings.callEnd,990);
+  function withinCallHours(minutes) {
+    return callStart<callEnd ? minutes>=callStart&&minutes<callEnd : minutes>=callStart||minutes<callEnd;
+  }
+  function callHoursLabel() {
+    const label=n=>{const h=Math.floor(n/60);return (h%12||12)+':'+String(n%60).padStart(2,'0')+(h<12?' am':' pm');};
+    return label(callStart)+' to '+label(callEnd);
+  }
+  const zones = [
+    ['South Australia','Australia/Adelaide','SA'],
+    ['New South Wales','Australia/Sydney','NSW'],
+    ['Australian Capital Territory','Australia/Sydney','ACT'],
+    ['Victoria','Australia/Melbourne','VIC'],
+    ['Queensland','Australia/Brisbane','QLD'],
+    ['Western Australia','Australia/Perth','WA'],
+    ['Tasmania','Australia/Hobart','TAS'],
+    ['Northern Territory','Australia/Darwin','NT']
+  ];
+  function local(tz, now) {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-AU', {
+      timeZone:tz, year:'numeric',month:'2-digit',day:'2-digit',
+      hour:'2-digit',minute:'2-digit',hourCycle:'h23'
+    }).formatToParts(now).map(p=>[p.type,p.value]));
+    return {date:p.year+'-'+p.month+'-'+p.day,year:p.year,minutes:Number(p.hour)*60+Number(p.minute)};
+  }
+  function status(z, now) {
+    const p=local(z[1],now), calendar=HOLIDAYS[p.year];
+    const today=calendar ? (calendar[z[2]][p.date]||[]) : [];
+    const active=today.filter(h=>p.minutes>=h[2] && p.minutes<h[3]);
+    return {p,today,active,known:!!calendar,red:!withinCallHours(p.minutes) || active.length>0};
+  }
+  // Test hook is used only by local validation; no global is installed in normal use.
+  if (typeof __AU_TIME_TEST__==='function') { __AU_TIME_TEST__({local,status,zones,HOLIDAYS}); return; }
+  const returnFocus=document.activeElement;
+  const host=document.createElement('div');host.id=ID;
+  host.style.cssText='position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
+  const root=host.attachShadow({mode:'open'});
+  root.innerHTML=`<style>
+    :host{all:initial}button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}*{box-sizing:border-box}.overlay{position:fixed;inset:0;background:#1c2d405c;pointer-events:auto}
+    .popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 16px));max-height:calc(100dvh - 32px);display:flex;flex-direction:column;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:14px;box-shadow:0 24px 80px #142a3b33;font:13px Arial,system-ui,sans-serif;overflow:hidden;pointer-events:auto}
+    .hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--panel-2);border-bottom:1px solid var(--border);gap:10px}.ttl{font-size:16px;font-weight:700}.controls{display:flex;gap:8px;align-items:center}.toggle{display:flex;border:1px solid var(--border-2);border-radius:999px;overflow:hidden;background:var(--panel)}
+    button{font:600 12px Arial,system-ui,sans-serif;cursor:pointer;color:var(--text);background:var(--panel);border:0;padding:6px 10px}.on{background:var(--accent);color:var(--btn-text)}.close{border:1px solid var(--border-2);border-radius:8px}.body{padding:12px;display:grid;gap:7px;overflow:auto;min-height:0}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 11px;background:var(--panel-2);border:1px solid var(--border);border-radius:12px}.state{font-size:13px;font-weight:600}.tz{font-size:11px;font-weight:700;color:var(--muted)}.time{font-size:16px;font-weight:700;color:var(--accent);white-space:nowrap}.row.red .state,.row.red .time{color:var(--tz-red, #b63c3c)}.holiday-icon{display:inline-flex;vertical-align:middle;margin-left:6px;color:var(--tz-red, #b63c3c);cursor:help}.holiday-icon svg{width:16px;height:16px}.holiday-icon:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}.holiday{color:var(--tz-red, #b63c3c);font-size:11px;margin-top:3px;max-width:280px}.row.unknown{border-color:#d97706}.ftr{padding:10px 12px;border-top:1px solid var(--border);background:var(--panel-2);font-size:11px;color:var(--muted);line-height:1.5}.credit{text-align:center;font-weight:600;margin-top:5px}details{margin-top:4px}summary{cursor:pointer}a{color:var(--accent)}.warning{color:var(--tz-warning, #92400e)}
+  </style><div class="overlay"></div><section class="popup" role="dialog" aria-label="Australian Times"><header class="hdr"><div class="ttl">Australian Times</div><div class="controls"><div class="toggle"><button data-12 class="on" aria-pressed="true">12h</button><button data-24 aria-pressed="false">24h</button></div><button class="close" aria-label="Close">✕</button></div></header><div class="body"></div><footer class="ftr"><span data-call-hours-help></span><div class="credit">Form created by Joshua Robertson</div></footer></section>`;
+  document.body.appendChild(host);
+  const popup=root.querySelector('.popup'), body=root.querySelector('.body');
+  let is24=false,timer;
+  function zoneLabel(tz,now) {
+    const part=(locale,type)=>new Intl.DateTimeFormat(locale,{timeZone:tz,timeZoneName:type}).formatToParts(now).find(p=>p.type==='timeZoneName').value;
+    return part('en-AU','short')+' ('+part('en-US','shortOffset').replace('GMT','UTC')+')';
+  }
+  function render() {
+    const now=new Date();
+    root.querySelector('[data-call-hours-help]').textContent='Listings in red are outside '+callHoursLabel()+' local time or affected by a listed public holiday. You can change your call hours in Settings.';
+    const sorted=[zones[0],...zones.slice(1).sort((a,b)=>local(b[1],now).minutes-local(a[1],now).minutes)];
+    body.replaceChildren();
+    for(const z of sorted) {
+      const s=status(z,now),row=document.createElement('div');
+      row.className='row'+(s.red?' red':'')+(!s.known?' unknown':'');
+      const info=document.createElement('div'),name=document.createElement('div'),tz=document.createElement('div'),time=document.createElement('div');
+      name.className='state';name.textContent=z[0];tz.className='tz';tz.textContent=zoneLabel(z[1],now);
+      time.className='time';time.textContent=new Intl.DateTimeFormat('en-AU',{timeZone:z[1],hour:'numeric',minute:'2-digit',hour12:!is24}).format(now);
+      info.append(name,tz);
+      if(s.today.length) {
+        const holidayIcon=document.createElement('span');holidayIcon.className='holiday-icon';holidayIcon.tabIndex=0;
+        const tooltip=s.today.map(h=>(h[1]?'Regional / restricted: ':'Public holiday: ')+h[0]+(h[4]==='rule'?' - current recurring rule':'')).join('\n');
+        holidayIcon.title=tooltip;holidayIcon.setAttribute('role','img');holidayIcon.setAttribute('aria-label',tooltip);
+        holidayIcon.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4m10-4v4M3 10h18m-13 5 3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        name.append(holidayIcon);
+      }
+      if(!s.known) {const label=document.createElement('div');label.className='warning';label.textContent='Holiday calendar not verified for '+s.p.year;info.append(label);}
+      row.title=s.active.length?s.active.map(h=>h[0]).join('\n'):(s.red?'Outside '+callHoursLabel()+' local time':'Within '+callHoursLabel()+' local time');
+      row.append(info,time);body.append(row);
+    }
+  }
+  function close() {clearTimeout(timer);document.removeEventListener('visibilitychange',refresh);document.removeEventListener('keydown',key);host.remove();returnFocus?.focus();}
+  function key(e) {
+    if(e.key==='Escape')close();
+    if(e.key==='Tab'){
+      const buttons=[...root.querySelectorAll('button')],first=buttons[0],last=buttons[buttons.length-1];
+      if(e.shiftKey&&root.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&root.activeElement===last){e.preventDefault();first.focus();}
+    }
+  }
+  function refresh() {clearTimeout(timer);if(!host.isConnected)return;render();timer=setTimeout(refresh,60000-Date.now()%60000+25);}
+  root.querySelector('.overlay').onclick=close;root.querySelector('.close').onclick=close;
+  for(const mode of [12,24])root.querySelector('[data-'+mode+']').onclick=()=>{is24=mode===24;for(const m of [12,24]){const b=root.querySelector('[data-'+m+']');b.className=m===mode?'on':'';b.setAttribute('aria-pressed',String(m===mode));}render();};
+  document.addEventListener('visibilitychange',refresh);document.addEventListener('keydown',key);
+  refresh();root.querySelector('.close').focus();
+}
+document.getElementById("timezonesBtn").addEventListener("click",openAustralianTimes);
+
+</script>
+</body>
+</html>
